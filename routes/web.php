@@ -1,0 +1,86 @@
+<?php
+
+use App\Http\Controllers\BancoController;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\RolController;
+use App\Http\Controllers\UsuarioController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\logoutController;
+use App\Http\Controllers\UserSettingsController;
+use App\Http\Controllers\PasswordResetController;
+use App\Http\Controllers\DenuncianteController;
+use App\Http\Controllers\VictimasController;
+use App\Http\Controllers\ReporteController;
+use App\Http\Controllers\ManualController;
+
+
+
+
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
+|
+*/
+
+Route::get('/', function () {
+    return view('auth.login');
+})->name('login');
+
+Route::get('/reset-password/{token}/{email}', function ($token, $email) {
+    return view('reset-password-confirm', ['token' => $token, 'email' => $email]);
+})->name('password.reset');
+
+Route::post('/reset-password', [PasswordResetController::class, 'sendEmail'])->name('password.email');
+
+Route::post('/reset-password/{token}', [PasswordResetController::class, 'reset'])->name('password.update');
+
+/* Ruta Registro del Usuario */
+Route::get('/register', [RegisterController::class, 'show']);
+Route::post('/register', [RegisterController::class, 'register']);
+
+/*creamos un grupo de rutas protegidas para los controlador de roles */
+
+Route::resource('roles', RolController::class)->middleware('auth');
+Route::resource('usuarios', UsuarioController::class)->middleware('auth');
+Route::get('/verificar-cedula', [ UsuarioController::class,'verificarCedula'])->middleware('auth');
+
+/* Ruta Login o Inicio de Sesión */
+Route::get('/login', [LoginController::class, 'show']);
+Route::post('/login', [LoginController::class, 'login']);
+
+/* Ruta Home o Vista Principal(Inicio) */
+Route::get('/home', [HomeController::class, 'index'])->middleware('auth');
+
+/* Ruta Logout o Cierre de Sesión */
+Route::get('/logout', [logoutController::class, 'logout']);
+
+/* Ruta Perfil Usuario */
+Route::get('/Perfil',  [UserSettingsController::class,'Perfil'])->name('Perfil')->middleware('auth');
+Route::post('/change/password',  [UserSettingsController::class,'changePassword'])->name('changePassword');
+
+/* Ruta Denunciante */
+Route::get('/denunciante',  [DenuncianteController::class,'index'])->name('denunciante')->middleware('auth');
+Route::get('/denunciante/create', [DenuncianteController::class, 'create'])->name('create')->middleware('auth');
+Route::get('/denunciante/pdf',  [DenuncianteController::class,'pdf'])->name('denunciante')->middleware('auth');
+Route::resource('denunciante', DenuncianteController::class)->middleware('auth');
+
+/* Ruta Victima */
+Route::get('/victima',  [VictimasController::class,'index'])->name('victima')->middleware('auth');
+Route::get('/victima/create', [VictimasController::class, 'create'])->name('create')->middleware('auth');
+Route::get('/victima/pdf',  [VictimasController::class,'pdf'])->name('victima')->middleware('auth');
+Route::resource('victima', VictimasController::class)->middleware('auth');
+
+
+/* Ruta Bitacora*/
+Route::get('bitacora', [ReporteController::class, 'bitacora'])->name('bitacora')->middleware('auth');
+
+/* Ruta Manual */
+Route::get('/manual',  [ManualController::class,'index'])->name('manual')->middleware('auth');
