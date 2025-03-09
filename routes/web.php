@@ -11,24 +11,11 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\logoutController;
 use App\Http\Controllers\UserSettingsController;
 use App\Http\Controllers\PasswordResetController;
-use App\Http\Controllers\DenuncianteController;
-use App\Http\Controllers\VictimasController;
+use App\Http\Controllers\ComunaController;
+use App\Http\Controllers\ComunidadesController;
 use App\Http\Controllers\ReporteController;
 use App\Http\Controllers\ManualController;
 
-
-
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
 
 Route::get('/', function () {
     return view('auth.login');
@@ -66,18 +53,17 @@ Route::get('/logout', [logoutController::class, 'logout']);
 Route::get('/Perfil',  [UserSettingsController::class,'Perfil'])->name('Perfil')->middleware('auth');
 Route::post('/change/password',  [UserSettingsController::class,'changePassword'])->name('changePassword');
 
-/* Ruta Denunciante */
-Route::get('/denunciante',  [DenuncianteController::class,'index'])->name('denunciante')->middleware('auth');
-Route::get('/denunciante/create', [DenuncianteController::class, 'create'])->name('create')->middleware('auth');
-Route::get('/denunciante/pdf',  [DenuncianteController::class,'pdf'])->name('denunciante')->middleware('auth');
-Route::resource('denunciante', DenuncianteController::class)->middleware('auth');
+/* Ruta Comuna */
+Route::get('/comuna',  [comunaController::class,'index'])->name('comuna')->middleware('auth');
+Route::get('/comuna/create', [ComunaController::class, 'create'])->name('create')->middleware('auth');
+Route::get('/comuna/pdf', [ComunaController::class,'pdf'])->name('comuna')->middleware('auth');
+Route::resource('comuna', ComunaController::class)->middleware('auth');
 
-/* Ruta Victima */
-Route::get('/victima',  [VictimasController::class,'index'])->name('victima')->middleware('auth');
-Route::get('/victima/create', [VictimasController::class, 'create'])->name('create')->middleware('auth');
-Route::get('/victima/pdf',  [VictimasController::class,'pdf'])->name('victima')->middleware('auth');
-Route::resource('victima', VictimasController::class)->middleware('auth');
-
+/* Ruta Comunidad */
+Route::get('/comunidad',  [ComunidadesController::class,'index'])->name('comunidad')->middleware('auth');
+Route::get('/comunidad/create', [ComunidadesController::class, 'create'])->name('create')->middleware('auth');
+Route::get('/comunidad/pdf',  [ComunidadesController::class,'pdf'])->name('comunidad')->middleware('auth');
+Route::resource('comunidad', ComunidadesController::class)->middleware('auth');
 
 /* Ruta Bitacora*/
 Route::get('bitacora', [ReporteController::class, 'bitacora'])->name('bitacora')->middleware('auth');

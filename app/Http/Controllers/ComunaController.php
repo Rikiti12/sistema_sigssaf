@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Victimas;
+use App\Models\Comunas;
+use App\Models\Parroquia;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
@@ -12,7 +13,7 @@ use App\Http\Controllers\BitacoraController;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Validation\Rule;
 
-class VictimasController extends Controller
+class ComunaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -21,8 +22,8 @@ class VictimasController extends Controller
      */
     public function index()
     {
-        $victimas = Victimas::all();
-        return view('victima.index', compact('victimas'));
+        $comunas = Comunas::all();
+        return view('comuna.index', compact('comunas'));
     }
 
     /**
@@ -32,7 +33,8 @@ class VictimasController extends Controller
      */
     public function create()
     {
-        return view('victima.create');
+        $parroquias = Parroquia::all();
+        return view('comuna.create', compact('parroquias'));
     }
 
     /**
@@ -43,34 +45,36 @@ class VictimasController extends Controller
      */
     public function store(Request $request)
     {
-        
         $request->validate([
-            'nombre' => 'required',
-            'apellido' => 'required',
-            'edad' => 'required',
-          
-       ]);
+            'cedula_comunas' => 'required|unique:comunas,cedula_comunas'
+            ],
+            [
+            'cedula_comunas.unique' => 'Está cedula ya existe.',
+            ]
+        );
 
-        $victimas = new Victimas();
-        $victimas->nombre = $request->input('nombre');
-        $victimas->apellido = $request->input('apellido');
-        $victimas->edad = $request->input('edad');
-       
+        $comunas = new Comunas();
+        $comunas->cedula_comunas = $request->input('cedula_comunas');
+        $comunas->nombre_comunas = $request->input('nombre_comunas');
+        $comunas->apellido_comunas = $request->input('apellido_comunas');
+        $comunas->telefono = $request->input('telefono');
+        $comunas->nom_comunas = $request->input('nom_comunas');
+        $comunas->id_parroquia = $request->input('id_parroquia');
+        $comunas->dire_comunas = $request->input('dire_comunas');
 
-        $victimas->save();
+        $comunas->save();
 
         $bitacora = new BitacoraController();
         $bitacora->update();
 
         try {
         
-            return redirect()->route('victima.index');
+            return redirect()->route('comuna.index');
 
             } catch (QueryException $exception) {
                 $errorMessage = 'Error: .';
                 return redirect()->back()->withErrors($errorMessage);
             }
-
 
     }
 
@@ -93,8 +97,9 @@ class VictimasController extends Controller
      */
     public function edit($id)
     {
-        $victima =  Victimas::find($id);
-        return view('victima.edit',compact('victima'));
+        $comuna =  Comunas::find($id);
+        $parroquias = Parroquia::all();
+        return view('comuna.edit',compact('comuna','parroquias'));
     }
 
     /**
@@ -107,31 +112,39 @@ class VictimasController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'nombre' => 'required',
-            'apellido' => 'required',
-            'edad' => 'required',
-          
-       ]);
+            'cedula_comunas' => 'required|unique:comunas,cedula_comunas,' . $id,
+            // 'nom_comunas' => 'required|unique:comunas,nom_comunas ' . $id,
+            ],
+            [
+            'cedula_comunas.unique' => 'Está cedula ya existe.'
+            // 'nom_comunas.unique' => 'El nombre de este comuna ya existe.'
+            ]
+        );
 
-        $victima = Victimas::find($id);
-       
-        $victima->nombre = $request->input('nombre');
-        $victima->apellido = $request->input('apellido');
-        $victima->edad = $request->input('edad');
+        $comuna =  Comunas::find($id);
+        $parroquias = Parroquia::all();
 
-        $victima->save();
+        $comuna->cedula_comunas = $request->input('cedula_comunas');
+        $comuna->nombre_comunas = $request->input('nombre_comunas');
+        $comuna->apellido_comunas = $request->input('apellido_comunas');
+        $comuna->nom_comunas = $request->input('nom_comunas');
+        $comuna->id_parroquia = $request->input('id_parroquia');
+        $comuna->dire_comunas = $request->input('dire_comunas');
+
+        $comuna->save();
 
         $bitacora = new BitacoraController;
         $bitacora->update();
 
         try {
         
-            return redirect ('victima');
+            return redirect ('comuna');
     
             } catch (QueryException $exception) {
                 $errorMessage = 'Error: .';
                 return redirect()->back()->withErrors($errorMessage);
             }
+
     }
 
     /**
@@ -139,12 +152,12 @@ class VictimasController extends Controller
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
-    */
+     */
     public function destroy($id)
     {
-        Victimas::find($id)->delete();
+        Comunas::find($id)->delete();
         $bitacora = new BitacoraController;
         $bitacora->update();
-        return redirect()->route('victima.index')->with('eliminar', 'ok');
+        return redirect()->route('comuna.index')->with('eliminar', 'ok');
     }
 }

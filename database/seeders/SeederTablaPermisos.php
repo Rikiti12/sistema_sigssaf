@@ -31,17 +31,17 @@ class SeederTablaPermisos extends Seeder
             'editar-rol',
             'borrar-rol',
 
-            //Operaciones sobre tabla Denunciantes
-            'ver-denunciante',
-            'crear-denunciante',
-            'editar-denunciante',
-            'borrar-denunciante',
+            //Operaciones sobre tabla Comunas
+            'ver-comuna',
+            'crear-comuna',
+            'editar-comuna',
+            'borrar-comuna',
 
-             //Operaciones sobre tabla Victimas
-            // 'ver-victima',
-            // 'crear-victima',
-            // 'editar-victima',
-            // 'borrar-victima',
+            //Operaciones sobre tabla Comunidades
+            'ver-comunidad',
+            'crear-comunidad',
+            'editar-comunidad',
+            'borrar-comunidad',
  
         ];
 

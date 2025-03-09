@@ -23,14 +23,14 @@
     <aside class="left-sidebar">
       <!-- Sidebar scroll-->
       <div>
-        {{-- <div class="brand-logo d-flex align-items-center justify-content-between">
+        <!-- <div class="brand-logo d-flex align-items-center justify-content-between">
           <a href="/home" class="text-nowrap logo-img">
             <img src="../assets/images/logos/dark-logo.svg" width="180" alt="" />
           </a>
           <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
             <i class="ti ti-x fs-8"></i>
           </div>
-        </div> --}}
+        </div> -->
         <!-- Sidebar navigation-->
         <nav class="sidebar-nav scroll-sidebar" data-simplebar="">
           <ul id="sidebarnav">
@@ -51,22 +51,24 @@
               <span class="hide-menu">Registros</span>
             </li>
             <li class="sidebar-item">
-              <a class="sidebar-link" href="{{ url('denunciante') }}" aria-expanded="false">
+              <a class="sidebar-link" href="{{ url('comuna') }}" aria-expanded="false">
                 <span>
                   <i class="ti ti-user-plus"></i>
                 </span>
-                <span class="hide-menu">Denunciante</span>
+                <span class="hide-menu">Comunas</span>
               </a>
             </li>
             <li class="sidebar-item">
-              <a class="sidebar-link" href="{{ url('victima') }}" aria-expanded="false">
+              <a class="sidebar-link" href="{{ url('comunidad') }}" aria-expanded="false">
                 <span>
-                  <i class="ti ti-user-plus"></i>
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-houses" viewBox="0 0 16 16">
+                  <path d="M5.793 1a1 1 0 0 1 1.414 0l.647.646a.5.5 0 1 1-.708.708L6.5 1.707 2 6.207V12.5a.5.5 0 0 0 .5.5.5.5 0 0 1 0 1A1.5 1.5 0 0 1 1 12.5V7.207l-.146.147a.5.5 0 0 1-.708-.708zm3 1a1 1 0 0 1 1.414 0L12 3.793V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v3.293l1.854 1.853a.5.5 0 0 1-.708.708L15 8.207V13.5a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 4 13.5V8.207l-.146.147a.5.5 0 1 1-.708-.708zm.707.707L5 7.207V13.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5V7.207z"/>
+                </svg>
                 </span>
-                <span class="hide-menu">Victima</span>
+                <span class="hide-menu">Comunidades</span>
               </a>
             </li>
-             <!-- <li class="sidebar-item">
+             <li class="sidebar-item">
               <a class="sidebar-link" href="./ui-alerts.html" aria-expanded="false">
                 <span>
                   <i class="ti ti-alert-circle"></i>
@@ -137,7 +139,7 @@
                 </span>
                 <span class="hide-menu">Sample Page</span>
               </a>
-            </li>  -->
+            </li> 
           </ul>
         </nav>
         <!-- End Sidebar navigation -->

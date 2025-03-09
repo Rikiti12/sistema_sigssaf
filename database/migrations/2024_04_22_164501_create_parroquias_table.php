@@ -13,9 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('municipios', function (Blueprint $table) {
+        Schema::create('parroquias', function (Blueprint $table) {
             $table->id();
-            $table->string('nom_municipio')->nullable(false);
+            $table->string('nom_parroquia')->nullable(false);
             $table->timestamps();
         });
     }
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('municipios');
+        Schema::dropIfExists('parroquias');
     }
 };

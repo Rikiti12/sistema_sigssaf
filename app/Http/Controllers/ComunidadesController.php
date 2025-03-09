@@ -4,16 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Denunciantes;
-use App\Models\Municipio;
+use App\Models\Comunidades;
+use App\Models\Comunas;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\BitacoraController;
 use Barryvdh\DomPDF\Facade\Pdf;
-use Illuminate\Validation\Rule;
 
-class DenuncianteController extends Controller
+class ComunidadesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -21,9 +20,9 @@ class DenuncianteController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        $denunciantes = Denunciantes::all();
-        return view('denunciante.index', compact('denunciantes'));
+    {  
+        $comunidades = Comunidades::with('comunas')->get(); // Cargar la relación con tabla "conmuas"
+        return view('comunidad.index', compact('comunidades'));
     }
 
     /**
@@ -33,8 +32,8 @@ class DenuncianteController extends Controller
      */
     public function create()
     {
-        $municipios = Municipio::all();
-        return view('denunciante.create', compact('municipios'));
+        $comunas = Comunas::all(); // Obtener todos los registros de la tabla "comunas"
+        return view('comunidad.create', compact('comunas'));
     }
 
     /**
@@ -45,35 +44,32 @@ class DenuncianteController extends Controller
      */
     public function store(Request $request)
     {
+        
         $request->validate([
-            'cedula' => 'required|unique:denunciantes,cedula',
-            'nombre' => 'required',
-            'apellido' => 'required',
-            'telefono' => 'required',
-            'id_municipio' => 'required',
-            'direccion' => 'required'
+            'cedula_jefe' => 'required|unique:comunidades,cedula_jefe'
             ],
             [
-            'cedula.unique' => 'Está cedula ya existe.'
+            'cedula_jefe_comunidades.unique' => 'Está cedula ya existe.'
             ]
         );
 
-        $denunciante = new Denunciantes();
-        $denunciante->cedula = $request->input('cedula');
-        $denunciante->nombre = $request->input('nombre');
-        $denunciante->apellido = $request->input('apellido');
-        $denunciante->telefono = $request->input('telefono');
-        $denunciante->id_municipio = $request->input('id_municipio');
-        $denunciante->direccion = $request->input('direccion');
+        $comunidades = new Comunidades();
+        $comunidades->cedula_jefe = $request->input('cedula_jefe');
+        $comunidades->nom_jefe = $request->input('nom_jefe');
+        $comunidades->ape_jefe = $request->input('ape_jefe');
+        $comunidades->telefono = $request->input('telefono');
+        $comunidades->nom_comuni = $request->input('nom_comuni');
+        $comunidades->dire_comuni = $request->input('dire_comuni');
+        $comunidades->id_comuna = $request->input('id_comuna');
 
-        $denunciante->save();
+        $comunidades->save();
 
         $bitacora = new BitacoraController();
         $bitacora->update();
 
         try {
         
-            return redirect()->route('denunciante.index');
+            return redirect()->route('comunidad.index');
 
             } catch (QueryException $exception) {
                 $errorMessage = 'Error: .';
@@ -101,9 +97,8 @@ class DenuncianteController extends Controller
      */
     public function edit($id)
     {
-        $denunciante =  Denunciantes::find($id);
-        $municipios = Municipio::all();
-        return view('denunciante.edit',compact('denunciante','municipios'));
+        $victima =  Victimas::find($id);
+        return view('victima.edit',compact('victima'));
     }
 
     /**
@@ -116,42 +111,31 @@ class DenuncianteController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'cedula' => 'required|unique:denunciantes,cedula,' . $id,
             'nombre' => 'required',
             'apellido' => 'required',
-            'telefono' => 'required',
-            'id_municipio' => 'required',
-            'direccion' => 'required'
-            ],
-            [
-            'cedula.unique' => 'Está cedula ya existe.'
-            ]
-        );
+            'edad' => 'required',
+          
+       ]);
 
-        $denunciante =  Denunciantes::find($id);
-        $municipios = Municipio::all();
+        $victima = Victimas::find($id);
+       
+        $victima->nombre = $request->input('nombre');
+        $victima->apellido = $request->input('apellido');
+        $victima->edad = $request->input('edad');
 
-        $denunciante->cedula = $request->input('cedula');
-        $denunciante->nombre = $request->input('nombre');
-        $denunciante->apellido = $request->input('apellido');
-        $denunciante->telefono = $request->input('telefono');
-        $denunciante->id_municipio = $request->input('id_municipio');
-        $denunciante->direccion = $request->input('direccion');
-
-        $denunciante->save();
+        $victima->save();
 
         $bitacora = new BitacoraController;
         $bitacora->update();
 
         try {
         
-            return redirect ('denunciante');
+            return redirect ('victima');
     
             } catch (QueryException $exception) {
                 $errorMessage = 'Error: .';
                 return redirect()->back()->withErrors($errorMessage);
             }
-
     }
 
     /**
@@ -159,12 +143,12 @@ class DenuncianteController extends Controller
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
-     */
+    */
     public function destroy($id)
     {
-        Denunciantes::find($id)->delete();
+        Victimas::find($id)->delete();
         $bitacora = new BitacoraController;
         $bitacora->update();
-        return redirect()->route('denunciante.index')->with('eliminar', 'ok');
+        return redirect()->route('victima.index')->with('eliminar', 'ok');
     }
 }

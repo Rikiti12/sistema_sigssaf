@@ -1,6 +1,6 @@
 @extends('layouts.index')
 
-<title>@yield('title') Víctima</title>
+<title>@yield('title') Comunidades</title>
 
 @section('css-datatable')
         <link href="{{ asset ('assets/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
@@ -15,13 +15,13 @@
 
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
 
-                    <a href="{{ url('victima/pdf') }}" class="btn btn-sm btn-danger" target="_blank" id="pdfButton">
+                    <a href="{{ url('comunidade/pdf') }}" class="btn btn-sm btn-danger" target="_blank" id="pdfButton">
                         {{ ('PDF') }}
                         </a>
 
-                <h2 class="font-weight-bold text-dark" style="margin-left: 6%;">Gestión de Víctimas</h2>
+                <h2 class="font-weight-bold text-dark" style="margin-left: 6%;">Gestión de Comunidades</h2>
                         {{-- @can('crear-comisionado') --}}
-                            <form action="{{ route('victima.create') }}" method="get" style="display:inline;">
+                            <form action="{{ route('comunidad.create') }}" method="get" style="display:inline;">
                                 <button type="submit" class="btn btn-primary btn-mb"> <span class="">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-person-plus-fill" viewBox="0 0 16 16">
                                         <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
@@ -38,30 +38,35 @@
                     <table class="table align-items-center table-flush" id="dataTable">
                         <thead class="thead-light">
                             <tr>
-                                <th  class="font-weight-bold text-dark">Nombre</th>
-                                <th  class="font-weight-bold text-dark">Apellido</th>
-                                <th  class="font-weight-bold text-dark">Edad</th>
-                                <th  class="font-weight-bold text-dark"><center>Acciones</center></th>
+                                <th  class="font-weight-bold text-dark">Jefe comunidad</th>
+                                <!-- <th  class="font-weight-bold text-dark">Nombre</th>
+                                <th  class="font-weight-bold text-dark">Apellido</th> -->
+                                <th  class="font-weight-bold text-dark">Comunidad</th>
+                                <th  class="font-weight-bold text-dark">Comuna Asignado</th>
+                                <th  class="font-weight-bold text-dark">Direccion</th>
+                                <th  class="font-weight-bold text-dark">Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($victimas as $victima)
+                            @foreach ($comunidades as $comunidad)
                                     <tr>
-                                        <!-- <td class="font-weight-bold text-Secondary">{{ $victima->id}}</td> -->
-                                        <td class="font-weight-bold text-dark">{{ $victima->nombre }}</td>
-                                        <td class="font-weight-bold text-dark">{{ $victima->apellido }}</td>
-                                        <td class="font-weight-bold text-dark">{{ $victima->edad }}</td>
+                                        <!-- <td class="font-weight-bold text-Secondary">{{ $comunidad->id}}</td> -->
+                                        <td class="font-weight-bold text-dark">{{ $comunidad->cedula_jefe }} {{ $comunidad->nombre_jefe }} {{ $comunidad->apellido_jefe }}</td>
+                                        <td class="font-weight-bold text-dark">{{ $comunidad->nom_comuni }}</td>
+                                        <td class="font-weight-bold text-dark"><{{ $comunidad->comuna->nom_nombre }}/td>
+                                        <td class="font-weight-bold text-dark"></td>
+                                        <td class="font-weight-bold text-dark">{{ $comunidad->dire_comuni }}</td>
                                         
                                         <td>
 
                                             <div style="display: flex; justify-content: center;">
-                                                {{-- @can('editar-victima') --}}
-                                                    <a class="btn btn-warning btn-sm" href="{{ route('victima.edit',$victima->id) }}"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
+                                                {{-- @can('editar-comunidad') --}}
+                                                    <a class="btn btn-warning btn-sm" href="{{ route('comunidad.edit',$comunidad->id) }}"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
                                                         <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z"/>
                                                     </svg></a>
                                                 {{-- @endcan --}}
 
-                                                {{-- @can('borrar-victima') --}}
+                                                {{-- @can('borrar-comunidad') --}}
                                                     <form action="{{ route('victima.destroy', $victima->id) }}" method="POST" class="sweetalert" style="margin: 0 3px;">
                                                         @csrf
                                                         {{ method_field('DELETE') }}
@@ -173,7 +178,7 @@
             var errors = @json($errors->all());
             errors.forEach(function(error) {
                 Swal.fire({
-                    title: 'Victima',
+                    title: 'Comunidad',
                     text: error,
                     icon: 'warning',
                     showConfirmButton: true,
