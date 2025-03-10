@@ -21,28 +21,48 @@
                         @csrf
                             
                         <div class="card-body">
+
+                            <center>
+                                <h5 class="font-weight-bold text-dark">Datos del Jefe de la Comunidad</h5>
+                            </center>
+
+                            <br>
                             
                             <div class="row">
 
                                 <div class="col-4">
-                                    <label  class="font-weight-bold text-dark">Cedula</label>
+                                    <label  class="font-weight-bold text-dark">Cedula Jefe</label>
                                     <input type="text" class="form-control" id="cedula_jefe" name="cedula_jefe" maxlength="8" style="background: white;" value="" placeholder="Ingrese La Cedula" autocomplete="off" onkeypress="return solonum(event);">
                                 </div>
         
                                 <div class="col-4">
-                                    <label  class="font-weight-bold text-dark">Nombre</label>
+                                    <label  class="font-weight-bold text-dark">Nombre Jefe</label>
                                     <input type="text" class="form-control" id="nom_jefe" name="nom_jefe" style="background: white;" value="" placeholder="Ingrese El Nombre" oninput="capitalizarInput('nombre')" autocomplete="off" onkeypress="return soloLetras(event);">
                                 </div>
         
                                 <div class="col-4">
-                                    <label  class="font-weight-bold text-dark">Apellido</label>
+                                    <label  class="font-weight-bold text-dark">Apellido Jefe</label>
                                     <input type="text" class="form-control" id="ape_jefe" name="ape_jefe" style="background: white;" value="" placeholder="Ingrese El Apellido" autocomplete="off"  oninput="capitalizarInput('apellido')" onkeypress="return soloLetras(event);">
                                 </div>
 
                                 <div class="col-4">
                                     <label  class="font-weight-bold text-dark">Telefono</label>
-                                    <input type="text" class="form-control" id="telefono" name="telefono" maxlength="8" style="background: white;" value="" placeholder="Ingrese La Cedula" autocomplete="off" onkeypress="return solonum(event);">
+                                    <input type="text" class="form-control" id="telefono" name="telefono" maxlength="8" style="background: white;" value="" placeholder="Ingrese El Telefono" autocomplete="off" onkeypress="return solonum(event);">
                                 </div>
+
+                            </div>
+                        
+                        </div>
+
+                        <div class="card-body">
+
+                            <center>
+                                <h5 class="font-weight-bold text-dark">Datos de la Comunidad</h5>
+                            </center>
+
+                            <br>
+
+                            <div class="row">
 
                                 <div class="col-4">
                                     <label  class="font-weight-bold text-dark">Nombre de la Comunidad</label>
@@ -66,9 +86,7 @@
                                 
                             </div>
 
-                        </div>
-
-                            <br>
+                            <br><br>
 
                             <center>
                                 <button type="submit" class="btn btn-success btn-lg"><span class="icon text-white-60"><i class="fas fa-check"></i></span>
@@ -79,9 +97,15 @@
                                 </span>
                                 <span class="text">Regresar</span></a>
                             </center>
+
+                        </div>
+
                     </form>
+
                 </div>
-            </div>    
+
+            </div>
+
     </div>
 
     <script>

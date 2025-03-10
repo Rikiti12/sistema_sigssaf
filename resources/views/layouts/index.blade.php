@@ -23,14 +23,6 @@
     <aside class="left-sidebar">
       <!-- Sidebar scroll-->
       <div>
-        <!-- <div class="brand-logo d-flex align-items-center justify-content-between">
-          <a href="/home" class="text-nowrap logo-img">
-            <img src="../assets/images/logos/dark-logo.svg" width="180" alt="" />
-          </a>
-          <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
-            <i class="ti ti-x fs-8"></i>
-          </div>
-        </div> -->
         <!-- Sidebar navigation-->
         <nav class="sidebar-nav scroll-sidebar" data-simplebar="">
           <ul id="sidebarnav">
@@ -51,30 +43,42 @@
               <span class="hide-menu">Registros</span>
             </li>
             <li class="sidebar-item">
-              <a class="sidebar-link" href="{{ url('comuna') }}" aria-expanded="false">
-                <span>
-                  <i class="ti ti-user-plus"></i>
-                </span>
-                <span class="hide-menu">Comunas</span>
-              </a>
+              @can('ver-comuna')
+                <a class="sidebar-link" href="{{ url('comuna') }}" aria-expanded="false">
+                  <span>
+                    {{-- <i class="ti ti-user-plus"></i> --}}
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-house-add" viewBox="0 0 16 16">
+                      <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h4a.5.5 0 1 0 0-1h-4a.5.5 0 0 1-.5-.5V7.207l5-5 6.646 6.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293z"/>
+                      <path d="M16 12.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0m-3.5-2a.5.5 0 0 0-.5.5v1h-1a.5.5 0 0 0 0 1h1v1a.5.5 0 1 0 1 0v-1h1a.5.5 0 1 0 0-1h-1v-1a.5.5 0 0 0-.5-.5"/>
+                    </svg>
+                  </span>
+                  <span class="hide-menu">Comunas</span>
+                </a>
+              @endcan
             </li>
             <li class="sidebar-item">
-              <a class="sidebar-link" href="{{ url('comunidad') }}" aria-expanded="false">
-                <span>
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-houses" viewBox="0 0 16 16">
-                  <path d="M5.793 1a1 1 0 0 1 1.414 0l.647.646a.5.5 0 1 1-.708.708L6.5 1.707 2 6.207V12.5a.5.5 0 0 0 .5.5.5.5 0 0 1 0 1A1.5 1.5 0 0 1 1 12.5V7.207l-.146.147a.5.5 0 0 1-.708-.708zm3 1a1 1 0 0 1 1.414 0L12 3.793V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v3.293l1.854 1.853a.5.5 0 0 1-.708.708L15 8.207V13.5a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 4 13.5V8.207l-.146.147a.5.5 0 1 1-.708-.708zm.707.707L5 7.207V13.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5V7.207z"/>
-                </svg>
-                </span>
-                <span class="hide-menu">Comunidades</span>
-              </a>
+              @can('ver-comunidad')
+                <a class="sidebar-link" href="{{ url('comunidad') }}" aria-expanded="false">
+                  <span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-houses" viewBox="0 0 16 16">
+                    <path d="M5.793 1a1 1 0 0 1 1.414 0l.647.646a.5.5 0 1 1-.708.708L6.5 1.707 2 6.207V12.5a.5.5 0 0 0 .5.5.5.5 0 0 1 0 1A1.5 1.5 0 0 1 1 12.5V7.207l-.146.147a.5.5 0 0 1-.708-.708zm3 1a1 1 0 0 1 1.414 0L12 3.793V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v3.293l1.854 1.853a.5.5 0 0 1-.708.708L15 8.207V13.5a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 4 13.5V8.207l-.146.147a.5.5 0 1 1-.708-.708zm.707.707L5 7.207V13.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5V7.207z"/>
+                  </svg>
+                  </span>
+                  <span class="hide-menu">Comunidades</span>
+                </a>
+              @endcan
             </li>
              <li class="sidebar-item">
-              <a class="sidebar-link" href="./ui-alerts.html" aria-expanded="false">
-                <span>
-                  <i class="ti ti-alert-circle"></i>
-                </span>
-                <span class="hide-menu">Alerts</span>
-              </a>
+                <a class="sidebar-link" href="{{ url('persona') }}" aria-expanded="false">
+                  <span>
+                    {{-- <i class="ti ti-alert-circle"></i> --}}
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-person-plus" viewBox="0 0 16 16">
+                      <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z"/>
+                      <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5"/>
+                    </svg>
+                  </span>
+                  <span class="hide-menu">Persona</span>
+                </a>
             </li>
             <li class="sidebar-item">
               <a class="sidebar-link" href="./ui-card.html" aria-expanded="false">
@@ -166,13 +170,18 @@
             </li>
           </ul>
           <div class="navbar-collapse justify-content-end px-0" id="navbarNav">
-            <MARQUEE style="color: rgb(0, 0, 0);"> BIENVENID@ {{ Auth::user()->name }} al IMPLEMENTACION DE UN SISTEMA DE REGISTRO DE DENUNCIAS EN EL CMDNNA (SISTEMA WEB)</MARQUEE>
+            <MARQUEE style="color: rgb(0, 0, 0);"> BIENVENID@ {{ Auth::user()->name }} al Implementación de Sistema de Información para la Gestión Social en la Sala Situacional de la Alcaldía de San Felipe.
+              (SIGSSAF) </MARQUEE>
             <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-end">
               {{-- <a href="https://adminmart.com/product/modernize-free-bootstrap-admin-dashboard/" target="_blank" class="btn btn-primary">Download Free</a> --}}
               <li class="nav-item dropdown">
                 <a class="nav-link nav-icon-hover" href="javascript:void(0)" id="drop2" data-bs-toggle="dropdown"
                   aria-expanded="false">
-                  <i class="ti ti-user fs-7"></i>
+                  {{-- <i class="ti ti-user fs-7"></i> --}}
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                    <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+                    <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+                  </svg>
                   {{-- <img src="../assets/images/profile/user-1.jpg" alt="" width="35" height="35" class="rounded-circle"> --}}
                   {{auth()->user()->username }}</a>
                 <div class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up" aria-labelledby="drop2">
@@ -183,16 +192,18 @@
                       <p class="mb-0 fs-3">Gestion de Perfil</p>
                     </a>
 
-                    <a href="{{ url('roles') }}" class="d-flex align-items-center gap-2 dropdown-item">
-                      <i class="ti ti-list-check fs-6"></i>
-                      <p class="mb-0 fs-3">Roles</p>
-                    </a>
+                    @can('ver-rol')
+                      <a href="{{ url('roles') }}" class="d-flex align-items-center gap-2 dropdown-item">
+                        <i class="ti ti-list-check fs-6"></i>
+                        <p class="mb-0 fs-3">Roles</p>
+                      </a>
+                    @endcan
 
                     @can('ver-usuario')
-                    <a href="/usuarios" class="d-flex align-items-center gap-2 dropdown-item">
-                      <i class="ti ti-user fs-6"></i>
-                      <p class="mb-0 fs-3">Usuario</p>
-                    </a>
+                      <a href="/usuarios" class="d-flex align-items-center gap-2 dropdown-item">
+                        <i class="ti ti-user fs-6"></i>
+                        <p class="mb-0 fs-3">Usuario</p>
+                      </a>
                     @endcan
 
                     <a href="/logout" class="btn btn-outline-primary mx-3 mt-2 d-block">Cerrar Sensión</a>

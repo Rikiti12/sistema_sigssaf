@@ -14,6 +14,13 @@ use Barryvdh\DomPDF\Facade\Pdf;
 
 class ComunidadesController extends Controller
 {
+    function __construct()
+    {
+         $this->middleware('permission:ver-comunidad|crear-comunidad|editar-comunidad|borrar-comunidad', ['only' => ['index']]);
+         $this->middleware('permission:crear-comunidad', ['only' => ['create','store']]);
+         $this->middleware('permission:editar-comunidad', ['only' => ['edit','update']]);
+         $this->middleware('permission:borrar-comunidad', ['only' => ['destroy']]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -21,7 +28,7 @@ class ComunidadesController extends Controller
      */
     public function index()
     {  
-        $comunidades = Comunidades::with('comunas')->get(); // Cargar la relación con tabla "conmuas"
+        $comunidades = Comunidades::with('comuna')->get(); // Cargar la relación con tabla "conmuas"
         return view('comunidad.index', compact('comunidades'));
     }
 
@@ -97,8 +104,9 @@ class ComunidadesController extends Controller
      */
     public function edit($id)
     {
-        $victima =  Victimas::find($id);
-        return view('victima.edit',compact('victima'));
+        $comunidad = Comunidades::find($id);
+        $comunas =  Comunas::all();
+        return view('comunidad.edit',compact('comunidad','comunas'));
     }
 
     /**
@@ -110,27 +118,33 @@ class ComunidadesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'nombre' => 'required',
-            'apellido' => 'required',
-            'edad' => 'required',
-          
-       ]);
+        // $request->validate([
+        //     'cedula_jefe_comunidades' => 'required|unique:comunidades,cedula_jefe_comunidades,' . $id,
+        //     ],
+        //     [
+        //     'cedula_jefe_comunidades.unique' => 'Está cedula ya existe.'
+        //     ]
+        // );
 
-        $victima = Victimas::find($id);
+        $comunidad = Comunidades::find($id);
+        $comuna = Comunas::all();
        
-        $victima->nombre = $request->input('nombre');
-        $victima->apellido = $request->input('apellido');
-        $victima->edad = $request->input('edad');
+        $comunidad->cedula_jefe = $request->input('cedula_jefe');
+        $comunidad->nom_jefe = $request->input('nom_jefe');
+        $comunidad->ape_jefe = $request->input('ape_jefe');
+        $comunidad->telefono = $request->input('telefono');
+        $comunidad->nom_comuni = $request->input('nom_comuni');
+        $comunidad->dire_comuni = $request->input('dire_comuni');
+        $comunidad->id_comuna = $request->input('id_comuna');
 
-        $victima->save();
+        $comunidad->save();
 
         $bitacora = new BitacoraController;
         $bitacora->update();
 
         try {
         
-            return redirect ('victima');
+            return redirect ('comunidad');
     
             } catch (QueryException $exception) {
                 $errorMessage = 'Error: .';
@@ -146,9 +160,9 @@ class ComunidadesController extends Controller
     */
     public function destroy($id)
     {
-        Victimas::find($id)->delete();
+        Comunidades::find($id)->delete();
         $bitacora = new BitacoraController;
         $bitacora->update();
-        return redirect()->route('victima.index')->with('eliminar', 'ok');
+        return redirect()->route('comunidad.index')->with('eliminar', 'ok');
     }
 }

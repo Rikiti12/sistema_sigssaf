@@ -11,10 +11,17 @@ use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\BitacoraController;
 use Barryvdh\DomPDF\Facade\Pdf;
-use Illuminate\Validation\Rule;
+
 
 class ComunaController extends Controller
 {
+    function __construct()
+    {
+         $this->middleware('permission:ver-comuna|crear-comuna|editar-comuna|borrar-comuna', ['only' => ['index']]);
+         $this->middleware('permission:crear-comuna', ['only' => ['create','store']]);
+         $this->middleware('permission:editar-comuna', ['only' => ['edit','update']]);
+         $this->middleware('permission:borrar-comuna', ['only' => ['destroy']]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -127,6 +134,7 @@ class ComunaController extends Controller
         $comuna->cedula_comunas = $request->input('cedula_comunas');
         $comuna->nombre_comunas = $request->input('nombre_comunas');
         $comuna->apellido_comunas = $request->input('apellido_comunas');
+        $comuna->telefono = $request->input('telefono');
         $comuna->nom_comunas = $request->input('nom_comunas');
         $comuna->id_parroquia = $request->input('id_parroquia');
         $comuna->dire_comunas = $request->input('dire_comunas');

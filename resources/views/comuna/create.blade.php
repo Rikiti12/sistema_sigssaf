@@ -21,6 +21,12 @@
                         @csrf
                             
                         <div class="card-body">
+
+                            <center>
+                                <h5 class="font-weight-bold text-dark">Datos del Jefe Comuna</h5>
+                            </center>
+
+                            <br>
                             
                             <div class="row">
         
@@ -44,6 +50,20 @@
                                     <input type="text" class="form-control" id="telefono" name="telefono" maxlength="12" style="background: white;" value="" placeholder="Ingrese el Telefono" autocomplete="off" onkeypress="return solonum(event);">
                                 </div>
 
+                            </div>
+
+                        </div>
+
+                        <div class="card-body">
+
+                            <center>
+                                <h5 class="font-weight-bold text-dark">Datos de Asignación Comuna</h5>
+                            </center>
+
+                            <br>
+                            
+                            <div class="row">
+
                                 <div class="col-4">
                                     <label  class="font-weight-bold text-dark">Nombre Comuna</label>
                                     <input type="text" class="form-control" id="comuna" name="nom_comunas" style="background: white;" value="" placeholder="Ingrese El nombre comuna" autocomplete="off" oninput="capitalizarInput('nombre comuna')" onkeypress="return soloLetras(event);">
@@ -66,8 +86,6 @@
                                 
                             </div>
 
-                        </div>
-
                             <br>
 
                             <center>
@@ -79,9 +97,15 @@
                                 </span>
                                 <span class="text">Regresar</span></a>
                             </center>
+
+                        </div>
+
                     </form>
+
                 </div>
-            </div>    
+
+            </div>  
+
     </div>
 
     <script>

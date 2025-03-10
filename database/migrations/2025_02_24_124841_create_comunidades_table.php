@@ -18,9 +18,9 @@ return new class extends Migration
             $table->string('cedula_jefe')->unique();
             $table->string('nom_jefe');
             $table->string('ape_jefe');
+            $table->string('telefono');
             $table->string('nom_comuni')->unique();
             $table->text('dire_comuni');
-            $table->string('telefono');
             $table->unsignedBigInteger('id_comuna');
 
             $table->timestamps();

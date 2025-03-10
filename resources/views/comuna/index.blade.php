@@ -39,8 +39,6 @@
                         <thead class="thead-light">
                             <tr>
                                 <th  class="font-weight-bold text-dark">Jefe Comuna</th>
-                                <!-- <th  class="font-weight-bold text-dark">Nombre</th>
-                                <th  class="font-weight-bold text-dark">Apellido</th> -->
                                 <th  class="font-weight-bold text-dark">Nombre Comunas</th>
                                 <th  class="font-weight-bold text-dark">Parroquia</th>
                                 <th  class="font-weight-bold text-dark">Direccion</th>
@@ -51,7 +49,9 @@
                             @foreach ($comunas as $comuna)
                                     <tr>
                                         <!-- <td class="font-weight-bold text-Secondary">{{ $comuna->id}}</td> -->
-                                        <td class="font-weight-bold text-dark">{{ $comuna->cedula_comunas }} - {{ $comuna->nombre_comunas }} {{ $comuna->apellido_comunas }}</td>
+                                        <td class="font-weight-bold text-dark">{{ $comuna->cedula_comunas }} - {{ $comuna->nombre_comunas }} 
+                                           {{ $comuna->apellido_comunas }} {{ $comuna->telefono }} 
+                                        </td>
                                         <!-- <td class="font-weight-bold text-dark"></td>
                                         <td class="font-weight-bold text-dark"></td> -->
                                         <td class="font-weight-bold text-dark">{{ $comuna->nom_comunas }}</td>

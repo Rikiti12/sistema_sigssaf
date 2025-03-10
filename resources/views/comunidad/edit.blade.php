@@ -1,6 +1,6 @@
 @extends('layouts.index')
 
-<title>@yield('title') Actualizar Víctima</title>
+<title>@yield('title') Actualizar Comunidad</title>
 <script src="{{ asset('js/validaciones.js') }}"></script>
 <script src="{{ asset('https://cdn.jsdelivr.net/npm/sweetalert2@11')}}"></script>
 
@@ -13,55 +13,98 @@
 
                     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-center">
     
-                    <h2 class="font-weight-bold text-dark">Actualizar Víctima</h2>
+                    <h2 class="font-weight-bold text-dark">Actualizar Comunidad</h2>
     
                     </div>
 
-                    <form method="post" action="{{ url('/victima/'.$victima->id) }}" enctype="multipart/form-data" onsubmit="return Victima(this)">
+                    <form method="post" action="{{ url('/comunidad/'.$comunidad->id) }}" enctype="multipart/form-data" onsubmit="return Comunidad(this)">
                         @csrf
                         {{ method_field('PATCH')}}
                             
                         <div class="card-body">
+
+                            <center>
+                                <h5 class="font-weight-bold text-dark">Datos del Jefe de la Comunidad</h5>
+                            </center>
+
+                            <br>
                             
                             <div class="row">
         
-                                <!-- <div class="col-4">
-                                    <label  class="font-weight-bold text-dark">Cédula</label>
-                                    <input type="text" class="form-control" id="cedula" name="cedula" maxlength="8" style="background: white;" value="{{ isset($denunciante->cedula)?$denunciante->cedula:'' }}" placeholder="Ingrese La Cédula" autocomplete="off" onkeypress="return solonum(event);">
-                                </div> -->
-        
                                 <div class="col-4">
-                                    <label  class="font-weight-bold text-dark">Nombre</label>
-                                    <input type="text" class="form-control" id="nombre" name="nombre" style="background: white;" value="{{ isset($victima->nombre)?$victima->nombre:'' }}" placeholder="Ingrese El Nombre" oninput="capitalizarInput('nombre')" autocomplete="off" onkeypress="return soloLetras(event);">
+                                    <label  class="font-weight-bold text-dark">Cédula Jefe</label>
+                                    <input type="text" class="form-control" id="cedula" name="cedula_jefe" maxlength="8" style="background: white;" value="{{ isset($comunidad->cedula_jefe)?$comunidad->cedula_jefe:'' }}" placeholder="Ingrese La Cédula" autocomplete="off" onkeypress="return solonum(event);">
                                 </div>
         
                                 <div class="col-4">
-                                    <label  class="font-weight-bold text-dark">Apellido</label>
-                                    <input type="text" class="form-control" id="apellido" name="apellido" style="background: white;" value="{{ isset($victima->apellido)?$victima->apellido:'' }}" placeholder="Ingrese El Apellido" autocomplete="off"  oninput="capitalizarInput('apellido')" onkeypress="return soloLetras(event);">
+                                    <label  class="font-weight-bold text-dark">Nombre Jefe</label>
+                                    <input type="text" class="form-control" id="nombre" name="nom_jefe" style="background: white;" value="{{ isset($comunidad->nom_jefe)?$comunidad->nom_jefe:'' }}" placeholder="Ingrese El Nombre" oninput="capitalizarInput('nombre')" autocomplete="off" onkeypress="return soloLetras(event);">
+                                </div>
+        
+                                <div class="col-4">
+                                    <label  class="font-weight-bold text-dark">Apellido Jefe</label>
+                                    <input type="text" class="form-control" id="apellido" name="ape_jefe" style="background: white;" value="{{ isset($comunidad->ape_jefe)?$comunidad->ape_jefe:'' }}" placeholder="Ingrese El Apellido" autocomplete="off"  oninput="capitalizarInput('apellido')" onkeypress="return soloLetras(event);">
                                 </div>
                                 <div class="col-4">
-                                    <label  class="font-weight-bold text-dark">Edad</label>
-                                    <input type="text" class="form-control" id="edad" name="edad" maxlength="8" style="background: white;" value="{{ isset($victima->edad)?$victima->edad:'' }}" placeholder="Ingrese La Edad" autocomplete="off" onkeypress="return solonum(event);">
+                                    <label  class="font-weight-bold text-dark">Telefono</label>
+                                    <input type="text" class="form-control" id="telefono" name="telefono" maxlength="12" style="background: white;" value="{{ isset($comunidad->telefono)?$comunidad->telefono:'' }}" placeholder="Ingrese El Telefono" autocomplete="off" onkeypress="return solonum(event);">
                                 </div>
                               
                             </div>
-
+                        
                         </div>
 
+                        <div class="card-body">
+
+                            <center>
+                                <h5 class="font-weight-bold text-dark">Datos de la Comunidad</h5>
+                            </center>
+
                             <br>
+                            
+                            <div class="row">
+
+                                <div class="col-4">
+                                    <label  class="font-weight-bold text-dark">Nombre de la Comunidad</label>
+                                    <input type="text" class="form-control" id="comunidad" name="nom_comuni" style="background: white;" value="{{ isset($comunidad->nom_comuni)?$comunidad->nom_comuni:'' }}" placeholder="Ingrese El nombre comunidad" autocomplete="off" oninput="capitalizarInput('nombre comuna')" onkeypress="return soloLetras(event);">
+                                </div>
+
+                                <div class="col-4">
+                                    <label  class="font-weight-bold text-dark">Dirección</label>
+                                    <textarea class="form-control" id="direccion" name="dire_comuni" cols="10" rows="10" style="max-height: 6rem;" oninput="capitalizarInput('direccion')">{{ $comunidad->dire_comuni }}</textarea>                                   
+                                </div>
+
+                                <div class="col-4">
+                                    <label  class="font-weight-bold text-dark">Comuna Asignado</label>
+                                    <select class="form-select" id="id_comuna" name="id_comuna">
+                                        @foreach($comunas as $comuna)
+                                            <option value="{{ $comuna->id }}" @selected($comuna->id_comuna == $comuna->id)>{{ $comuna->nom_comunas }}</option>
+                                        @endforeach
+                                    </select>                                   
+                                </div>
+
+                            </div>
+
+                            <br><br>
 
                             <center>
                                 <button type="submit" class="btn btn-success btn-lg"><span class="icon text-white-60"><i class="fas fa-check"></i></span>
                                 <span class="text">Guardar</span>
                                 </button>
-                                <a  class="btn btn-info btn-lg" href="{{ url('victima/') }}"><span class="icon text-white-50">
+                                <a  class="btn btn-info btn-lg" href="{{ url('comunidad/') }}"><span class="icon text-white-50">
                                     <i class="fas fa-info-circle"></i>
                                 </span>
                                 <span class="text">Regresar</span></a>
                             </center>
+
+                        </div>
+
                     </form>
+
                 </div>
-            </div>    
+
+            </div> 
+
     </div>
 
     <script>
@@ -80,7 +123,7 @@
             var errors = @json($errors->all());
             errors.forEach(function(error) {
                 Swal.fire({
-                    title: 'Victima',
+                    title: 'Comunidad',
                     text: error,
                     icon: 'warning',
                     showConfirmButton: true,
