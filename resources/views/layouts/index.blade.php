@@ -69,6 +69,7 @@
               @endcan
             </li>
              <li class="sidebar-item">
+             @can('ver-persona')
                 <a class="sidebar-link" href="{{ url('persona') }}" aria-expanded="false">
                   <span>
                     {{-- <i class="ti ti-alert-circle"></i> --}}
@@ -77,10 +78,11 @@
                       <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5"/>
                     </svg>
                   </span>
-                  <span class="hide-menu">Persona</span>
+                  <span class="hide-menu">Personas</span>
                 </a>
+                @endcan
             </li>
-            <li class="sidebar-item">
+            <!--<li class="sidebar-item">
               <a class="sidebar-link" href="./ui-card.html" aria-expanded="false">
                 <span>
                   <i class="ti ti-cards"></i>
@@ -107,7 +109,7 @@
             <li class="nav-small-cap">
               <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
               <span class="hide-menu">Estadisticas</span>
-            </li>
+            </li>-->
             <li class="sidebar-item">
               <a class="sidebar-link" href="./authentication-login.html" aria-expanded="false">
                 <span>

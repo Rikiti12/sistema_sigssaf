@@ -17,7 +17,7 @@
     
                     </div>
 
-                    <form method="post" action="{{ route('comunidad.store') }}" enctype="multipart/form-data" onsubmit="return Victima(this)">
+                    <form method="post" action="{{ route('comunidad.store') }}" enctype="multipart/form-data" onsubmit="return Comunidad(this)">
                         @csrf
                             
                         <div class="card-body">
@@ -47,7 +47,7 @@
 
                                 <div class="col-4">
                                     <label  class="font-weight-bold text-dark">Telefono</label>
-                                    <input type="text" class="form-control" id="telefono" name="telefono" maxlength="8" style="background: white;" value="" placeholder="Ingrese El Telefono" autocomplete="off" onkeypress="return solonum(event);">
+                                    <input type="text" class="form-control" id="telefono" name="telefono" maxlength="11" style="background: white;" value="" placeholder="Ingrese El Telefono" autocomplete="off" onkeypress="return solonum(event);">
                                 </div>
 
                             </div>

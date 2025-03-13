@@ -13,6 +13,7 @@ use App\Http\Controllers\UserSettingsController;
 use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\ComunaController;
 use App\Http\Controllers\ComunidadesController;
+use App\Http\Controllers\PersonasController;
 use App\Http\Controllers\ReporteController;
 use App\Http\Controllers\ManualController;
 
@@ -64,6 +65,12 @@ Route::get('/comunidad',  [ComunidadesController::class,'index'])->name('comunid
 Route::get('/comunidad/create', [ComunidadesController::class, 'create'])->name('create')->middleware('auth');
 Route::get('/comunidad/pdf',  [ComunidadesController::class,'pdf'])->name('comunidad')->middleware('auth');
 Route::resource('comunidad', ComunidadesController::class)->middleware('auth');
+
+/* Ruta Persona */
+Route::get('/persona',  [PersonasController::class,'index'])->name('persona')->middleware('auth');
+Route::get('/persona/create', [PersonasController::class, 'create'])->name('create')->middleware('auth');
+Route::get('/persona/pdf',  [PersonasController::class,'pdf'])->name('persona')->middleware('auth');
+Route::resource('persona', PersonasController::class)->middleware('auth');
 
 /* Ruta Bitacora*/
 Route::get('bitacora', [ReporteController::class, 'bitacora'])->name('bitacora')->middleware('auth');

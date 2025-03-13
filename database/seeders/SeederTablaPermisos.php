@@ -41,8 +41,15 @@ class SeederTablaPermisos extends Seeder
             'ver-comunidad',
             'crear-comunidad',
             'editar-comunidad',
-            'borrar-comunidad',
- 
+            'borrar-comunidad', 
+
+             //Operaciones sobre tabla Personas
+             'ver-persona',
+             'crear-persona',
+             'editar-persona',
+             'borrar-persona',
+
+            
         ];
 
         foreach($permisos as $permiso) {
