@@ -15,6 +15,7 @@ use App\Http\Controllers\ComunaController;
 use App\Http\Controllers\ComunidadesController;
 use App\Http\Controllers\PersonasController;
 use App\Http\Controllers\AyudaSocialesController;
+use App\Http\Controllers\ViviendasController;
 use App\Http\Controllers\ReporteController;
 use App\Http\Controllers\ManualController;
 
@@ -78,6 +79,12 @@ Route::get('/ayuda_sociales', [AyudaSocialesController::class, 'index'])->name('
 Route::get('/ayuda_sociales/create', [AyudaSocialesController::class, 'create'])->name('ayuda_sociales.create')->middleware('auth');
 Route::get('/ayuda_sociales/pdf', [AyudaSocialesController::class, 'pdf'])->name('ayuda_sociales.pdf')->middleware('auth');
 Route::resource('ayuda_sociales', AyudaSocialesController::class)->middleware('auth');
+
+/* Ruta Viviendas */
+Route::get('/vivienda', [ViviendasController::class, 'index'])->name('vivienda')->middleware('auth');
+Route::get('/vivienda/create', [ViviendasController::class, 'create'])->name('vivienda.create')->middleware('auth');
+Route::get('/vivienda/pdf', [ViviendasController::class, 'pdf'])->name('vivienda.pdf')->middleware('auth');
+Route::resource('vivienda', ViviendasController::class)->middleware('auth');
 
 /* Ruta Bitacora*/
 Route::get('bitacora', [ReporteController::class, 'bitacora'])->name('bitacora')->middleware('auth');

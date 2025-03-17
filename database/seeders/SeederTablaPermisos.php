@@ -54,6 +54,12 @@ class SeederTablaPermisos extends Seeder
              'crear-ayuda_sociales',
              'editar-ayuda_sociales',
              'borrar-ayuda_sociales',
+
+             // Operaciones sobre tabla Viviendas
+             'ver-vivienda',
+             'crear-vivienda',
+             'editar-vivienda',
+             'borrar-vivienda',
             
         ];
 
