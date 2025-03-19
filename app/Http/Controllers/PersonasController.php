@@ -46,6 +46,7 @@ class PersonasController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'cedula' => 'required|unique:personas,cedula',
             'nombre' => 'required',
             'apellido' => 'required',
             'fecha_nacimiento' => 'required|date',
@@ -58,9 +59,11 @@ class PersonasController extends Controller
             'jefe_familia' => 'required|boolean',
         ], [
             'correo.unique' => 'Este correo ya existe.',
+            'cedula.unique' => 'Este cedula ya existe.',
         ]);
 
         $persona = new Personas();
+        $persona->cedula = $request->input('cedula');
         $persona->nombre = $request->input('nombre');
         $persona->apellido = $request->input('apellido');
         $persona->fecha_nacimiento = $request->input('fecha_nacimiento');
@@ -119,6 +122,7 @@ class PersonasController extends Controller
     public function update(Request $request, $id)
     {
        // $request->validate([
+       // 'cedula' => 'required|unique:cedula',
           //  'nombre' => 'required',
             //'apellido' => 'required',
             //'fecha_nacimiento' => 'required|date',
@@ -134,6 +138,7 @@ class PersonasController extends Controller
         //]);
 
         $persona = Personas::find($id);
+        $persona->cedula = $request->input('cedula');
         $persona->nombre = $request->input('nombre');
         $persona->apellido = $request->input('apellido');
         $persona->fecha_nacimiento = $request->input('fecha_nacimiento');

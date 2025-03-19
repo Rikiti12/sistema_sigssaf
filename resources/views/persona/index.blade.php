@@ -38,6 +38,7 @@
                     <table class="table align-items-center table-flush" id="dataTable">
                         <thead class="thead-light">
                             <tr>
+                                <th class="font-weight-bold text-dark">Cedula</th>
                                 <th class="font-weight-bold text-dark">Nombre</th>
                                 <th class="font-weight-bold text-dark">Apellido</th>
                                 <th class="font-weight-bold text-dark">Fecha de Nacimiento</th>
@@ -55,6 +56,7 @@
                         <tbody>
                             @foreach ($personas as $persona)
                                     <tr>
+                                    <td class="font-weight-bold text-dark">{{ $persona->cedula }}</td>
                                     <td class="font-weight-bold text-dark">{{ $persona->nombre }}</td>
                                     <td class="font-weight-bold text-dark">{{ $persona->apellido }}</td>
                                     <td class="font-weight-bold text-dark">{{ $persona->fecha_nacimiento }}</td>

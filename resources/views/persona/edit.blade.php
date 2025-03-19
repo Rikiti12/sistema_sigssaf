@@ -17,12 +17,17 @@
           
             </div>
 
-                <form method="post" action="{{ url('/persona/' .$persona->id) }}" enctype="multipart/form-data" onsubmit="return Persona(this)">
+                <form method="post" action="{{ url('/persona/'.$persona->id) }}" enctype="multipart/form-data" onsubmit="return Persona(this)">
                         @csrf
                         {{ method_field('PATCH')}}
                             
                     <div class="card-body">
                         <div class="row">
+
+                           <div class="col-4">
+                              <label  class="font-weight-bold text-dark">Cédula </label>
+                              <input type="text" class="form-control" id="cedula" name="cedula" maxlength="8" style="background: white;" value="{{ $persona->cedula:'' }}" placeholder="Ingrese La cedula" autocomplete="off" onkeypress="return solonum(event);">
+                           </div>
 
                             <div class="col-md-4">
                                 <label class="font-weight-bold text-dark">Nombre</label>

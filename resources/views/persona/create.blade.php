@@ -21,6 +21,11 @@
                     <div class="card-body">
                         <div class="row">
 
+                        <div class="col-4">
+                                    <label  class="font-weight-bold text-dark">Cedula </label>
+                                    <input type="text" class="form-control" id="cedula" name="cedula" maxlength="8" style="background: white;" value="{{ old('cedula') }}" placeholder="Ingrese La Cedula" autocomplete="off" onkeypress="return solonum(event);">
+                                </div>
+        
                             <div class="col-md-4">
                                 <label class="font-weight-bold text-dark">Nombre</label>
                                 <input type="text" class="form-control" id="nombre" name="nombre"style="background: white;" value="{{ old('nombre') }}" placeholder="Ingrese el nombre" autocomplete="off" oninput="capitalizarInput('nombre')" onkeypress="return soloLetras(event);">

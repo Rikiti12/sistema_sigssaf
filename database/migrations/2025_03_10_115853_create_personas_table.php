@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('personas', function (Blueprint $table) {
             $table->id();
+            $table->string('cedula')->unique();
             $table->string('nombre');
             $table->string('apellido');
             $table->date('fecha_nacimiento');
