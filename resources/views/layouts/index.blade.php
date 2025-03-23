@@ -108,6 +108,36 @@
                 </a>
               @endcan
             </li>
+            <li class="nav-small-cap">
+              <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+              <span class="hide-menu">Proceso</span>
+            </li>
+            <li class="sidebar-item">
+             @can('ver-proyecto') 
+              <a class="sidebar-link" href="{{ route('proyecto.create') }}" aria-expanded="false">
+                  <span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-file-earmark-text" viewBox="0 0 16 16">
+                          <path d="M5.5 7a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5zM5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z"/>
+                          <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"/>
+                      </svg>
+                  </span>
+                  <span class="hide-menu"> Asignar Proyectos</span>
+              </a>
+              @endcan
+            </li>
+            <li class="sidebar-item">
+             @can('ver-planificacion') 
+              <a class="sidebar-link" href="{{ route('planificacion.create') }}" aria-expanded="false">
+                  <span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-file-earmark-text" viewBox="0 0 16 16">
+                          <path d="M5.5 7a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5zM5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z"/>
+                          <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"/>
+                      </svg>
+                  </span>
+                  <span class="hide-menu"> Planificaciones</span>
+              </a>
+              @endcan
+            </li>
             <!--<li class="sidebar-item">
               <a class="sidebar-link" href="./ui-card.html" aria-expanded="false">
                 <span>
@@ -198,8 +228,8 @@
             </li>
           </ul>
           <div class="navbar-collapse justify-content-end px-0" id="navbarNav">
-            <MARQUEE style="color: rgb(0, 0, 0);"> BIENVENID@ {{ Auth::user()->name }} al Implementación de Sistema de Información para la Gestión Social en la Sala Situacional de la Alcaldía de San Felipe.
-              (SIGSSAF) </MARQUEE>
+            <MARQUEE style="color: rgb(0, 0, 0);"> BIENVENID@ {{ Auth::user()->name }} al Implementación de Sistema de Información para la Gestión de Infogobierno en la Sala Situacional de la Alcaldía de San Felipe.
+              (SIGISSAF) </MARQUEE>
             <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-end">
               {{-- <a href="https://adminmart.com/product/modernize-free-bootstrap-admin-dashboard/" target="_blank" class="btn btn-primary">Download Free</a> --}}
               <li class="nav-item dropdown">
