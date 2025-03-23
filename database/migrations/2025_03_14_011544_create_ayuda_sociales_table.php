@@ -17,11 +17,8 @@ return new class extends Migration
             $table->id();
             $table->string('nombre_ayu');
             $table->text('descripcion');
-            $table->unsignedBigInteger('id_persona'); // Clave foránea a la tabla personas
             $table->timestamps();
 
-            // Definición de la clave foránea
-            $table->foreign('id_persona')->references('id')->on('personas')->onDelete('cascade');
         });
     }
 

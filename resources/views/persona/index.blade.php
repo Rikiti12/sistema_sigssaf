@@ -38,34 +38,36 @@
                     <table class="table align-items-center table-flush" id="dataTable">
                         <thead class="thead-light">
                             <tr>
+                                <th class="font-weight-bold text-dark">Cedula</th>
                                 <th class="font-weight-bold text-dark">Nombre</th>
                                 <th class="font-weight-bold text-dark">Apellido</th>
                                 <th class="font-weight-bold text-dark">Fecha de Nacimiento</th>
                                 <th class="font-weight-bold text-dark">Edad</th>
                                 <th class="font-weight-bold text-dark">Género</th>
                                 <th class="font-weight-bold text-dark">Teléfono</th>
-                                <th class="font-weight-bold text-dark">Correo</th>
-                                <th class="font-weight-bold text-dark">Dirección</th>
-                                <th class="font-weight-bold text-dark">Discapacidad</th>
+                                {{-- <th class="font-weight-bold text-dark">Correo</th>
+                                <th class="font-weight-bold text-dark">Dirección</th> --}}
+                                {{-- <th class="font-weight-bold text-dark">Discapacidad</th>
                                 <th class="font-weight-bold text-dark">Embarazada</th>
-                                <th class="font-weight-bold text-dark">Jefe de Familia</th>
+                                <th class="font-weight-bold text-dark">Jefe de Familia</th> --}}
                                 <th class="font-weight-bold text-dark">Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($personas as $persona)
                                     <tr>
+                                    <td class="font-weight-bold text-dark">{{ $persona->cedula }}</td>
                                     <td class="font-weight-bold text-dark">{{ $persona->nombre }}</td>
                                     <td class="font-weight-bold text-dark">{{ $persona->apellido }}</td>
                                     <td class="font-weight-bold text-dark">{{ $persona->fecha_nacimiento }}</td>
                                     <td class="font-weight-bold text-dark">{{ $persona->edad }}</td>
                                     <td class="font-weight-bold text-dark">{{ $persona->genero }}</td>
                                     <td class="font-weight-bold text-dark">{{ $persona->telefono }}</td>
-                                    <td class="font-weight-bold text-dark">{{ $persona->correo }}</td>
-                                    <td class="font-weight-bold text-dark">{{ $persona->direccion }}</td>
-                                    <td class="font-weight-bold text-dark">{{ $persona->discapacidad ? 'Sí' : 'No' }}</td>
+                                    {{-- <td class="font-weight-bold text-dark">{{ $persona->correo }}</td>
+                                    <td class="font-weight-bold text-dark">{{ $persona->direccion }}</td> --}}
+                                    {{-- <td class="font-weight-bold text-dark">{{ $persona->discapacidad ? 'Sí' : 'No' }}</td>
                                     <td class="font-weight-bold text-dark">{{ $persona->embarazada ? 'Sí' : 'No' }}</td>
-                                    <td class="font-weight-bold text-dark">{{ $persona->jefe_familia ? 'Sí' : 'No' }}</td>
+                                    <td class="font-weight-bold text-dark">{{ $persona->jefe_familia ? 'Sí' : 'No' }}</td> --}}
                                         
                                         <td>
 
@@ -85,6 +87,11 @@
                                                           </svg></button>
                                                     </form> 
                                                 @endcan
+
+                                                <a class="btn btn-info btn-sm" style="margin: 0 1px;" title="Ver Detalles" data-persona-id='{{ $persona->id }}' class="btn btn-primary" data-toggle="modal" data-target="#exampleModalScrollable" id="#modalScroll"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-layout-text-window-reverse" viewBox="0 0 16 16"  style="color: #ffff; cursor: pointer;">
+                                                    <path d="M13 6.5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h5a.5.5 0 0 0 .5-.5m0 3a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h5a.5.5 0 0 0 .5-.5m-.5 2.5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1 0-1z"/>
+                                                    <path d="M14 0a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2zM2 1a1 1 0 0 0-1 1v1h14V2a1 1 0 0 0-1-1zM1 4v10a1 1 0 0 0 1 1h2V4zm4 0v11h9a1 1 0 0 0 1-1V4z"/>
+                                                </svg></a>
                                             </div>
 
                                         </td>
@@ -93,6 +100,28 @@
                         </tbody>
                     </table>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL PARA VER DETALLES -->
+    <div class="modal fade" id="exampleModalScrollable" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    {{-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button> --}}
+                </div>
+
+                <div class="modal-body" id="modal-body-content">
+
+                    {{-- ! DATOS CARGADOS POR JS/AJAX --}}
+            
+                {{-- <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Cerrar</button>
+                </div> --}}
+
             </div>
         </div>
     </div>
@@ -198,5 +227,46 @@
             });
         </script>
     @endif
+
+{{-- ! FUNCIÓN DEL MODAL PARA VER DETALLES DE LA PERSONA --}}
+    
+    <script>
+        $(document).ready(function() {
+            $('#dataTable').on('click', '.btn-info', function(event) {
+                event.preventDefault();
+                var personaId = $(this).data('persona-id'); // Obtén el ID de la recepción
+        
+                $.ajax({
+                    url: '/persona/detalles/' + personaId,
+                    type: 'GET',
+                    success: function(data) {
+                        console.log(data);
+
+                    let embarazadaParagraph = '';
+                    if (data.genero === 'Femenino') { // Verifica el género
+                        embarazadaParagraph = `<p><b>Embarazada:</b> ${data.embarazada}</p>`;
+                    }
+        
+                        $('#exampleModalScrollable .modal-body').html(`
+                            <h5 class="font-weight-bold text-primary" style="text-align: center">Detalles de la Persona</h5>
+                            
+                            <p><b>Correo:</b> ${data.correo}</p>
+                            <p><b>Discpacidad:</b> ${data.discapacidad}</p>
+                            ${embarazadaParagraph}
+                            <p><b>Jefe Familiar:</b> ${data.jefe_familia}</p>
+                        `);
+        
+                        if (!$('#exampleModalScrollable').is(':visible')) {
+                            $('#exampleModalScrollable').modal('show');
+                        }
+                    },
+                    error: function(error) {
+                        console.error("Error al obtener los datos:", error);
+                        alert("Error al cargar la persona. Por favor, inténtalo de nuevo.");
+                    }
+                });
+            });
+        });
+        </script>
 
 @endsection

@@ -12,10 +12,6 @@ class AyudaSociales extends Model
     protected $table = 'ayuda_sociales';
     protected $primaryKey = 'id';
     public $timestamps = true;
-    protected $fillable = ['nombre_ayu', 'descripcion', 'id_persona'];
+    protected $fillable = ['nombre_ayu', 'descripcion'];
 
-    public function persona()
-    {
-        return $this->belongsTo(Personas::class, 'id_persona');
-    }
 }

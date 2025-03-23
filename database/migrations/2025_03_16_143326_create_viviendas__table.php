@@ -17,11 +17,8 @@ return new class extends Migration
             $table->id();
             $table->text('dire_vivie');
             $table->text('tipo_vivie'); 
-            $table->bigInteger('id_persona')->nullable(); // Clave foránea a la tabla de personas
             $table->timestamps();
 
-            // Establecer relaciones con las tablas correspondientes
-            $table->foreign('id_persona')->references('id')->on('personas');
         });
     }
 

@@ -19,29 +19,19 @@
                         @csrf
 
                     <div class="card-body">
+                        
                         <div class="row">
 
-                        <div class="col-md-4">
+                            <div class="col-md-4">
                                 <label class="font-weight-bold text-dark">Nombre De La Ayuda</label>
                                 <input type="text" class="form-control" id="nombre_ayu" name="nombre_ayu"style="background: white;" value="" placeholder="Ingrese la ayuda" autocomplete="off" oninput="capitalizarInput('nombre_ayu')" onkeypress="return soloLetras(event);">
                             </div>
 
                             <div class="col-4">
-                                    <label  class="font-weight-bold text-dark">Descripcion</label>
-                                    <input type="text" class="form-control" id="descripcion" name="descripcion" style="background: white;" value="" placeholder="Ingrese la descripcion de la ayuda" autocomplete="off"  oninput="capitalizarInput('descripcion')" onkeypress="return soloLetras(event);">
-                                </div>
+                                <label  class="font-weight-bold text-dark">Descripcion</label>
+                                <input type="text" class="form-control" id="descripcion" name="descripcion" style="background: white;" value="" placeholder="Ingrese la descripcion de la ayuda" autocomplete="off"  oninput="capitalizarInput('descripcion')" onkeypress="return soloLetras(event);">
+                            </div>
 
-                                <div class="col-4">
-                                    <label  class="font-weight-bold text-dark">Persona Asignado</label>
-                                    <select class="form-select" id="id_persona" name="id_persona">
-                                        <option value="">Seleccione una persona </option>
-                                        @foreach($personas as $persona)
-                                        <option value="{{ $persona->id }}" {{ old('id_persona') == $persona->id ? 'selected' : '' }}>
-                                       {{ $persona->nombre }} {{ $persona->apellido }} - {{ $persona->cedula }}
-                                         </option>
-                                        @endforeach
-                                    </select>                                   
-                                </div>
                         </div>
 
                         <br><br>
@@ -51,13 +41,14 @@
                                         class="fas fa-check"></i></span>
                                 <span class="text">Guardar</span>
                             </button>
-                            <a class="btn btn-info btn-lg" href="{{ url('ayuda_social/') }}"><span class="icon text-white-50">
+                            <a class="btn btn-info btn-lg" href="{{ url('ayuda_sociales/') }}"><span class="icon text-white-50">
                                     <i class="fas fa-info-circle"></i>
                                 </span>
                                 <span class="text">Regresar</span></a>
                         </center>
 
                     </div>
+
                 </form>
 
             </div>

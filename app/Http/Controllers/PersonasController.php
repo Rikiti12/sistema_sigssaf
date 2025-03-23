@@ -26,6 +26,28 @@ class PersonasController extends Controller
         return view('persona.index', compact('personas'));
     }
 
+    public function getPersonaDetalles($id)
+    {
+        // Recupera la persona por su ID
+        $persona = Personas::find($id);
+
+        if (!$persona) {
+            // Maneja el caso en que no se encuentre la persona
+            return response()->json(['error' => 'Persona no encontrada'], 404);
+        }
+
+        // Devuelve los datos relevantes en formato JSON
+        return response()->json([
+            'correo' => $persona->correo,
+            'discapacidad' => $persona->discapacidad,
+            'embarazada' =>$persona->embarazada,
+            'jefe_familia' =>$persona->jefe_familia,
+            'genero' =>$persona->genero,
+
+        ]);
+
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -45,35 +67,38 @@ class PersonasController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'nombre' => 'required',
-            'apellido' => 'required',
-            'fecha_nacimiento' => 'required|date',
-            'genero' => 'required',
-            'telefono' => 'required',
-            'correo' => 'required|email|unique:personas,correo',
-            'direccion' => 'required',
-            'discapacidad' => 'required|boolean',
-            'embarazada' => 'required|boolean',
-            'jefe_familia' => 'required|boolean',
-        ], [
-            'correo.unique' => 'Este correo ya existe.',
-        ]);
+        // $request->validate([
+        //     'correo' => 'required|cedula|unique:personas,cedula',
+        //     'nombre' => 'required',
+        //     'apellido' => 'required',
+        //     'fecha_nacimiento' => 'required|date',
+        //     'genero' => 'required',
+        //     'telefono' => 'required',
+        //     'correo' => 'required|email|unique:personas,correo',
+        //     'direccion' => 'required',
+        //     'discapacidad' => 'required|boolean',
+        //     'embarazada' => 'required|boolean',
+        //     'jefe_familia' => 'required|boolean',
+        // ], [
+        //     'correo.unique' => 'Este cedula ya existe.',
+        //     'correo.unique' => 'Este correo ya existe.'
+        // ]);
 
-        $persona = new Personas();
-        $persona->nombre = $request->input('nombre');
-        $persona->apellido = $request->input('apellido');
-        $persona->fecha_nacimiento = $request->input('fecha_nacimiento');
-        $persona->edad = $request->input('edad');
-        $persona->genero = $request->input('genero');
-        $persona->telefono = $request->input('telefono');
-        $persona->correo = $request->input('correo');
-        $persona->direccion = $request->input('direccion');
-        $persona->discapacidad = $request->input('discapacidad');
-        $persona->embarazada = $request->input('embarazada');
-        $persona->jefe_familia = $request->input('jefe_familia');
+        $personas = new Personas();
+        $personas->cedula = $request->input('cedula');
+        $personas->nombre = $request->input('nombre');
+        $personas->apellido = $request->input('apellido');
+        $personas->fecha_nacimiento = $request->input('fecha_nacimiento');
+        $personas->edad = $request->input('edad');
+        $personas->genero = $request->input('genero');
+        $personas->telefono = $request->input('telefono');
+        $personas->correo = $request->input('correo');
+        $personas->direccion = $request->input('direccion');
+        $personas->discapacidad = $request->input('discapacidad');
+        $personas->embarazada = $request->input('embarazada');
+        $personas->jefe_familia = $request->input('jefe_familia');
 
-        $persona->save();
+        $personas->save();
 
         $bitacora = new BitacoraController();
         $bitacora->update();
@@ -84,6 +109,7 @@ class PersonasController extends Controller
             $errorMessage = 'Error: ' . $exception->getMessage();
             return redirect()->back()->withErrors($errorMessage);
         }
+        
     }
 
     /**
@@ -134,6 +160,7 @@ class PersonasController extends Controller
         //]);
 
         $persona = Personas::find($id);
+        $persona->cedula = $request->input('cedula');
         $persona->nombre = $request->input('nombre');
         $persona->apellido = $request->input('apellido');
         $persona->fecha_nacimiento = $request->input('fecha_nacimiento');
@@ -157,6 +184,7 @@ class PersonasController extends Controller
             $errorMessage = 'Error: ' . $exception->getMessage();
             return redirect()->back()->withErrors($errorMessage);
         }
+
     }
 
     /**

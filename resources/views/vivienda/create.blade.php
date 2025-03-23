@@ -24,25 +24,16 @@
 
                         <div class="row">
 
-                        <div class="col-4">
-                                    <label  class="font-weight-bold text-dark">Dirección</label>
-                                    <textarea class="form-control" id="direccion" name="dire_vivie" cols="10" rows="10" style="max-height: 6rem;" oninput="capitalizarInput('direccion')">{{ old('direccion') }}</textarea>                                   
-                                </div>
-                             
                             <div class="col-4">
-                                    <label  class="font-weight-bold text-dark">Tipo de Vivienda</label>
-                                    <input type="text" class="form-control" id="tipo_vivie" name="tipo_vivie" style="background: white;" value="" placeholder="Ingrese El Tipo" autocomplete="off" oninput="capitalizarInput('tipo_vivie')" onkeypress="return soloLetras(event);">
-                                </div>
-                                
-                            <div class="col-4">
-                                <label class="font-weight-bold text-dark">Persona Asignada</label>
-                                <select class="form-select" id="id_persona" name="id_persona">
-                                    <option value="">Seleccione una persona</option>
-                                    @foreach($personas as $persona)
-                                        <option value="{{ $persona->id }}">{{ $persona->nombre }} {{ $persona->apellido }}</option>
-                                    @endforeach
-                                </select>
+                                <label  class="font-weight-bold text-dark">Tipo de Vivienda</label>
+                                <input type="text" class="form-control" id="tipo_vivie" name="tipo_vivie" style="background: white;" value="" placeholder="Ingrese El Tipo" autocomplete="off" oninput="capitalizarInput('tipo_vivie')" onkeypress="return soloLetras(event);">
                             </div>
+
+                            <div class="col-4">
+                                <label  class="font-weight-bold text-dark">Dirección</label>
+                                <textarea class="form-control" id="direccion" name="dire_vivie" cols="10" rows="10" style="max-height: 6rem;" oninput="capitalizarInput('direccion')">{{ old('direccion') }}</textarea>                                   
+                            </div>
+                            
                         </div>
 
                     </div>

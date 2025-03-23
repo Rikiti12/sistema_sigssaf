@@ -73,6 +73,7 @@ Route::get('/persona',  [PersonasController::class,'index'])->name('persona')->m
 Route::get('/persona/create', [PersonasController::class, 'create'])->name('create')->middleware('auth');
 Route::get('/persona/pdf',  [PersonasController::class,'pdf'])->name('persona')->middleware('auth');
 Route::resource('persona', PersonasController::class)->middleware('auth');
+Route::get('/persona/detalles/{id}', [PersonasController::class, 'getPersonaDetalles']);
 
 /* Ruta Ayudas Sociales */
 Route::get('/ayuda_sociales', [AyudaSocialesController::class, 'index'])->name('ayuda_sociales')->middleware('auth');

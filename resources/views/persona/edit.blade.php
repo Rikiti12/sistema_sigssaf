@@ -22,7 +22,13 @@
                         {{ method_field('PATCH')}}
                             
                     <div class="card-body">
+
                         <div class="row">
+
+                            <div class="col-md-4">
+                                <label class="font-weight-bold text-dark">Cédula</label>
+                                <input type="text" class="form-control" id="cedula" name="cedula" maxlength="8" style="background: white;" value="{{ $persona->cedula }}" placeholder="Ingrese la cédula" autocomplete="off" onkeypress="return solonum(event);">
+                            </div>
 
                             <div class="col-md-4">
                                 <label class="font-weight-bold text-dark">Nombre</label>
@@ -71,24 +77,27 @@
                             <div class="col-md-4">
                                 <label class="font-weight-bold text-dark">Discapacidad</label>
                                 <select class="form-select" id="discapacidad" name="discapacidad">
-                                    <option value="0" {{ $persona->discapacidad == 0 ? 'selected' : '' }}>No</option>
-                                    <option value="1" {{ $persona->discapacidad == 1 ? 'selected' : '' }}>Sí</option>
+                                    <option value="">Seleccione la discapacidad</option>
+                                    <option value="Si" {{ (old('discapacidad', $persona->discapacidad ?? '') === 'Si') ? 'selected' : '' }}>Si</option>
+                                    <option value="No" {{ (old('discapacidad', $persona->discapacidad ?? '') === 'No') ? 'selected' : '' }}>No</option>
                                 </select>
                             </div>
 
-                            <div class="col-md-4">
+                            <div class="col-md-4" id="embarazada-container" style="display: none;">
                                 <label class="font-weight-bold text-dark">Embarazada</label>
                                 <select class="form-select" id="embarazada" name="embarazada">
-                                    <option value="0" {{ $persona->embarazada == 0 ? 'selected' : '' }}>No</option>
-                                    <option value="1" {{ $persona->embarazada == 1 ? 'selected' : '' }}>Sí</option>
+                                    <option value="">Seleccione el embarazo</option>
+                                    <option value="Si" {{ (old('embarazada', $persona->embarazada ?? '') === 'Si') ? 'selected' : '' }}>Si</option>
+                                    <option value="No" {{ (old('embarazada', $persona->embarazada ?? '') === 'No') ? 'selected' : '' }}>No</option>
                                 </select>
                             </div>
 
                             <div class="col-md-4">
                                 <label class="font-weight-bold text-dark">Jefe de Familia</label>
                                 <select class="form-select" id="jefe_familia" name="jefe_familia">
-                                    <option value="0" {{ $persona->jefe_familia == 0 ? 'selected' : '' }}>No</option>
-                                    <option value="1" {{ $persona->jefe_familia == 1 ? 'selected' : '' }}>Sí</option>
+                                    <option value="">Seleccione el jefe familiar</option>
+                                    <option value="Si" {{ (old('jefe_familiar', $persona->jefe_familiar ?? '') === 'Si') ? 'selected' : '' }}>Si</option>
+                                    <option value="No" {{ (old('jefe_familiar', $persona->jefe_familiar ?? '') === 'No') ? 'selected' : '' }}>No</option>
                                 </select>
                             </div>
 
@@ -101,7 +110,7 @@
                                 <span class="icon text-white-60"><i class="fas fa-check"></i></span>
                                 <span class="text">Guardar</span>
                             </button>
-                            <a class="btn btn-info btn-lg" href="{{ url('personas/') }}">
+                            <a class="btn btn-info btn-lg" href="{{ url('persona/') }}">
                                 <span class="icon text-white-50"><i class="fas fa-info-circle"></i></span>
                                 <span class="text">Regresar</span>
                             </a>
@@ -113,6 +122,22 @@
             </div>
         </div>
     </div>
+
+    {{--? Este script es para mostrar/ocultar el campo "Embarazada" --}}
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+    <script>
+        $(document).ready(function () {
+            $('#genero').change(function () {
+                if ($(this).val() === 'Femenino') {
+                    $('#embarazada-container').show();
+                } else {
+                    $('#embarazada-container').hide();
+                }
+            }).trigger('change'); // Ejecuta el cambio al cargar la página
+        });
+    </script>
 
     <script>
         function capitalizarPrimeraLetra(texto) {

@@ -22,12 +22,8 @@
                     {{ method_field('PATCH')}}
 
                     <div class="card-body">
-                        <div class="row">
 
-                            <div class="col-4">
-                                <label class="font-weight-bold text-dark">Dirección</label>
-                                <textarea class="form-control" id="direccion" name="dire_vivie" cols="10" rows="10" style="max-height: 6rem;" oninput="capitalizarInput('direccion')">{{ $vivienda->direccion }}</textarea>
-                            </div>
+                        <div class="row">
 
                             <div class="col-4">
                                 <label class="font-weight-bold text-dark">Tipo de Vivienda</label>
@@ -35,16 +31,13 @@
                             </div>
 
                             <div class="col-4">
-                                <label class="font-weight-bold text-dark">Persona Asignada</label>
-                                <select class="form-select" id="id_persona" name="id_persona">
-                                    @foreach($personas as $persona)
-                                        <option value="{{ $persona->id }}" @selected($vivienda->id_persona == $persona->id)>{{ $persona->nombre }} {{ $persona->apellido }}</option>
-                                    @endforeach
-                                </select>
+                                <label class="font-weight-bold text-dark">Dirección</label>
+                                <textarea class="form-control" id="direccion" name="dire_vivie" cols="10" rows="10" style="max-height: 6rem;" oninput="capitalizarInput('direccion')">{{ $vivienda->dire_vivie }}</textarea>
                             </div>
+
                         </div>
 
-                        <br>
+                        <br><br>
 
                         <center>
                             <button type="submit" class="btn btn-success btn-lg"><span class="icon text-white-60"><i class="fas fa-check"></i></span>

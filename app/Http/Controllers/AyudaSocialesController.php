@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\AyudaSociales;
-use App\Models\Personas;
 use Illuminate\Database\QueryException;
 use App\Http\Controllers\BitacoraController;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -27,8 +26,8 @@ class AyudaSocialesController extends Controller
      */
     public function index()
     {
-        $ayuda_sociales = AyudaSociales::with('persona')->get(); 
-        return view('ayuda_social.index', compact('ayuda_sociales'));
+        $ayuda_sociales = AyudaSociales::all(); 
+        return view('ayuda_sociales.index', compact('ayuda_sociales'));
     }
 
     /**
@@ -38,8 +37,7 @@ class AyudaSocialesController extends Controller
      */
     public function create()
     {
-        $personas = Personas::all(); // Obtener todos los registros de la tabla "personas"
-        return view('ayuda_social.create', compact('personas'));
+        return view('ayuda_sociales.create');
     }
 
     /**
@@ -50,18 +48,10 @@ class AyudaSocialesController extends Controller
      */
     public function store(Request $request)
     {
-       /** $request->validate([
-         *nombre_ayu' => 'required',
-          * 'descripcion' => 'required',
-          *'id_persona' => 'required|exists:personas,id',]);       
-            */
-      
-        
-
+       
         $ayuda_sociales = new AyudaSociales();
         $ayuda_sociales->nombre_ayu = $request->input('nombre_ayu');
         $ayuda_sociales->descripcion = $request->input('descripcion');
-        $ayuda_sociales->id_persona = $request->input('id_persona');
 
         $ayuda_sociales->save();
 
@@ -74,6 +64,7 @@ class AyudaSocialesController extends Controller
             $errorMessage = 'Error: ' . $exception->getMessage();
             return redirect()->back()->withErrors($errorMessage);
         }
+
     }
 
     /**
@@ -95,9 +86,8 @@ class AyudaSocialesController extends Controller
      */
     public function edit($id)
     {
-        $ayuda_sociales = AyudaSociales::find($id);
-        $personas = Personas::all();
-        return view('ayuda_social.edit', compact('ayuda_sociales', 'personas'));
+        $ayuda_social = AyudaSociales::find($id);
+        return view('ayuda_sociales.edit', compact('ayuda_social'));
     }
 
     /**
@@ -109,24 +99,18 @@ class AyudaSocialesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'nombre_ayu' => 'required',
-            'descripcion' => 'required',
-            'id_persona' => 'required|exists:id,personas',
-        ]);
 
-        $ayuda_sociales = AyudaSociales::find($id);
-        $ayuda_sociales->nombre_ayu = $request->input('nombre_ayu');
-        $ayuda_sociales->descripcion = $request->input('descripcion');
-        $ayuda_sociales->id_persona = $request->input('id_persona');
+        $ayuda_social = AyudaSociales::find($id);
+        $ayuda_social->nombre_ayu = $request->input('nombre_ayu');
+        $ayuda_social->descripcion = $request->input('descripcion');
 
-        $ayuda_sociales->save();
+        $ayuda_social->save();
 
         $bitacora = new BitacoraController();
         $bitacora->update();
 
         try {
-            return redirect('ayuda_social');
+            return redirect('ayuda_sociales');
 
         } catch (QueryException $exception) {
             $errorMessage = 'Error: ' . $exception->getMessage();
@@ -145,7 +129,7 @@ class AyudaSocialesController extends Controller
         AyudaSociales::find($id)->delete();
         $bitacora = new BitacoraController();
         $bitacora->update();
-        return redirect()->route('ayuda_social.index')->with('eliminar', 'ok');
+        return redirect()->route('ayuda_sociales.index')->with('eliminar', 'ok');
     }
 
 }
