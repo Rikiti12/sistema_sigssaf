@@ -12,6 +12,6 @@ class Personas extends Model
     protected $table = 'personas'; 
     protected $primaryKey = 'id';
     public $timestamps = true;
-    protected $fillable = [ 'cedula', 'nommbre', 'apellido', 'fecha_nacimiento', 'edad', 'genero', 'telefono', 'correo','direccion','discapacidad','embarazada','jefe_familia'];
+    protected $fillable = [ 'cedula', 'nombre', 'apellido', 'fecha_nacimiento', 'edad', 'genero', 'telefono', 'correo','direccion','discapacidad','embarazada','jefe_familia'];
 
 }

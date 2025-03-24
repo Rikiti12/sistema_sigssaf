@@ -145,6 +145,7 @@ class PersonasController extends Controller
     public function update(Request $request, $id)
     {
        // $request->validate([
+       // 'cedula' => 'required|unique:cedula',
           //  'nombre' => 'required',
             //'apellido' => 'required',
             //'fecha_nacimiento' => 'required|date',

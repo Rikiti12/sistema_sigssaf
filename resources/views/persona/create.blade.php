@@ -22,6 +22,11 @@
 
                         <div class="row">
 
+                        <div class="col-4">
+                                    <label  class="font-weight-bold text-dark">Cedula </label>
+                                    <input type="text" class="form-control" id="cedula" name="cedula" maxlength="8" style="background: white;" value="{{ old('cedula') }}" placeholder="Ingrese La Cedula" autocomplete="off" onkeypress="return solonum(event);">
+                                </div>
+        
                             <div class="col-md-4">
                                 <label class="font-weight-bold text-dark">Cédula</label>
                                 <input type="text" class="form-control" id="cedula" name="cedula" maxlength="8" style="background: white;" value="{{ old('cedula') }}" placeholder="Ingrese la Cédula" autocomplete="off" onkeypress="return solonum(event);">
