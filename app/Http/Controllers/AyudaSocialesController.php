@@ -110,7 +110,7 @@ class AyudaSocialesController extends Controller
         $bitacora->update();
 
         try {
-            return redirect('ayuda_sociales');
+            return redirect('ayuda_social');
 
         } catch (QueryException $exception) {
             $errorMessage = 'Error: ' . $exception->getMessage();
@@ -129,7 +129,7 @@ class AyudaSocialesController extends Controller
         AyudaSociales::find($id)->delete();
         $bitacora = new BitacoraController();
         $bitacora->update();
-        return redirect()->route('ayuda_sociales.index')->with('eliminar', 'ok');
+        return redirect()->route('ayuda_social.index')->with('eliminar', 'ok');
     }
 
 }

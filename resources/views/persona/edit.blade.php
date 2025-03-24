@@ -31,11 +31,6 @@
                            </div>
 
                             <div class="col-md-4">
-                                <label class="font-weight-bold text-dark">Cédula</label>
-                                <input type="text" class="form-control" id="cedula" name="cedula" maxlength="8" style="background: white;" value="{{ $persona->cedula }}" placeholder="Ingrese la cédula" autocomplete="off" onkeypress="return solonum(event);">
-                            </div>
-
-                            <div class="col-md-4">
                                 <label class="font-weight-bold text-dark">Nombre</label>
                                 <input type="text" class="form-control" id="nombre" name="nombre" style="background: white;" value="{{ $persona->nombre }}" placeholder="Ingrese el nombre" autocomplete="off" oninput="capitalizarInput('nombre')" onkeypress="return soloLetras(event);">
                             </div>
