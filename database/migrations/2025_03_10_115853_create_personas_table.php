@@ -19,14 +19,14 @@ return new class extends Migration
             $table->string('nombre');
             $table->string('apellido');
             $table->date('fecha_nacimiento');
-            $table->integer('edad')->nullable(); // Edad calculada, puede ser nula
+            $table->integer('edad'); 
             $table->string('genero');
             $table->string('telefono');
             $table->string('correo')->unique();
             $table->text('direccion');
-            $table->boolean('discapacidad');
-            $table->boolean('embarazada');
-            $table->boolean('jefe_familia');
+            $table->string('discapacidad');
+            $table->string('embarazada')->nullable();
+            $table->string('jefe_familia');
             $table->timestamps();
         });
     }

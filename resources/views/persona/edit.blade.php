@@ -26,7 +26,7 @@
 
                            <div class="col-4">
                               <label  class="font-weight-bold text-dark">Cédula </label>
-                              <input type="text" class="form-control" id="cedula" name="cedula" maxlength="8" style="background: white;" value="{{ $persona->cedula:'' }}" placeholder="Ingrese La cedula" autocomplete="off" onkeypress="return solonum(event);">
+                              <input type="text" class="form-control" id="cedula" name="cedula" maxlength="8" style="background: white;" value="{{ $persona->cedula }}" placeholder="Ingrese La cedula" autocomplete="off" onkeypress="return solonum(event);">
                            </div>
 
                             <div class="col-md-4">
@@ -76,24 +76,27 @@
                             <div class="col-md-4">
                                 <label class="font-weight-bold text-dark">Discapacidad</label>
                                 <select class="form-select" id="discapacidad" name="discapacidad">
-                                    <option value="0" {{ $persona->discapacidad == 0 ? 'selected' : '' }}>No</option>
-                                    <option value="1" {{ $persona->discapacidad == 1 ? 'selected' : '' }}>Sí</option>
+                                    <option value="0" selected="true" disabled>Seleccione la discapacidad</option>
+                                    <option value="NO" {{ (old('discapacidad', $persona->discapacidad ?? '') === 'NO') ? 'selected' : ''}}>No</option>
+                                    <option value="SI" {{ (old('discapacidad', $persona->discapacidad ?? '') === 'SI') ? 'selected' : ''}}>SI</option>
                                 </select>
                             </div>
 
-                            <div class="col-md-4">
+                            <div class="col-md-4" id="embarazada-container" style="display: none;">
                                 <label class="font-weight-bold text-dark">Embarazada</label>
                                 <select class="form-select" id="embarazada" name="embarazada">
-                                    <option value="0" {{ $persona->embarazada == 0 ? 'selected' : '' }}>No</option>
-                                    <option value="1" {{ $persona->embarazada == 1 ? 'selected' : '' }}>Sí</option>
+                                    <option value="0" selected="true" disabled>Seleccione el embarazo</option>
+                                    <option value="NO" {{ (old('embarazada', $persona->embarazada ?? '') === 'NO') ? 'selected' : ''}}>No</option>
+                                    <option value="SI" {{ (old('embarazada', $persona->embarazada ?? '') === 'SI') ? 'selected' : ''}}>SI</option>
                                 </select>
                             </div>
 
                             <div class="col-md-4">
                                 <label class="font-weight-bold text-dark">Jefe de Familia</label>
                                 <select class="form-select" id="jefe_familia" name="jefe_familia">
-                                    <option value="0" {{ $persona->jefe_familia == 0 ? 'selected' : '' }}>No</option>
-                                    <option value="1" {{ $persona->jefe_familia == 1 ? 'selected' : '' }}>Sí</option>
+                                    <option value="0" selected="true" disabled>Seleccione el jefe familiar</option>
+                                    <option value="NO" {{ (old('jefe_familia', $persona->jefe_familia ?? '') === 'NO') ? 'selected' : ''}}>No</option>
+                                    <option value="SI" {{ (old('jefe_familia', $persona->jefe_familia ?? '') === 'SI') ? 'selected' : ''}}>SI</option>
                                 </select>
                             </div>
 
@@ -106,7 +109,7 @@
                                 <span class="icon text-white-60"><i class="fas fa-check"></i></span>
                                 <span class="text">Guardar</span>
                             </button>
-                            <a class="btn btn-info btn-lg" href="{{ url('personas/') }}">
+                            <a class="btn btn-info btn-lg" href="{{ url('persona/') }}">
                                 <span class="icon text-white-50"><i class="fas fa-info-circle"></i></span>
                                 <span class="text">Regresar</span>
                             </a>
@@ -119,6 +122,8 @@
         </div>
     </div>
 
+    {{--? ESTA FUNCION ES PARA CONVERTIR LA PRIMERA LETRA EN MASYUCUSLA Y LAS DEMAS EN MINICUSLA  --}}
+
     <script>
         function capitalizarPrimeraLetra(texto) {
             return texto.charAt(0).toUpperCase() + texto.slice(1).toLowerCase();
@@ -128,6 +133,11 @@
             const inputElement = document.getElementById(idInput);
             inputElement.value = capitalizarPrimeraLetra(inputElement.value);
         }
+    </script>
+
+    {{--! ESTA FUNCION ES PARA CALCULAR LA EDAD DE LA PERSONA  --}}
+
+    <script>
 
         function calcularEdad() {
             const fechaNacimiento = document.getElementById("fecha_nacimiento").value;
@@ -144,6 +154,8 @@
         }
     </script>
 
+    {{--* ESTE SCRIPT ES PARA MOSTRAR LOS ERRORES DE VALIDACION  --}}
+
     @if ($errors->any())
         <script>
             var errors = @json($errors->all());
@@ -159,5 +171,21 @@
             });
         </script>
     @endif
+
+    {{--? Este script es para mostrar/ocultar el campo "Embarazada" --}}
+     
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+     
+    <script>
+        $(document).ready(function () {
+            $('#genero').change(function () {
+                if ($(this).val() === 'Femenino') {
+                    $('#embarazada-container').show();
+                } else {
+                    $('#embarazada-container').hide();
+                }
+            }).trigger('change'); // Ejecuta el cambio al cargar la página
+        });
+    </script>
 
 @endsection

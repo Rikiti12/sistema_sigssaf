@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Viviendas;
-use App\Models\Personas;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
@@ -40,9 +39,7 @@ class ViviendasController extends Controller
      */
     public function create()
     {
-        $personas = Personas::all();
-        // $comunidades = Comunas::all();
-        return view('vivienda.create', compact('personas'));
+        return view('vivienda.create');
     }
 
     /**
@@ -53,16 +50,16 @@ class ViviendasController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'dire_vivie' => 'required',
-            'tipo_vivie' => 'required',
-            'id_persona' => 'required',
-        ]);
+        // $request->validate([
+        //     'dire_vivie' => 'required',
+        //     'tipo_vivie' => 'required',
+        //     'id_persona' => 'required',
+        // ]);
 
         $viviendas = new Viviendas();
         $viviendas->dire_vivie = $request->input('dire_vivie');
         $viviendas->tipo_vivie = $request->input('tipo_vivie');
-        $viviendas->id_persona = $request->input('id_persona');
+        // $viviendas->id_persona = $request->input('id_persona');
         
 
         $viviendas->save();
@@ -98,9 +95,7 @@ class ViviendasController extends Controller
     public function edit($id)
     {
         $vivienda = Viviendas::find($id);
-        $personas = Personas::all();
-        // $comunidades = Comunas::all();
-        return view('vivienda.edit', compact('vivienda', 'personas'));
+        return view('vivienda.edit', compact('vivienda'));
     }
 
     /**
@@ -112,17 +107,16 @@ class ViviendasController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'dire_vivie' => 'required',
-            'tipo_vivie' => 'required',
-            'id_persona' => 'required',
-        ]);
+        // $request->validate([
+        //     'dire_vivie' => 'required',
+        //     'tipo_vivie' => 'required',
+        //     'id_persona' => 'required',
+        // ]);
 
         $vivienda = Viviendas::find($id);
 
         $vivienda->dire_vivie = $request->input('dire_vivie');
         $vivienda->tipo_vivie = $request->input('tipo_vivie');
-        $vivienda->id_persona = $request->input('id_persona');
 
         $vivienda->save();
 

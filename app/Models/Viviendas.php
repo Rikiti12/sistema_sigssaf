@@ -12,15 +12,6 @@ class Viviendas extends Model
     protected $table = 'viviendas';
     protected $primaryKey = 'id';
     public $timestamps = true;
-     protected $fillable = ['dire_vivie', 'tipo_vivie', 'id_persona'];
+     protected $fillable = ['dire_vivie', 'tipo_vivie'];
 
-    public function persona()
-    {
-        return $this->belongsTo(Personas::class, 'id_persona');
-    }
-
-    //     public function comunidad()
-    //     {
-     //         return $this->belongsTo(Comunas::class, 'id_comunidad');
-    //     }
 }

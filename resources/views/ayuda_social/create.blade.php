@@ -15,33 +15,23 @@
                     <h2 class="font-weight-bold text-dark">Registrar Ayuda Social</h2>
                 </div>
 
-                <form method="post" action="{{ route('ayuda_sociales.store') }}" enctype="multipart/form-data" onsubmit="return AyudaSociales (this)">
+                <form method="post" action="{{ route('ayuda_social.store') }}" enctype="multipart/form-data" onsubmit="return AyudaSociales (this)">
                         @csrf
 
                     <div class="card-body">
+
                         <div class="row">
 
-                        <div class="col-md-4">
+                            <div class="col-md-4">
                                 <label class="font-weight-bold text-dark">Nombre De La Ayuda</label>
                                 <input type="text" class="form-control" id="nombre_ayu" name="nombre_ayu"style="background: white;" value="" placeholder="Ingrese la ayuda" autocomplete="off" oninput="capitalizarInput('nombre_ayu')" onkeypress="return soloLetras(event);">
                             </div>
 
                             <div class="col-4">
-                                    <label  class="font-weight-bold text-dark">Descripcion</label>
-                                    <input type="text" class="form-control" id="descripcion" name="descripcion" style="background: white;" value="" placeholder="Ingrese la descripcion de la ayuda" autocomplete="off"  oninput="capitalizarInput('descripcion')" onkeypress="return soloLetras(event);">
-                                </div>
+                                <label  class="font-weight-bold text-dark">Descripcion</label>
+                                <input type="text" class="form-control" id="descripcion" name="descripcion" style="background: white;" value="" placeholder="Ingrese la descripcion de la ayuda" autocomplete="off"  oninput="capitalizarInput('descripcion')" onkeypress="return soloLetras(event);">
+                            </div>
 
-                                <div class="col-4">
-                                    <label  class="font-weight-bold text-dark">Persona Asignado</label>
-                                    <select class="form-select" id="id_persona" name="id_persona">
-                                        <option value="">Seleccione una persona </option>
-                                        @foreach($personas as $persona)
-                                        <option value="{{ $persona->id }}" {{ old('id_persona') == $persona->id ? 'selected' : '' }}>
-                                       {{ $persona->nombre }} {{ $persona->apellido }} - {{ $persona->cedula }}
-                                         </option>
-                                        @endforeach
-                                    </select>                                   
-                                </div>
                         </div>
 
                         <br><br>
@@ -58,6 +48,7 @@
                         </center>
 
                     </div>
+
                 </form>
 
             </div>
