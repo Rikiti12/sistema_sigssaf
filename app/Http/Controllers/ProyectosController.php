@@ -89,11 +89,8 @@ class ProyectosController extends Controller
      */
     public function show($id)
     {
-        $proyecto = Proyectos::find($id);
-        if (!$proyecto) {
-            return redirect()->route('proyecto.index')->withErrors('Proyecto no encontrado.');
-        }
-        return view('proyecto.show', compact('proyecto'));
+        // No se usa
+
     }
 
     /**
@@ -104,10 +101,10 @@ class ProyectosController extends Controller
      */
     public function edit($id)
     {
-        $proyectos = Proyectos::find($id);
+        $proyecto = Proyectos::find($id);
         $personas = Personas::all();
         $comunidades = Comunidades::all();
-        return view('proyecto.edit', compact('proyectos', 'personas', 'comunidades'));
+        return view('proyecto.edit', compact('proyecto', 'personas', 'comunidades'));
     }
 
     /**
@@ -119,13 +116,13 @@ class ProyectosController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'nombre_pro' => 'required',
-            'descripcion_pro' => 'required',
-            'id_persona' => 'required|exists:personas,id',
-            'id_comunidad' => 'required|exists:comunidades,id',
-            'fecha_inicial' => 'required|date',
-        ]);
+        // $request->validate([
+        //     'nombre_pro' => 'required',
+        //     'descripcion_pro' => 'required',
+        //     'id_persona' => 'required|exists:personas,id',
+        //     'id_comunidad' => 'required|exists:comunidades,id',
+        //     'fecha_inicial' => 'required|date',
+        // ]);
 
         $proyecto = Proyectos::find($id);
         $proyecto->nombre_pro = $request->input('nombre_pro');
@@ -140,7 +137,7 @@ class ProyectosController extends Controller
         $bitacora->update();
 
         try {
-            return redirect('proyecto');
+            return redirect('planificacion');
         } catch (QueryException $exception) {
             $errorMessage = 'Error: ' . $exception->getMessage();
             return redirect()->back()->withErrors($errorMessage);
@@ -155,10 +152,10 @@ class ProyectosController extends Controller
      */
     public function destroy($id)
     {
-        Proyecto::find($id)->delete();
-        $bitacora = new BitacoraController();
-        $bitacora->update();
-        return redirect()->route('proyecto.index')->with('eliminar', 'ok');
+        // Proyecto::find($id)->delete();
+        // $bitacora = new BitacoraController();
+        // $bitacora->update();
+        // return redirect()->route('proyecto.index')->with('eliminar', 'ok');
     }  
 
 }    

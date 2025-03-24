@@ -27,8 +27,8 @@ class PlanificacionesController extends Controller
      */
     public function index()
     {
-        $planificaciones = Planificaciones::all();
-        return view('proyecto.index', compact('planificaciones'));
+        $proyectos = Proyectos::with('personas')->get(); // Cargar la relación con tabla "personas"
+        return view('planificacion.index', compact('proyectos'));
     }
 
     /**
@@ -38,10 +38,10 @@ class PlanificacionesController extends Controller
      */
     public function create()
     {
-        $proyectos = Proyectos::all();
-        $personas = Personas::all();
-        $comunidades = Comunidades::all();
-        return view('planificacion.create', compact('proyectos', 'personas', 'comunidades'));
+        // $proyectos = Proyectos::all();
+        // $personas = Personas::all();
+        // $comunidades = Comunidades::all();
+        // return view('planificacion.create', compact('proyectos', 'personas', 'comunidades'));
     }
 
     /**
@@ -52,22 +52,22 @@ class PlanificacionesController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'nombre_pro' => 'required',
-            'descripcion_pro' => 'required',
-            'id_persona' => 'required|exists:personas,id',
-            'id_comunidad' => 'required|exists:comunidades,id',
-            'fecha_inicial' => 'required|date',
-        ]);
+        // $request->validate([
+        //     'nombre_pro' => 'required',
+        //     'descripcion_pro' => 'required',
+        //     'id_persona' => 'required|exists:personas,id',
+        //     'id_comunidad' => 'required|exists:comunidades,id',
+        //     'fecha_inicial' => 'required|date',
+        // ]);
 
-        $planificaciones = new Planificaciones();
-        $planificaciones->nombre_pro = $request->input('nombre_pro');
-        $planificaciones->descripcion_pro = $request->input('descripcion_pro');
-        $planificaciones->id_persona = $request->input('id_persona');
-        $planificaciones->id_comunidad = $request->input('id_comunidad');
-        $planificaciones->fecha_inicial = $request->input('fecha_inicial');
+        // $planificaciones = new Planificaciones();
+        // $planificaciones->nombre_pro = $request->input('nombre_pro');
+        // $planificaciones->descripcion_pro = $request->input('descripcion_pro');
+        // $planificaciones->id_persona = $request->input('id_persona');
+        // $planificaciones->id_comunidad = $request->input('id_comunidad');
+        // $planificaciones->fecha_inicial = $request->input('fecha_inicial');
 
-        $planificaciones->save();
+        // $planificaciones->save();
 
         $bitacora = new BitacoraController();
         $bitacora->update();
@@ -88,11 +88,11 @@ class PlanificacionesController extends Controller
      */
     public function show($id)
     {
-         $planificacion = Planificaciones::find($id);
-         if (!$planificacion) {
-             return redirect()->route('planificacion.index')->withErrors('Planificación no encontrada.');
-        }
-         return view('planificacion.show', compact('planificacion'));
+        //  $planificacion = Planificaciones::find($id);
+        //  if (!$planificacion) {
+        //      return redirect()->route('planificacion.index')->withErrors('Planificación no encontrada.');
+        // }
+        //  return view('planificacion.show', compact('planificacion'));
     }
 
     /**
@@ -103,11 +103,11 @@ class PlanificacionesController extends Controller
      */
     public function edit($id)
     {
-        $planificaciones = Planificaciones::find($id);
-        $proyectos = Proyectos::all();
-        $personas = Personas::all();
-        $comunidades = Comunidades::all();
-        return view('planificacion.edit', compact('planificaciones','proyectos', 'personas', 'comunidades'));
+        // $planificaciones = Planificaciones::find($id);
+        // $proyectos = Proyectos::all();
+        // $personas = Personas::all();
+        // $comunidades = Comunidades::all();
+        // return view('planificacion.edit', compact('planificaciones','proyectos', 'personas', 'comunidades'));
     }
 
     /**
@@ -119,32 +119,32 @@ class PlanificacionesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'nombre_pro' => 'required',
-            'descripcion_pro' => 'required',
-            'id_persona' => 'required|exists:personas,id',
-            'id_comunidad' => 'required|exists:comunidades,id',
-            'fecha_inicial' => 'required|date',
-        ]);
+        // $request->validate([
+        //     'nombre_pro' => 'required',
+        //     'descripcion_pro' => 'required',
+        //     'id_persona' => 'required|exists:personas,id',
+        //     'id_comunidad' => 'required|exists:comunidades,id',
+        //     'fecha_inicial' => 'required|date',
+        // ]);
 
-        $planificacion = Planificaciones::find($id);
-        $planificacion->nombre_pro = $request->input('nombre_pro');
-        $planificacion->descripcion_pro = $request->input('descripcion_pro');
-        $planificacion->id_persona = $request->input('id_persona');
-        $planificacion->id_comunidad = $request->input('id_comunidad');
-        $planificacion->fecha_inicial = $request->input('fecha_inicial');
+        // $planificacion = Planificaciones::find($id);
+        // $planificacion->nombre_pro = $request->input('nombre_pro');
+        // $planificacion->descripcion_pro = $request->input('descripcion_pro');
+        // $planificacion->id_persona = $request->input('id_persona');
+        // $planificacion->id_comunidad = $request->input('id_comunidad');
+        // $planificacion->fecha_inicial = $request->input('fecha_inicial');
 
-        $planificacion->save();
+        // $planificacion->save();
 
-        $bitacora = new BitacoraController();
-        $bitacora->update();
+        // $bitacora = new BitacoraController();
+        // $bitacora->update();
 
-        try {
-            return redirect('planificacion');
-        } catch (QueryException $exception) {
-            $errorMessage = 'Error: ' . $exception->getMessage();
-            return redirect()->back()->withErrors($errorMessage);
-        }
+        // try {
+        //     return redirect('planificacion');
+        // } catch (QueryException $exception) {
+        //     $errorMessage = 'Error: ' . $exception->getMessage();
+        //     return redirect()->back()->withErrors($errorMessage);
+        // }
     }
 
     /**
@@ -155,10 +155,10 @@ class PlanificacionesController extends Controller
      */
     public function destroy($id)
     {
-        Planificaciones::find($id)->delete();
-        $bitacora = new BitacoraController();
-        $bitacora->update();
-        return redirect()->route('planificacion.index')->with('eliminar', 'ok');
+        // Planificaciones::find($id)->delete();
+        // $bitacora = new BitacoraController();
+        // $bitacora->update();
+        // return redirect()->route('planificacion.index')->with('eliminar', 'ok');
     }
 
 }

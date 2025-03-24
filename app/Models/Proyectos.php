@@ -16,7 +16,7 @@ class Proyectos extends Model
     ];
 
     // Relaciones (si es necesario)
-    public function persona()
+    public function personas()
     {
         return $this->belongsTo(Personas::class, 'id_persona');
     }

@@ -110,7 +110,7 @@
             </li>
             <li class="nav-small-cap">
               <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
-              <span class="hide-menu">Proceso</span>
+              <span class="hide-menu">Procesos</span>
             </li>
             <li class="sidebar-item">
              @can('ver-proyecto') 
@@ -127,7 +127,7 @@
             </li>
             <li class="sidebar-item">
              @can('ver-planificacion') 
-              <a class="sidebar-link" href="{{ route('planificacion.create') }}" aria-expanded="false">
+              <a class="sidebar-link" href="{{ url('planificacion') }}" aria-expanded="false">
                   <span>
                       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-file-earmark-text" viewBox="0 0 16 16">
                           <path d="M5.5 7a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5zM5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z"/>
@@ -166,6 +166,27 @@
               <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
               <span class="hide-menu">Estadisticas</span>
             </li>-->
+            
+            <li class="nav-small-cap">
+              <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+              <span class="hide-menu">Estadisticas</span>
+            </li>
+            {{-- <li class="sidebar-item">
+              <a class="sidebar-link" href="./icon-tabler.html" aria-expanded="false">
+                <span>
+                  <i class="ti ti-mood-happy"></i>
+                </span>
+                <span class="hide-menu">Icons</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="./sample-page.html" aria-expanded="false">
+                <span>
+                  <i class="ti ti-aperture"></i>
+                </span>
+                <span class="hide-menu">Sample Page</span>
+              </a>
+            </li> --}}
             <li class="sidebar-item">
               <a class="sidebar-link" href="./authentication-login.html" aria-expanded="false">
                 <span>
@@ -180,26 +201,6 @@
                   <i class="ti ti-user-plus"></i>
                 </span>
                 <span class="hide-menu">Bitacora</span>
-              </a>
-            </li>
-             <li class="nav-small-cap">
-              <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
-              <span class="hide-menu">EXTRA</span>
-            </li>
-            <li class="sidebar-item">
-              <a class="sidebar-link" href="./icon-tabler.html" aria-expanded="false">
-                <span>
-                  <i class="ti ti-mood-happy"></i>
-                </span>
-                <span class="hide-menu">Icons</span>
-              </a>
-            </li>
-            <li class="sidebar-item">
-              <a class="sidebar-link" href="./sample-page.html" aria-expanded="false">
-                <span>
-                  <i class="ti ti-aperture"></i>
-                </span>
-                <span class="hide-menu">Sample Page</span>
               </a>
             </li> 
           </ul>

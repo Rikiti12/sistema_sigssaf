@@ -104,7 +104,7 @@ class PersonasController extends Controller
         $bitacora->update();
 
         try {
-            return redirect()->route('persona.index');
+            return redirect()->route('planificacion.index');
         } catch (QueryException $exception) {
             $errorMessage = 'Error: ' . $exception->getMessage();
             return redirect()->back()->withErrors($errorMessage);
@@ -179,7 +179,7 @@ class PersonasController extends Controller
         $bitacora->update();
 
         try {
-            return redirect('persona');
+            return redirect('planificacion');
         } catch (QueryException $exception) {
             $errorMessage = 'Error: ' . $exception->getMessage();
             return redirect()->back()->withErrors($errorMessage);
@@ -194,9 +194,9 @@ class PersonasController extends Controller
      */
     public function destroy($id)
     {
-        Personas::find($id)->delete();
-        $bitacora = new BitacoraController();
-        $bitacora->update();
-        return redirect()->route('persona.index')->with('eliminar', 'ok');
+        // Personas::find($id)->delete();
+        // $bitacora = new BitacoraController();
+        // $bitacora->update();
+        // return redirect()->route('persona.index')->with('eliminar', 'ok');
     }
 }
