@@ -59,7 +59,7 @@ class AyudaSocialesController extends Controller
         $bitacora->update();
 
         try {
-            return redirect()->route('ayuda_sociales.index');
+            return redirect()->route('ayuda_social.index');
         } catch (QueryException $exception) {
             $errorMessage = 'Error: ' . $exception->getMessage();
             return redirect()->back()->withErrors($errorMessage);

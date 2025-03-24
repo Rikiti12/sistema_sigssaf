@@ -15,11 +15,10 @@
                     <h2 class="font-weight-bold text-dark">Registrar Ayuda Social</h2>
                 </div>
 
-                <form method="post" action="{{ route('ayuda_sociales.store') }}" enctype="multipart/form-data" onsubmit="return AyudaSociales (this)">
+                <form method="post" action="{{ route('ayuda_social.store') }}" enctype="multipart/form-data" onsubmit="return AyudaSociales (this)">
                         @csrf
 
                     <div class="card-body">
-                        
                         <div class="row">
 
                             <div class="col-md-4">

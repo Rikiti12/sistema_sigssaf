@@ -33,7 +33,7 @@
                                 <label  class="font-weight-bold text-dark">Dirección</label>
                                 <textarea class="form-control" id="direccion" name="dire_vivie" cols="10" rows="10" style="max-height: 6rem;" oninput="capitalizarInput('direccion')">{{ old('direccion') }}</textarea>                                   
                             </div>
-                            
+                             
                         </div>
 
                     </div>

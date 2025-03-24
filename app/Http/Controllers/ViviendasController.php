@@ -59,6 +59,8 @@ class ViviendasController extends Controller
         $viviendas = new Viviendas();
         $viviendas->dire_vivie = $request->input('dire_vivie');
         $viviendas->tipo_vivie = $request->input('tipo_vivie');
+        // $viviendas->id_persona = $request->input('id_persona');
+        
 
         $viviendas->save();
 

@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('nombre_ayu');
             $table->text('descripcion');
             $table->timestamps();
-
+            
         });
     }
 

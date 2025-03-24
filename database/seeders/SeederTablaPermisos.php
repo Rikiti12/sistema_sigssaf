@@ -60,6 +60,18 @@ class SeederTablaPermisos extends Seeder
              'crear-vivienda',
              'editar-vivienda',
              'borrar-vivienda',
+
+             // Operaciones sobre tabla Proyectos
+             'ver-proyecto',
+             'crear-proyecto',
+             'editar-proyecto',
+             
+             // Operaciones sobre tabla Planificaciones
+             'ver-planificacion',
+             'crear-planificacion',
+             'editar-planificacion',
+             
+            
             
         ];
 

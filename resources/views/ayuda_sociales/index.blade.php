@@ -10,35 +10,36 @@
 
     <div class="container-fluid" id="container-wrapper">
         <div class="d-sm-flex align-items-center justify-content-center mb-4"></div>
-        <div class="col-12 w-100">
-            <div class="card mb-4 w-100">
+            <div class="col-12 w-100">
+                <div class="card mb-4 w-100">
 
-                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
 
-                    <a href="{{ url('ayuda_sociales/pdf') }}" class="btn btn-sm btn-danger" target="_blank" id="pdfButton">
-                        {{ ('PDF') }}
-                    </a>
+                        <a href="{{ url('ayuda_sociales/pdf') }}" class="btn btn-sm btn-danger" target="_blank" id="pdfButton">
+                            {{ ('PDF') }}
+                        </a>
 
-                    <h2 class="font-weight-bold text-dark" style="margin-left: 6%;">Gestión de Ayuda Sociales</h2>
+                        <h2 class="font-weight-bold text-dark" style="margin-left: 6%;">Gestión de Ayuda Sociales</h2>
 
-                    @can('editar-ayuda_sociales')
-                        <form action="{{ route('ayuda_sociales.create') }}" method="get" style="display:inline;">
-                            <button type="submit" class="btn btn-primary btn-mb">
-                                <span class="">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor"
-                                        class="bi bi-person-plus-fill" viewBox="0 0 16 16">
-                                        <path
-                                            d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
-                                        <path fill-rule="evenodd"
-                                            d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5" />
-                                    </svg>
-                                </span>
-                            <span class="text">Crear</span></button>
-                        </form>
-                    @endcan
+                        @can('crear-ayuda_sociales')
+                            <form action="{{ route('ayuda_social.create') }}" method="get" style="display:inline;">
+                                <button type="submit" class="btn btn-primary btn-mb">
+                                    <span class="">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor"
+                                            class="bi bi-person-plus-fill" viewBox="0 0 16 16">
+                                            <path
+                                                d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
+                                            <path fill-rule="evenodd"
+                                                d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5" />
+                                        </svg>
+                                    </span>
+                                    <span class="text">Crear</span></button>
+                            </form>
+                        @endcan 
 
-                </div>
+                    </div>
 
+<<<<<<< HEAD:resources/views/ayuda_sociales/index.blade.php
                 <div class="table-responsive p-3">
                     <table class="table align-items-center table-flush" id="dataTable">
                         <thead class="thead-light">
@@ -81,9 +82,61 @@
                             @endforeach
                         </tbody>
                     </table>
+=======
+                    <div class="table-responsive p-3">
+                        <table class="table align-items-center table-flush" id="dataTable">
+                            <thead class="thead-light">
+                                <tr>
+                                <th class="font-weight-bold text-dark">Nombre</th>
+                                    <th class="font-weight-bold text-dark">Descripción</th>
+                                    {{-- <th class="font-weight-bold text-dark">Persona Asignada</th> --}}
+                                    <th class="font-weight-bold text-dark"><center>Acciones</center></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            @foreach ($ayuda_sociales as $ayuda_social)
+                                    <tr>
+                                        <td class="font-weight-bold text-dark">{{ $ayuda_social->nombre_ayu }}</td>
+                                        <td class="font-weight-bold text-dark">{{ $ayuda_social->descripcion }}</td>
+                                        {{-- <td class="font-weight-bold text-dark">
+                                            {{ $ayuda_social->persona->nombre }} {{ $ayuda_social->persona->apellido }} -
+                                            {{ $ayuda_social->persona->cedula }}
+                                        </td> --}}
+
+                                        <td>
+
+                                            <div style="display: flex; justify-content: center;">
+
+                                                @can('editar-ayuda_sociales')
+                                                    <a class="btn btn-warning btn-sm" href="{{ route('ayuda_social.edit', $ayuda_social->id) }}">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                                            fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
+                                                            <path
+                                                                d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z" />
+                                                        </svg>
+                                                    </a>
+                                                    @endcan
+
+                                                    @can('borrar-ayuda_sociales')
+                                                        <form action="{{ route('ayuda_social.destroy', $ayuda_social->id) }}" method="POST" class="sweetalert" style="margin: 0 3px;">
+                                                            @csrf
+                                                            {{ method_field('DELETE') }}
+                                                            <button class="btn btn-danger btn-sm" type="submit" value=""><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
+                                                                <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47M8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5"/>
+                                                            </svg></button>
+                                                        </form> 
+                                                    @endcan
+                                            </div>
+
+                                        </td>
+                                    </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+>>>>>>> f5c9705:resources/views/ayuda_social/index.blade.php
                 </div>
             </div>
-        </div>
     </div>
 
 @endsection 

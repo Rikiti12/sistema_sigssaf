@@ -84,7 +84,7 @@
             </li>
             <li class="sidebar-item">
             @can('ver-ayuda_sociales')
-              <a class="sidebar-link" href="{{ url('ayuda_sociales') }}" aria-expanded="false">
+              <a class="sidebar-link" href="{{ url('ayuda_social') }}" aria-expanded="false">
              <span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-hand-thumbs-up" viewBox="0 0 16 16">
                     <path d="M8.864 1.667c-.344-.165-.856-.165-1.2 0L.532 5.166V6.5h3.976c.218 0 .41.107.5.5V8c0 .27.096.517.261.667a.772.772 0 0 0 .089.146c.082.076.188.13.304.134h3.978c.31 0 .588-.155.776-.39l3.5-3.5a.5.5 0 0 0-.708-.708L8.864 1.667zM6.96 9.03a1.5 1.5 0 0 1-.413.247l-.073.048c-.358.238-.83.219-1.154-.04zm3.45 1.447c.251.094.543.12.839.055l.659-.163c.244-.06.527-.24.71-.48L12 10a.5.5 0 0 1 .618-.176l.614.307c.272.136.563.32.87.518l.24-.16a1.5 1.5 0 0 1 1.056-1.685L13.433 8.3c.155-.15.248-.365.248-.598v-.128c0-.233-.093-.448-.248-.598l-.84-.84c-.317-.317-.72-.48-.994-.48l-6.14 3.07c-.272.136-.563.32-.87.518l-.24.16a1.5 1.5 0 0 1-1.056 1.685L6.567 10.7c-.155.15-.248.365-.248.598v.128c0 .233.093.448.248.598l.84.84c.317.317.72.48.994.48l6.14-3.07c.272-.136.563-.32.87-.518l.24.16a1.5 1.5 0 0 1 1.056 1.685z"/>
@@ -106,6 +106,36 @@
                   </span>
                   <span class="hide-menu">Viviendas</span>
                 </a>
+              @endcan
+            </li>
+            <li class="nav-small-cap">
+              <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+              <span class="hide-menu">Proceso</span>
+            </li>
+            <li class="sidebar-item">
+             @can('ver-proyecto') 
+              <a class="sidebar-link" href="{{ route('proyecto.create') }}" aria-expanded="false">
+                  <span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-file-earmark-text" viewBox="0 0 16 16">
+                          <path d="M5.5 7a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5zM5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z"/>
+                          <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"/>
+                      </svg>
+                  </span>
+                  <span class="hide-menu"> Asignar Proyectos</span>
+              </a>
+              @endcan
+            </li>
+            <li class="sidebar-item">
+             @can('ver-planificacion') 
+              <a class="sidebar-link" href="{{ route('planificacion.create') }}" aria-expanded="false">
+                  <span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-file-earmark-text" viewBox="0 0 16 16">
+                          <path d="M5.5 7a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5zM5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z"/>
+                          <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"/>
+                      </svg>
+                  </span>
+                  <span class="hide-menu"> Planificaciones</span>
+              </a>
               @endcan
             </li>
             <!--<li class="sidebar-item">
@@ -198,8 +228,8 @@
             </li>
           </ul>
           <div class="navbar-collapse justify-content-end px-0" id="navbarNav">
-            <MARQUEE style="color: rgb(0, 0, 0);"> BIENVENID@ {{ Auth::user()->name }} al Implementación de Sistema de Información para la Gestión Social en la Sala Situacional de la Alcaldía de San Felipe.
-              (SIGSSAF) </MARQUEE>
+            <MARQUEE style="color: rgb(0, 0, 0);"> BIENVENID@ {{ Auth::user()->name }} al Implementación de Sistema de Información para la Gestión de Infogobierno en la Sala Situacional de la Alcaldía de San Felipe.
+              (SIGISSAF) </MARQUEE>
             <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-end">
               {{-- <a href="https://adminmart.com/product/modernize-free-bootstrap-admin-dashboard/" target="_blank" class="btn btn-primary">Download Free</a> --}}
               <li class="nav-item dropdown">

@@ -45,7 +45,7 @@ class PersonasController extends Controller
             'genero' =>$persona->genero,
 
         ]);
-
+ 
     }
 
     /**
@@ -68,7 +68,7 @@ class PersonasController extends Controller
     public function store(Request $request)
     {
         // $request->validate([
-        //     'correo' => 'required|cedula|unique:personas,cedula',
+        //     'cedula' => 'required|unique:personas,cedula',
         //     'nombre' => 'required',
         //     'apellido' => 'required',
         //     'fecha_nacimiento' => 'required|date',
@@ -80,8 +80,8 @@ class PersonasController extends Controller
         //     'embarazada' => 'required|boolean',
         //     'jefe_familia' => 'required|boolean',
         // ], [
-        //     'correo.unique' => 'Este cedula ya existe.',
-        //     'correo.unique' => 'Este correo ya existe.'
+        //     'correo.unique' => 'Este correo ya existe.',
+        //     'cedula.unique' => 'Este cedula ya existe.',
         // ]);
 
         $personas = new Personas();

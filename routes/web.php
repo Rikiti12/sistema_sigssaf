@@ -16,6 +16,8 @@ use App\Http\Controllers\ComunidadesController;
 use App\Http\Controllers\PersonasController;
 use App\Http\Controllers\AyudaSocialesController;
 use App\Http\Controllers\ViviendasController;
+use App\Http\Controllers\ProyectosController;
+use App\Http\Controllers\PlanificacionesController;
 use App\Http\Controllers\ReporteController;
 use App\Http\Controllers\ManualController;
 
@@ -76,16 +78,28 @@ Route::resource('persona', PersonasController::class)->middleware('auth');
 Route::get('/persona/detalles/{id}', [PersonasController::class, 'getPersonaDetalles']);
 
 /* Ruta Ayudas Sociales */
-Route::get('/ayuda_sociales', [AyudaSocialesController::class, 'index'])->name('ayuda_sociales')->middleware('auth');
-Route::get('/ayuda_sociales/create', [AyudaSocialesController::class, 'create'])->name('ayuda_sociales.create')->middleware('auth');
-Route::get('/ayuda_sociales/pdf', [AyudaSocialesController::class, 'pdf'])->name('ayuda_sociales.pdf')->middleware('auth');
-Route::resource('ayuda_sociales', AyudaSocialesController::class)->middleware('auth');
+Route::get('/ayuda_social', [AyudaSocialesController::class, 'index'])->name('ayuda_social')->middleware('auth');
+Route::get('/ayuda_social/create', [AyudaSocialesController::class, 'create'])->name('ayuda_social.create')->middleware('auth');
+Route::get('/ayuda_social/pdf', [AyudaSocialesController::class, 'pdf'])->name('ayuda_social.pdf')->middleware('auth');
+Route::resource('ayuda_social', AyudaSocialesController::class)->middleware('auth');
 
 /* Ruta Viviendas */
 Route::get('/vivienda', [ViviendasController::class, 'index'])->name('vivienda')->middleware('auth');
 Route::get('/vivienda/create', [ViviendasController::class, 'create'])->name('vivienda.create')->middleware('auth');
 Route::get('/vivienda/pdf', [ViviendasController::class, 'pdf'])->name('vivienda.pdf')->middleware('auth');
 Route::resource('vivienda', ViviendasController::class)->middleware('auth');
+
+/* Rutas Proyecto */
+Route::get('/proyecto', [ProyectosController::class, 'index'])->name('proyecto')->middleware('auth');
+Route::get('/proyecto/create', [ProyectosController::class, 'create'])->name('proyecto.create')->middleware('auth');
+Route::get('/proyecto/pdf', [ProyectosController::class, 'pdf'])->name('proyecto.pdf')->middleware('auth');
+Route::resource('proyecto', ProyectosController::class)->middleware('auth');
+
+/* Rutas Planificacion */
+Route::get('/planificacion', [PlanificacionesController::class, 'index'])->name('planificacion')->middleware('auth');
+Route::get('/planificacion/create', [PlanificacionesController::class, 'create'])->name('planificacion.create')->middleware('auth');
+Route::get('/planificacion/pdf', [PlanificacionesController::class, 'pdf'])->name('planificacion.pdf')->middleware('auth');
+Route::resource('planificacion', PlanificacionesController::class)->middleware('auth');
 
 /* Ruta Bitacora*/
 Route::get('bitacora', [ReporteController::class, 'bitacora'])->name('bitacora')->middleware('auth');

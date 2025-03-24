@@ -27,7 +27,7 @@
 
                            <div class="col-4">
                               <label  class="font-weight-bold text-dark">Cédula </label>
-                              <input type="text" class="form-control" id="cedula" name="cedula" maxlength="8" style="background: white;" value="{{ $persona->cedula:'' }}" placeholder="Ingrese La cedula" autocomplete="off" onkeypress="return solonum(event);">
+                              <input type="text" class="form-control" id="cedula" name="cedula" maxlength="8" style="background: white;" value="{{ $persona->cedula }}" placeholder="Ingrese La cedula" autocomplete="off" onkeypress="return solonum(event);">
                            </div>
 
                             <div class="col-md-4">
@@ -82,27 +82,27 @@
                             <div class="col-md-4">
                                 <label class="font-weight-bold text-dark">Discapacidad</label>
                                 <select class="form-select" id="discapacidad" name="discapacidad">
-                                    <option value="">Seleccione la discapacidad</option>
-                                    <option value="Si" {{ (old('discapacidad', $persona->discapacidad ?? '') === 'Si') ? 'selected' : '' }}>Si</option>
-                                    <option value="No" {{ (old('discapacidad', $persona->discapacidad ?? '') === 'No') ? 'selected' : '' }}>No</option>
+                                    <option value="0" selected="true" disabled>Seleccione la discapacidad</option>
+                                    <option value="NO" {{ (old('discapacidad', $persona->discapacidad ?? '') === 'NO') ? 'selected' : ''}}>No</option>
+                                    <option value="SI" {{ (old('discapacidad', $persona->discapacidad ?? '') === 'SI') ? 'selected' : ''}}>SI</option>
                                 </select>
                             </div>
 
                             <div class="col-md-4" id="embarazada-container" style="display: none;">
                                 <label class="font-weight-bold text-dark">Embarazada</label>
                                 <select class="form-select" id="embarazada" name="embarazada">
-                                    <option value="">Seleccione el embarazo</option>
-                                    <option value="Si" {{ (old('embarazada', $persona->embarazada ?? '') === 'Si') ? 'selected' : '' }}>Si</option>
-                                    <option value="No" {{ (old('embarazada', $persona->embarazada ?? '') === 'No') ? 'selected' : '' }}>No</option>
+                                    <option value="0" selected="true" disabled>Seleccione el embarazo</option>
+                                    <option value="NO" {{ (old('embarazada', $persona->embarazada ?? '') === 'NO') ? 'selected' : ''}}>No</option>
+                                    <option value="SI" {{ (old('embarazada', $persona->embarazada ?? '') === 'SI') ? 'selected' : ''}}>SI</option>
                                 </select>
                             </div>
 
                             <div class="col-md-4">
                                 <label class="font-weight-bold text-dark">Jefe de Familia</label>
                                 <select class="form-select" id="jefe_familia" name="jefe_familia">
-                                    <option value="">Seleccione el jefe familiar</option>
-                                    <option value="Si" {{ (old('jefe_familiar', $persona->jefe_familiar ?? '') === 'Si') ? 'selected' : '' }}>Si</option>
-                                    <option value="No" {{ (old('jefe_familiar', $persona->jefe_familiar ?? '') === 'No') ? 'selected' : '' }}>No</option>
+                                    <option value="0" selected="true" disabled>Seleccione el jefe familiar</option>
+                                    <option value="NO" {{ (old('jefe_familia', $persona->jefe_familia ?? '') === 'NO') ? 'selected' : ''}}>No</option>
+                                    <option value="SI" {{ (old('jefe_familia', $persona->jefe_familia ?? '') === 'SI') ? 'selected' : ''}}>SI</option>
                                 </select>
                             </div>
 
@@ -128,21 +128,7 @@
         </div>
     </div>
 
-    {{--? Este script es para mostrar/ocultar el campo "Embarazada" --}}
-    
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    
-    <script>
-        $(document).ready(function () {
-            $('#genero').change(function () {
-                if ($(this).val() === 'Femenino') {
-                    $('#embarazada-container').show();
-                } else {
-                    $('#embarazada-container').hide();
-                }
-            }).trigger('change'); // Ejecuta el cambio al cargar la página
-        });
-    </script>
+    {{--? ESTA FUNCION ES PARA CONVERTIR LA PRIMERA LETRA EN MASYUCUSLA Y LAS DEMAS EN MINICUSLA  --}}
 
     <script>
         function capitalizarPrimeraLetra(texto) {
@@ -153,6 +139,11 @@
             const inputElement = document.getElementById(idInput);
             inputElement.value = capitalizarPrimeraLetra(inputElement.value);
         }
+    </script>
+
+    {{--! ESTA FUNCION ES PARA CALCULAR LA EDAD DE LA PERSONA  --}}
+
+    <script>
 
         function calcularEdad() {
             const fechaNacimiento = document.getElementById("fecha_nacimiento").value;
@@ -169,6 +160,8 @@
         }
     </script>
 
+    {{--* ESTE SCRIPT ES PARA MOSTRAR LOS ERRORES DE VALIDACION  --}}
+
     @if ($errors->any())
         <script>
             var errors = @json($errors->all());
@@ -184,5 +177,21 @@
             });
         </script>
     @endif
+
+    {{--? Este script es para mostrar/ocultar el campo "Embarazada" --}}
+     
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+     
+    <script>
+        $(document).ready(function () {
+            $('#genero').change(function () {
+                if ($(this).val() === 'Femenino') {
+                    $('#embarazada-container').show();
+                } else {
+                    $('#embarazada-container').hide();
+                }
+            }).trigger('change'); // Ejecuta el cambio al cargar la página
+        });
+    </script>
 
 @endsection

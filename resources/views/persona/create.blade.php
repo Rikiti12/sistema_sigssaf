@@ -80,8 +80,8 @@
                                 <label class="font-weight-bold text-dark">Discapacidad</label>
                                 <select class="form-select" id="discapacidad" name="discapacidad">
                                     <option value="">Seleccione la discapacidad</option>
-                                    <option value="Si" {{ old('discapacidad') === 'Si' ? 'selected' : '' }}>Si</option>
-                                    <option value="No" {{ old('discapacidad') === 'No' ? 'selected' : '' }}>No</option>
+                                    <option value="NO" {{ old('discapacidad') === 'NO' ? 'selected' : '' }}>No</option>
+                                    <option value="SI" {{ old('discapacidad') === 'SI' ? 'selected' : '' }}>Sí</option>
                                 </select>
                             </div>
 
@@ -89,8 +89,8 @@
                                 <label class="font-weight-bold text-dark">Embarazada</label>
                                 <select class="form-select" id="embarazada" name="embarazada">
                                     <option value="">Seleccione el embarazo</option>
-                                    <option value="Si" {{ old('embarazada') === 'Si' ? 'selected' : '' }}>Si</option>
-                                    <option value="No" {{ old('embarazada') === 'No' ? 'selected' : '' }}>No</option>
+                                    <option value="NO" {{ old('embarazada') === 'NO' ? 'selected' : '' }}>No</option>
+                                    <option value="SI" {{ old('embarazada') === 'SI' ? 'selected' : '' }}>Sí</option>
                                 </select>
                             </div>
 
@@ -98,8 +98,9 @@
                                 <label class="font-weight-bold text-dark">Jefe de Familia</label>
                                 <option value="">Seleccione el jefe familiar</option>
                                 <select class="form-select" id="jefe_familia" name="jefe_familia">
-                                    <option value="Si" {{ old('jefe_familia') === 'Si' ? 'selected' : '' }}>Si</option>
-                                    <option value="No" {{ old('jefe_familia') === 'No' ? 'selected' : '' }}>No</option>
+                                    <option value="">Seleccione el jefe familiar</option>
+                                    <option value="NO" {{ old('jefe_familia') === 'NO' ? 'selected' : '' }}>No</option>
+                                    <option value="SI" {{ old('jefe_familia') === 'SI' ? 'selected' : '' }}>Sí</option>
                                 </select>
                             </div>
 
@@ -125,21 +126,7 @@
         </div>
     </div>
 
-    {{--? Este script es para mostrar/ocultar el campo "Embarazada" --}}
-    
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    
-    <script>
-        $(document).ready(function () {
-            $('#genero').change(function () {
-                if ($(this).val() === 'Femenino') {
-                    $('#embarazada-container').show();
-                } else {
-                    $('#embarazada-container').hide();
-                }
-            }).trigger('change'); // Ejecuta el cambio al cargar la página
-        });
-    </script>
+    {{--? ESTA FUNCION ES PARA CONVERTIR LA PRIMERA LETRA EN MASYUCUSLA Y LAS DEMAS EN MINICUSLA  --}}
 
     <script>
         function capitalizarPrimeraLetra(texto) {
@@ -150,6 +137,11 @@
             const inputElement = document.getElementById(idInput);
             inputElement.value = capitalizarPrimeraLetra(inputElement.value);
         }
+    </script>
+
+    {{--! ESTA FUNCION ES PARA CALCULAR LA EDAD DE LA PERSONA  --}}
+
+    <script>
 
         function calcularEdad() {
             const fechaNacimiento = document.getElementById("fecha_nacimiento").value;
@@ -166,6 +158,8 @@
         }
     </script>
 
+    {{--* ESTE SCRIPT ES PARA MOSTRAR LOS ERRORES DE VALIDACION  --}}
+
     @if ($errors->any())
         <script>
             var errors = @json($errors->all());
@@ -181,5 +175,21 @@
             });
         </script>
     @endif
+
+    {{--? Este script es para mostrar/ocultar el campo "Embarazada" --}}
+     
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+     
+    <script>
+        $(document).ready(function () {
+            $('#genero').change(function () {
+                if ($(this).val() === 'Femenino') {
+                    $('#embarazada-container').show();
+                } else {
+                    $('#embarazada-container').hide();
+                }
+            }).trigger('change'); // Ejecuta el cambio al cargar la página
+        });
+    </script>
 
 @endsection

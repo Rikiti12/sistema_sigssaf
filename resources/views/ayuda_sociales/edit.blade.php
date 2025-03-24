@@ -27,7 +27,7 @@
                                     <label  class="font-weight-bold text-dark">Nombre De La Ayuda</label>
                                     <input type="text" class="form-control" id="nombre" name="nombre_ayu" style="background: white;" value="{{ isset($ayuda_social->nombre_ayu)?$ayuda_social->nombre_ayu:'' }}" placeholder="Ingrese El Nombre" oninput="capitalizarInput('nombre')" autocomplete="off" onkeypress="return soloLetras(event);">
                                 </div>
-        
+
                                 <div class="col-4">
                                     <label  class="font-weight-bold text-dark">Descripcion</label>
                                     <input type="text" class="form-control" id="descripcion" name="descripcion" style="background: white;" value="{{ isset($ayuda_social->descripcion)?$ayuda_social->descripcion:'' }}" placeholder="Ingrese El descripcion" autocomplete="off"  oninput="capitalizarInput('descripcion')" onkeypress="return soloLetras(event);">
