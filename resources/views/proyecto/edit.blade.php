@@ -50,7 +50,7 @@
                                     <option value="">Seleccione una comunidad</option>
                                     @foreach($comunidades as $comunidad)
                                         <option value="{{ $comunidad->id }}" {{ $proyecto->id_comunidad == $comunidad->id ? 'selected' : '' }}>
-                                            {{ $comunidad->nom_comunidades }}
+                                            {{ $comunidad->nom_comuni }}
                                         </option>
                                     @endforeach
                                 </select>
@@ -61,23 +61,23 @@
                                 <input type="date" class="form-control" id="fecha_inicial" name="fecha_inicial" value="{{ $proyecto->fecha_inicial }}">
                             </div>
 
-                           
-
                         </div>
+
                     </div>
 
                     <div class="card-body">
                         <center>
                             <button type="submit" class="btn btn-success btn-lg">
                                 <span class="icon text-white-60"><i class="fas fa-check"></i></span>
-                                <span class="text">Guardar Cambios</span>
+                                <span class="text">Guardar</span>
                             </button>
-                            <a class="btn btn-info btn-lg" href="{{ url('proyecto/') }}">
+                            <a class="btn btn-info btn-lg" href="{{ url('planificacion/') }}">
                                 <span class="icon text-white-50"><i class="fas fa-info-circle"></i></span>
                                 <span class="text">Regresar</span>
                             </a>
                         </center>
                     </div>
+
                 </form>
 
             </div>
