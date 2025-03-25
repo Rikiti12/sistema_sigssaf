@@ -74,7 +74,7 @@
                 </div>
                 <div class="toggle-panel toggle-right">
                     <h1>¡Hola Amigo(a)!</h1>
-                    <p>Bienvenido al Sistema de  Información para la Gestión Social en la Sala Situacional de la Alcaldía de San Felipe </p>
+                    <p>Bienvenido al Sistema de  Información para la Gestión de Infogobierno en la Sala Situacional de la Alcaldía de San Felipe </p>
                     {{-- <a href="#" id="register" class="hidden"> Restablecer Contraseña </a> --}}
                     {{-- <button class="hidden" id="register">Crear una cuenta</button> --}}
                 </div>

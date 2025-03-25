@@ -91,7 +91,6 @@
 
                             <div class="col-md-4">
                                 <label class="font-weight-bold text-dark">Jefe de Familia</label>
-                                <option value="">Seleccione el jefe familiar</option>
                                 <select class="form-select" id="jefe_familia" name="jefe_familia">
                                     <option value="">Seleccione el jefe familiar</option>
                                     <option value="NO" {{ old('jefe_familia') === 'NO' ? 'selected' : '' }}>No</option>
