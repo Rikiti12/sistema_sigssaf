@@ -104,7 +104,7 @@ class PersonasController extends Controller
         $bitacora->update();
 
         try {
-            return redirect()->route('planificacion.index');
+            return redirect()->route('persona.index');
         } catch (QueryException $exception) {
             $errorMessage = 'Error: ' . $exception->getMessage();
             return redirect()->back()->withErrors($errorMessage);

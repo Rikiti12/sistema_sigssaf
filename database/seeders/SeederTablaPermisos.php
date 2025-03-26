@@ -43,6 +43,12 @@ class SeederTablaPermisos extends Seeder
             'editar-comunidad',
             'borrar-comunidad', 
 
+            //Operaciones sobre tabla Consejo_comunals
+            'ver-consejocomunal',
+            'crear-consejocomunal',
+            'editar-consejocomunal',
+            'borrar-consejocomunal', 
+
              //Operaciones sobre tabla Personas
              'ver-persona',
              'crear-persona',

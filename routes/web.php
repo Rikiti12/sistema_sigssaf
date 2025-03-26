@@ -13,6 +13,7 @@ use App\Http\Controllers\UserSettingsController;
 use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\ComunaController;
 use App\Http\Controllers\ComunidadesController;
+use App\Http\Controllers\ConsejoComunalController;
 use App\Http\Controllers\PersonasController;
 use App\Http\Controllers\AyudaSocialesController;
 use App\Http\Controllers\ViviendasController;
@@ -69,6 +70,12 @@ Route::get('/comunidad',  [ComunidadesController::class,'index'])->name('comunid
 Route::get('/comunidad/create', [ComunidadesController::class, 'create'])->name('create')->middleware('auth');
 Route::get('/comunidad/pdf',  [ComunidadesController::class,'pdf'])->name('comunidad')->middleware('auth');
 Route::resource('comunidad', ComunidadesController::class)->middleware('auth');
+
+/* Ruta Comunidad */
+Route::get('/consejocomunal',  [ConsejoComunalController::class,'index'])->name('consejocomunal')->middleware('auth');
+Route::get('/consejocomunal/create', [ConsejoComunalController::class, 'create'])->name('create')->middleware('auth');
+Route::get('/consejocomunal/pdf',  [ConsejoComunalController::class,'pdf'])->name('consejocomunal')->middleware('auth');
+Route::resource('consejocomunal', ConsejoComunalController::class)->middleware('auth');
 
 /* Ruta Persona */
 Route::get('/persona',  [PersonasController::class,'index'])->name('persona')->middleware('auth');
