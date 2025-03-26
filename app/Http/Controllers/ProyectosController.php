@@ -74,7 +74,7 @@ class ProyectosController extends Controller
         $bitacora->update();
 
         try {
-            return redirect()->route('proyecto.index');
+            return redirect()->route('planificacion.index');
         } catch (QueryException $exception) {
             $errorMessage = 'Error: ' . $exception->getMessage();
             return redirect()->back()->withErrors($errorMessage);
