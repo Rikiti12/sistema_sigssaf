@@ -100,6 +100,7 @@ Route::get('/planificacion', [PlanificacionesController::class, 'index'])->name(
 Route::get('/planificacion/create', [PlanificacionesController::class, 'create'])->name('planificacion.create')->middleware('auth');
 Route::get('/planificacion/pdf', [PlanificacionesController::class, 'pdf'])->name('planificacion.pdf')->middleware('auth');
 Route::resource('planificacion', PlanificacionesController::class)->middleware('auth');
+Route::get('/planificacion/detalles/{id}', [PlanificacionesController::class, 'getProyectoDetalles']);
 
 /* Ruta Bitacora*/
 Route::get('bitacora', [ReporteController::class, 'bitacora'])->name('bitacora')->middleware('auth');
