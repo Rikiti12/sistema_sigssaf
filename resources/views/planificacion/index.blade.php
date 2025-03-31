@@ -64,6 +64,11 @@
                                                 </a>
                                             @endcan
 
+                                            <a class="btn btn-info btn-sm" style="margin: 0 1px;" title="Ver Detalles" data-proyecto-id='{{ $proyecto->id }}' class="btn btn-primary" data-toggle="modal" data-target="#exampleModalScrollable" id="#modalScroll"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-layout-text-window-reverse" viewBox="0 0 16 16"  style="color: #ffff; cursor: pointer;">
+                                                <path d="M13 6.5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h5a.5.5 0 0 0 .5-.5m0 3a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h5a.5.5 0 0 0 .5-.5m-.5 2.5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1 0-1z"/>
+                                                <path d="M14 0a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2zM2 1a1 1 0 0 0-1 1v1h14V2a1 1 0 0 0-1-1zM1 4v10a1 1 0 0 0 1 1h2V4zm4 0v11h9a1 1 0 0 0 1-1V4z"/>
+                                            </svg></a>
+
                                         </div>
                                     </td>
                                     
@@ -72,6 +77,28 @@
                         </tbody>
                     </table>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL PARA VER DETALLES -->
+    <div class="modal fade" id="exampleModalScrollable" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    {{-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button> --}}
+                </div>
+
+                <div class="modal-body" id="modal-body-content">
+
+                    {{-- ! DATOS CARGADOS POR JS/AJAX --}}
+            
+                {{-- <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Cerrar</button>
+                </div> --}}
+
             </div>
         </div>
     </div>
@@ -164,4 +191,71 @@
             });
         </script>
     @endif
+
+    {{-- ! FUNCIÓN DEL MODAL PARA VER DETALLES DE LA PERSONA --}}
+
+    <script>
+        $(document).ready(function() {
+            $('#dataTable').on('click', '.btn-info', function(event) {
+                event.preventDefault();
+                var proyectoId = $(this).data('proyecto-id');
+    
+                $.ajax({
+                    url: '/planificacion/detalles/' + proyectoId,
+                    type: 'GET',
+                    success: function(data) {
+                        console.log(data);
+    
+                        let proyectosHtml = `
+                            <h5 class="font-weight-bold text-primary" style="text-align: center">Detalles deL Proyecto</h5>
+                
+                        `;
+    
+                        // Verifica si existen imágenes y agrégalas
+                        if (data.imagenes && data.imagenes.length > 0) {
+                            proyectosHtml += `<p><b>Fotos:</b></p><div style="display: flex; flex-wrap: wrap; gap: 10px;">`;
+                            let imagenes = JSON.parse(data.imagenes);
+                            imagenes.forEach(function(imagen) {
+                                proyectosHtml += `<img src="/imagenes/proyectos/${imagen}" width="60%" style="width: calc(50% - 10px); margin-bottom: 10px;">`;
+                            });
+                            proyectosHtml += '</div>';
+                        }
+
+                        // Verifica si existen documentos PDF y agrégalos
+                        if (data.documentos && data.documentos.length > 0) {
+                            proyectosHtml += `<p><b>Documentos PDF:</b></p><div style="display: flex; flex-wrap: wrap; gap: 10px;">`;
+                            let documentos = JSON.parse(data.documentos);
+                            documentos.forEach(function(documento) {
+                                proyectosHtml += `<embed src="/pdf/${documento}" type="application/pdf" width="100%" height="600px" style="margin-bottom: 10px;">`;
+                            });
+                            proyectosHtml += '</div>';
+                        }
+    
+                        // // Verifica si existe un PDF y agrégalo
+                        // if (data.documentos) {
+                        //     proyectosHtml += `
+                        //         <p><b>Documento PDF:</b></p>`;
+                        //     let documentos = JSON.parse(data.documentos);
+                        //     documentos.forEach(function(documento) {
+                        //         proyectosHtml += `<img src="/pdf/${documento}" width="60%" style="width: calc(50% - 10px); margin-bottom: 10px;">`;
+                        //     });
+                        //     proyectosHtml += '</div>';
+                        // }
+    
+                        $('#exampleModalScrollable .modal-body').html(proyectosHtml);
+    
+                        if (!$('#exampleModalScrollable').is(':visible')) {
+                            $('#exampleModalScrollable').modal('show');
+                        }
+                    },
+                    error: function(error) {
+                        console.error("Error al obtener los datos:", error);
+                        alert("Error al cargar la persona. Por favor, inténtalo de nuevo.");
+                    }
+                });
+            });
+        });
+    </script>
+
+
 @endsection

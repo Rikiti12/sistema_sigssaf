@@ -31,6 +31,24 @@ class PlanificacionesController extends Controller
         return view('planificacion.index', compact('proyectos'));
     }
 
+    public function getProyectoDetalles($id)
+    {
+        // Recupera el Proyecto por su ID
+        $proyecto = Proyectos::find($id);
+
+        if (!$proyecto) {
+            // Maneja el caso en que no se encuentre la persona
+            return response()->json(['error' => 'Persona no encontrada'], 404);
+        }
+
+        // Devuelve los datos relevantes en formato JSON
+        return response()->json([
+            'imagenes' => $proyecto->imagenes,
+            'documentos' => $proyecto->documentos,
+        ]);
+ 
+    }
+
     /**
      * Show the form for creating a new resource.
      *

@@ -19,9 +19,10 @@ return new class extends Migration
             $table->text('descripcion_pro');
             $table->unsignedBigInteger('id_persona');
             $table->unsignedBigInteger('id_comunidad'); 
+            $table->json('imagenes');
+            $table->json('documentos');
             $table->date('fecha_inicial');
             $table->timestamps();
-
 
             // Establecer relaciones con las tablas correspondientes
             $table->foreign('id_persona')->references('id')->on('personas');
