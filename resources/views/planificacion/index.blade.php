@@ -216,7 +216,7 @@
                             proyectosHtml += `<p><b>Fotos:</b></p><div style="display: flex; flex-wrap: wrap; gap: 10px;">`;
                             let imagenes = JSON.parse(data.imagenes);
                             imagenes.forEach(function(imagen) {
-                                proyectosHtml += `<img src="/imagenes/proyectos/${imagen}" width="60%" style="width: calc(50% - 10px); margin-bottom: 10px;">`;
+                                proyectosHtml += `<img src="/imagenes/${imagen}" width="60%" style="width: calc(50% - 10px); margin-bottom: 10px;">`;
                             });
                             proyectosHtml += '</div>';
                         }
@@ -230,17 +230,6 @@
                             });
                             proyectosHtml += '</div>';
                         }
-    
-                        // // Verifica si existe un PDF y agrégalo
-                        // if (data.documentos) {
-                        //     proyectosHtml += `
-                        //         <p><b>Documento PDF:</b></p>`;
-                        //     let documentos = JSON.parse(data.documentos);
-                        //     documentos.forEach(function(documento) {
-                        //         proyectosHtml += `<img src="/pdf/${documento}" width="60%" style="width: calc(50% - 10px); margin-bottom: 10px;">`;
-                        //     });
-                        //     proyectosHtml += '</div>';
-                        // }
     
                         $('#exampleModalScrollable .modal-body').html(proyectosHtml);
     

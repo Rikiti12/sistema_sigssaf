@@ -53,19 +53,54 @@ class ProyectosController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'nombre_pro' => 'required',
-            'descripcion_pro' => 'required',
-            'id_persona' => 'required|exists:personas,id',
-            'id_comunidad' => 'required|exists:comunidades,id',
-            'fecha_inicial' => 'required|date',
-        ]);
+        // $request->validate([
+        //     'nombre_pro' => 'required',
+        //     'descripcion_pro' => 'required',
+        //     'id_persona' => 'required|exists:personas,id',
+        //     'id_comunidad' => 'required|exists:comunidades,id',
+        //     'fecha_inicial' => 'required|date',
+        // ]);
 
         $proyectos = new Proyectos();
         $proyectos->nombre_pro = $request->input('nombre_pro');
         $proyectos->descripcion_pro = $request->input('descripcion_pro');
         $proyectos->id_persona = $request->input('id_persona');
         $proyectos->id_comunidad = $request->input('id_comunidad');
+
+        // Verificar si se han cargado archivos
+        if ($request->hasFile('imagenes')) {
+            $rutaGuardarImg = 'imagenes/';
+            $nombresImagenes = [];
+
+            foreach ($request->file('imagenes') as $foto) {
+                $imagenProyecto = date('YmdHis') . '_' . uniqid() . '_' . pathinfo($foto->getClientOriginalName(), PATHINFO_FILENAME) . '.' . $foto->getClientOriginalExtension();
+                $foto->move(public_path($rutaGuardarImg), $imagenProyecto);
+                $nombresImagenes[] = $imagenProyecto;
+            }
+
+            
+            $proyectos->imagenes = json_encode($nombresImagenes);
+        } else {
+            $proyectos->imagenes = '[]'; // null
+            
+        }
+
+        // Verificar si se han cargado archivos
+        if ($request->hasFile('documentos')) {
+            $rutaGuardarPdf = 'pdf/';
+            $nombresPdf = [];
+
+            foreach ($request->file('documentos') as $pdf) {
+                $pdfProyecto = date('YmdHis') . '_' . uniqid() . '_' . pathinfo($pdf->getClientOriginalName(), PATHINFO_FILENAME) . '.' . $pdf->getClientOriginalExtension();
+                $pdf->move(public_path($rutaGuardarPdf), $pdfProyecto);
+                $nombresPdf[] = $pdfProyecto;
+            }
+
+            $proyectos->documentos = json_encode($nombresPdf);
+        } else {
+            $proyectos->documentos = '[]'; // null
+        }
+
         $proyectos->fecha_inicial = $request->input('fecha_inicial');
 
         $proyectos->save();
@@ -104,7 +139,9 @@ class ProyectosController extends Controller
         $proyecto = Proyectos::find($id);
         $personas = Personas::all();
         $comunidades = Comunidades::all();
-        return view('proyecto.edit', compact('proyecto', 'personas', 'comunidades'));
+        $imagenes = $proyecto->imagenes;
+        $documentos = $proyecto->documentos;
+        return view('proyecto.edit', compact('proyecto', 'personas', 'comunidades', 'imagenes', 'documentos'));
     }
 
     /**
@@ -129,6 +166,41 @@ class ProyectosController extends Controller
         $proyecto->descripcion_pro = $request->input('descripcion_pro');
         $proyecto->id_persona = $request->input('id_persona');
         $proyecto->id_comunidad = $request->input('id_comunidad');
+
+        // Verificar si se han cargado nuevos archivos
+        if ($request->hasFile('imagenes')) {
+            $rutaGuardarImg = 'imagenes/';
+            $nombresImagenes = [];
+
+            foreach ($request->file('imagenes') as $foto) {
+                $imagenProyecto = date('YmdHis') . '_' . uniqid() . '_' . pathinfo($foto->getClientOriginalName(), PATHINFO_FILENAME) . '.' . $foto->getClientOriginalExtension();
+                $foto->move(public_path($rutaGuardarImg), $imagenProyecto);
+                $nombresImagenes[] = $imagenProyecto;
+            }
+
+            // Actualizar las imágenes
+            $proyecto->imagenes = json_encode($nombresImagenes);
+        }
+
+        // Verificar si se han cargado nuevos archivos
+        if ($request->hasFile('documentos')) {
+            $rutaGuardarPdf = 'pdf/';
+            $nuevosNombresPdf = [];
+
+            foreach ($request->file('documentos') as $pdf) {
+                $pdfComprobante = date('YmdHis') . '_' . uniqid() . '_' . pathinfo($pdf->getClientOriginalName(), PATHINFO_FILENAME) . '.' . $pdf->getClientOriginalExtension();
+                $pdf->move(public_path($rutaGuardarPdf), $pdfComprobante);
+                $nuevosNombresPdf[] = $pdfComprobante;
+            }
+
+            // Combinar los nuevos archivos con los existentes
+            $archivosExistentes = json_decode($proyecto->documentos, true) ?? [];
+            $todosLosArchivos = array_merge($archivosExistentes, $nuevosNombresPdf);
+
+            $proyecto->documentos = json_encode($todosLosArchivos);
+        }
+
+
         $proyecto->fecha_inicial = $request->input('fecha_inicial');
 
         $proyecto->save();

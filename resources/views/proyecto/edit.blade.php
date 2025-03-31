@@ -151,7 +151,7 @@
     
             // Muestra las fotos registradas
             fotos.forEach(foto => {
-                const imgElement = createImageElement(`{{ asset('imagenes/proyectos') }}/${foto}`);
+                const imgElement = createImageElement(`{{ asset('imagenes/') }}/${foto}`);
                 fotoContainer.appendChild(imgElement);
             });
     
