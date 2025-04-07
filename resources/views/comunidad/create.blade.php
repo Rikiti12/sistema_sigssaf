@@ -46,11 +46,6 @@
                                 </div>
 
                                 <div class="col-4">
-                                    <label  class="font-weight-bold text-dark">Nombre Vocero</label>
-                                    <input type="text" class="form-control" id="nom_jefe" name="nom_jefe" style="background: white;" value="" placeholder="Ingrese El Nombre" oninput="capitalizarInput('nombre')" autocomplete="off" onkeypress="return soloLetras(event);">
-                                </div>
-
-                                <div class="col-4">
                                     <label  class="font-weight-bold text-dark">Telefono</label>
                                     <input type="text" class="form-control" id="telefono" name="telefono" maxlength="11" style="background: white;" value="" placeholder="Ingrese El Telefono" autocomplete="off" onkeypress="return solonum(event);">
                                 </div>
@@ -91,27 +86,47 @@
                                 
                             </div>
 
-                            
-                            <br>
+                            <br><br>
 
                             <div class="row">
-
-                                <center>
-                                    <h5 class="font-weight-bold text-dark">Crear Proyecto</h5>
-                                </center>
-
-                                <div class="col-4">
-                                    <label  class="font-weight-bold text-dark">Nombre de Proyecto</label>
-                                    <input type="text" class="form-control" id="nom_proyecto" name="nom_proyecto" style="background: white;" value="" placeholder="Ingrese El nombre del proyecto" autocomplete="off" oninput="capitalizarInput('nombre comuna')" onkeypress="return soloLetras(event);">
+                                <div class="col-12">
+                                    <label class="font-weight-bold text-dark">¿Desea crear un proyecto para esta comunidad?</label>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="crear_pro" id="si_proyecto" value="SI" onchange="mostrarOcultarProyecto()">
+                                        <label class="form-check-label" for="si_proyecto">Sí</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="crear_pro" id="no_proyecto" value="NO" onchange="mostrarOcultarProyecto()">
+                                        <label class="form-check-label" for="no_proyecto">No</label>
+                                    </div>
                                 </div>
-
-                                <div class="col-4">
-                                    <label  class="font-weight-bold text-dark">Descripción del Proyecto</label>
-                                    <textarea class="form-control" id="descripcion" name="descripcion" cols="10" rows="10" style="max-height: 6rem;" oninput="capitalizarInput('descripcion')">{{ old('descripcion') }}</textarea>                                   
-                                </div> 
-                                
-                                
                             </div>
+
+                            <div id="datos_proyecto" style="display: none;">
+                                <div class="row">
+                                    <br>
+                                    <center>
+                                        <h5 class="font-weight-bold text-dark">Crear Proyecto</h5>
+                                    </center>
+
+                                    <div class="col-4">
+                                        <label  class="font-weight-bold text-dark">Nombre de Proyecto</label>
+                                        <input type="text" class="form-control" id="nom_proyecto" name="nom_proyecto" style="background: white;" value="" placeholder="Ingrese El nombre del proyecto" autocomplete="off" oninput="capitalizarInput('nombre comuna')" onkeypress="return soloLetras(event);">
+                                    </div>
+
+                                    <div class="col-4">
+                                        <label  class="font-weight-bold text-dark">Descripción del Proyecto</label>
+                                        <textarea class="form-control" id="descripcion" name="descripcion" cols="10" rows="10" style="max-height: 6rem;" oninput="capitalizarInput('descripcion')">{{ old('descripcion') }}</textarea>                                   
+                                    </div>
+                                </div> 
+                            </div>
+
+                            {{-- <div class="row">
+
+                                
+                                
+                                
+                            </div> --}}
 
                             <br><br>
 
@@ -161,5 +176,28 @@
             });
         </script>
     @endif
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        function mostrarOcultarProyecto() {
+            const datosProyecto = document.getElementById('datos_proyecto');
+            const siProyecto = document.getElementById('si_proyecto').checked;
+            
+            if (siProyecto) {
+                datosProyecto.style.display = 'block';
+            } else {
+                datosProyecto.style.display = 'none';
+                // Limpiar campos al ocultar
+                document.getElementById('nom_proyecto').value = '';
+                document.getElementById('descripcion').value = '';
+            }
+        }
+
+        // Ejecutar al cargar la página para manejar valores predefinidos
+        document.addEventListener('DOMContentLoaded', function() {
+            mostrarOcultarProyecto();
+        });
+    </script>
 
 @endsection

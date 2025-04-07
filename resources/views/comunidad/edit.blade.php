@@ -88,22 +88,36 @@
                             <br>
 
                             <div class="row">
-
-                                <center>
-                                    <h5 class="font-weight-bold text-dark">Editar Proyecto</h5>
-                                </center>
-
-                                <div class="col-4">
-                                    <label  class="font-weight-bold text-dark">Nombre de Proyecto</label>
-                                    <input type="text" class="form-control" id="nom_proyecto" name="nom_proyecto" style="background: white;" value="{{ isset($comunidad->nom_proyecto)?$comunidad->nom_proyecto:'' }}" autocomplete="off" oninput="capitalizarInput('nom_proyecto')" onkeypress="return soloLetras(event);">
+                                <div class="col-12">
+                                    <label class="font-weight-bold text-dark">¿Desea crear un proyecto para esta comunidad?</label>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="crear_pro" id="si_proyecto" value="Si" {{ ($comunidad->crear_pro=="Si")? "checked" : ""}} onchange="mostrarOcultarProyecto(this.value)">
+                                        <label class="form-check-label" for="si_proyecto">Sí</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="crear_pro" id="no_proyecto" value="NO" {{ ($comunidad->crear_pro=="NO")? "checked" : ""}} onchange="mostrarOcultarProyecto(this.value)">
+                                        <label class="form-check-label" for="no_proyecto">No</label>
+                                    </div>
                                 </div>
+                            </div>
 
-                                <div class="col-4">
-                                    <label  class="font-weight-bold text-dark">Descripción del Proyecto</label>
-                                    <textarea class="form-control" id="descripcion" name="descripcion" cols="10" rows="10" style="max-height: 6rem;" oninput="capitalizarInput('descripcion')">{{ $comunidad->descripcion }}</textarea>                                   
+                            <div id="datos_proyecto" style="display: none;">
+                                <div class="row">
+                                    <br>
+                                    <center>
+                                        <h5 class="font-weight-bold text-dark">Crear Proyecto</h5>
+                                    </center>
+
+                                    <div class="col-4">
+                                        <label  class="font-weight-bold text-dark">Nombre de Proyecto</label>
+                                        <input type="text" class="form-control" id="nom_proyecto" name="nom_proyecto" style="background: white;" value="{{ isset($comunidad->nom_proyecto)?$comunidad->nom_proyecto:'' }}" placeholder="Ingrese El nombre del proyecto" autocomplete="off" oninput="capitalizarInput('nombre comuna')" onkeypress="return soloLetras(event);">
+                                    </div>
+
+                                    <div class="col-4">
+                                        <label  class="font-weight-bold text-dark">Descripción del Proyecto</label>
+                                        <textarea class="form-control" id="descripcion" name="descripcion" cols="10" rows="10" style="max-height: 6rem;" oninput="capitalizarInput('descripcion')">{{ $comunidad->descripcion }}</textarea>                                   
+                                    </div>
                                 </div> 
-                                
-                                
                             </div>
 
 
@@ -155,5 +169,22 @@
             });
         </script>
     @endif
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+
+        function mostrarOcultarProyecto(value) {
+            const datosProyecto = document.getElementById('datos_proyecto');
+            datosProyecto.style.display = (value === 'Si') ? 'block' : 'none';
+        }
+
+        // Inicializar al cargar la página
+        document.addEventListener('DOMContentLoaded', function() {
+            const selected = document.querySelector('input[name="crear_pro"]:checked');
+            if (selected) mostrarOcultarProyecto(selected.value);
+        });
+    </script>
+
 
 @endsection
