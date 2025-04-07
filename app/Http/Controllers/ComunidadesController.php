@@ -44,6 +44,7 @@ class ComunidadesController extends Controller
 
         // Devuelve los datos relevantes en formato JSON
         return response()->json([
+            'crear_pro' => $comunidad->crear_pro,
             'nom_proyecto' => $comunidad->nom_proyecto,
             'descripcion' => $comunidad->descripcion,
             
@@ -87,6 +88,7 @@ class ComunidadesController extends Controller
         $comunidades->nom_comuni = $request->input('nom_comuni');
         $comunidades->dire_comuni = $request->input('dire_comuni');
         $comunidades->id_comuna = $request->input('id_comuna');
+        $comunidades->crear_pro = $request->input('crear_pro');
         $comunidades->nom_proyecto = $request->input('nom_proyecto');
         $comunidades->descripcion = $request->input('descripcion');
 
@@ -157,6 +159,7 @@ class ComunidadesController extends Controller
         $comunidad->nom_comuni = $request->input('nom_comuni');
         $comunidad->dire_comuni = $request->input('dire_comuni');
         $comunidad->id_comuna = $request->input('id_comuna');
+        $comunidad->crear_pro = $request->input('crear_pro');
         $comunidad->nom_proyecto = $request->input('nom_proyecto');
         $comunidad->descripcion = $request->input('descripcion');
 

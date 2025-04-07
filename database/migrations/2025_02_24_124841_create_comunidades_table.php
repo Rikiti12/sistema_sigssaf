@@ -22,8 +22,9 @@ return new class extends Migration
             $table->string('nom_comuni')->unique();
             $table->text('dire_comuni');
             $table->unsignedBigInteger('id_comuna');
-            $table->string('nom_proyecto');
-            $table->text('descripcion');
+            $table->string('crear_pro');
+            $table->string('nom_proyecto')->nullable();
+            $table->text('descripcion')->nullable();
 
             $table->timestamps();
 

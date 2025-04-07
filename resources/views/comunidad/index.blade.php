@@ -219,36 +219,78 @@
     {{-- ! FUNCIÓN DEL MODAL PARA VER DETALLES DE LA COMUNIDAD --}}
      
     <script>
+        // $(document).ready(function() {
+        //     $('#dataTable').on('click', '.btn-info', function(event) {
+        //         event.preventDefault();
+        //         var comunidadId = $(this).data('comunidad-id'); 
+        
+        //         $.ajax({
+        //             url: '/comunidad/detalles/' + comunidadId,
+        //             type: 'GET',
+        //             success: function(data) {
+        //                 console.log(data);
+        
+        //                 $('#exampleModalScrollable .modal-body').html(`
+        //                     <h5 class="font-weight-bold text-primary" style="text-align: center">Detalles del Consejo Comunales</h5>
+                            
+        //                     <p><b>Creación del Proyecto:</b> ${data.crear_pro} </p>
+        //                     <p><b>Nombre del Proyecto:</b> ${data.nom_proyecto}</p>
+        //                     <p><b>Descripción del Proyecto:</b> ${data.descripcion}</p>
+                            
+        //                 `);
+        
+        //                 if (!$('#exampleModalScrollable').is(':visible')) {
+        //                     $('#exampleModalScrollable').modal('show');
+        //                 }
+        //             },
+        //             error: function(error) {
+        //                 console.error("Error al obtener los datos:", error);
+        //                 alert("Error al cargar la persona. Por favor, inténtalo de nuevo.");
+        //             }
+        //         });
+        //     });
+        // });
+
         $(document).ready(function() {
             $('#dataTable').on('click', '.btn-info', function(event) {
                 event.preventDefault();
                 var comunidadId = $(this).data('comunidad-id'); 
-        
+
                 $.ajax({
                     url: '/comunidad/detalles/' + comunidadId,
                     type: 'GET',
                     success: function(data) {
                         console.log(data);
-        
-                        $('#exampleModalScrollable .modal-body').html(`
-                            <h5 class="font-weight-bold text-primary" style="text-align: center">Detalles del Consejo Comunales</h5>
-                            
-                            <p><b>Nombre del Proyecto:</b> ${data.nom_proyecto}</p>
-                            <p><b>Descripción del Proyecto:</b> ${data.descripcion}</p>
-                            
-                        `);
-        
+
+                        // Construir el contenido del modal condicionalmente
+                        let modalContent = `
+                            <h5 class="font-weight-bold text-primary" style="text-align: center">Detalles del Consejo Comunal</h5>
+                            <p><b>Creación del Proyecto:</b> ${data.crear_pro}</p>
+                        `;
+
+                        // Solo mostrar nombre y descripción si crear_pro es "SI"
+                        if (data.crear_pro.toLowerCase() === 'si') {
+                            modalContent += `
+                                <p><b>Nombre del Proyecto:</b> ${data.nom_proyecto || 'No especificado'}</p>
+                                <p><b>Descripción del Proyecto:</b> ${data.descripcion || 'No especificada'}</p>
+                            `;
+                        }
+
+                        $('#exampleModalScrollable .modal-body').html(modalContent);
+
                         if (!$('#exampleModalScrollable').is(':visible')) {
                             $('#exampleModalScrollable').modal('show');
                         }
                     },
                     error: function(error) {
                         console.error("Error al obtener los datos:", error);
-                        alert("Error al cargar la persona. Por favor, inténtalo de nuevo.");
+                        alert("Error al cargar los detalles. Por favor, inténtalo de nuevo.");
                     }
                 });
             });
         });
         </script>
+
+        
 
 @endsection
