@@ -32,7 +32,8 @@
                                 <th class="font-weight-bold text-dark">Persona Asignada</th>
                                 <th class="font-weight-bold text-dark">Comunidad Asignado</th>
                                 <th class="font-weight-bold text-dark">Fecha Inicial</th>
-                                <th class="font-weight-bold text-dark">Acciones</th>
+                                <th class="font-weight-bold text-dark">Fecha Final</th>
+                                <th class="font-weight-bold text-dark"><center>Acciones</center></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -42,7 +43,8 @@
                                     <td class="font-weight-bold text-dark">{{ $proyecto->descripcion_pro }}</td>
                                     <td class="font-weight-bold text-dark">{{ $proyecto->personas->cedula}} - {{ $proyecto->personas->nombre}} {{ $proyecto->personas->apellido}}</td>
                                     <td class="font-weight-bold text-dark">{{ $proyecto->comunidad->nom_comuni }}</td>
-                                   <td class="font-weight-bold text-dark">{{ $proyecto->fecha_inicial }}</td>
+                                   <td class="font-weight-bold text-dark">{{ date('d/m/Y', strtotime($proyecto->fecha_inicial)) }}</td>
+                                   <td class="font-weight-bold text-dark">{{ date('d/m/Y', strtotime($proyecto->fecha_final)) }}</td>
 
                                     <td>
                                         <div style="display: flex; justify-content: center;">
@@ -221,15 +223,15 @@
                             proyectosHtml += '</div>';
                         }
 
-                        // Verifica si existen documentos PDF y agrégalos
-                        if (data.documentos && data.documentos.length > 0) {
-                            proyectosHtml += `<p><b>Documentos PDF:</b></p><div style="display: flex; flex-wrap: wrap; gap: 10px;">`;
-                            let documentos = JSON.parse(data.documentos);
-                            documentos.forEach(function(documento) {
-                                proyectosHtml += `<embed src="/pdf/${documento}" type="application/pdf" width="100%" height="600px" style="margin-bottom: 10px;">`;
-                            });
-                            proyectosHtml += '</div>';
-                        }
+                        // // Verifica si existen documentos PDF y agrégalos
+                        // if (data.documentos && data.documentos.length > 0) {
+                        //     proyectosHtml += `<p><b>Documentos PDF:</b></p><div style="display: flex; flex-wrap: wrap; gap: 10px;">`;
+                        //     let documentos = JSON.parse(data.documentos);
+                        //     documentos.forEach(function(documento) {
+                        //         proyectosHtml += `<embed src="/pdf/${documento}" type="application/pdf" width="100%" height="600px" style="margin-bottom: 10px;">`;
+                        //     });
+                        //     proyectosHtml += '</div>';
+                        // }
     
                         $('#exampleModalScrollable .modal-body').html(proyectosHtml);
     

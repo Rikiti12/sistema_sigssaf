@@ -24,7 +24,7 @@
                         <div class="card-body">
 
                             <center>
-                                <h5 class="font-weight-bold text-dark">Datos del Jefe de la Comunidad</h5>
+                                <h5 class="font-weight-bold text-dark">Datos del Vocero de la Comunidad</h5>
                             </center>
 
                             <br>
@@ -32,17 +32,17 @@
                             <div class="row">
         
                                 <div class="col-4">
-                                    <label  class="font-weight-bold text-dark">Cédula Jefe</label>
+                                    <label  class="font-weight-bold text-dark">Cédula Vocero</label>
                                     <input type="text" class="form-control" id="cedula" name="cedula_jefe" maxlength="8" style="background: white;" value="{{ isset($comunidad->cedula_jefe)?$comunidad->cedula_jefe:'' }}" placeholder="Ingrese La Cédula" autocomplete="off" onkeypress="return solonum(event);">
                                 </div>
         
                                 <div class="col-4">
-                                    <label  class="font-weight-bold text-dark">Nombre Jefe</label>
+                                    <label  class="font-weight-bold text-dark">Nombre Vocero</label>
                                     <input type="text" class="form-control" id="nombre" name="nom_jefe" style="background: white;" value="{{ isset($comunidad->nom_jefe)?$comunidad->nom_jefe:'' }}" placeholder="Ingrese El Nombre" oninput="capitalizarInput('nombre')" autocomplete="off" onkeypress="return soloLetras(event);">
                                 </div>
         
                                 <div class="col-4">
-                                    <label  class="font-weight-bold text-dark">Apellido Jefe</label>
+                                    <label  class="font-weight-bold text-dark">Apellido Vocero</label>
                                     <input type="text" class="form-control" id="apellido" name="ape_jefe" style="background: white;" value="{{ isset($comunidad->ape_jefe)?$comunidad->ape_jefe:'' }}" placeholder="Ingrese El Apellido" autocomplete="off"  oninput="capitalizarInput('apellido')" onkeypress="return soloLetras(event);">
                                 </div>
                                 <div class="col-4">
@@ -84,6 +84,28 @@
                                 </div>
 
                             </div>
+
+                            <br>
+
+                            <div class="row">
+
+                                <center>
+                                    <h5 class="font-weight-bold text-dark">Editar Proyecto</h5>
+                                </center>
+
+                                <div class="col-4">
+                                    <label  class="font-weight-bold text-dark">Nombre de Proyecto</label>
+                                    <input type="text" class="form-control" id="nom_proyecto" name="nom_proyecto" style="background: white;" value="{{ isset($comunidad->nom_proyecto)?$comunidad->nom_proyecto:'' }}" autocomplete="off" oninput="capitalizarInput('nom_proyecto')" onkeypress="return soloLetras(event);">
+                                </div>
+
+                                <div class="col-4">
+                                    <label  class="font-weight-bold text-dark">Descripción del Proyecto</label>
+                                    <textarea class="form-control" id="descripcion" name="descripcion" cols="10" rows="10" style="max-height: 6rem;" oninput="capitalizarInput('descripcion')">{{ $comunidad->descripcion }}</textarea>                                   
+                                </div> 
+                                
+                                
+                            </div>
+
 
                             <br><br>
 

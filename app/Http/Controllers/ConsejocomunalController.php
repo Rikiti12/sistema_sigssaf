@@ -25,6 +25,27 @@ class ConsejoComunalController extends Controller
         return view('consejocomunal.index', compact('consejo_comunals'));
     }
 
+    public function getconsejocomunalDetalles($id)
+    {
+        // Recupera el Proyecto por su ID
+        $consejocomunal = ConsejoComunal::find($id);
+
+        if (!$consejocomunal) {
+            // Maneja el caso en que no se encuentre la persona
+            return response()->json(['error' => 'Persona no encontrada'], 404);
+        }
+
+        // Devuelve los datos relevantes en formato JSON
+        return response()->json([
+            'rif' => $consejocomunal->rif,
+            'acta' => $consejocomunal->acta,
+            'dire_consejo' => $consejocomunal->dire_consejo,
+            'id_comunidad' => $consejocomunal->comunidad->nom_comuni,
+            
+        ]);
+ 
+    }
+
     public function create()
     {
         $comunidades = Comunidades::all();

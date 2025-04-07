@@ -32,6 +32,25 @@ class ComunidadesController extends Controller
         return view('comunidad.index', compact('comunidades'));
     }
 
+    public function getComunidadDetalles($id)
+    {
+        // Recupera el Proyecto por su ID
+        $comunidad = Comunidades::find($id);
+
+        if (!$comunidad) {
+            // Maneja el caso en que no se encuentre la persona
+            return response()->json(['error' => 'Comunidad no encontrada'], 404);
+        }
+
+        // Devuelve los datos relevantes en formato JSON
+        return response()->json([
+            'nom_proyecto' => $comunidad->nom_proyecto,
+            'descripcion' => $comunidad->descripcion,
+            
+        ]);
+ 
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -68,6 +87,8 @@ class ComunidadesController extends Controller
         $comunidades->nom_comuni = $request->input('nom_comuni');
         $comunidades->dire_comuni = $request->input('dire_comuni');
         $comunidades->id_comuna = $request->input('id_comuna');
+        $comunidades->nom_proyecto = $request->input('nom_proyecto');
+        $comunidades->descripcion = $request->input('descripcion');
 
         $comunidades->save();
 
@@ -136,6 +157,8 @@ class ComunidadesController extends Controller
         $comunidad->nom_comuni = $request->input('nom_comuni');
         $comunidad->dire_comuni = $request->input('dire_comuni');
         $comunidad->id_comuna = $request->input('id_comuna');
+        $comunidad->nom_proyecto = $request->input('nom_proyecto');
+        $comunidad->descripcion = $request->input('descripcion');
 
         $comunidad->save();
 

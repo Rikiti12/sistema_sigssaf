@@ -38,7 +38,7 @@
                     <table class="table align-items-center table-flush" id="dataTable">
                         <thead class="thead-light">
                             <tr>
-                                <th  class="font-weight-bold text-dark">Jefe Comuna</th>
+                                <th  class="font-weight-bold text-dark">Vocero Comuna</th>
                                 <th  class="font-weight-bold text-dark">Nombre Comunas</th>
                                 <th  class="font-weight-bold text-dark">Parroquia</th>
                                 <th  class="font-weight-bold text-dark">Direccion</th>

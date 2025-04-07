@@ -60,16 +60,22 @@
                                     <div id="imagenes_container" class="mt-2"></div>
                                 </div>
 
-                                <div class="col-md-4 mb-3">
+                                {{-- <div class="col-md-4 mb-3">
                                     <label  class="font-weight-bold text-dark">Rendición de Cuenta</label>
                                     <input type="file" id="documentos_pdf" name="documentos[]" multiple class="btn btn-outline-info w-100">
                                     <div id="pdf_container"></div>
-                                </div>
+                                </div> --}}
 
                                 <div class="col-md-4 mb-3">
                                     <label class="font-weight-bold text-dark">Fecha Inicial</label>
                                     <input type="date" class="form-control" id="fecha_inicial" name="fecha_inicial" value="<?php echo date('d/m/Y'); ?>">
                                 </div>
+
+                                <div class="col-md-4 mb-3">
+                                    <label class="font-weight-bold text-dark">Fecha Final</label>
+                                    <input type="date" class="form-control" id="fecha_final" name="fecha_final" value="<?php echo date('d/m/Y'); ?>">
+                                </div>
+                            
                             
                             </div>    
                               
@@ -111,8 +117,8 @@
                     reader.onload = (e) => {
                         const img = document.createElement('img');
                         img.src = e.target.result;
-                        img.style.maxWidth = '100%';
-                        img.style.maxHeight = '100%';
+                        img.style.maxWidth = '50%';
+                        img.style.maxHeight = '50%';
                         fotoContainer.appendChild(img);
                     };
                     reader.readAsDataURL(file);
@@ -123,7 +129,7 @@
 
     {{-- ? FUNCION PARA MOSTRAR LOS PDF --}}
 
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    {{-- <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
     <script>
         $(document).ready(function () {
@@ -145,11 +151,11 @@
                 }
             });
         });
-    </script>
+    </script> --}}
 
     {{-- ? FUNCION PARA MOSTRAR LOS PDF --}}
 
-    <script>
+    {{-- <script>
         $(document).ready(function () {
             $('#documentos').change(function () {
                 const pdfContainer = document.getElementById('documentos_container');
@@ -177,7 +183,7 @@
                 });
             });
         });
-    </script>
+    </script> --}}
 
     {{-- ? FUNCION PARA CAPITALIZAR PRIMERA LETRA --}}
 

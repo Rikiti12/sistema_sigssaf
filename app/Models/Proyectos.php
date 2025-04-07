@@ -12,8 +12,7 @@ class Proyectos extends Model
     protected $table = 'proyectos'; 
     protected $primaryKey = 'id'; 
     public $timestamps = true; 
-    protected $fillable = [ 'nombre_pro','descripcion_pro','id_persona','id_comunidad','fecha_inicial','status_pro',
-    ];
+    protected $fillable = [ 'nombre_pro','descripcion_pro','id_persona','id_comunidad','imagenes','fecha_inicial', 'fecha_final'];
 
     // Relaciones (si es necesario)
     public function personas()

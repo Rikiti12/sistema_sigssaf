@@ -24,7 +24,7 @@
                         <div class="card-body">
 
                             <center>
-                                <h5 class="font-weight-bold text-dark">Datos del Jefe Comuna</h5>
+                                <h5 class="font-weight-bold text-dark">Datos del Vocero Comuna</h5>
                             </center>
 
                             <br>
@@ -32,22 +32,22 @@
                             <div class="row">
         
                                 <div class="col-4">
-                                    <label  class="font-weight-bold text-dark">Cédula</label>
+                                    <label  class="font-weight-bold text-dark">Cédula Vocero</label>
                                     <input type="text" class="form-control" id="cedula" name="cedula_comunas" maxlength="8" style="background: white;" value="{{ isset($comuna->cedula_comunas)?$comuna->cedula_comunas:'' }}" placeholder="Ingrese La Cédula" autocomplete="off" onkeypress="return solonum(event);">
                                 </div>
         
                                 <div class="col-4">
-                                    <label  class="font-weight-bold text-dark">Nombre</label>
+                                    <label  class="font-weight-bold text-dark">Nombre Vocero</label>
                                     <input type="text" class="form-control" id="nombre" name="nombre_comunas" style="background: white;" value="{{ isset($comuna->nombre_comunas)?$comuna->nombre_comunas:'' }}" placeholder="Ingrese El Nombre" oninput="capitalizarInput('nombre')" autocomplete="off" onkeypress="return soloLetras(event);">
                                 </div>
         
                                 <div class="col-4">
-                                    <label  class="font-weight-bold text-dark">Apellido</label>
+                                    <label  class="font-weight-bold text-dark">Apellido Vocero</label>
                                     <input type="text" class="form-control" id="apellido" name="apellido_comunas" style="background: white;" value="{{ isset($comuna->apellido_comunas)?$comuna->apellido_comunas:'' }}" placeholder="Ingrese El Apellido" autocomplete="off"  oninput="capitalizarInput('apellido')" onkeypress="return soloLetras(event);">
                                 </div>
 
                                 <div class="col-4">
-                                    <label  class="font-weight-bold text-dark">Telefono</label>
+                                    <label  class="font-weight-bold text-dark">Telefono Vocero</label>
                                     <input type="text" class="form-control" id="telefono" name="telefono" maxlength="12" style="background: white;" value="{{ isset($comuna->telefono)?$comuna->telefono:'' }}" placeholder="Ingrese La Cédula" autocomplete="off" onkeypress="return solonum(event);">
                                 </div>
 

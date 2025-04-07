@@ -12,7 +12,7 @@ class Comunidades extends Model
     protected $table = 'comunidades'; 
     protected $primaryKey = 'id';
     public $timestamps = true;
-    protected $fillable = [ 'cedula_jefe', 'nom_jefe', 'ape_jefe', 'telefono', 'nom_comuni', 'dire_comuni', 'id_comuna'];
+    protected $fillable = [ 'cedula_jefe', 'nom_jefe', 'ape_jefe', 'telefono', 'nom_comuni', 'dire_comuni', 'id_comuna', 'nom_proyecto', 'descripcion' ];
 
     // Relación uno a muchos inversa
     public function comuna()

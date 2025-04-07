@@ -85,23 +85,24 @@ class ProyectosController extends Controller
             
         }
 
-        // Verificar si se han cargado archivos
-        if ($request->hasFile('documentos')) {
-            $rutaGuardarPdf = 'pdf/';
-            $nombresPdf = [];
+        // // Verificar si se han cargado archivos
+        // if ($request->hasFile('documentos')) {
+        //     $rutaGuardarPdf = 'pdf/';
+        //     $nombresPdf = [];
 
-            foreach ($request->file('documentos') as $pdf) {
-                $pdfProyecto = date('YmdHis') . '_' . uniqid() . '_' . pathinfo($pdf->getClientOriginalName(), PATHINFO_FILENAME) . '.' . $pdf->getClientOriginalExtension();
-                $pdf->move(public_path($rutaGuardarPdf), $pdfProyecto);
-                $nombresPdf[] = $pdfProyecto;
-            }
+        //     foreach ($request->file('documentos') as $pdf) {
+        //         $pdfProyecto = date('YmdHis') . '_' . uniqid() . '_' . pathinfo($pdf->getClientOriginalName(), PATHINFO_FILENAME) . '.' . $pdf->getClientOriginalExtension();
+        //         $pdf->move(public_path($rutaGuardarPdf), $pdfProyecto);
+        //         $nombresPdf[] = $pdfProyecto;
+        //     }
 
-            $proyectos->documentos = json_encode($nombresPdf);
-        } else {
-            $proyectos->documentos = '[]'; // null
-        }
+        //     $proyectos->documentos = json_encode($nombresPdf);
+        // } else {
+        //     $proyectos->documentos = '[]'; // null
+        // }
 
         $proyectos->fecha_inicial = $request->input('fecha_inicial');
+        $proyectos->fecha_final = $request->input('fecha_final');
 
         $proyectos->save();
 
@@ -140,8 +141,8 @@ class ProyectosController extends Controller
         $personas = Personas::all();
         $comunidades = Comunidades::all();
         $imagenes = $proyecto->imagenes;
-        $documentos = $proyecto->documentos;
-        return view('proyecto.edit', compact('proyecto', 'personas', 'comunidades', 'imagenes', 'documentos'));
+        // $documentos = $proyecto->documentos;
+        return view('proyecto.edit', compact('proyecto', 'personas', 'comunidades', 'imagenes'));
     }
 
     /**
@@ -182,26 +183,27 @@ class ProyectosController extends Controller
             $proyecto->imagenes = json_encode($nombresImagenes);
         }
 
-        // Verificar si se han cargado nuevos archivos
-        if ($request->hasFile('documentos')) {
-            $rutaGuardarPdf = 'pdf/';
-            $nuevosNombresPdf = [];
+        // // Verificar si se han cargado nuevos archivos
+        // if ($request->hasFile('documentos')) {
+        //     $rutaGuardarPdf = 'pdf/';
+        //     $nuevosNombresPdf = [];
 
-            foreach ($request->file('documentos') as $pdf) {
-                $pdfComprobante = date('YmdHis') . '_' . uniqid() . '_' . pathinfo($pdf->getClientOriginalName(), PATHINFO_FILENAME) . '.' . $pdf->getClientOriginalExtension();
-                $pdf->move(public_path($rutaGuardarPdf), $pdfComprobante);
-                $nuevosNombresPdf[] = $pdfComprobante;
-            }
+        //     foreach ($request->file('documentos') as $pdf) {
+        //         $pdfComprobante = date('YmdHis') . '_' . uniqid() . '_' . pathinfo($pdf->getClientOriginalName(), PATHINFO_FILENAME) . '.' . $pdf->getClientOriginalExtension();
+        //         $pdf->move(public_path($rutaGuardarPdf), $pdfComprobante);
+        //         $nuevosNombresPdf[] = $pdfComprobante;
+        //     }
 
-            // Combinar los nuevos archivos con los existentes
-            $archivosExistentes = json_decode($proyecto->documentos, true) ?? [];
-            $todosLosArchivos = array_merge($archivosExistentes, $nuevosNombresPdf);
+        //     // Combinar los nuevos archivos con los existentes
+        //     $archivosExistentes = json_decode($proyecto->documentos, true) ?? [];
+        //     $todosLosArchivos = array_merge($archivosExistentes, $nuevosNombresPdf);
 
-            $proyecto->documentos = json_encode($todosLosArchivos);
-        }
+        //     $proyecto->documentos = json_encode($todosLosArchivos);
+        // }
 
 
         $proyecto->fecha_inicial = $request->input('fecha_inicial');
+        $proyecto->fecha_final = $request->input('fecha_final');
 
         $proyecto->save();
 

@@ -66,15 +66,20 @@
                                     <div id="foto_container" style="margin-top: 3%; display: flex; flex-wrap: wrap;"></div>
                             </div>
 
-                            <div class="col-md-4 mb-3">
+                            {{-- <div class="col-md-4 mb-3">
                                 <label  class="font-weight-bold text-primary">Comprobante</label>
                                 <input type="file" id="documentos" name="documentos[]" multiple value="{{ $documentos }}" class="btn btn-outline-info d-block w-100">
                                 <div id="pdf_container" style="margin-top: 3%; display: flex; flex-wrap: wrap;"></div>
-                            </div>
+                            </div> --}}
 
                             <div class="col-md-4 mb-3">
                                 <label class="font-weight-bold text-dark">Fecha Inicial</label>
                                 <input type="date" class="form-control" id="fecha_inicial" name="fecha_inicial" value="{{ $proyecto->fecha_inicial }}">
+                            </div>
+
+                            <div class="col-md-4 mb-3">
+                                <label class="font-weight-bold text-dark">Fecha Final</label>
+                                <input type="date" class="form-control" id="fecha_final" name="fecha_final" value="{{ $proyecto->fecha_final }}">
                             </div>
 
                         </div>
@@ -171,7 +176,7 @@
 
     {{-- * FUNCION PARA MOSTRAR EL PDF --}}
 
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    {{-- <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
     <script>
 
@@ -237,7 +242,7 @@
             });
         });
 
-    </script>
+    </script> --}}
 
     {{-- * FUNCION PARA CAPITALIZAR LA PRIMERA LETRA --}}
 

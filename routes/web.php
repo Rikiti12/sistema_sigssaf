@@ -70,12 +70,14 @@ Route::get('/comunidad',  [ComunidadesController::class,'index'])->name('comunid
 Route::get('/comunidad/create', [ComunidadesController::class, 'create'])->name('create')->middleware('auth');
 Route::get('/comunidad/pdf',  [ComunidadesController::class,'pdf'])->name('comunidad')->middleware('auth');
 Route::resource('comunidad', ComunidadesController::class)->middleware('auth');
+Route::get('/comunidad/detalles/{id}', [ComunidadesController::class, 'getComunidadDetalles']);
 
-/* Ruta Comunidad */
+/* Ruta Consejo Comunal */
 Route::get('/consejocomunal',  [ConsejoComunalController::class,'index'])->name('consejocomunal')->middleware('auth');
 Route::get('/consejocomunal/create', [ConsejoComunalController::class, 'create'])->name('create')->middleware('auth');
 Route::get('/consejocomunal/pdf',  [ConsejoComunalController::class,'pdf'])->name('consejocomunal')->middleware('auth');
 Route::resource('consejocomunal', ConsejoComunalController::class)->middleware('auth');
+Route::get('/consejocomunal/detalles/{id}', [ConsejoComunalController::class, 'getconsejocomunalDetalles']);
 
 /* Ruta Persona */
 Route::get('/persona',  [PersonasController::class,'index'])->name('persona')->middleware('auth');

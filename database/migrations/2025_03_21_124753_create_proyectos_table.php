@@ -20,8 +20,9 @@ return new class extends Migration
             $table->unsignedBigInteger('id_persona');
             $table->unsignedBigInteger('id_comunidad'); 
             $table->json('imagenes');
-            $table->json('documentos');
+            // $table->json('documentos');
             $table->date('fecha_inicial');
+            $table->date('fecha_final');
             $table->timestamps();
 
             // Establecer relaciones con las tablas correspondientes

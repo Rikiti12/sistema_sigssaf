@@ -44,7 +44,7 @@ class PlanificacionesController extends Controller
         // Devuelve los datos relevantes en formato JSON
         return response()->json([
             'imagenes' => $proyecto->imagenes,
-            'documentos' => $proyecto->documentos,
+            // 'documentos' => $proyecto->documentos,
         ]);
  
     }
