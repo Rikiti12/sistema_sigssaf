@@ -24,4 +24,10 @@ class Proyectos extends Model
     {
         return $this->belongsTo(Comunidades::class, 'id_comunidad');
     }
+
+    public function planificaciones()
+    {
+        return $this->hasMany(Planificacion::class, 'id_proyecto'); // 'id_proyecto' es la clave foránea en 'planificaciones'
+    }
+
 }

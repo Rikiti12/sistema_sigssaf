@@ -19,6 +19,7 @@ use App\Http\Controllers\AyudaSocialesController;
 use App\Http\Controllers\ViviendasController;
 use App\Http\Controllers\ProyectosController;
 use App\Http\Controllers\PlanificacionesController;
+use App\Http\Controllers\SeguimientoController;
 use App\Http\Controllers\ReporteController;
 use App\Http\Controllers\ManualController;
 
@@ -106,10 +107,18 @@ Route::resource('proyecto', ProyectosController::class)->middleware('auth');
 
 /* Rutas Planificacion */
 Route::get('/planificacion', [PlanificacionesController::class, 'index'])->name('planificacion')->middleware('auth');
-Route::get('/planificacion/create', [PlanificacionesController::class, 'create'])->name('planificacion.create')->middleware('auth');
+Route::get('/planificacion/create/{id}', [PlanificacionesController::class, 'create'])->name('planificacion.create')->middleware('auth');
 Route::get('/planificacion/pdf', [PlanificacionesController::class, 'pdf'])->name('planificacion.pdf')->middleware('auth');
-Route::resource('planificacion', PlanificacionesController::class)->middleware('auth');
+Route::resource('planificacion', PlanificacionesController::class)->middleware('auth')->except(['create']); // Excluye la ruta 'create' del resource para evitar duplicados;
 Route::get('/planificacion/detalles/{id}', [PlanificacionesController::class, 'getProyectoDetalles']);
+
+/* Rutas Planificacion */
+Route::get('/seguimiento', [SeguimientoController::class, 'index'])->name('planificacion')->middleware('auth');
+Route::get('/seguimiento/create/{id}', [SeguimientoController::class, 'create'])->name('planificacion.create')->middleware('auth');
+Route::get('/seguimiento/pdf', [SeguimientoController::class, 'pdf'])->name('planificacion.pdf')->middleware('auth');
+Route::resource('seguimiento', SeguimientoController::class)->middleware('auth')->except(['create']); 
+Route::get('/seguimiento/detalles/{id}', [SeguimientoController::class, 'getProyectoDetalles']);
+
 
 /* Ruta Bitacora*/
 Route::get('bitacora', [ReporteController::class, 'bitacora'])->name('bitacora')->middleware('auth');

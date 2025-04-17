@@ -10,26 +10,26 @@
 <div class="container-fluid" id="container-wrapper">
         <div class="d-sm-flex align-items-center"></div>
 
-        <div class="row">
+          <div class="row">
 
-        <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card h-100 rotate hover-rotate">
-              <div class="card-body">
-                <div class="row align-items-center">
-                  <div class="col mr-2">
-                    <div class="text-xs font-weight-bold text-uppercase mb-1">Comunas</div>
-                    <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $count_comuna }}</div>
+              <div class="col-xl-3 col-md-6 mb-4">
+                  <div class="card h-100 rotate hover-rotate" style="background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%); color: white; border: none; border-radius: 10px;">
+                    <div class="card-body">
+                      <div class="row align-items-center">
+                        <div class="col mr-2">
+                          <div class="text-xs font-weight-bold text-uppercase mb-1">Comunas</div>
+                          <div class="h5 mb-0 font-weight-bold text-uppercase-800">{{ $count_comuna }}</div>
+                        </div>
+                        <div class="col-auto">
+                          <img src="{{ asset('img/comuna.png') }}" width="50" height="50" class="mb-3"></img>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  <div class="col-auto">
-                    <img src="{{ asset('img/comuna.png') }}" width="50" height="50" class="mb-3"></img>
-                  </div>
-                </div>
               </div>
-            </div>
-        </div>
 
-        <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card h-100 rotate hover-rotate">
+              <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card h-100 rotate hover-rotate" style="background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%); color: white; border: none; border-radius: 10px;">
                   <div class="card-body">
                     <div class="row align-items-center">
                       <div class="col mr-2">
@@ -45,7 +45,7 @@
               </div>
 
               <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card h-100 rotate hover-rotate">
+                <div class="card h-100 rotate hover-rotate" style="background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%); color: white; border: none; border-radius: 10px;">
                   <div class="card-body">
                     <div class="row align-items-center">
                       <div class="col mr-2">
@@ -61,7 +61,7 @@
               </div>
 
               <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card h-100 rotate hover-rotate">
+                <div class="card h-100 rotate hover-rotate" style="background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%); color: white; border: none; border-radius: 10px;">
                   <div class="card-body">
                     <div class="row align-items-center">
                       <div class="col mr-2">
@@ -77,7 +77,7 @@
               </div>
 
               <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card h-100 rotate hover-rotate">
+                <div class="card h-100 rotate hover-rotate" style="background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%); color: white; border: none; border-radius: 10px;">
                   <div class="card-body">
                     <div class="row align-items-center">
                       <div class="col mr-2">
@@ -93,7 +93,7 @@
               </div>
 
               <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card h-100 rotate hover-rotate">
+                <div class="card h-100 rotate hover-rotate" style="background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%); color: white; border: none; border-radius: 10px;">
                   <div class="card-body">
                     <div class="row align-items-center">
                       <div class="col mr-2">
@@ -106,7 +106,8 @@
                     </div>
                   </div>
                 </div>
-              </div>
+
+          </div>
 
 </div>
 
