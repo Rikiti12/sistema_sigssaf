@@ -113,9 +113,9 @@ Route::resource('planificacion', PlanificacionesController::class)->middleware('
 Route::get('/planificacion/detalles/{id}', [PlanificacionesController::class, 'getProyectoDetalles']);
 
 /* Rutas Planificacion */
-Route::get('/seguimiento', [SeguimientoController::class, 'index'])->name('planificacion')->middleware('auth');
-Route::get('/seguimiento/create/{id}', [SeguimientoController::class, 'create'])->name('planificacion.create')->middleware('auth');
-Route::get('/seguimiento/pdf', [SeguimientoController::class, 'pdf'])->name('planificacion.pdf')->middleware('auth');
+Route::get('/seguimiento', [SeguimientoController::class, 'index'])->name('seguimiento')->middleware('auth');
+Route::get('/seguimiento/create/{id}', [SeguimientoController::class, 'create'])->name('seguimiento.create')->middleware('auth');
+Route::get('/seguimiento/pdf', [SeguimientoController::class, 'pdf'])->name('seguimiento.pdf')->middleware('auth');
 Route::resource('seguimiento', SeguimientoController::class)->middleware('auth')->except(['create']); 
 Route::get('/seguimiento/detalles/{id}', [SeguimientoController::class, 'getProyectoDetalles']);
 

@@ -11,6 +11,8 @@ use App\Models\Personas;
 use App\Models\AyudaSociales;
 use App\Models\Viviendas;
 use App\Models\Proyectos;
+use App\Models\Planificaciones;
+use App\Models\Seguimientos;
 
 class homeController extends Controller
 {
@@ -40,10 +42,19 @@ class homeController extends Controller
         $viviendas = Viviendas::all();
         $count_vivienda = DB::table('viviendas')
         ->count();
+        
+        $proyectos = Proyectos::all();
+        $count_proyecto = DB::table('proyectos')
+        ->count();
+
+        $planificaciones = Planificaciones::all();
+        $count_planificacion = DB::table('planificaciones')
+        ->count();
 
 
-        return view('home.inicio' , compact('count_comuna', 'count_comunidad', 'count_consejo', 'count_persona', 'count_ayuda', 'count_vivienda'  ) ,  [
-        'count' => $count_comuna, $count_comunidad, $count_consejo, $count_persona, $count_ayuda, $count_vivienda
+        return view('home.inicio' , compact('count_comuna', 'count_comunidad', 'count_consejo', 'count_persona', 'count_ayuda', 'count_vivienda',
+        'count_proyecto', 'count_planificacion'  ) ,  [
+        'count' => $count_comuna, $count_comunidad, $count_consejo, $count_persona, $count_ayuda, $count_vivienda, $count_proyecto, $count_planificacion
 
         ]); 
 
