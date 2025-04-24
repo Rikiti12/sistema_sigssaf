@@ -12,18 +12,13 @@ class Planificaciones extends Model
     protected $table = 'planificaciones'; 
     protected $primaryKey = 'id'; 
     public $timestamps = true; 
-    protected $fillable = [ 'nombre_pro','descripcion_pro', 'id_proyecto','fecha_inicial','status_pro',
+    protected $fillable = [ 'id_proyecto', 'descri_alcance', 'presupuesto', 'impacto_ambiental', 'impacto_social', 'descri_obra', 'fecha_inicio', 'duracion_estimada',
     ];
-
+    
     // Relaciones 
     public function proyecto()
     {
         return $this->belongsTo(Proyectos::class, 'id_proyecto');
     }
-
-//     public function comunidad()
-//     {
-//         return $this->belongsTo(Comunidades::class, 'id_comunidad');
-//     }
 
 }

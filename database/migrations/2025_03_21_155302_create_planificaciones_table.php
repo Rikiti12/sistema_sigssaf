@@ -15,19 +15,19 @@ return new class extends Migration
     {
         Schema::create('planificaciones', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre_pro');
-            $table->text('descripcion_pro');
-            $table->unsignedBigInteger('id_persona');
-            $table->unsignedBigInteger('id_comunidad'); 
-            $table->date('fecha_inicial');
+            $table->unsignedBigInteger('id_proyecto');
+            $table->string('descri_alcance');
+            $table->text('presupuesto');
+            $table->string('impacto_ambiental');
+            $table->string('impacto_social');
+            $table->string('descri_obra');
+            $table->date('fecha_inicio');
+            $table->date('duracion_estimada');
+
             $table->timestamps();
 
-
             // Establecer relaciones con las tablas correspondientes
-            $table->foreign('id_persona')->references('id')->on('personas');
-
-             // Establecer relación con la tabla de comunas
-             $table->foreign('id_comunidad')->references('id')->on('comunidades');
+            $table->foreign('id_proyecto')->references('id')->on('proyectos');
         });
     }
 

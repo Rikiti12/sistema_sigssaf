@@ -76,6 +76,11 @@ class SeederTablaPermisos extends Seeder
              'ver-planificacion',
              'crear-planificacion',
              'editar-planificacion',
+
+              // Operaciones sobre tabla Seguimientos
+              'ver-seguimiento',
+              'crear-seguimiento',
+              'editar-seguimiento',
              
             
             

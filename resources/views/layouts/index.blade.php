@@ -23,23 +23,23 @@
     <aside class="left-sidebar">
       <!-- Sidebar scroll-->
       <div>
-        <div class="brand-logo d-flex align-items-center justify-content-between">
-          <a href="./home" class="text-nowrap logo-img">
-            <img src="{{asset('img/logo.jpg')}}" width="65" alt="" />
+        <div class="brand-logo d-flex align-items-center justify-content-center" style="background-color:  rgb(214, 223, 247)">
+          <a href="/home" class="text-nowrap logo-img">
+            <img src="{{asset('img/logo2.jpg')}}" width="170px" height="110px" />
           </a>
           <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
             <i class="ti ti-x fs-8"></i>
           </div>
         </div>
         <!-- Sidebar navigation-->
-        <nav class="sidebar-nav scroll-sidebar" data-simplebar="">
+        <nav class="sidebar-nav scroll-sidebar" data-simplebar="" style="background-color:  rgb(214, 223, 247)">
           <ul id="sidebarnav">
             <li class="nav-small-cap">
               <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
               <span class="hide-menu">Inicio</span>
             </li>
             <li class="sidebar-item">
-              <a class="sidebar-link" href="./home" aria-expanded="false">
+              <a class="sidebar-link" href="/home" aria-expanded="false">
                 <span>
                   <i class="ti ti-layout-dashboard"></i>
                 </span>
@@ -159,15 +159,17 @@
               </a>
               @endcan
             </li>
-            <!--<li class="sidebar-item">
-              <a class="sidebar-link" href="./ui-card.html" aria-expanded="false">
+            @can('ver-seguimiento') 
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="{{ url('seguimiento') }}" aria-expanded="false">
                 <span>
                   <i class="ti ti-cards"></i>
                 </span>
-                <span class="hide-menu">Card</span>
+                <span class="hide-menu">Seguimiento</span>
               </a>
+              @endcan
             </li>
-            <li class="sidebar-item">
+            {{-- <li class="sidebar-item">
               <a class="sidebar-link" href="./ui-forms.html" aria-expanded="false">
                 <span>
                   <i class="ti ti-file-description"></i>
@@ -186,12 +188,12 @@
             <li class="nav-small-cap">
               <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
               <span class="hide-menu">Estadisticas</span>
-            </li>-->
+            </li>
             
             <li class="nav-small-cap">
               <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
               <span class="hide-menu">Estadisticas</span>
-            </li>
+            </li> --}}
             {{-- <li class="sidebar-item">
               <a class="sidebar-link" href="./icon-tabler.html" aria-expanded="false">
                 <span>
@@ -208,6 +210,10 @@
                 <span class="hide-menu">Sample Page</span>
               </a>
             </li> --}}
+            <li class="nav-small-cap">
+              <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+              <span class="hide-menu">Estadisticas</span>
+            </li>
             <li class="sidebar-item">
               <a class="sidebar-link" href="./authentication-login.html" aria-expanded="false">
                 <span>
@@ -234,8 +240,8 @@
     <!--  Main wrapper -->
     <div class="body-wrapper">
       <!--  Header Start -->
-      <header class="app-header">
-        <nav class="navbar navbar-expand-lg navbar-light">
+      <header class="app-header" style="background-color:  rgb(214, 223, 247)">
+        <nav class="navbar navbar-expand-lg navbar-light"style="background-color:  rgb(214, 223, 247)">
           <ul class="navbar-nav">
             <li class="nav-item d-block d-xl-none">
               <a class="nav-link sidebartoggler nav-icon-hover" id="headerCollapse" href="javascript:void(0)">
@@ -249,15 +255,13 @@
                 </a>
             </li>
           </ul>
-          <div class="navbar-collapse justify-content-end px-0" id="navbarNav">
+          <div class="navbar-collapse justify-content-end px-0" id="navbarNav" style="background-color:  rgb(214, 223, 247)">
             <MARQUEE style="color: rgb(0, 0, 0);"> BIENVENID@ {{ Auth::user()->name }} al Implementación de Sistema de Información para la Gestión de Infogobierno en la Sala Situacional de la Alcaldía de San Felipe.
               (SIGISSAF) </MARQUEE>
-            <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-end">
-              {{-- <a href="https://adminmart.com/product/modernize-free-bootstrap-admin-dashboard/" target="_blank" class="btn btn-primary">Download Free</a> --}}
+            <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-end" style="background-color:  rgb(214, 223, 247)">
               <li class="nav-item dropdown">
                 <a class="nav-link nav-icon-hover" href="javascript:void(0)" id="drop2" data-bs-toggle="dropdown"
                   aria-expanded="false">
-                  {{-- <i class="ti ti-user fs-7"></i> --}}
                   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
                     <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
                     <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
