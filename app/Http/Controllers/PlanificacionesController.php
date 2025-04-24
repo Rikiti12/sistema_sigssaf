@@ -6,8 +6,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Planificaciones;
 use App\Models\Proyectos;
-use App\Models\Personas;
-use App\Models\Comunidades;
 use Illuminate\Database\QueryException;
 use App\Http\Controllers\BitacoraController;
 
@@ -54,12 +52,10 @@ class PlanificacionesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
-        // $proyectos = Proyectos::all();
-        // $personas = Personas::all();
-        // $comunidades = Comunidades::all();
-        // return view('planificacion.create', compact('proyectos', 'personas', 'comunidades'));
+        $proyecto = Proyectos::findOrFail($id);
+        return view('planificacion.create', compact('proyecto'));
     }
 
     /**
@@ -78,20 +74,25 @@ class PlanificacionesController extends Controller
         //     'fecha_inicial' => 'required|date',
         // ]);
 
-        // $planificaciones = new Planificaciones();
-        // $planificaciones->nombre_pro = $request->input('nombre_pro');
-        // $planificaciones->descripcion_pro = $request->input('descripcion_pro');
-        // $planificaciones->id_persona = $request->input('id_persona');
-        // $planificaciones->id_comunidad = $request->input('id_comunidad');
-        // $planificaciones->fecha_inicial = $request->input('fecha_inicial');
+        $planificaciones = new Planificaciones();
+        $planificaciones->id_proyecto = $request->input('id_proyecto');
+        $planificaciones->descri_alcance = $request->input('descri_alcance');
+        $planificaciones->presupuesto = $request->input('presupuesto');
+        $planificaciones->impacto_ambiental = $request->input('impacto_ambiental');
+        $planificaciones->impacto_social = $request->input('impacto_social');
+        $planificaciones->descri_obra = $request->input('descri_obra');
+        $planificaciones->fecha_inicio = $request->input('fecha_inicio');
+        $planificaciones->duracion_estimada = $request->input('duracion_estimada');
 
-        // $planificaciones->save();
+        // dd($planificaciones->id_proyecto);
+
+        $planificaciones->save();
 
         $bitacora = new BitacoraController();
         $bitacora->update();
 
         try {
-            return redirect()->route('planificacion.index');
+            return redirect()->route('seguimiento.index');
         } catch (QueryException $exception) {
             $errorMessage = 'Error: ' . $exception->getMessage();
             return redirect()->back()->withErrors($errorMessage);
@@ -106,11 +107,7 @@ class PlanificacionesController extends Controller
      */
     public function show($id)
     {
-        //  $planificacion = Planificaciones::find($id);
-        //  if (!$planificacion) {
-        //      return redirect()->route('planificacion.index')->withErrors('Planificación no encontrada.');
-        // }
-        //  return view('planificacion.show', compact('planificacion'));
+        
     }
 
     /**
@@ -121,11 +118,9 @@ class PlanificacionesController extends Controller
      */
     public function edit($id)
     {
-        // $planificaciones = Planificaciones::find($id);
-        // $proyectos = Proyectos::all();
-        // $personas = Personas::all();
-        // $comunidades = Comunidades::all();
-        // return view('planificacion.edit', compact('planificaciones','proyectos', 'personas', 'comunidades'));
+        $planificacion = Planificaciones::find($id);
+        $proyectos = Proyectos::all();
+        return view('planificacion.edit', compact('planificacion','proyectos'));
     }
 
     /**
@@ -145,24 +140,27 @@ class PlanificacionesController extends Controller
         //     'fecha_inicial' => 'required|date',
         // ]);
 
-        // $planificacion = Planificaciones::find($id);
-        // $planificacion->nombre_pro = $request->input('nombre_pro');
-        // $planificacion->descripcion_pro = $request->input('descripcion_pro');
-        // $planificacion->id_persona = $request->input('id_persona');
-        // $planificacion->id_comunidad = $request->input('id_comunidad');
-        // $planificacion->fecha_inicial = $request->input('fecha_inicial');
+        $planificacion = Planificaciones::find($id);
+        $planificacion->id_proyecto = $request->input('id_proyecto');
+        $planificacion->descri_alcance = $request->input('descri_alcance');
+        $planificacion->presupuesto = $request->input('presupuesto');
+        $planificacion->impacto_ambiental = $request->input('impacto_ambiental');
+        $planificacion->impacto_social = $request->input('impacto_social');
+        $planificacion->descri_obra = $request->input('descri_obra');
+        $planificacion->fecha_inicio = $request->input('fecha_inicio');
+        $planificacion->duracion_estimada = $request->input('duracion_estimada');
 
-        // $planificacion->save();
+        $planificacion->save();
 
-        // $bitacora = new BitacoraController();
-        // $bitacora->update();
+        $bitacora = new BitacoraController();
+        $bitacora->update();
 
-        // try {
-        //     return redirect('planificacion');
-        // } catch (QueryException $exception) {
-        //     $errorMessage = 'Error: ' . $exception->getMessage();
-        //     return redirect()->back()->withErrors($errorMessage);
-        // }
+        try {
+            return redirect('seguimiento');
+        } catch (QueryException $exception) {
+            $errorMessage = 'Error: ' . $exception->getMessage();
+            return redirect()->back()->withErrors($errorMessage);
+        }
     }
 
     /**
@@ -173,10 +171,7 @@ class PlanificacionesController extends Controller
      */
     public function destroy($id)
     {
-        // Planificaciones::find($id)->delete();
-        // $bitacora = new BitacoraController();
-        // $bitacora->update();
-        // return redirect()->route('planificacion.index')->with('eliminar', 'ok');
+        // No es peo tuyo vale XD 
     }
 
 }

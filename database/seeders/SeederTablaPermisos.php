@@ -82,6 +82,11 @@ class SeederTablaPermisos extends Seeder
               'crear-seguimiento',
               'editar-seguimiento',
              
+              // Operaciones sobre tabla ControlSeguimientos
+              'ver-controlseguimiento',
+              'crear-controlseguimiento',
+              'editar-controlseguimiento',
+             
             
             
         ];

@@ -13,7 +13,7 @@
         <div class="row">
 
               <div class="col-xl-3 col-md-6 mb-4">
-                  <div class="card h-100 rotate hover-rotate" style="background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%); color: white; border: none; border-radius: 10px;">
+                  <div class="card h-100 rotate hover-rotate" style="background: linear-gradient(135deg, #2575fc 0%,rgb(69, 135, 248) 100%); color: white; border: none; border-radius: 10px;">
                     <div class="card-body">
                       <div class="row align-items-center">
                         <div class="col mr-2">
@@ -29,7 +29,7 @@
               </div>
 
               <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card h-100 rotate hover-rotate" style="background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%); color: white; border: none; border-radius: 10px;">
+                <div class="card h-100 rotate hover-rotate" style="background: linear-gradient(135deg, #2575fc 0%,rgb(69, 135, 248)100%); color: white; border: none; border-radius: 10px;">
                   <div class="card-body">
                     <div class="row align-items-center">
                       <div class="col mr-2">
@@ -45,7 +45,7 @@
               </div>
 
               <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card h-100 rotate hover-rotate" style="background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%); color: white; border: none; border-radius: 10px;">
+                <div class="card h-100 rotate hover-rotate" style="background: linear-gradient(135deg, #2575fc 0%,rgb(69, 135, 248)100%); color: white; border: none; border-radius: 10px;">
                   <div class="card-body">
                     <div class="row align-items-center">
                       <div class="col mr-2">
@@ -61,7 +61,7 @@
               </div>
 
               <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card h-100 rotate hover-rotate" style="background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%); color: white; border: none; border-radius: 10px;">
+                <div class="card h-100 rotate hover-rotate" style="background: linear-gradient(135deg, #2575fc 0%,rgb(69, 135, 248)100%); color: white; border: none; border-radius: 10px;">
                   <div class="card-body">
                     <div class="row align-items-center">
                       <div class="col mr-2">
@@ -77,7 +77,7 @@
               </div>
 
               <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card h-100 rotate hover-rotate" style="background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%); color: white; border: none; border-radius: 10px;">
+                <div class="card h-100 rotate hover-rotate" style="background: linear-gradient(135deg, #2575fc 0%,rgb(69, 135, 248)100%); color: white; border: none; border-radius: 10px;">
                   <div class="card-body">
                     <div class="row align-items-center">
                       <div class="col mr-2">
@@ -93,7 +93,7 @@
               </div>
 
               <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card h-100 rotate hover-rotate" style="background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%); color: white; border: none; border-radius: 10px;">
+                <div class="card h-100 rotate hover-rotate" style="background: linear-gradient(135deg, #2575fc 0%,rgb(69, 135, 248)100%); color: white; border: none; border-radius: 10px;">
                   <div class="card-body">
                     <div class="row align-items-center">
                       <div class="col mr-2">
@@ -109,7 +109,7 @@
               </div>
 
               <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card h-100 rotate hover-rotate" style="background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%); color: white; border: none; border-radius: 10px;">
+                <div class="card h-100 rotate hover-rotate" style="background: linear-gradient(135deg, #2575fc 0%,rgb(69, 135, 248)100%); color: white; border: none; border-radius: 10px;">
                   <div class="card-body">
                     <div class="row align-items-center">
                       <div class="col mr-2">
@@ -125,7 +125,7 @@
               </div>
 
               <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card h-100 rotate hover-rotate" style="background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%); color: white; border: none; border-radius: 10px;">
+                <div class="card h-100 rotate hover-rotate" style="background: linear-gradient(135deg, #2575fc 0%,rgb(69, 135, 248)100%); color: white; border: none; border-radius: 10px;">
                   <div class="card-body">
                     <div class="row align-items-center">
                       <div class="col mr-2">

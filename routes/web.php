@@ -20,6 +20,7 @@ use App\Http\Controllers\ViviendasController;
 use App\Http\Controllers\ProyectosController;
 use App\Http\Controllers\PlanificacionesController;
 use App\Http\Controllers\SeguimientoController;
+use App\Http\Controllers\ControlSeguimientosController;
 use App\Http\Controllers\ReporteController;
 use App\Http\Controllers\ManualController;
 
@@ -119,6 +120,8 @@ Route::get('/seguimiento/pdf', [SeguimientoController::class, 'pdf'])->name('seg
 Route::resource('seguimiento', SeguimientoController::class)->middleware('auth')->except(['create']); 
 Route::get('/seguimiento/detalles/{id}', [SeguimientoController::class, 'getProyectoDetalles']);
 
+/* Rutas ControlSeguimientos */
+Route::get('/control_seguimiento', [ControlSeguimientosController::class, 'index'])->name('control_seguimiento')->middleware('auth'); 
 
 /* Ruta Bitacora*/
 Route::get('bitacora', [ReporteController::class, 'bitacora'])->name('bitacora')->middleware('auth');

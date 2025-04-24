@@ -54,11 +54,11 @@ class ConsejoComunalController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
+        /* $request->validate([
             'cedula_voce' => 'required|unique:consejo_comunals,cedula_voce',
         ], [
             'cedula_voce.unique' => 'Esta cédula ya existe.',
-        ]);
+        ]); */
 
         $consejo_comunal = new ConsejoComunal();
         $consejo_comunal->cedula_voce = $request->input('cedula_voce');
