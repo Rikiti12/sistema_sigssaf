@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('nom_jefe');
             $table->string('ape_jefe');
             $table->string('telefono');
-            $table->string('nom_comuni')->unique();
+            $table->string('nom_comuni');
             $table->text('dire_comuni');
             $table->unsignedBigInteger('id_comuna');
             $table->string('crear_pro');

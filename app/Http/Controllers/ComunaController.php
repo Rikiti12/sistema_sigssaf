@@ -6,9 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Comunas;
 use App\Models\Parroquia;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\QueryException;
-use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\BitacoraController;
 use Barryvdh\DomPDF\Facade\Pdf;
 
@@ -56,7 +54,7 @@ class ComunaController extends Controller
             'cedula_comunas' => 'required|unique:comunas,cedula_comunas'
             ],
             [
-            'cedula_comunas.unique' => 'Está cedula ya existe.',
+            'cedula_comunas.unique' => 'Está cedula Ya Existe.',
             ]
         );
 
@@ -120,17 +118,17 @@ class ComunaController extends Controller
     {
         $request->validate([
             'cedula_comunas' => 'required|unique:comunas,cedula_comunas,' . $id,
-            // 'nom_comunas' => 'required|unique:comunas,nom_comunas ' . $id,
             ],
             [
-            'cedula_comunas.unique' => 'Está cedula ya existe.'
-            // 'nom_comunas.unique' => 'El nombre de este comuna ya existe.'
+            'cedula_comunas.unique' => 'Está cedula Ya Existe.'
             ]
         );
 
+        // Obtener La Comuna por ID
         $comuna =  Comunas::find($id);
         $parroquias = Parroquia::all();
 
+        // Actualizar los campos segun los del formulario
         $comuna->cedula_comunas = $request->input('cedula_comunas');
         $comuna->nombre_comunas = $request->input('nombre_comunas');
         $comuna->apellido_comunas = $request->input('apellido_comunas');
@@ -139,6 +137,7 @@ class ComunaController extends Controller
         $comuna->id_parroquia = $request->input('id_parroquia');
         $comuna->dire_comunas = $request->input('dire_comunas');
 
+        // Guardar los cambios en la base de datos
         $comuna->save();
 
         $bitacora = new BitacoraController;

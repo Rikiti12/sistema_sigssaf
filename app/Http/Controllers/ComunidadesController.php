@@ -6,9 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Comunidades;
 use App\Models\Comunas;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\QueryException;
-use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\BitacoraController;
 use Barryvdh\DomPDF\Facade\Pdf;
 
@@ -76,9 +74,9 @@ class ComunidadesController extends Controller
             'cedula_jefe' => 'required|unique:comunidades,cedula_jefe'
             ],
             [
-            'cedula_jefe_comunidades.unique' => 'Está cedula ya existe.'
-            ]
-        );
+            'cedula_jefe.unique' => 'Está cedula ya existe.',
+            ]);
+        
 
         $comunidades = new Comunidades();
         $comunidades->cedula_jefe = $request->input('cedula_jefe');

@@ -1,6 +1,6 @@
 @extends('layouts.index')
 
-<title>@yield('title') Comunidad</title>
+<title>@yield('title') Consejo Comunal</title>
 
 @section('css-datatable')
         <link href="{{ asset ('assets/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
@@ -15,14 +15,14 @@
                     <div class="card">
                         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
 
-                            <a href="{{ url('comuna/pdf') }}" class="btn btn-sm btn-danger" target="_blank" id="pdfButton">
+                            <a href="{{ url('consejo_comunal/pdf') }}" class="btn btn-sm btn-danger" target="_blank" id="pdfButton">
                                 {{ ('PDF') }}
                             </a>
 
-                            <h2 class="font-weight-bold text-dark">Gestión de Comunidad</h2>
+                            <h2 class="font-weight-bold text-dark">Gestión de Consejo Comunal</h2>
 
-                            @can('crear-comuna')
-                                <form action="{{ route('comunidad.create') }}" method="get" style="display:inline;">
+                            @can('crear-consejocomunal')
+                                <form action="{{ route('consejo_comunal.create') }}" method="get" style="display:inline;">
                                     <button type="submit" class="btn btn-primary btn-mb"> <span class="">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-person-plus-fill" viewBox="0 0 16 16">
                                             <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
@@ -40,37 +40,35 @@
                                 <table id="basic-datatables" class="display table table-striped table-hover">
                                     <thead>
                                         <tr>
-                                        <th  class="font-weight-bold text-dark">Vocero de la Comunidad</th>
-                                        <th  class="font-weight-bold text-dark">Comunidad</th>
-                                        <th  class="font-weight-bold text-dark">Comuna Asignado</th>
-                                        <th  class="font-weight-bold text-dark">Direccion</th>
-                                        <th  class="font-weight-bold text-dark"><center>Acciones</center></th>
+                                        <th class="font-weight-bold text-dark">Cédula</th>
+                                        <th class="font-weight-bold text-dark">Nombre</th>
+                                        <th class="font-weight-bold text-dark">Apellido</th>
+                                        <th class="font-weight-bold text-dark">Teléfono</th>
+                                        <th class="font-weight-bold text-dark">Código SITUR</th>
+                                        <th class="font-weight-bold text-dark"><center>Acciones</center></th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($comunidades as $comunidad)
-                                            <tr>
-                                                <!-- <td class="font-weight-bold text-Secondary">{{ $comunidad->id}}</td> -->
-                                                <td class="font-weight-bold text-dark">{{ $comunidad->cedula_jefe }} - {{ $comunidad->nom_jefe }} 
-                                                {{ $comunidad->ape_jefe }} {{ $comunidad->telefono }} 
-                                                </td>
-                                                <!-- <td class="font-weight-bold text-dark"></td>
-                                                <td class="font-weight-bold text-dark"></td> -->
-                                                <td class="font-weight-bold text-dark">{{ $comunidad->nom_comuni }}</td>
-                                                <td class="font-weight-bold text-dark">{{ $comunidad->comuna->nom_comunas }}</td>
-                                                <td class="font-weight-bold text-dark">{{ $comunidad->dire_comuni }}</td>
-                                                
+                                    @foreach ($consejo_comunals as $consejocomunal)
+                                        <tr>
+                                            <td class="font-weight-bold text-dark">{{ $consejocomunal->cedula_voce }}</td>
+                                            <td class="font-weight-bold text-dark">{{ $consejocomunal->nom_voce }}</td>
+                                            <td class="font-weight-bold text-dark">{{ $consejocomunal->ape_voce }}</td>
+                                            <td class="font-weight-bold text-dark">{{ $consejocomunal->telefono }}</td>
+                                            <td class="font-weight-bold text-dark">{{ $consejocomunal->codigo_situr }}</td>
+                                            </td>
+
                                                 <td>
 
                                                     <div style="display: flex; justify-content: center;">
-                                                        @can('editar-comunidad')
-                                                            <a class="btn btn-warning btn-sm" href="{{ route('comunidad.edit',$comunidad->id) }}"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
+                                                        @can('editar-consejocomunal')
+                                                            <a class="btn btn-warning btn-sm" href="{{ route('consejo_comunal.edit',$consejocomunal->id) }}"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
                                                                 <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z"/>
                                                             </svg></a>
                                                         @endcan
 
-                                                        @can('borrar-comunidad')
-                                                            <form action="{{ route('comunidad.destroy', $comunidad->id) }}" method="POST" class="sweetalert" style="margin: 0 3px;">
+                                                        @can('borrar-consejocomunal')
+                                                            <form action="{{ route('consejo_comunal.destroy', $consejocomunal->id) }}" method="POST" class="sweetalert" style="margin: 0 3px;">
                                                                 @csrf
                                                                 {{ method_field('DELETE') }}
                                                                 <button class="btn btn-danger btn-sm" type="submit" value=""><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
@@ -79,17 +77,15 @@
                                                             </form> 
                                                         @endcan
 
-                                                        <a class="btn btn-info btn-sm" style="margin: 0 1px;" title="Ver Detalles" data-comunidad-id='{{ $comunidad->id }}' class="btn btn-primary" data-toggle="modal" data-target="#exampleModalScrollable" id="#modalScroll"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-layout-text-window-reverse" viewBox="0 0 16 16"  style="color: #ffff; cursor: pointer;">
+                                                        <a class="btn btn-info btn-sm" style="margin: 0 1px;" title="Ver Detalles" data-consejocomunal-id='{{ $consejocomunal->id }}' class="btn btn-primary" data-toggle="modal" data-target="#exampleModalScrollable" id="#modalScroll"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-layout-text-window-reverse" viewBox="0 0 16 16"  style="color: #ffff; cursor: pointer;">
                                                             <path d="M13 6.5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h5a.5.5 0 0 0 .5-.5m0 3a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h5a.5.5 0 0 0 .5-.5m-.5 2.5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1 0-1z"/>
                                                             <path d="M14 0a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2zM2 1a1 1 0 0 0-1 1v1h14V2a1 1 0 0 0-1-1zM1 4v10a1 1 0 0 0 1 1h2V4zm4 0v11h9a1 1 0 0 0 1-1V4z"/>
-                                                            </svg>
-                                                        </a>
-
+                                                        </svg></a>
                                                     </div>
 
                                                 </td>
                                             </tr>
-                                        @endforeach
+                                    @endforeach
                                     </tbody>
                                 </table>
                             </div>
@@ -105,9 +101,7 @@
         <div class="modal-dialog modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button> -->
+                    
                 </div>
 
                 <div class="modal-body" id="modal-body-content">
@@ -230,41 +224,35 @@
         $(document).ready(function() {
             $('#basic-datatables').on('click', '.btn-info', function(event) {
                 event.preventDefault();
-                var comunidadId = $(this).data('comunidad-id');
-
+                var consejocomunalId = $(this).data('consejocomunal-id'); 
+        
                 $.ajax({
-                    url: '/comunidad/detalles/' + comunidadId,
+                    url: '/consejo_comunal/detalles/' + consejocomunalId,
                     type: 'GET',
                     success: function(data) {
                         console.log(data);
-
-                        let modalContent = `
-                            <h5 class="font-weight-bold text-primary" style="text-align: center">Detalles de la Comunidad</h5>
-                            <p><b>Creacion del Proyecto:</b> ${data.crear_pro}</p>
-                        `;
-
-                        if(data.crear_pro.toLowerCase() === 'si') {
-                            modalContent +=`
-                                <p><b>Nombre del Proyecto:</b> ${data.nom_proyecto || 'No Especificado'}</p>
-                                <p><b>Descripcion del Proyecto:</b> ${data.descripcion || 'No Especificado'}</p>
-                            `;
-                        }
-
-                        $('#exampleModalScrollable .modal-body').html(modalContent);
-
-                        if(!$('#exampleModalScrollable').is(':visible')){
+        
+                        $('#exampleModalScrollable .modal-body').html(`
+                            <h5 class="font-weight-bold text-primary" style="text-align: center">Detalles del Consejo Comunales</h5>
+                            
+                            <p><b>Rif:</b> ${data.rif}</p>
+                            <p><b>Acta:</b> ${data.acta}</p>
+                            <p><b>Dirección:</b> ${data.dire_consejo}</p>
+                            <p><b>Comunidad:</b> ${data.id_comunidad}</p>
+                        `);
+        
+                        if (!$('#exampleModalScrollable').is(':visible')) {
                             $('#exampleModalScrollable').modal('show');
                         }
-
                     },
                     error: function(error) {
                         console.error("Error al obtener los datos:", error);
-                        alert("Error al cargar los detalles. Por favor, intentalo de nuevo.");
+                        alert("Error al cargar la persona. Por favor, inténtalo de nuevo.");
                     }
                 });
             });
         });
-    </script>
+        </script>
 
-
+   
 @endsection

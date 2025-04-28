@@ -8,6 +8,7 @@ use App\Models\ConsejoComunal;
 use App\Models\Comunidades;
 use App\Http\Controllers\BitacoraController;
 use Illuminate\Database\QueryException;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class ConsejoComunalController extends Controller
 {
@@ -22,7 +23,7 @@ class ConsejoComunalController extends Controller
     public function index()
     {
         $consejo_comunals = ConsejoComunal::with('comunidad')->get();
-        return view('consejocomunal.index', compact('consejo_comunals'));
+        return view('consejo_comunal.index', compact('consejo_comunals'));
     }
 
     public function getconsejocomunalDetalles($id)
@@ -49,7 +50,7 @@ class ConsejoComunalController extends Controller
     public function create()
     {
         $comunidades = Comunidades::all();
-        return view('consejocomunal.create', compact('comunidades'));
+        return view('consejo_comunal.create', compact('comunidades'));
     }
 
     public function store(Request $request)
@@ -77,7 +78,7 @@ class ConsejoComunalController extends Controller
         $bitacora->update();
 
         try {
-            return redirect()->route('consejocomunal.index');
+            return redirect()->route('consejo_comunal.index');
         } catch (QueryException $exception) {
             $errorMessage = 'Error: ' . $exception->getMessage();
             return redirect()->back()->withErrors($errorMessage);
@@ -88,7 +89,7 @@ class ConsejoComunalController extends Controller
     {
         $consejo_comunal = ConsejoComunal::find($id);
         $comunidades = Comunidades::all();
-        return view('consejocomunal.edit', compact('consejo_comunal', 'comunidades'));
+        return view('consejo_comunal.edit', compact('consejo_comunal', 'comunidades'));
     }
 
     public function update(Request $request, $id)
@@ -111,7 +112,7 @@ class ConsejoComunalController extends Controller
         $bitacora->update();
 
         try {
-            return redirect()->route('consejocomunal');
+            return redirect()->route('consejo_comunal');
         } catch (QueryException $exception) {
             $errorMessage = 'Error: ' . $exception->getMessage();
             return redirect()->back()->withErrors($errorMessage);
@@ -123,6 +124,6 @@ class ConsejoComunalController extends Controller
         ConsejoComunal::find($id)->delete();
         $bitacora = new BitacoraController();
         $bitacora->update();
-        return redirect()->route('consejocomunal.index')->with('eliminar', 'ok');
+        return redirect()->route('consejo_comunal.index')->with('eliminar', 'ok');
     }
 }

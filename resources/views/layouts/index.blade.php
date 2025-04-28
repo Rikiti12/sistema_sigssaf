@@ -4,7 +4,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>Inicio</title>
     <meta content="width=device-width, initial-scale=1.0, shrink-to-fit=no" name="viewport"/>
-    <link rel="icon" href="assets/img/kaiadmin/favicon.ico" type="image/x-icon"/>
+    <link rel="icon" href="{{asset ('img/icon.png') }}" type="image/x-icon"/>
 
     <!-- Fonts and icons -->
     <script src="{{asset('assets/js/plugin/webfont/webfont.min.js')}}"></script>:
@@ -18,7 +18,7 @@
             "Font Awesome 5 Brands",
             "simple-line-icons",
           ],
-          urls: ["assets/css/fonts.min.css"],
+          urls: ["{{asset('assets/css/fonts.min.css')}}"],
         },
         active: function () {
           sessionStorage.fonts = true;
@@ -43,7 +43,7 @@
           <div class="logo-header" data-background-color="dark">
             <a href="/home" class="logo">
               <img
-                src="assets/img/kaiadmin/logo_light.svg"
+                src="{{asset('assets/img/kaiadmin/logo_light.svg')}}"
                 alt="navbar brand"
                 class="navbar-brand"
                 height="20"
@@ -91,7 +91,7 @@
                       </a>
                     </li>
                     <li>
-                      <a class="sidebar-link"  href="{{ url('consejocomuna')}}" aria-expanded="false">
+                      <a class="sidebar-link"  href="{{ url('consejo_comunal')}}" aria-expanded="false">
                         <span class="sub-item">Consejos Comunales</span>
                       </a>
                     </li>
@@ -283,11 +283,7 @@
                 Sala Situacional de la Alcaldia de San Felipe. (SIGISSAF) </MARQUEE>
               <ul class="navbar-nav topbar-nav ms-md-auto align-items-center">
                 <li class="nav-item topbar-user dropdown hidden-caret">
-                  <a class="dropdown-toggle profile-pic"
-                    data-bs-toggle="dropdown"
-                    href="#"
-                    aria-expanded="false"
-                  >
+                  <a class="dropdown-toggle profile-pic" data-bs-toggle="dropdown"href="#"aria-expanded="false"><i class="fas fa-user fs-5"></i>
                     {{(auth()->user()->username)}}
                   </a>
                   <ul class="dropdown-menu dropdown-user animated fadeIn">
@@ -311,7 +307,7 @@
                         <div class="message-body"></div>
 
                         <a class="d-flex align-items-center gap-2 dropdown-item" href="{{ route('Perfil')}}">
-                          <i class="fas fa-mood-happy fs-5"></i>
+                          <i class="fas fa-table fs-5"></i>
                           <p class="mb-0 fs-6">Gestion de Perfil</p>
                         </a>
 
@@ -564,7 +560,8 @@
     <script src="{{asset('assets/js/plugin/jsvectormap/world.js')}}"></script>
 
     <!-- Sweet Alert -->
-    <script src="{{asset('assets/js/plugin/sweetalert/sweetalert.min.js')}}"></script>
+    <!-- <script src="{{asset('assets/js/plugin/sweetalert/sweetalert.min.js')}}"></script> -->
+    <script src="{{ asset('https://cdn.jsdelivr.net/npm/sweetalert2@11')}}"></script>
 
     <!-- Kaiadmin JS -->
     <script src="{{asset('assets/js/kaiadmin.min.js')}}"></script>
