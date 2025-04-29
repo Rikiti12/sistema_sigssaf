@@ -1,18 +1,21 @@
 @extends('layouts.index')
 
-@section('title', 'Registrar Ayuda Social')
+<title>@yield('title') Registrar Ayuda sociales</title>
 <script src="{{ asset('js/validaciones.js') }}"></script>
 <script src="{{ asset('https://cdn.jsdelivr.net/npm/sweetalert2@11')}}"></script>
 
 @section('content')
 
-    <div class="container-fluid" id="container-wrapper">
-        <div class="d-sm-flex align-items-center justify-content-between mb-4"></div>
-        <div class="col-lg-12">
-            <div class="card mb-4">
+    <div class="container">
+        <div class="page-inner">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="card">
 
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-center">
-                    <h2 class="font-weight-bold text-dark">Registrar Ayuda Social</h2>
+
+                    <h2 class="font-weight-bold text-dark">Registrar Ayuda Sociales</h2>
+
                 </div>
 
                 <form method="post" action="{{ route('ayuda_social.store') }}" enctype="multipart/form-data" onsubmit="return AyudaSociales (this)">
@@ -40,7 +43,7 @@
                                         class="fas fa-check"></i></span>
                                 <span class="text">Guardar</span>
                             </button>
-                            <a class="btn btn-info btn-lg" href="{{ url('ayuda_sociales/') }}"><span class="icon text-white-50">
+                            <a class="btn btn-info btn-lg" href="{{ url('ayuda_social/') }}"><span class="icon text-white-50">
                                     <i class="fas fa-info-circle"></i>
                                 </span>
                                 <span class="text">Regresar</span></a>

@@ -6,16 +6,17 @@
 
 @section('content')
 
-    <div class="container-fluid" id="container-wrapper">
-        <div class="d-sm-flex align-items-center justify-content-between mb-4"></div>
-            <div class="col-lg-12">
-                <div class="card mb-4">
+    <div class="container">
+        <div class="page-inner">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="card">
 
-                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-center">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-center">
 
-                    <h2 class="font-weight-bold text-dark">Registrar Rol</h2>
+                    <h2 class="font-weight-bold text-dark">Registrar Roles</h2>
 
-                    </div>
+                </div>
                 
             <form method="post" action="{{ route('roles.store') }}" enctype="multipart/form-data" onsubmit="return roles(this)">
                     @csrf

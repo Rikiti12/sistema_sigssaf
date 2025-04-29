@@ -1,19 +1,20 @@
 @extends('layouts.index')
 
-<title>@yield('title') Editar Roles</title>
+<title>@yield('title') Actulizar Roles</title>
+<script src="{{ asset('js/validaciones.js') }}"></script>
+<script src="{{ asset('https://cdn.jsdelivr.net/npm/sweetalert2@11')}}"></script>
 
 @section('content')
 
-    <div class="container-fluid" id="container-wrapper">
-        <div class="d-sm-flex align-items-center justify-content-between mb-4"></div>
-            <div class="col-lg-12">
-                <div class="card mb-4">
+    <div class="container">
+        <div class="page-inner">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="card">
 
-                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-
-                    <h2 class="font-weight-bold text-dark">Editar Rol</h2>
-
-                    </div>
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-center">
+                    <h2 class="font-weight-bold text-dark">Actualizar Roles</h2>
+                </div>
 
                     {!! Form::model($role, ['method' => 'PATCH','route' => ['roles.update', $role->id], 'onsubmit' => 'return usuario(this)']) !!}
                     

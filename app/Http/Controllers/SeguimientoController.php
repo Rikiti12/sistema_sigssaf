@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Seguimientos;
 use App\Models\Proyectos;
 use App\Models\Planificaciones;
+use App\Models\ControlSeguimientos;
 use Illuminate\Database\QueryException;
 use App\Http\Controllers\BitacoraController;
 
@@ -133,7 +134,7 @@ class SeguimientoController extends Controller
             $bitacora = new BitacoraController();
             $bitacora->update();
         try {
-            return redirect()->route('controlseguimiento.index');
+            return redirect()->route('control_seguimiento.index');
         } catch (QueryException $exception) {
             $errorMessage = 'Error: ' . $exception->getMessage();
             return redirect()->back()->withErrors($errorMessage);

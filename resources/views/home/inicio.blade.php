@@ -80,9 +80,9 @@
               <div class="row align-items-center">
                 <div class="col-icon">
                   <div
-                    class="icon-big text-center icon-secondary bubble-shadow-small"
+                    class="icon-big text-center icon-info bubble-shadow-small"
                   >
-                    <i class="far fa-check-circle"></i>
+                    <i class="fas fa-user-check"></i>
                   </div>
                 </div>
                 <div class="col col-stats ms-3 ms-sm-0">

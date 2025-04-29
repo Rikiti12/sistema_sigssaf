@@ -6,14 +6,15 @@
 
 @section('content')
 
-<div class="container-fluid" id="container-wrapper">
-    <div class="d-sm-flex align-items-center justify-content-between mb-4"></div>
-        <div class="col-lg-12">
-            <div class="card mb-4">
+    <div class="container">
+        <div class="page-inner">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="card">
 
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-center">
 
-                <h2 class="font-weight-bold text-dark">Registrar Usuario</h2>
+                    <h2 class="font-weight-bold text-dark">Registrar Usuarios</h2>
 
                 </div>
                 

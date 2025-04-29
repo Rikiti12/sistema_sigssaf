@@ -3,23 +3,23 @@
 <title>@yield('title') Planificación</title>
 
 @section('css-datatable')
-    <link href="{{ asset('assets/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
+        <link href="{{ asset ('assets/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
 @endsection
 
 @section('content')
 
-<div class="container-fluid" id="container-wrapper">
-        <div class="d-sm-flex align-items-center justify-content-center mb-4"></div>
-            <div class="col-12 w-100">
-                <div class="card mb-4 w-100">
-
-                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-center">
-
+    <div class="container">
+        <div class="page-inner">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                            
                     {{-- <a href="{{ route('planificacion/pdf') }}" class="btn btn-sm btn-danger" target="_blank" id="pdfButton">
                         {{ ('PDF') }}
                         </a> --}}
 
-                <h2 class="font-weight-bold text-dark">Planificacion de Proyectos</h2>
+                    <h2 class="font-weight-bold text-dark">Planificacion de Proyectos</h2>
                         
                 </div>
 

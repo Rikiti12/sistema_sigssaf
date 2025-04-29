@@ -43,11 +43,9 @@
           <div class="logo-header" data-background-color="dark">
             <a href="/home" class="logo">
               <img
-                src="{{asset('assets/img/kaiadmin/logo_light.svg')}}"
-                alt="navbar brand"
-                class="navbar-brand"
-                height="20"
-              />
+                src="{{asset('img/logo3.jpg')}}"
+                width="150px"
+                height="80px"/>
             </a>
             <div class="nav-toggle">
               <button class="btn btn-toggle toggle-sidebar">

@@ -1,18 +1,19 @@
 @extends('layouts.index')
 
-<title>@yield('title') Actulizar La Asignacion Del Proyecto</title>
+<title>@yield('title') Actulizar La Asignacion Del Proyectos</title>
 <script src="{{ asset('js/validaciones.js') }}"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="{{ asset('https://cdn.jsdelivr.net/npm/sweetalert2@11')}}"></script>
 
 @section('content')
 
-    <div class="container-fluid" id="container-wrapper">
-        <div class="d-sm-flex align-items-center justify-content-between mb-4"></div>
-        <div class="col-lg-12">
-            <div class="card mb-4">
+    <div class="container">
+        <div class="page-inner">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="card">
 
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-center">
-                    <h2 class="font-weight-bold text-dark">Actulizar La Asignacion Del Proyecto</h2>
+                    <h2 class="font-weight-bold text-dark">Actualizar proyectos</h2>
                 </div>
 
                 <form method="post" action="{{ url('/proyecto/'.$proyecto->id) }}" enctype="multipart/form-data" onsubmit="return Proyectos(this)">
