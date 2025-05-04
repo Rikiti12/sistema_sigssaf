@@ -5,6 +5,10 @@
         <!-- <link href="{{ asset ('assets/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
         <script src="{{ asset('https://cdn.jsdelivr.net/npm/sweetalert2@11')}}"></script> -->
 @endsection
+<link  href="{{ asset('https://unpkg.com/leaflet@1.9.4/dist/leaflet.css')}}" rel="stylesheet" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+<link rel="stylesheet" href="{{ asset('https://unpkg.com/leaflet/dist/leaflet.css') }}" />
+<link rel="stylesheet" href="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css') }}">
+<script src="{{ asset('https://unpkg.com/leaflet@1.9.4/dist/leaflet.js')}}" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 
 @section('content')
 
@@ -38,9 +42,11 @@
               <div class="row align-items-center">
                 <div class="col-icon">
                   <div
-                    class="icon-big text-center icon-info bubble-shadow-small"
+                   class="icon-big text-center" style="background-color: rgb(212, 168, 248)"
                   >
-                    <i class="fas fa-user-check"></i>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" style="color:white;" fill="currentColor" class="bi bi-houses" viewBox="0 0 16 16">
+                    <path d="M5.793 1a1 1 0 0 1 1.414 0l.647.646a.5.5 0 1 1-.708.708L6.5 1.707 2 6.207V12.5a.5.5 0 0 0 .5.5.5.5 0 0 1 0 1A1.5 1.5 0 0 1 1 12.5V7.207l-.146.147a.5.5 0 0 1-.708-.708zm3 1a1 1 0 0 1 1.414 0L12 3.793V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v3.293l1.854 1.853a.5.5 0 0 1-.708.708L15 8.207V13.5a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 4 13.5V8.207l-.146.147a.5.5 0 1 1-.708-.708zm.707.707L5 7.207V13.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5V7.207z"/>
+                  </svg>
                   </div>
                 </div>
                 <div class="col col-stats ms-3 ms-sm-0">
@@ -61,12 +67,15 @@
                   <div
                     class="icon-big text-center icon-success bubble-shadow-small"
                   >
-                    <i class="fas fa-luggage-cart"></i>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" style="color:white;" fill="currentColor" class="bi bi-building" viewBox="0 0 16 16">
+                      <path d="M4 2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm3.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zM4 5.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zM7.5 5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm2.5.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zM4.5 8a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm2.5.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm3.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5z"/>
+                      <path d="M2 1a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1zm11 0H3v14h3v-2.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 .5.5V15h3z"/>
+                    </svg>
                   </div>
                 </div>
                 <div class="col col-stats ms-3 ms-sm-0">
                   <div class="numbers">
-                    <p class="card-category">Consejo Comunales</p>
+                    <p class="card-category">Comunales</p>
                     <h4 class="card-title">{{ $count_consejo }}</h4>
                   </div>
                 </div>
@@ -95,12 +104,159 @@
             </div>
           </div>
         </div>
+        <div class="col-sm-6 col-md-3">
+          <div class="card card-stats card-round">
+            <div class="card-body">
+              <div class="row align-items-center">
+                <div class="col-icon">
+                  <div
+                    class="icon-big text-center icon-info bubble-shadow-small"
+                  >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40"  style="color:white;" fill="currentColor" class="bi bi-person-raised-hand" viewBox="0 0 16 16">
+                  <path d="M6 6.207v9.043a.75.75 0 0 0 1.5 0V10.5a.5.5 0 0 1 1 0v4.75a.75.75 0 0 0 1.5 0v-8.5a.25.25 0 1 1 .5 0v2.5a.75.75 0 0 0 1.5 0V6.5a3 3 0 0 0-3-3H6.236a1 1 0 0 1-.447-.106l-.33-.165A.83.83 0 0 1 5 2.488V.75a.75.75 0 0 0-1.5 0v2.083c0 .715.404 1.37 1.044 1.689L5.5 5c.32.32.5.754.5 1.207"/>
+                  <path d="M8 3a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3"/>
+                 </svg>
+                  </div>
+                </div>
+                <div class="col col-stats ms-3 ms-sm-0">
+                  <div class="numbers">
+                    <p class="card-category">Ayuda Sociales</p>
+                    <h4 class="card-title">{{ $count_ayuda }}</h4>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-3">
+          <div class="card card-stats card-round">
+            <div class="card-body">
+              <div class="row align-items-center">
+                <div class="col-icon">
+                  <div
+                    class="icon-big text-center icon-primary bubble-shadow-small"
+                  >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40"   style="color:white;" fill="currentColor" class="bi bi-house-check" viewBox="0 0 16 16">
+                  <path d="M7.293 1.5a1 1 0 0 1 1.414 0L11 3.793V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v3.293l2.354 2.353a.5.5 0 0 1-.708.708L8 2.207l-5 5V13.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 1 0 1h-4A1.5 1.5 0 0 1 2 13.5V8.207l-.646.647a.5.5 0 1 1-.708-.708z"/>
+                  <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7m1.679-4.493-1.335 2.226a.75.75 0 0 1-1.174.144l-.774-.773a.5.5 0 0 1 .708-.707l.547.547 1.17-1.951a.5.5 0 1 1 .858.514"/>
+                  </svg>
+                  </div>
+                </div>
+                <div class="col col-stats ms-3 ms-sm-0">
+                  <div class="numbers">
+                    <p class="card-category">Viviendas</p>
+                    <h4 class="card-title">{{ $count_vivienda }}</h4>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-3">
+          <div class="card card-stats card-round">
+            <div class="card-body">
+              <div class="row align-items-center">
+                <div class="col-icon">
+                  <div
+                  class="icon-big text-center" style="background-color: rgb(212, 168, 248)"
+                  >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40"  style="color:white;" fill="currentColor" class="bi bi-clipboard-check-fill" viewBox="0 0 16 16">
+                  <path d="M6.5 0A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0zm3 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5z"/>
+                  <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1A2.5 2.5 0 0 1 9.5 5h-3A2.5 2.5 0 0 1 4 2.5zm6.854 7.354-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708.708"/>
+                   </svg>
+                  </div>
+                </div>
+                <div class="col col-stats ms-3 ms-sm-0">
+                  <div class="numbers">
+                    <p class="card-category"> Asignar Proyectos</p>
+                    <h4 class="card-title">{{ $count_proyecto }}</h4>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-3">
+          <div class="card card-stats card-round">
+            <div class="card-body">
+              <div class="row align-items-center">
+                <div class="col-icon">
+                  <div
+                    class="icon-big text-center icon-success bubble-shadow-small"
+                  >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" style="color:white;" fill="currentColor" class="bi bi-file-check-fill" viewBox="0 0 16 16">
+                  <path d="M12 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2m-1.146 6.854-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 8.793l2.646-2.647a.5.5 0 0 1 .708.708"/>
+                  </svg>
+                  </div>
+                </div>
+                <div class="col col-stats ms-3 ms-sm-0">
+                  <div class="numbers">
+                    <p class="card-category">Planificaciones</p>
+                    <h4 class="card-title">{{ $count_planificacion }}</h4>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="container-fluid" id="container-wrapper">
+          <div class="d-sm-flex align-items-center"></div>
+
+          <div class="row">
+            <!-- Area Chart -->
+            <div class="col-xl-8 col-lg-7">
+              <div class="card mb-4">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-center">
+                  <h6 class="m-0 font-weight-bold text-primary">Mapa de los Proyectos</h6>
+                  <div class="dropdown no-arrow">
+                  </div>
+                </div>
+                <div class="card-body">
+                  <div class="chart-area">
+                    <div id="mapa" style="height: 310px; width:100%; display:block;"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
       </div>
     </div>
 </div>
 
+<script src="{{ asset('https://unpkg.com/leaflet@1.9.4/dist/leaflet.js') }}" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<script src="{{ asset('https://unpkg.com/leaflet/dist/leaflet.js') }}"></script>
+
+{{-- ! FUNCION PARA EL MAPA Y PARA CAPTURAR LOS DATOS DE LA LATITUD Y LONGITUD --}}
+
+<script>
+    const map = L.map('mapa').setView([10.2825, -68.7222], 9.6); // Latitud y longitud iniciales de Yaracuy
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    var proyectos = @json($mapa_proyectos);
+
+    // Definir iconos personalizados
+    var proyectoIcon = L.icon({
+        iconUrl: '/img/proyecto.png', // Ruta al icono de recepcion
+        iconSize: [35, 41], // Tamaño del icono
+        iconAnchor: [35, 41], // Punto del icono que se corresponde con la posición del marcador
+        popupAnchor: [1, -34] // Punto desde el cual se abrirá el popup relativo al icono
+    });
+
+    proyectos.forEach(function(proyecto) {
+        if (proyecto.latitud && proyecto.longitud) {
+            L.marker([proyecto.latitud, proyecto.longitud], { icon: proyectoIcon }).addTo(map)
+                .bindPopup('Proyecto');
+        }
+    });
+
+</script>
+
 @endsection
-
-
 
 

@@ -15,15 +15,16 @@ return new class extends Migration
     {
         Schema::create('seguimientos', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('id_proyecto');
+            $table->unsignedBigInteger('id_planificacion');
             $table->dateTime('fecha_segui');
             $table->string('responsable_segui');
-            $table->text('detalle_segui')->nullable();
-            $table->string('estatus_proye')->nullable();
+            $table->text('detalle_segui');
+            $table->string('estatus');
+            $table->string('estatus_res');
             $table->timestamps();
 
             // Establecer relaciones con las tablas correspondientes
-            $table->foreign('id_proyecto')->references('id')->on('proyectos');
+            $table->foreign('id_planificacion')->references('id')->on('planificaciones');
         });
     }
 

@@ -121,7 +121,7 @@ Route::resource('seguimiento', SeguimientoController::class)->middleware('auth')
 Route::get('/seguimiento/detalles/{id}', [SeguimientoController::class, 'getProyectoDetalles']);
 
 /* Rutas ControlSeguimientos */
-Route::get('/control_seguimiento', [ControlSeguimientosController::class, 'index'])->name('control_seguimiento')->middleware('auth'); 
+Route::get('/controlseguimiento', [ControlSeguimientosController::class, 'index'])->name('controlseguimiento')->middleware('auth'); 
 
 /* Ruta Bitacora*/
 Route::get('bitacora', [ReporteController::class, 'bitacora'])->name('bitacora')->middleware('auth');

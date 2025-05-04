@@ -51,9 +51,11 @@ class homeController extends Controller
         $count_planificacion = DB::table('planificaciones')
         ->count();
 
+        $mapa_proyectos = Proyectos::select('latitud','longitud')->get();
+
 
         return view('home.inicio' , compact('count_comuna', 'count_comunidad', 'count_consejo', 'count_persona', 'count_ayuda', 'count_vivienda',
-        'count_proyecto', 'count_planificacion'  ) ,  [
+        'count_proyecto', 'count_planificacion', 'mapa_proyectos'  ) ,  [
         'count' => $count_comuna, $count_comunidad, $count_consejo, $count_persona, $count_ayuda, $count_vivienda, $count_proyecto, $count_planificacion
 
         ]); 

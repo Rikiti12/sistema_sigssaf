@@ -32,7 +32,7 @@
                                 </div>
 
                                 <div class="col-4">
-                                    <label  class="font-weight-bold text-dark">Descripcion</label>
+                                    <label  class="font-weight-bold text-dark">Descripción</label>
                                     <input type="text" class="form-control" id="descripcion" name="descripcion" style="background: white;" value="{{ isset($ayuda_social->descripcion)?$ayuda_social->descripcion:'' }}" placeholder="Ingrese El descripcion" autocomplete="off"  oninput="capitalizarInput('descripcion')" onkeypress="return soloLetras(event);">
                                 </div>
 

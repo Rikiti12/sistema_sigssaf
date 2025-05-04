@@ -26,7 +26,7 @@ class ControlSeguimientosController extends Controller
     public function index()
     {
         $seguimientos = Seguimientos::all();
-        return view('control_seguimiento.index', compact('seguimientos'));
+        return view('controlseguimiento.index', compact('seguimientos'));
     }
 
     /**

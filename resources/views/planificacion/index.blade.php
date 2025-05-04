@@ -19,18 +19,18 @@
                         {{ ('PDF') }}
                         </a> --}}
 
-                    <h2 class="font-weight-bold text-dark">Planificacion de Proyectos</h2>
+                    <h2 class="font-weight-bold text-dark">Planificación de Proyectos</h2>
                         
                 </div>
 
                 <div class="table-responsive p-3">
                     <table class="table align-items-center table-flush" id="dataTable">
                         <thead class="thead-light">
-                            <tr>
-                                <th class="font-weight-bold text-dark">Nombre Del Proyecto</th>
-                                <th class="font-weight-bold text-dark">Descripcion</th>
+                            <tr> 
                                 <th class="font-weight-bold text-dark">Persona Asignada</th>
                                 <th class="font-weight-bold text-dark">Comunidad Asignado</th>
+                                <th class="font-weight-bold text-dark">Nombre Del Proyecto</th>
+                                <th class="font-weight-bold text-dark">Descripción</th>
                                 <th class="font-weight-bold text-dark">Fecha Inicial</th>
                                 <th class="font-weight-bold text-dark">Fecha Final</th>
                                 <th class="font-weight-bold text-dark"><center>Acciones</center></th>
@@ -210,9 +210,13 @@
     
                         let proyectosHtml = `
                             <h5 class="font-weight-bold text-primary" style="text-align: center">Detalles deL Proyecto</h5>
+
+                            <p><b>Latitud</b>${data.latitud}</p>
+                            <p><b>Longitud</b>${data.longitud}</p>
+                            <p><b>Direccion</b>${data.direccion}</p>
                 
                         `;
-    
+
                         // Verifica si existen imágenes y agrégalas
                         if (data.imagenes && data.imagenes.length > 0) {
                             proyectosHtml += `<p><b>Fotos:</b></p><div style="display: flex; flex-wrap: wrap; gap: 10px;">`;
@@ -223,16 +227,6 @@
                             proyectosHtml += '</div>';
                         }
 
-                        // // Verifica si existen documentos PDF y agrégalos
-                        // if (data.documentos && data.documentos.length > 0) {
-                        //     proyectosHtml += `<p><b>Documentos PDF:</b></p><div style="display: flex; flex-wrap: wrap; gap: 10px;">`;
-                        //     let documentos = JSON.parse(data.documentos);
-                        //     documentos.forEach(function(documento) {
-                        //         proyectosHtml += `<embed src="/pdf/${documento}" type="application/pdf" width="100%" height="600px" style="margin-bottom: 10px;">`;
-                        //     });
-                        //     proyectosHtml += '</div>';
-                        // }
-    
                         $('#exampleModalScrollable .modal-body').html(proyectosHtml);
     
                         if (!$('#exampleModalScrollable').is(':visible')) {

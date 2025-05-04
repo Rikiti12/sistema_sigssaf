@@ -15,11 +15,14 @@ return new class extends Migration
     {
         Schema::create('proyectos', function (Blueprint $table) {
             $table->id();
+             $table->unsignedBigInteger('id_persona');
+            $table->unsignedBigInteger('id_comunidad');
             $table->string('nombre_pro');
             $table->text('descripcion_pro');
-            $table->unsignedBigInteger('id_persona');
-            $table->unsignedBigInteger('id_comunidad'); 
             $table->json('imagenes');
+            $table->text('latitud');
+            $table->text('longitud');
+            $table->text('direccion');
             // $table->json('documentos');
             $table->date('fecha_inicial');
             $table->date('fecha_final');

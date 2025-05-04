@@ -12,7 +12,7 @@ class Proyectos extends Model
     protected $table = 'proyectos'; 
     protected $primaryKey = 'id'; 
     public $timestamps = true; 
-    protected $fillable = [ 'nombre_pro','descripcion_pro','id_persona','id_comunidad','imagenes','fecha_inicial', 'fecha_final'];
+    protected $fillable = [ 'id_persona','id_comunidad','nombre_pro','descripcion_pro','imagenes','latitud','longtud','direccion','fecha_inicial', 'fecha_final'];
 
     // Relaciones (si es necesario)
     public function personas()
@@ -27,7 +27,7 @@ class Proyectos extends Model
 
     public function planificaciones()
     {
-        return $this->hasMany(Planificacion::class, 'id_proyecto'); // 'id_proyecto' es la clave foránea en 'planificaciones'
+        return $this->hasMany(Planificaciones::class, 'id_proyecto'); // 'id_proyecto' es la clave foránea en 'planificaciones'
     }
 
 }

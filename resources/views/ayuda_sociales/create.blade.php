@@ -30,7 +30,7 @@
                             </div>
 
                             <div class="col-4">
-                                <label  class="font-weight-bold text-dark">Descripcion</label>
+                                <label  class="font-weight-bold text-dark">Descripción</label>
                                 <input type="text" class="form-control" id="descripcion" name="descripcion" style="background: white;" value="" placeholder="Ingrese la descripcion de la ayuda" autocomplete="off"  oninput="capitalizarInput('descripcion')" onkeypress="return soloLetras(event);">
                             </div>
 

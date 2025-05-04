@@ -12,12 +12,12 @@ class Seguimientos extends Model
     protected $table = 'seguimientos';
     protected $primaryKey = 'id';
     public $timestamps = true;
-    protected $fillable = ['id_proyecto', 'fecha_segui','responsable_segui','detalle_segui','estatus_proye',
+    protected $fillable = ['id_planificacion', 'fecha_segui','responsable_segui','detalle_segui','estatus', 'estatus_res',
     ];
 
     // Relaciones
-    public function proyecto() // proyecto
+    public function planificacion() // planificacion
     {
-        return $this->belongsTo(Proyectos::class, 'id_proyecto'); 
+        return $this->belongsTo(Planificaciones::class, 'id_planificacion'); 
     }
 }

@@ -15,11 +15,11 @@
                     <div class="card">
                         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
 
-                            <a href="{{ url('comuna/pdf') }}" class="btn btn-sm btn-danger" target="_blank" id="pdfButton">
+                            <a href="{{ url('comunidad/pdf') }}" class="btn btn-sm btn-danger" target="_blank" id="pdfButton">
                                 {{ ('PDF') }}
                             </a>
 
-                            <h2 class="font-weight-bold text-dark">Gestión de Comunidad</h2>
+                            <h2 class="font-weight-bold text-dark">Gestión de Comunidades</h2>
 
                             @can('crear-comuna')
                                 <form action="{{ route('comunidad.create') }}" method="get" style="display:inline;">
@@ -36,14 +36,14 @@
                         </div>
                         
                         <div class="card-body">
-                            <div class="table-responsive">
-                                <table id="basic-datatables" class="display table table-striped table-hover">
-                                    <thead>
+                        <div class="table-responsive p-3">
+                    <table class="table align-items-center table-flush" id="dataTable">
+                        <thead class="thead-light">
                                         <tr>
                                         <th  class="font-weight-bold text-dark">Vocero de la Comunidad</th>
                                         <th  class="font-weight-bold text-dark">Comunidad</th>
                                         <th  class="font-weight-bold text-dark">Comuna Asignado</th>
-                                        <th  class="font-weight-bold text-dark">Direccion</th>
+                                        <th  class="font-weight-bold text-dark">Dirección</th>
                                         <th  class="font-weight-bold text-dark"><center>Acciones</center></th>
                                         </tr>
                                     </thead>

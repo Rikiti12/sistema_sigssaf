@@ -35,10 +35,9 @@
 
                         </div>
                         
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table id="basic-datatables" class="display table table-striped table-hover">
-                                    <thead>
+                        <div class="table-responsive p-3">
+                        <table class="table align-items-center table-flush" id="dataTable">
+                            <thead class="thead-light">
                                         <tr>
                                         <th class="font-weight-bold text-dark">Cédula</th>
                                         <th class="font-weight-bold text-dark">Nombre</th>

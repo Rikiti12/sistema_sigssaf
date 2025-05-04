@@ -31,6 +31,32 @@ class ComunaController extends Controller
         return view('comuna.index', compact('comunas'));
     }
 
+    public function pdf(Request $request)
+    {
+        $search = $request->input('search');
+    
+        if ($search) {
+            // Filtrar los bancos según la consulta de búsqueda
+            $comunas = Comunas::where('cedula_comunas', 'LIKE', '%' . $search . '%')
+                           ->orWhere('nombre_comunas', 'LIKE', '%' . $search . '%')
+                           ->orWhere('apellido_comunas', 'LIKE', '%' . $search . '%')
+                           ->orWhere('telefono', 'LIKE', '%' . $search . '%')
+                           ->orWhere('nom_comunas', 'LIKE', '%' . $search . '%')
+                           ->orWhereHas('parroquia', function ($query) use ($search){
+                            $query->where('nom_parroquia', 'LIKE', '%' . $search . '%');
+                           })
+                           ->orWhere('dire_comunas', 'LIKE', '%' . $search . '%')
+                           ->get();
+        } else {
+            // Obtener todos los bancos si no hay término de búsqueda
+            $comunas = Comunas::with('parroquia')->get();
+        }
+    
+        // Generar el PDF, incluso si no se encuentran bancos
+        $pdf = Pdf::loadView('comuna.pdf', compact('comunas'));
+        return $pdf->stream('comuna.pdf');
+    } 
+
     /**
      * Show the form for creating a new resource.
      *

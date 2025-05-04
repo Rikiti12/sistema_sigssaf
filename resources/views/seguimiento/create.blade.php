@@ -20,25 +20,11 @@
                 <form method="post" action="{{ route('seguimiento.store') }}" enctype="multipart/form-data">
                     @csrf
 
-                    <div class="card-body">
-                       <div class="row"> 
-                          @if(isset($proyecto))
-                          @else
-                            <div class="col-4">
-                                <label class="font-weight-bold text-dark">Proyecto Asignado:</label>
-                                <select class="form-select" name="id_proyecto" id="id_proyecto">
-                                    <option value="">Seleccione un Proyecto</option>
-                                    @foreach ($proyectos as $proyecto)
-                                        <option value="{{ $proyecto->id }}">{{ $proyecto->nombre_pro }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                         @endif
+                    <input type="hidden" class="form-control" id="id_planificacion" name="id_planificacion" style="background: white;" value="{{ $planificacion->id }}" autocomplete="off">
 
-                            <div class="col-4">
-                                <label class="font-weight-bold text-dark">Fecha y Hora del Seguimiento</label>
-                                <input type="datetime-local" class="form-control" id="fecha_segui" name="fecha_segui" value="<?php echo date('Y-m-d\TH:i'); ?>">
-                            </div>
+                    <div class="card-body">
+                        
+                       <div class="row"> 
 
                             <div class="col-4">
                                 <label class="font-weight-bold text-dark">Responsable del Seguimiento</label>
@@ -49,19 +35,42 @@
                                 <label class="font-weight-bold text-dark">Detalles del Seguimiento</label>
                                 <textarea class="form-control" id="detalle_segui" name="detalle_segui" placeholder="Ingrese los Detalles del Seguimiento" oninput="capitalizarTextoarea('detalle_segui')" cols="10" rows=""></textarea>
                             </div>
+
+                            <div class="col-md-4 mb-3">
+                                <label class="font-weight-bold text-dark">Fecha Inicial</label>
+                                <input type="date" class="form-control" id="fecha_segui" name="fecha_segui" value="<?php echo date('d/m/Y'); ?>">
+                            </div>
                        
                             <div class="col-4">
                                 <label class="font-weight-bold text-dark">Estado del Proyecto</label>
-                                <select class="form-control" name="estatus_proye" id="estatus_proye">
-                                    <option value="">Seleccione un Estado</option>
-                                    <option value="En Inicio">En Inicio</option>
-                                    <option value="En Progreso">En Progreso</option>
-                                    <option value="Retrasado">Retrasado</option>
-                                    <option value="Completado">Completado</option>
-                                    <option value="Suspendido">Suspendido</option>
-                                    <option value="Cancelado">Cancelado</option>
+                                <select class="form-select"name="estatus" id="estatus">
+                                    <option value="" selected="true" disabled>Seleccione un Estatus</option>
+                                    <option value="Aprobado">Aprobado</option>
+                                    <option value="Negado">Negado</option>
                                 </select>
                             </div>
+
+                            @if(auth()->user()->hasRole('Administrador'))
+                                <div class="card-body" id="estatus_aprob">
+                                    <label class="font-weight-bold text-dark">Estatus Aprobacion</label>
+                                    <div class="row">
+                                        <div class="form-check form-check-inline col-1 mr-2">
+                                            <input class="form-check-input" type="radio" name="estatus_res" id="estatus_res_pen" value="Pendiente" checked>
+                                            <label class="form-check-label" for="estatus_res_pen">Pendiente</label>
+                                        </div>
+                                        <div class="form-check form-check-inline col-1 mr-2">
+                                            <input class="form-check-input" type="radio" name="estatus_res" id="estatus_res_apro" value="Aprobado">
+                                            <label class="form-check-label" for="estatus_rep_apro">Aprobado</label>
+                                        </div>
+                                        <div class="form-check form-check-inline col-1 mr-2">
+                                            <input class="form-check-input" type="radio" name="estatus_res" id="estatus_res_neg" value="Negado">
+                                            <label class="form-check-label" for="estatus_res_neg">Negado</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
+
+
                         </div>
 
                     </div>
@@ -103,6 +112,28 @@
             const words = textareaElement.value.toLowerCase().split(/\s+/).map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
             textareaElement.value = words;
         }
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded' function (){
+        const estatusSeguimiento = document.getElementById('estatus');
+        const estatusAprobacion = document.getElementById('estatus_aprob');
+        
+        function toggleEstatusAprobacion(){
+            if(estatusSeguimiento.value === 'Negado') {
+                estatusAprobacion.style.display = 'none';
+            }else if (estatusSeguimiento.value === 'Aprobado') {
+                estatusAprobacion.style.display = 'block';
+            } else {
+                estatusAprobacion.style.display = 'block';
+            }
+        }
+
+        estatusSeguimiento.addEventListener('change', toggleEstatusAprobacion);
+
+        toggleEstatusAprobacion();
+
+        });
     </script>
 
     @if ($errors->any())

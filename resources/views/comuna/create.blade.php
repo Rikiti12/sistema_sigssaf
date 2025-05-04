@@ -32,7 +32,7 @@
                             <div class="row">
 
                                 <div class="col-4">
-                                    <label  class="font-weight-bold text-dark">Cedula Vocero</label>
+                                    <label  class="font-weight-bold text-dark">Cédula Vocero</label>
                                     <input type="text" class="form-control" id="cedula_comunas" name="cedula_comunas" maxlength="8" style="background: white;" value="" placeholder="Ingrese La Cedula" autocomplete="off" onkeypress="return solonum(event);">
                                 </div>
 

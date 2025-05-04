@@ -3,6 +3,8 @@
 <title>@yield('title') Asignar Proyectos</title>
 <script src="{{ asset('js/validaciones.js') }}"></script>
 <script src="{{ asset('https://cdn.jsdelivr.net/npm/sweetalert2@11')}}"></script>
+<link  href="{{ asset('https://unpkg.com/leaflet@1.9.4/dist/leaflet.css')}}" rel="stylesheet" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+<script src="{{ asset('https://unpkg.com/leaflet@1.9.4/dist/leaflet.js')}}" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 
 @section('content')
 
@@ -25,16 +27,6 @@
                             <div class="row">
 
                                 <div class="col-4">
-                                    <label  class="font-weight-bold text-dark">Nombre Del Proyecto</label>
-                                    <input type="text" class="form-control" id="nombre_pro" name="nombre_pro" style="background: white;" value="" placeholder="Ingrese El Nombre Del Proyecto" oninput="capitalizarInput('nombre_pro')" autocomplete="off" onkeypress="return soloLetras(event);">
-                                </div>
-                                
-                                <div class="col-4">
-                                        <label  class="font-weight-bold text-dark">Descripcion</label>
-                                        <input type="text" class="form-control" id="descripcion_pro" name="descripcion_pro" style="background: white;" value="" placeholder="Ingrese La Descripcion" autocomplete="off" oninput="capitalizarInput('descripcion_pro')" onkeypress="return soloLetras(event);">
-                                    </div>
-                                    
-                                <div class="col-4">
                                     <label class="font-weight-bold text-dark">Persona Asignada</label>
                                     <select class="form-select" id="id_persona" name="id_persona">
                                         <option value="">Seleccione una persona</option>
@@ -54,17 +46,56 @@
                                     </select>                                   
                                 </div>
 
+                                <div class="col-4">
+                                    <label  class="font-weight-bold text-dark">Nombre Del Proyecto</label>
+                                    <input type="text" class="form-control" id="nombre_pro" name="nombre_pro" style="background: white;" value="" placeholder="Ingrese El Nombre Del Proyecto" oninput="capitalizarInput('nombre_pro')" autocomplete="off" onkeypress="return soloLetras(event);">
+                                </div>
+                                
+                                <div class="col-4">
+                                    <label  class="font-weight-bold text-dark">Descripción</label>
+                                    <input type="text" class="form-control" id="descripcion_pro" name="descripcion_pro" style="background: white;" value="" placeholder="Ingrese La Descripcion" autocomplete="off" oninput="capitalizarInput('descripcion_pro')" onkeypress="return soloLetras(event);">
+                                </div>
+
                                 <div class="col-md-4 mb-3">
                                     <label class="font-weight-bold text-dark">Memoria Fotográfica</label>
                                     <input type="file" id="imagenes" name="imagenes[]" multiple class="btn btn-outline-info d-block w-100">
                                     <div id="imagenes_container" class="mt-2"></div>
                                 </div>
 
-                                {{-- <div class="col-md-4 mb-3">
-                                    <label  class="font-weight-bold text-dark">Rendición de Cuenta</label>
-                                    <input type="file" id="documentos_pdf" name="documentos[]" multiple class="btn btn-outline-info w-100">
-                                    <div id="pdf_container"></div>
-                                </div> --}}
+                            </div>
+
+                        </div>
+
+                        <div class="card-body">
+
+                            <div class="row">
+
+                                <div class="col-4">
+                                    <label  class="font-weight-bold text-dark">Latitud de Proyecto</label>
+                                    <input type="text" class="form-control" id="latitud" name="latitud" style="background: white;" value="" placeholder="Ingrese El Nombre Del Proyecto" oninput="capitalizarInput('nombre_pro')" autocomplete="off" onkeypress="return soloLetras(event);">
+                                </div>
+                                
+                                <div class="col-4">
+                                    <label  class="font-weight-bold text-dark">Longitud de Proyecto</label>
+                                    <input type="text" class="form-control" id="longitud" name="longitud" style="background: white;" value="" placeholder="Ingrese La Descripcion" autocomplete="off" oninput="capitalizarInput('descripcion_pro')" onkeypress="return soloLetras(event);">
+                                </div>
+
+                                <div class="col-4">
+                                    <label  class="font-weight-bold text-dark">Dirección / Lugar</label>
+                                    <textarea class="form-control" id="direccion" name="direccion" cols="10" rows="10" style="max-height: 6rem;" oninput="capitalizarInput('direccion')">{{ old('direccion') }}</textarea>
+                                </div>
+
+                                <div class="col-4">
+                                    <div id="mapa" style="height: 350px; width:200%; display:block;"></div>
+                                </div> 
+                                
+                            </div>
+
+                        </div>
+
+                        <div class="card-body">
+
+                            <div class="row">
 
                                 <div class="col-md-4 mb-3">
                                     <label class="font-weight-bold text-dark">Fecha Inicial</label>
@@ -75,7 +106,6 @@
                                     <label class="font-weight-bold text-dark">Fecha Final</label>
                                     <input type="date" class="form-control" id="fecha_final" name="fecha_final" value="<?php echo date('d/m/Y'); ?>">
                                 </div>
-                            
                             
                             </div>    
                               
@@ -102,6 +132,9 @@
         </div>
 
     </div>
+
+    <script src="{{asset('https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.es.min.js')}}"></script>
+
 
     {{-- * FUNCION PARA MOSTRAR LAS IMAGENES --}}
 
@@ -196,7 +229,55 @@
             const inputElement = document.getElementById(idInput);
             inputElement.value = capitalizarPrimeraLetra(inputElement.value);
         }
-    </scrip>
+    </script>
+
+    {{-- * FUNCION PARA EL MAPA Y PARA CAPTURAR LOS DATOS DE LA LATITUD Y LONGITUD --}}
+
+    <script>
+
+        // Inicializa el mapa en el contenedor con ID "map"
+        const map = L.map('mapa').setView([10.2825,-68.7222], 9.6); // Latitud y longitud iniciales de Yaracuy
+      
+        // Agrega el mapa base de OpenStreetMap
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+      
+        // Declara una variable para el marcador
+        let marcador;
+      
+        // Agrega un marcador cuando se hace clic en el mapa
+        map.on('click', (e) => {
+          const latitud = e.latlng.lat;
+          const longitud = e.latlng.lng;
+      
+          // Utiliza la API Nominatim para obtener la dirección
+        fetch(`https://nominatim.openstreetmap.org/reverse?lat=${latitud}&lon=${longitud}&format=json&addressdetails=1&language=es`)
+            .then(response => response.json())
+            .then(data => {
+                let estado = data.address.state;
+                if (estado.includes('State')) {
+                    estado = estado.replace(' State', '');
+                } 
+                 
+              const direccion = data.address.road + ", " + data.address.postcode + ", " + data.address.county + ", " + estado + ", " + data.address.country;
+      
+              // Elimina cualquier marcador existente
+              if (marcador) {
+                map.removeLayer(marcador);
+              }
+      
+              // Crea un marcador en la posición del clic
+              marcador = L.marker([latitud, longitud], { title: direccion }).addTo(map);
+      
+              // Actualiza los campos de texto con las coordenadas y la dirección
+              document.getElementById('latitud').value = latitud;
+              document.getElementById('longitud').value = longitud;
+              document.getElementById('direccion').value = direccion;
+            });
+        });
+      
+    </script>
 
     {{-- ! FUNCION PARA MOSTRAR ERRORES --}}
 

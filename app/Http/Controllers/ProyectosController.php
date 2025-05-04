@@ -62,10 +62,11 @@ class ProyectosController extends Controller
         // ]);
 
         $proyectos = new Proyectos();
-        $proyectos->nombre_pro = $request->input('nombre_pro');
-        $proyectos->descripcion_pro = $request->input('descripcion_pro');
         $proyectos->id_persona = $request->input('id_persona');
         $proyectos->id_comunidad = $request->input('id_comunidad');
+        $proyectos->nombre_pro = $request->input('nombre_pro');
+        $proyectos->descripcion_pro = $request->input('descripcion_pro');
+        
 
         // Verificar si se han cargado archivos
         if ($request->hasFile('imagenes')) {
@@ -100,7 +101,9 @@ class ProyectosController extends Controller
         // } else {
         //     $proyectos->documentos = '[]'; // null
         // }
-
+        $proyectos->latitud = $request->input('latitud');
+        $proyectos->longitud = $request->input('longitud');
+        $proyectos->direccion = $request->input('direccion');
         $proyectos->fecha_inicial = $request->input('fecha_inicial');
         $proyectos->fecha_final = $request->input('fecha_final');
 
@@ -141,6 +144,10 @@ class ProyectosController extends Controller
         $personas = Personas::all();
         $comunidades = Comunidades::all();
         $imagenes = $proyecto->imagenes;
+        $latitud = $proyecto->latitud;
+        $longitud = $proyecto->longitud;
+        $direccion = $proyecto->direccion;
+
         // $documentos = $proyecto->documentos;
         return view('proyecto.edit', compact('proyecto', 'personas', 'comunidades', 'imagenes'));
     }
@@ -163,10 +170,11 @@ class ProyectosController extends Controller
         // ]);
 
         $proyecto = Proyectos::find($id);
+         $proyecto->id_persona = $request->input('id_persona');
+        $proyecto->id_comunidad = $request->input('id_comunidad');
         $proyecto->nombre_pro = $request->input('nombre_pro');
         $proyecto->descripcion_pro = $request->input('descripcion_pro');
-        $proyecto->id_persona = $request->input('id_persona');
-        $proyecto->id_comunidad = $request->input('id_comunidad');
+       
 
         // Verificar si se han cargado nuevos archivos
         if ($request->hasFile('imagenes')) {
@@ -200,8 +208,10 @@ class ProyectosController extends Controller
 
         //     $proyecto->documentos = json_encode($todosLosArchivos);
         // }
-
-
+       
+        $proyecto->latitud = $request->input('latitud');
+        $proyecto->longitud = $request->input('longitud');
+        $proyecto->direccion = $request->input('direccion');
         $proyecto->fecha_inicial = $request->input('fecha_inicial');
         $proyecto->fecha_final = $request->input('fecha_final');
 

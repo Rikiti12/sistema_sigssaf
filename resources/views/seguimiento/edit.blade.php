@@ -77,7 +77,7 @@
                             <button type="submit" class="btn btn-success btn-lg"><span class="icon text-white-60"><i class="fas fa-check"></i></span>
                                 <span class="text">Guardar</span>
                             </button>
-                            <a class="btn btn-info btn-lg" href="{{ route('seguimiento.index') }}"><span class="icon text-white-50">
+                            <a class="btn btn-info btn-lg" href="{{ url('controlseguimiento.index') }}"><span class="icon text-white-50">
                                     <i class="fas fa-info-circle"></i>
                                 </span>
                                 <span class="text">Regresar</span></a>

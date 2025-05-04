@@ -3,6 +3,9 @@
 <title>@yield('title') Actulizar La Asignacion Del Proyectos</title>
 <script src="{{ asset('js/validaciones.js') }}"></script>
 <script src="{{ asset('https://cdn.jsdelivr.net/npm/sweetalert2@11')}}"></script>
+<link  href="{{ asset('https://unpkg.com/leaflet@1.9.4/dist/leaflet.css')}}" rel="stylesheet" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+<script src="{{ asset('https://unpkg.com/leaflet@1.9.4/dist/leaflet.js')}}" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
 
 @section('content')
 
@@ -67,11 +70,41 @@
                                     <div id="foto_container" style="margin-top: 3%; display: flex; flex-wrap: wrap;"></div>
                             </div>
 
-                            {{-- <div class="col-md-4 mb-3">
-                                <label  class="font-weight-bold text-primary">Comprobante</label>
-                                <input type="file" id="documentos" name="documentos[]" multiple value="{{ $documentos }}" class="btn btn-outline-info d-block w-100">
-                                <div id="pdf_container" style="margin-top: 3%; display: flex; flex-wrap: wrap;"></div>
-                            </div> --}}
+                        </div>
+                    
+                    </div>
+
+                     <div class="card-body">
+
+                        <div class="row">
+    
+                            <div class="col-4">
+                                    <label  class="font-weight-bold text-dark">Latitud de Proyecto</label>
+                                    <input type="text" class="form-control" id="latitud" name="latitud" style="background: white;" value="{{ $proyecto->latitud }}" placeholder="Ingrese La latitud" oninput="capitalizarInput('latitud')" autocomplete="off" onkeypress="return soloLetras(event);">
+                                </div>
+                                
+                                <div class="col-4">
+                                    <label  class="font-weight-bold text-dark">Longitud de Proyecto</label>
+                                    <input type="text" class="form-control" id="longitud" name="longitud" style="background: white;" value="{{ $proyecto->longitud }}" placeholder="Ingrese La Longitud" autocomplete="off" oninput="capitalizarInput('longitud')" onkeypress="return soloLetras(event);">
+                                </div>
+
+                                <div class="col-4">
+                                    <label  class="font-weight-bold text-dark">Dirección / Lugar</label>
+                                    <textarea class="form-control" id="direccion" name="direccion" cols="10" rows="10" style="max-height: 6rem;" oninput="capitalizarInput('direccion')">{{ $proyecto->direccion }}</textarea>
+                                </div>
+
+                            <div class="col-4">
+                                <div id="mapa" style="height: 350px; width:200%;"></div>
+                            </div>
+                        
+                        </div>
+                        
+                    </div>
+
+                    <div class="card-body">
+
+                        <div class="row">
+
 
                             <div class="col-md-4 mb-3">
                                 <label class="font-weight-bold text-dark">Fecha Inicial</label>
@@ -109,6 +142,8 @@
     {{-- * FUNCION PARA MOSTRAR LA FOTO --}}
     
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="{{asset('https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.es.min.js')}}"></script>
+
     
     <script>
         $(document).ready(function () {
@@ -257,6 +292,77 @@
             inputElement.value = capitalizarPrimeraLetra(inputElement.value);
         }
     </script>
+
+ 
+    <script>
+        function cargarMapaYMarcador() {
+        // Obtener los valores de los inputs
+        const latitud = parseFloat(document.getElementById('latitud').value);
+        const longitud = parseFloat(document.getElementById('longitud').value);
+
+        // Validar los datos
+        if (isNaN(latitud) || isNaN(longitud)) {
+            alert('Por favor, ingresa valores numéricos válidos para la latitud y longitud.');
+            return;
+        }
+
+        // Crear el mapa
+        const map = L.map('mapa').setView([latitud, longitud], 15); // Latitud y longitud iniciales
+
+        // Agregar la capa base de OpenStreetMap
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        // Declara una variable para el marcador
+        let marcador;
+
+        // Crear el marcador
+       const marcadorActual = L.marker([latitud, longitud]).addTo(map);
+
+            // Agregar evento click al mapa
+            map.on('click', function(e) {
+        // Eliminar el marcador anterior si existe
+        if (marcadorActual) {
+             map.removeLayer(marcadorActual);
+         }
+
+        // Elimina cualquier marcador existente
+        if (marcador) {
+                map.removeLayer(marcador);
+              }
+      
+        // Obtener las coordenadas del clic
+        const lat = e.latlng.lat;
+        const lng = e.latlng.lng;
+
+        // Crear un nuevo marcador y almacenarlo
+        marcador = L.marker([lat, lng]).addTo(map)
+            .bindPopup('Nuevo marcador').openPopup();
+
+        // Actualizar los inputs
+        document.getElementById('latitud').value = lat;
+        document.getElementById('longitud').value = lng;
+        // document.getElementById('direccion').value = "";
+
+        // Obtener la dirección utilizando Nominatim 
+        fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lng}`)
+            .then(response => response.json())
+            .then(data => {
+                let estado = data.address.state;
+                if (estado.includes('State')) {
+                    estado = estado.replace(' State', '');
+                }
+                const direccion_nueva = data.address.road + ", " + data.address.postcode + ", " + data.address.county + ", " + estado + ", " + data.address.country;
+                document.getElementById('direccion').textContent = direccion_nueva;
+            });
+    });
+    }
+    // Llamada a la función para cargar el mapa al inicio
+    cargarMapaYMarcador();
+
+    </script>
+
 
     @if ($errors->any())
         <script>

@@ -5,9 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Seguimientos;
-use App\Models\Proyectos;
 use App\Models\Planificaciones;
-use App\Models\ControlSeguimientos;
+use App\Models\Proyectos;
+use App\Models\User;
 use Illuminate\Database\QueryException;
 use App\Http\Controllers\BitacoraController;
 
@@ -36,10 +36,10 @@ class SeguimientoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
-        $proyectos = Proyectos::all(); // Obtener todos los proyectos para el formulario de creación
-        return view('seguimiento.create', compact('proyectos')); // Pasar los proyectos a la vista
+        $planificacion = Planificaciones::findOrFail($id);
+        return view('seguimiento.create', compact('planificacion')); // Pasar los proyectos a la vista
     }
 
     /**
@@ -61,21 +61,35 @@ class SeguimientoController extends Controller
        
             // Crear un nuevo seguimiento
             $seguimientos = new Seguimientos();
-            $seguimientos->id_proyecto = $request->input('id_proyecto');
+            $seguimientos->id_planificacion = $request->input('id_planificacion');
             $seguimientos->fecha_segui = $request->input('fecha_segui');
             $seguimientos->responsable_segui = $request->input('responsable_segui');
             $seguimientos->detalle_segui = $request->input('detalle_segui');
-            $seguimientos->estatus_proye = $request->input('estatus_proye');
+
+            $seguimientos->estatus = $request->input('estatus');
+
+                if($seguimientos->estatus ==="Aprobado") {
+                    if ($seguimientos->estatus_res = '') {
+                        $seguimientos->estatus_res = 'Pendiente';
+                    }else{
+                        $seguimientos->estatus_res = $request->input('estatus_res');
+                    }
+                }else{
+                    $seguimientos->estatus_res = 'Negado';
+                }
+
+            $administradores = User::role('Administrador')->get();
            
             $seguimientos->save();
 
             // Registrar en la bitácora
             $bitacora = new BitacoraController();
              $bitacora->update();
+             
          try {
-            return redirect()->route('control_seguimiento.index');
+            return redirect('controlseguimiento');
         } catch (QueryException $exception) {
-            $errorMessage = 'Error: ' . $exception->getMessage();
+            $errorMessage = 'Error: .';
             return redirect()->back()->withErrors($errorMessage);
         }
     }
@@ -134,9 +148,9 @@ class SeguimientoController extends Controller
             $bitacora = new BitacoraController();
             $bitacora->update();
         try {
-            return redirect()->route('control_seguimiento.index');
+            return redirect('controlseguimiento');
         } catch (QueryException $exception) {
-            $errorMessage = 'Error: ' . $exception->getMessage();
+            $errorMessage = 'Error: .';
             return redirect()->back()->withErrors($errorMessage);
         }
     }

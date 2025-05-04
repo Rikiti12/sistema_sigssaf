@@ -20,7 +20,7 @@
                     <table class="table align-items-center table-flush" id="dataTable">
                         <thead class="thead-light">
                             <tr>
-                                <th class="font-weight-bold text-dark">Fecha y Hora del Seguimiento</th>
+                                <th class="font-weight-bold text-dark">Fecha de Seguimiento</th>
                                 <th class="font-weight-bold text-dark">Responsable del Seguimiento</th>
                                 <th class="font-weight-bold text-dark">Detalles del Seguimiento</th>
                                 <th class="font-weight-bold text-dark">Estado del Proyecto</th>
@@ -33,7 +33,7 @@
                                         <td class="font-weight-bold text-dark">{{ date('d/m/Y H:i', strtotime($seguimiento->fecha_segui)) }}</td>
                                         <td class="font-weight-bold text-dark">{{ $seguimiento->responsable_segui }}</td>
                                         <td class="font-weight-bold text-dark">{{ $seguimiento->detalle_segui }}</td>
-                                        <td class="font-weight-bold text-dark">{{ $seguimiento->estatus_proye }}</td>
+                                        <td class="font-weight-bold text-dark">{{ $seguimiento->estatus_res }}</td>
                                         <td>
                                             <div style="display: flex; justify-content: center;">
                                                 @can('editar-seguimiento')

@@ -43,7 +43,7 @@
           <div class="logo-header" data-background-color="dark">
             <a href="/home" class="logo">
               <img
-                src="{{asset('img/logo3.jpg')}}"
+                src="{{asset('img/logo4.jpg')}}"
                 width="150px"
                 height="80px"/>
             </a>
@@ -156,7 +156,7 @@
                       </a>
                     </li>
                     <li>
-                      <a class="sidebar-link"  href="{{ url('control_seguimiento')}}" aria-expanded="false">
+                      <a class="sidebar-link"  href="{{ url('controlseguimiento')}}" aria-expanded="false">
                         <span class="sub-item">Control de Seguimiento</span>
                       </a>
                     </li>

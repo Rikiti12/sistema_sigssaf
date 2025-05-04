@@ -21,7 +21,7 @@
 
                             <h2 class="font-weight-bold text-dark">Gestión de Persona</h2>
 
-                        {{-- @can('crear-comisionado') --}}
+                        {{-- @can('crear-persona') --}}
                             <form action="{{ route('persona.create') }}" method="get" style="display:inline;">
                                 <button type="submit" class="btn btn-primary btn-mb"> <span class="">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-person-plus-fill" viewBox="0 0 16 16">
@@ -36,10 +36,10 @@
                 </div>
 
                 <div class="table-responsive p-3">
-                    <table class="table align-items-center table-flush" id="dataTable">
-                        <thead class="thead-light">
+                        <table class="table align-items-center table-flush" id="dataTable">
+                            <thead class="thead-light">
                             <tr>
-                                <th class="font-weight-bold text-dark">Cedula</th>
+                                <th class="font-weight-bold text-dark">Cédula</th>
                                 <th class="font-weight-bold text-dark">Nombre</th>
                                 <th class="font-weight-bold text-dark">Apellido</th>
                                 <th class="font-weight-bold text-dark">Fecha de Nacimiento</th>
