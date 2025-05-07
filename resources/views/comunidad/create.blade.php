@@ -67,7 +67,7 @@
 
                                     <div class="col-4">
                                         <label  class="font-weight-bold text-dark">Nombre de la Comunidad</label>
-                                        <input type="text" class="form-control" id="nom_comuni" name="nom_comuni" style="background: white;" value="" placeholder="Ingrese El nombre comunidad" autocomplete="off" oninput="capitalizarInput('nombre comuna')" onkeypress="return soloLetras(event);">
+                                        <input type="text" class="form-control" id="nom_comuni" name="nom_comuni" style="background: white;" value="" placeholder="Ingrese El nombre comunidad" autocomplete="off" oninput="capitalizarInput('nombre comuna')" onkeypress="return soloLetrasNumero(event);">
                                     </div>
 
                                     <div class="col-4">

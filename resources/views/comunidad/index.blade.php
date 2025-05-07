@@ -121,10 +121,44 @@
 
 @section('datatable')
 
-    <!-- Datatables -->
-    <script src="{{asset('assets/js/core/jquery-3.7.1.min.js')}}"></script>
-    <script src="{{asset('assets/js/plugin/datatables/datatables.min.js')}}"></script>
+<script src="{{ asset('assets/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('assets/datatables/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('assets/datatables/dataTables.bootstrap4.min.js') }}"></script>
 
+    <script>
+        $(document).ready(function () {
+            $('#dataTable').DataTable({
+                
+                responsive: true,
+                autoWidth: false,
+    
+                "language": {       
+                    "lengthMenu": "Mostrar " + 
+                                    `<select class = 'form-select'>
+                                        <option value = '5'>5</option>
+                                        <option value = '10'>10</option>
+                                        <option value = '15'>15</option>
+                                        <option value = '25'>25</option>
+                                        <option value = '50'>50</option>
+                                        <option value = '100'>100</option>
+                                        <option value = '-1'>Todos</option>
+                                    </select>` +
+                                    " Registros Por Página",
+                    "infoEmpty": 'No Hay Registros Disponibles.',
+                    "zeroRecords": 'Nada Encontrado Disculpa.',
+                    "info": 'Mostrando La Página _PAGE_ de _PAGES_',
+                    "infoFiltered": '(Filtrado de _MAX_ Registros Totales)',
+                    "search": "Buscar: ",
+                    "paginate": {
+                        'next': 'Siguiente',
+                        'previous': 'Anterior',
+                    },
+                    decimal: ',',
+                    thousands: '.',
+                },
+            });
+        });
+    </script>
     <script>
       $(document).ready(function () {
         $("#basic-datatables").DataTable({});

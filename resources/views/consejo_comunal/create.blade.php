@@ -24,7 +24,7 @@
                             <div class="card-body">
 
                                 <center>
-                                    <h5 class="font-weight-bold text-dark">Datos del Vocero de la Comunidad</h5>
+                                    <h5 class="font-weight-bold text-dark">Datos de Vocero del consejo comunal</h5>
                                 </center>
 
                                 <br>
@@ -129,43 +129,11 @@
             inputElement.value = capitalizarPrimeraLetra(inputElement.value);
         }
 
-        function mostrarOcultarProyecto() {
-            const siProyecto = document.getElementById('si_proyecto');
-            const datosProyectoDiv = document.getElementById('datos_proyecto');
-
-            if (siProyecto.checked) {
-                datosProyectoDiv.style.display = 'block';
-            } else {
-                datosProyectoDiv.style.display = 'none';
-                // Limpiar los campos del proyecto si se ocultan
-                document.getElementById('nom_proyecto').value = '';
-                document.getElementById('descripcion').value = '';
-            }
-        }
+        
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-    <script>
-        function mostrarOcultarProyecto() {
-            const datosProyecto = document.getElementById('datos_proyecto');
-            const siProyecto = document.getElementById('si_proyecto').checked;
-            
-            if (siProyecto) {
-                datosProyecto.style.display = 'block';
-            } else {
-                datosProyecto.style.display = 'none';
-                // Limpiar campos al ocultar
-                document.getElementById('nom_proyecto').value = '';
-                document.getElementById('descripcion').value = '';
-            }
-        }
-
-        // Ejecutar al cargar la página para manejar valores predefinidos
-        document.addEventListener('DOMContentLoaded', function() {
-            mostrarOcultarProyecto();
-        });
-    </script>
-
+   
 @endsection
 

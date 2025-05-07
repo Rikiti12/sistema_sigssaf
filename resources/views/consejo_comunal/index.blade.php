@@ -104,7 +104,11 @@
                 </div>
 
                 <div class="modal-body" id="modal-body-content">
-
+                {{-- ! DATOS CARGADOS POR JS/AJAX --}}
+            
+            {{-- <div class="modal-footer">
+                <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Cerrar</button>
+            </div> --}}
             </div>
         </div>
     </div>
@@ -114,73 +118,51 @@
 
 @section('datatable')
 
-    <!-- Datatables -->
-    <script src="{{asset('assets/js/core/jquery-3.7.1.min.js')}}"></script>
-    <script src="{{asset('assets/js/plugin/datatables/datatables.min.js')}}"></script>
+   
+<script src="{{ asset('assets/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('assets/datatables/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('assets/datatables/dataTables.bootstrap4.min.js') }}"></script>
 
     <script>
-      $(document).ready(function () {
-        $("#basic-datatables").DataTable({});
-
-        $("#multi-filter-select").DataTable({
-          pageLength: 5,
-          initComplete: function () {
-            this.api()
-              .columns()
-              .every(function () {
-                var column = this;
-                var select = $(
-                  '<select class="form-select"><option value=""></option></select>'
-                )
-                  .appendTo($(column.footer()).empty())
-                  .on("change", function () {
-                    var val = $.fn.dataTable.util.escapeRegex($(this).val());
-
-                    column
-                      .search(val ? "^" + val + "$" : "", true, false)
-                      .draw();
-                  });
-
-                column
-                  .data()
-                  .unique()
-                  .sort()
-                  .each(function (d, j) {
-                    select.append(
-                      '<option value="' + d + '">' + d + "</option>"
-                    );
-                  });
-              });
-          },
+        $(document).ready(function () {
+            $('#dataTable').DataTable({
+                
+                responsive: true,
+                autoWidth: false,
+    
+                "language": {       
+                    "lengthMenu": "Mostrar " + 
+                                    `<select class = 'form-select'>
+                                        <option value = '5'>5</option>
+                                        <option value = '10'>10</option>
+                                        <option value = '15'>15</option>
+                                        <option value = '25'>25</option>
+                                        <option value = '50'>50</option>
+                                        <option value = '100'>100</option>
+                                        <option value = '-1'>Todos</option>
+                                    </select>` +
+                                    " Registros Por Página",
+                    "infoEmpty": 'No Hay Registros Disponibles.',
+                    "zeroRecords": 'Nada Encontrado Disculpa.',
+                    "info": 'Mostrando La Página _PAGE_ de _PAGES_',
+                    "infoFiltered": '(Filtrado de _MAX_ Registros Totales)',
+                    "search": "Buscar: ",
+                    "paginate": {
+                        'next': 'Siguiente',
+                        'previous': 'Anterior',
+                    },
+                    decimal: ',',
+                    thousands: '.',
+                },
+            });
         });
-
-        // Add Row
-        $("#add-row").DataTable({
-          pageLength: 5,
-        });
-
-        var action =
-          '<td> <div class="form-button-action"> <button type="button" data-bs-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Edit Task"> <i class="fa fa-edit"></i> </button> <button type="button" data-bs-toggle="tooltip" title="" class="btn btn-link btn-danger" data-original-title="Remove"> <i class="fa fa-times"></i> </button> </div> </td>';
-
-        $("#addRowButton").click(function () {
-          $("#add-row")
-            .dataTable()
-            .fnAddData([
-              $("#addName").val(),
-              $("#addPosition").val(),
-              $("#addOffice").val(),
-              action,
-            ]);
-          $("#addRowModal").modal("hide");
-        });
-      });
     </script>
 
 @endsection
 
 @section('sweetalert')
     
-    <script src="{{asset('https://cdn.jsdelivr.net/npm/sweetalert2@11')}}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
         @if (session('eliminar') == 'ok')
 
@@ -191,7 +173,6 @@
                 'success'
                 )
             </script>
-            
         @endif
 
             <script>

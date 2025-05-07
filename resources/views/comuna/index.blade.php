@@ -101,25 +101,29 @@
 
 @section('datatable')
 
-    <script src="{{ asset('assets/jquery/jquery.min.js') }}"></script>
+<script src="{{ asset('assets/jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('assets/datatables/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('assets/datatables/dataTables.bootstrap4.min.js') }}"></script>
 
     <script>
         $(document).ready(function () {
             $('#dataTable').DataTable({
+                
                 responsive: true,
                 autoWidth: false,
-                "language": {
-                    "lengthMenu": "Mostrar " + `<select class = 'form-select'>
-                                    <option value = '5'>5</option>
-                                    <option value = '10'>10</option>
-                                    <option value = '15'>15</option>
-                                    <option value = '25'>25</option>
-                                    <option value = '50'>50</option>
-                                    <option value = '100'>100</option>
-                                    <option value = '-1'>Todos</option>
-                                </select>` + " Registros Por Página",
+    
+                "language": {       
+                    "lengthMenu": "Mostrar " + 
+                                    `<select class = 'form-select'>
+                                        <option value = '5'>5</option>
+                                        <option value = '10'>10</option>
+                                        <option value = '15'>15</option>
+                                        <option value = '25'>25</option>
+                                        <option value = '50'>50</option>
+                                        <option value = '100'>100</option>
+                                        <option value = '-1'>Todos</option>
+                                    </select>` +
+                                    " Registros Por Página",
                     "infoEmpty": 'No Hay Registros Disponibles.',
                     "zeroRecords": 'Nada Encontrado Disculpa.',
                     "info": 'Mostrando La Página _PAGE_ de _PAGES_',
@@ -133,7 +137,9 @@
                     thousands: '.',
                 },
             });
+        </script>
 
+        <script>
             function updatePdfLink() {
                 var searchTerm = table.search();
                 var pdfUrl = {{ url('banco/pdf') }}?search=${encodeURIComponent(searchTerm)};
@@ -159,7 +165,9 @@
 
             updatePdfLink();
             });
+                
     </script>
+                    
 
 @endsection
 
