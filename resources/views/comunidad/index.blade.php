@@ -121,7 +121,7 @@
 
 @section('datatable')
 
-<script src="{{ asset('assets/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('assets/jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('assets/datatables/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('assets/datatables/dataTables.bootstrap4.min.js') }}"></script>
 
@@ -157,66 +157,34 @@
                     thousands: '.',
                 },
             });
+             
+            function updatePdfLink() {
+                var searchTerm = table.search();
+                var pdfUrl = `{{ url('comunidad/pdf') }}?search=${encodeURIComponent(searchTerm)}`;
+                $('#pdfButton').attr('href', pdfUrl);
+            }
+
+            table.on('search.dt', function () {
+                var searchTerm = table.search();
+                $.ajax({
+                    url: "{{ url('comunidad/pdf') }}",
+                    method: 'GET',
+                    data: { search: searchTerm },
+                    success: function(response) {
+                        // Aquí puedes manejar la respuesta, si necesitas hacer algo con ella
+                        console.log('PDF generado con éxito');
+                    },
+                    error: function(xhr) {
+                        console.error('Error al generar el PDF:', xhr);
+                    }
+                });
+                updatePdfLink();
+            });
+            updatePdfLink(); 
+           
         });
     </script>
-    <script>
-      $(document).ready(function () {
-        $("#basic-datatables").DataTable({});
-
-        $("#multi-filter-select").DataTable({
-          pageLength: 5,
-          initComplete: function () {
-            this.api()
-              .columns()
-              .every(function () {
-                var column = this;
-                var select = $(
-                  '<select class="form-select"><option value=""></option></select>'
-                )
-                  .appendTo($(column.footer()).empty())
-                  .on("change", function () {
-                    var val = $.fn.dataTable.util.escapeRegex($(this).val());
-
-                    column
-                      .search(val ? "^" + val + "$" : "", true, false)
-                      .draw();
-                  });
-
-                column
-                  .data()
-                  .unique()
-                  .sort()
-                  .each(function (d, j) {
-                    select.append(
-                      '<option value="' + d + '">' + d + "</option>"
-                    );
-                  });
-              });
-          },
-        });
-
-        // Add Row
-        $("#add-row").DataTable({
-          pageLength: 5,
-        });
-
-        var action =
-          '<td> <div class="form-button-action"> <button type="button" data-bs-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Edit Task"> <i class="fa fa-edit"></i> </button> <button type="button" data-bs-toggle="tooltip" title="" class="btn btn-link btn-danger" data-original-title="Remove"> <i class="fa fa-times"></i> </button> </div> </td>';
-
-        $("#addRowButton").click(function () {
-          $("#add-row")
-            .dataTable()
-            .fnAddData([
-              $("#addName").val(),
-              $("#addPosition").val(),
-              $("#addOffice").val(),
-              action,
-            ]);
-          $("#addRowModal").modal("hide");
-        });
-      });
-    </script>
-
+    
 @endsection
 
 @section('sweetalert')
@@ -262,7 +230,7 @@
 
     <script>
         $(document).ready(function() {
-            $('#basic-datatables').on('click', '.btn-info', function(event) {
+            $('#dataTable').on('click', '.btn-info', function(event) {
                 event.preventDefault();
                 var comunidadId = $(this).data('comunidad-id');
 

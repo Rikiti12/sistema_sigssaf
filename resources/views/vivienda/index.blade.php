@@ -124,6 +124,31 @@
                     thousands: '.',
                 },
             });
+
+            function updatePdfLink() {
+                var searchTerm = table.search();
+                var pdfUrl = `{{ url('vivienda/pdf') }}?search=${encodeURIComponent(searchTerm)}`;
+                $('#pdfButton').attr('href', pdfUrl);
+            }
+
+            table.on('search.dt', function () {
+                var searchTerm = table.search();
+                $.ajax({
+                    url: '{{ url('vivienda/pdf') }}',
+                    method: 'GET',
+                    data: { search: searchTerm },
+                    success: function(response) {
+                        // Aquí puedes manejar la respuesta, si necesitas hacer algo con ella
+                        console.log('PDF generado con éxito');
+                    },
+                    error: function(xhr) {
+                        console.error('Error al generar el PDF:', xhr);
+                    }
+                });
+                updatePdfLink();
+            });
+            updatePdfLink();
+
         });
     </script>
 

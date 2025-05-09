@@ -30,6 +30,32 @@ class ComunidadesController extends Controller
         return view('comunidad.index', compact('comunidades'));
     }
 
+    public function pdf(Request $request)
+    {
+        $search = $request->input('search');
+    
+        if ($search) {
+            // Filtrar los bancos según la consulta de búsqueda
+            $comunidades = Comunidades::where('cedula_jefe', 'LIKE', '%' . $search . '%')
+                           ->orWhere('nom_jefe', 'LIKE', '%' . $search . '%')
+                           ->orWhere('ape_jefe', 'LIKE', '%' . $search . '%')
+                           ->orWhere('telefono', 'LIKE', '%' . $search . '%')
+                           ->orWhere('nom_comuni', 'LIKE', '%' . $search . '%')
+                           ->orWhereHas('comuna', function ($query) use ($search){
+                            $query->where('nom_comunas', 'LIKE', '%' . $search . '%');
+                           })
+                           ->orWhere('dire_comuni', 'LIKE', '%' . $search . '%')
+                           ->get();
+        } else {
+            // Obtener todos los bancos si no hay término de búsqueda
+            $comunidades = Comunidades::with('comuna')->get();
+        }
+    
+        // Generar el PDF, incluso si no se encuentran bancos
+        $pdf = Pdf::loadView('comunidad.pdf', compact('comunidades'));
+        return $pdf->stream('comunidad.pdf');
+    } 
+
     public function getComunidadDetalles($id)
     {
         // Recupera el Proyecto por su ID

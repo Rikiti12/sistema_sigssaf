@@ -30,6 +30,25 @@ class AyudaSocialesController extends Controller
         return view('ayuda_sociales.index', compact('ayuda_sociales'));
     }
 
+    public function pdf(Request $request)
+    {
+        $search = $request->input('search');
+    
+        if ($search) {
+            // Filtrar los bancos según la consulta de búsqueda
+            $ayuda_sociales = AyudaSociales::where('nombre_ayu', 'LIKE', '%' . $search . '%')
+                           ->orWhere('descripcion', 'LIKE', '%' . $search . '%')
+                           ->get();
+        } else {
+            // Obtener todos los bancos si no hay término de búsqueda
+            $ayuda_sociales = AyudaSociales::all();
+        }
+    
+        // Generar el PDF, incluso si no se encuentran bancos
+        $pdf = Pdf::loadView('ayuda_sociales.pdf', compact('ayuda_sociales'));
+        return $pdf->stream('ayuda_sociales.pdf');
+    } 
+
     /**
      * Show the form for creating a new resource.
      *

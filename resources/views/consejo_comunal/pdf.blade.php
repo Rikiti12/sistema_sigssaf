@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>PDF Comuna</title>
+    <title>PDF Consejo Comunal</title>
 </head>
 
 {{-- Estilo al PDF --}}
@@ -76,34 +76,30 @@ img {
             <img class="centro" src="../public/img/portada2.png" alt="">
         </div>
 
-        <h1>Datos de la Comuna</h1><br>
+        <h1>Datos de la Consejo Comunal</h1><br>
             <table class="table" cellpadding="1" cellspacing="1" width="100%" style="padding-bottom:0.4rem;front-size:0.6rem !important">
                 <thead class="header">
                     <tr>
-                        <th>Lista</th>
-                        <th>Vocero Comuna</th>
-                        <th>Nombre Comuna</th>
-                        <th>Parroquia Asignado</th>
+                        <th>Vocero Consejo Comunal</th>
+                        <th>Código SITUR</th>
+                        <th>Rif</th>
                         <th>Direccion</th>
+                        <th>Comunidad</th>
                     </tr>
                 </thead>
                 <tbody>
-                @foreach ($comunas as $comuna)
+                @foreach ($consejo_comunals as $consejocomunal)
                     <tr>
-                        <td>{{ $loop->iteration }}</td>
-                        
-                        <td>{{ $comuna->cedula_comunas }} - {{ $comuna->nombre_comunas }} 
-                        {{ $comuna->apellido_comunas }} {{ $comuna->telefono }}</td>
-
-                        <td>{{ $comuna->nom_comunas }}</td>
-
                         <td>
-                            @if ($comuna->parroquia)
-                                {{$comuna->parroquia->nom_parroquia }} @else
-                            @endif
+                            {{ $consejocomunal->cedula_voce }} - {{ $consejocomunal->nom_voce }}
+                            {{ $consejocomunal->ape_voce }} {{ $consejocomunal->telefono }}
                         </td>
 
-                        <td>{{ $comuna->dire_comunas }}</td>
+                        <td>{{ $consejocomunal->codigo_situr }}</td>
+                        <td>{{ $consejocomunal->rif }}</td>
+                        <td>{{ $consejocomunal->dire_consejo }}</td>
+                        <td>{{ $consejocomunal->comunidad->nom_comuni }}</td>
+
                     </tr>
                 @endforeach  
                 </tbody>

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>PDF Comuna</title>
+    <title>PDF Comunidad</title>
 </head>
 
 {{-- Estilo al PDF --}}
@@ -76,34 +76,34 @@ img {
             <img class="centro" src="../public/img/portada2.png" alt="">
         </div>
 
-        <h1>Datos de la Comuna</h1><br>
+        <h1>Datos de la Comunidad</h1><br>
             <table class="table" cellpadding="1" cellspacing="1" width="100%" style="padding-bottom:0.4rem;front-size:0.6rem !important">
                 <thead class="header">
                     <tr>
-                        <th>Lista</th>
-                        <th>Vocero Comuna</th>
-                        <th>Nombre Comuna</th>
-                        <th>Parroquia Asignado</th>
-                        <th>Direccion</th>
+                        <th>Vocero de la Comunidad</th>
+                        <th>Comunidad</th>
+                        <th>Comuna Asignado</th>
+                        <th>Dirección</th>
+                        <th>Proyecto de la Comunidad</th>
                     </tr>
                 </thead>
                 <tbody>
-                @foreach ($comunas as $comuna)
+                @foreach ($comunidades as $comunidad)
                     <tr>
-                        <td>{{ $loop->iteration }}</td>
-                        
-                        <td>{{ $comuna->cedula_comunas }} - {{ $comuna->nombre_comunas }} 
-                        {{ $comuna->apellido_comunas }} {{ $comuna->telefono }}</td>
-
-                        <td>{{ $comuna->nom_comunas }}</td>
-
+                        <td>{{ $comunidad->cedula_jefe }} - {{ $comunidad->nom_jefe }} 
+                        {{ $comunidad->ape_jefe }} {{ $comunidad->telefono }} 
+                        </td>
+                        <td>{{ $comunidad->nom_comuni }}</td>
+                        <td>{{ $comunidad->comuna->nom_comunas }}</td>
+                        <td>{{ $comunidad->dire_comuni }}</td>
                         <td>
-                            @if ($comuna->parroquia)
-                                {{$comuna->parroquia->nom_parroquia }} @else
+                            @if(strtolower($comunidad->crear_pro) ==='si')
+                                {{ $comunidad->nom_proyecto ?? 'No Especificado' }}
+                                {{ $comunidad->descripcion ?? 'No Especificado' }}
+                            @else
+                                No Posee
                             @endif
                         </td>
-
-                        <td>{{ $comuna->dire_comunas }}</td>
                     </tr>
                 @endforeach  
                 </tbody>

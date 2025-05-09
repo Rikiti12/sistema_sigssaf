@@ -5,9 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Viviendas;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\QueryException;
-use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\BitacoraController;
 use Barryvdh\DomPDF\Facade\Pdf;
 
@@ -31,6 +29,25 @@ class ViviendasController extends Controller
         $viviendas = Viviendas::all();
         return view('vivienda.index', compact('viviendas'));
     }
+
+    public function pdf(Request $request)
+    {
+        $search = $request->input('search');
+    
+        if ($search) {
+            // Filtrar los bancos según la consulta de búsqueda
+            $viviendas = Viviendas::where('nombre_ayu', 'LIKE', '%' . $search . '%')
+                           ->orWhere('descripcion', 'LIKE', '%' . $search . '%')
+                           ->get();
+        } else {
+            // Obtener todos los bancos si no hay término de búsqueda
+            $viviendas = Viviendas::all();
+        }
+    
+        // Generar el PDF, incluso si no se encuentran bancos
+        $pdf = Pdf::loadView('vivienda.pdf', compact('viviendas'));
+        return $pdf->stream('vivienda.pdf');
+    } 
 
     /**
      * Show the form for creating a new resource.

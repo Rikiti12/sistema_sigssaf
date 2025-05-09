@@ -79,7 +79,8 @@
                                                         <a class="btn btn-info btn-sm" style="margin: 0 1px;" title="Ver Detalles" data-consejocomunal-id='{{ $consejocomunal->id }}' class="btn btn-primary" data-toggle="modal" data-target="#exampleModalScrollable" id="#modalScroll"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-layout-text-window-reverse" viewBox="0 0 16 16"  style="color: #ffff; cursor: pointer;">
                                                             <path d="M13 6.5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h5a.5.5 0 0 0 .5-.5m0 3a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h5a.5.5 0 0 0 .5-.5m-.5 2.5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1 0-1z"/>
                                                             <path d="M14 0a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2zM2 1a1 1 0 0 0-1 1v1h14V2a1 1 0 0 0-1-1zM1 4v10a1 1 0 0 0 1 1h2V4zm4 0v11h9a1 1 0 0 0 1-1V4z"/>
-                                                        </svg></a>
+                                                            </svg>
+                                                        </a>
                                                     </div>
 
                                                 </td>
@@ -100,15 +101,13 @@
         <div class="modal-dialog modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    
+                    <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button> -->
                 </div>
 
                 <div class="modal-body" id="modal-body-content">
-                {{-- ! DATOS CARGADOS POR JS/AJAX --}}
-            
-            {{-- <div class="modal-footer">
-                <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Cerrar</button>
-            </div> --}}
+
             </div>
         </div>
     </div>
@@ -119,7 +118,7 @@
 @section('datatable')
 
    
-<script src="{{ asset('assets/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('assets/jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('assets/datatables/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('assets/datatables/dataTables.bootstrap4.min.js') }}"></script>
 
@@ -155,6 +154,31 @@
                     thousands: '.',
                 },
             });
+
+            function updatePdfLink() {
+                var searchTerm = table.search();
+                var pdfUrl = `{{ url('consejo_comunal/pdf') }}?search=${encodeURIComponent(searchTerm)}`;
+                $('#pdfButton').attr('href', pdfUrl);
+            }
+
+            table.on('search.dt', function () {
+                var searchTerm = table.search();
+                $.ajax({
+                    url: "{{ url('consejo_comunal/pdf') }}",
+                    method: 'GET',
+                    data: { search: searchTerm },
+                    success: function(response) {
+                        // Aquí puedes manejar la respuesta, si necesitas hacer algo con ella
+                        console.log('PDF generado con éxito');
+                    },
+                    error: function(xhr) {
+                        console.error('Error al generar el PDF:', xhr);
+                    }
+                });
+                updatePdfLink();
+            });
+            updatePdfLink(); 
+
         });
     </script>
 
@@ -200,9 +224,11 @@
             
             </script>
 
+    
+
     <script>
         $(document).ready(function() {
-            $('#basic-datatables').on('click', '.btn-info', function(event) {
+            $('#dataTable').on('click', '.btn-info', function(event) {
                 event.preventDefault();
                 var consejocomunalId = $(this).data('consejocomunal-id'); 
         
@@ -232,7 +258,7 @@
                 });
             });
         });
-        </script>
+    </script>
 
    
 @endsection

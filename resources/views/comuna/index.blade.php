@@ -54,8 +54,7 @@
                                             <td class="font-weight-bold text-dark">{{ $comuna->cedula_comunas }} - {{ $comuna->nombre_comunas }} 
                                             {{ $comuna->apellido_comunas }} {{ $comuna->telefono }} 
                                             </td>
-                                            <!-- <td class="font-weight-bold text-dark"></td>
-                                            <td class="font-weight-bold text-dark"></td> -->
+                            
                                             <td class="font-weight-bold text-dark">{{ $comuna->nom_comunas }}</td>
 
                                             <td class="font-weight-bold text-dark">
@@ -101,7 +100,7 @@
 
 @section('datatable')
 
-<script src="{{ asset('assets/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('assets/jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('assets/datatables/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('assets/datatables/dataTables.bootstrap4.min.js') }}"></script>
 
@@ -137,19 +136,17 @@
                     thousands: '.',
                 },
             });
-        </script>
-
-        <script>
+             
             function updatePdfLink() {
                 var searchTerm = table.search();
-                var pdfUrl = {{ url('banco/pdf') }}?search=${encodeURIComponent(searchTerm)};
+                var pdfUrl = `{{ url('comuna/pdf') }}?search=${encodeURIComponent(searchTerm)}`;
                 $('#pdfButton').attr('href', pdfUrl);
             }
 
             table.on('search.dt', function () {
                 var searchTerm = table.search();
                 $.ajax({
-                    url: '{{ url('banco/pdf') }}',
+                    url: '{{ url('comuna/pdf') }}',
                     method: 'GET',
                     data: { search: searchTerm },
                     success: function(response) {
@@ -163,11 +160,9 @@
                 updatePdfLink();
             });
 
-            updatePdfLink();
+            updatePdfLink(); 
             });
-                
-    </script>
-                    
+    </script>           
 
 @endsection
 

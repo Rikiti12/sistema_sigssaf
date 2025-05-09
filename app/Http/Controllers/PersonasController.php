@@ -26,6 +26,35 @@ class PersonasController extends Controller
         return view('persona.index', compact('personas'));
     }
 
+         public function pdf(Request $request)
+    {
+        $search = $request->input('search');
+    
+        if ($search) {
+            // Filtrar los bancos según la consulta de búsqueda
+            $personas = Personas::where('cedula', 'LIKE', '%' . $search . '%')
+                           ->orWhere('nombre', 'LIKE', '%' . $search . '%')
+                           ->orWhere('apellido', 'LIKE', '%' . $search . '%')
+                           ->orWhere('fecha_nacimiento', 'LIKE', '%' . $search . '%')
+                           ->orWhere('edad', 'LIKE', '%' . $search . '%')
+                           ->orWhere('genero', 'LIKE', '%' . $search . '%')
+                           ->orWhere('telefono', 'LIKE', '%' . $search . '%')
+                           ->orWhere('correo', 'LIKE', '%' . $search . '%')
+                           ->orWhere('direccion', 'LIKE', '%' . $search . '%')
+                           ->orWhere('discapacidad', 'LIKE', '%' . $search . '%')
+                           ->orWhere('embarazada', 'LIKE', '%' . $search . '%')
+                           ->orWhere('jefe_familiar', 'LIKE', '%' . $search . '%')
+                           ->get();
+        } else {
+            // Obtener todos los bancos si no hay término de búsqueda
+            $personas = Personas::all();
+        }
+    
+        // Generar el PDF, incluso si no se encuentran bancos
+        $pdf = Pdf::loadView('persona.pdf', compact('personas'));
+        return $pdf->stream('persona.pdf');
+    } 
+
     public function getPersonaDetalles($id)
     {
         // Recupera la persona por su ID

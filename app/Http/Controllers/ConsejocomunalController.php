@@ -26,6 +26,32 @@ class ConsejoComunalController extends Controller
         return view('consejo_comunal.index', compact('consejo_comunals'));
     }
 
+     public function pdf(Request $request)
+    {
+        $search = $request->input('search');
+    
+        if ($search) {
+            // Filtrar los bancos según la consulta de búsqueda
+            $consejo_comunals = ConsejoComunal::where('cedula_voce', 'LIKE', '%' . $search . '%')
+                           ->orWhere('nom_voce', 'LIKE', '%' . $search . '%')
+                           ->orWhere('ape_voce', 'LIKE', '%' . $search . '%')
+                           ->orWhere('codigo_situr', 'LIKE', '%' . $search . '%')
+                           ->orWhere('rif', 'LIKE', '%' . $search . '%')
+                           ->orWhere('dire_consejo', 'LIKE', '%' . $search . '%')
+                           ->orWhereHas('comunidad', function ($query) use ($search){
+                            $query->where('nom_comuni', 'LIKE', '%' . $search . '%');
+                           })
+                           ->get();
+        } else {
+            // Obtener todos los bancos si no hay término de búsqueda
+            $consejo_comunals = ConsejoComunal::with('comunidad')->get();
+        }
+    
+        // Generar el PDF, incluso si no se encuentran bancos
+        $pdf = Pdf::loadView('consejo_comunal.pdf', compact('consejo_comunals'));
+        return $pdf->stream('consejo_comunal.pdf');
+    } 
+
     public function getconsejocomunalDetalles($id)
     {
         // Recupera el Proyecto por su ID

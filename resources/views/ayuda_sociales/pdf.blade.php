@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>PDF Comuna</title>
+    <title>PDF Ayuda Sociales</title>
 </head>
 
 {{-- Estilo al PDF --}}
@@ -76,34 +76,21 @@ img {
             <img class="centro" src="../public/img/portada2.png" alt="">
         </div>
 
-        <h1>Datos de la Comuna</h1><br>
+        <h1>Datos de Ayuda Sociales</h1><br>
             <table class="table" cellpadding="1" cellspacing="1" width="100%" style="padding-bottom:0.4rem;front-size:0.6rem !important">
                 <thead class="header">
                     <tr>
                         <th>Lista</th>
-                        <th>Vocero Comuna</th>
-                        <th>Nombre Comuna</th>
-                        <th>Parroquia Asignado</th>
-                        <th>Direccion</th>
+                        <th>Nombre</th>
+                        <th>Descripción</th>
                     </tr>
                 </thead>
                 <tbody>
-                @foreach ($comunas as $comuna)
+                @foreach ($ayuda_sociales as $ayuda_social)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
-                        
-                        <td>{{ $comuna->cedula_comunas }} - {{ $comuna->nombre_comunas }} 
-                        {{ $comuna->apellido_comunas }} {{ $comuna->telefono }}</td>
-
-                        <td>{{ $comuna->nom_comunas }}</td>
-
-                        <td>
-                            @if ($comuna->parroquia)
-                                {{$comuna->parroquia->nom_parroquia }} @else
-                            @endif
-                        </td>
-
-                        <td>{{ $comuna->dire_comunas }}</td>
+                        <td>{{ $ayuda_social->nombre_ayu }}</td>
+                        <td>{{ $ayuda_social->descripcion }}</td>
                     </tr>
                 @endforeach  
                 </tbody>
