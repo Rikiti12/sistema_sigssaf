@@ -79,34 +79,46 @@
                 <div class="collapse" id="base">
                   <ul class="nav nav-collapse">
                     <li>
+                      @can('ver-comuna') 
                       <a class="sidebar-link"  href="{{ url('comuna')}}" aria-expanded="false">
                         <span class="sub-item">Comunas</span>
                       </a>
+                      @endcan
                     </li>
                     <li>
+                       @can('ver-comunidad') 
                       <a class="sidebar-link"  href="{{ url('comunidad')}}" aria-expanded="false">
                         <span class="sub-item">Comunidades</span>
                       </a>
+                       @endcan
                     </li>
                     <li>
+                      @can('ver-consejocomunal')
                       <a class="sidebar-link"  href="{{ url('consejo_comunal')}}" aria-expanded="false">
                         <span class="sub-item">Consejos Comunales</span>
                       </a>
+                        @endcan
                     </li>
                     <li>
+                        @can('ver-persona')
                       <a class="sidebar-link"  href="{{ url('persona')}}" aria-expanded="false">
                         <span class="sub-item">Personas</span>
                       </a>
+                       @endcan
                     </li>
                     <li>
+                       @can('ver-ayuda_sociales')
                       <a class="sidebar-link"  href="{{ url('ayuda_social')}}" aria-expanded="false">
                         <span class="sub-item">Ayudas Sociales</span>
                       </a>
+                      @endcan
                     </li>
                     <li>
+                       @can('ver-vivienda')
                       <a class="sidebar-link"  href="{{ url('vivienda')}}" aria-expanded="false">
                         <span class="sub-item">Viviendas</span>
                       </a>
+                       @endcan
                     </li>
                     <!-- <li>
                       <a href="components/font-awesome-icons.html">
@@ -141,24 +153,32 @@
                 <div class="collapse" id="sidebarLayouts">
                   <ul class="nav nav-collapse">
                   <li>
+                    @can('ver-proyecto')
                       <a class="sidebar-link"  href="{{ route('proyecto.create') }}" aria-expanded="false">
                         <span class="sub-item">Asignar Proyecto</span>
                       </a>
+                      @endcan
                     </li>
                     <li>
+                      @can('ver-planificacion')
                       <a class="sidebar-link"  href="{{ url('planificacion')}}" aria-expanded="false">
                         <span class="sub-item">Planificaciones</span>
                       </a>
+                      @endcan
                     </li>
                     <li>
+                       @can('ver-seguimiento')
                       <a class="sidebar-link"  href="{{ url('seguimiento')}}" aria-expanded="false">
                         <span class="sub-item">Seguimiento</span>
                       </a>
+                      @endcan
                     </li>
                     <li>
+                       @can('ver-controlseguimiento')
                       <a class="sidebar-link"  href="{{ url('controlseguimiento')}}" aria-expanded="false">
                         <span class="sub-item">Control de Seguimiento</span>
                       </a>
+                      @endcan
                     </li>
                   </ul>
                 </div>

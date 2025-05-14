@@ -13,7 +13,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
-                        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-center">
 
                     {{-- <a href="{{ route('planificacion/pdf') }}" class="btn btn-sm btn-danger" target="_blank" id="pdfButton">
                         {{ ('PDF') }}
@@ -29,8 +29,8 @@
                             <tr>
                                 <th class="font-weight-bold text-dark">Descripción del Alcance</th>
                                 <th class="font-weight-bold text-dark">Presupuesto</th>
-                                <th class="font-weight-bold text-dark">Impacto Ambiental</th>
-                                <th class="font-weight-bold text-dark">Impacto Social</th>
+                                {{-- <th class="font-weight-bold text-dark">Impacto Ambiental</th>
+                                <th class="font-weight-bold text-dark">Impacto Social</th> --}}
                                 <th class="font-weight-bold text-dark">Descripción de la Obra</th>
                                 <th class="font-weight-bold text-dark">Fecha Inicio</th>
                                 <th class="font-weight-bold text-dark">Duración Estimada</th>
@@ -42,8 +42,8 @@
                                 <tr>
                                     <td class="font-weight-bold text-dark">{{ $planificacion->descri_alcance }}</td> 
                                     <td class="font-weight-bold text-dark">{{ $planificacion->presupuesto }}</td>
-                                    <td class="font-weight-bold text-dark">{{ $planificacion->impacto_ambiental }}</td>
-                                    <td class="font-weight-bold text-dark">{{ $planificacion->impacto_social }}</td>
+                                    {{-- <td class="font-weight-bold text-dark">{{ $planificacion->impacto_ambiental }}</td>
+                                    <td class="font-weight-bold text-dark">{{ $planificacion->impacto_social }}</td> --}}
                                     <td class="font-weight-bold text-dark">{{ $planificacion->descri_obra }}</td>
                                     <td class="font-weight-bold text-dark">{{ date('d/m/Y', strtotime($planificacion->fecha_inicial)) }}</td>
                                     <td class="font-weight-bold text-dark">{{ date('d/m/Y', strtotime($planificacion->duracion_estimada)) }}</td>
@@ -68,6 +68,11 @@
                                                 </a>
                                             @endcan
 
+                                            <a class="btn btn-info btn-sm" style="margin: 0 1px;" title="Ver Detalles" data-planificacion-id='{{ $planificacion->id }}' class="btn btn-primary" data-toggle="modal" data-target="#exampleModalScrollable" id="#modalScroll"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-layout-text-window-reverse" viewBox="0 0 16 16"  style="color: #ffff; cursor: pointer;">
+                                                <path d="M13 6.5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h5a.5.5 0 0 0 .5-.5m0 3a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h5a.5.5 0 0 0 .5-.5m-.5 2.5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1 0-1z"/>
+                                                <path d="M14 0a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2zM2 1a1 1 0 0 0-1 1v1h14V2a1 1 0 0 0-1-1zM1 4v10a1 1 0 0 0 1 1h2V4zm4 0v11h9a1 1 0 0 0 1-1V4z"/>
+                                            </svg></a>
+
                                         </div>
                                     </td>
                                     
@@ -76,6 +81,28 @@
                         </tbody>
                     </table>
                 </div>
+            </div>
+        </div>
+    </div>
+
+      <!-- MODAL PARA VER DETALLES -->
+    <div class="modal fade" id="exampleModalScrollable" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    {{-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button> --}}
+                </div>
+
+                <div class="modal-body" id="modal-body-content">
+
+                    {{-- ! DATOS CARGADOS POR JS/AJAX --}}
+            
+                {{-- <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Cerrar</button>
+                </div> --}}
+
             </div>
         </div>
     </div>
@@ -137,5 +164,42 @@
             });
         </script>
     @endif
+   {{-- ! FUNCIÓN DEL MODAL PARA VER DETALLES DE LA PERSONA --}}
+
+    <script>
+        $(document).ready(function() {
+            $('#dataTable').on('click', '.btn-info', function(event) {
+                event.preventDefault();
+                var planificacionId = $(this).data('planificacion-id');
+    
+                $.ajax({
+                    url: '/seguimiento/detalles/' + planificacionId,
+                    type: 'GET',
+                    success: function(data) {
+                        console.log(data);
+    
+                        let planificacionesHtml = `
+                            <h5 class="font-weight-bold text-primary" style="text-align: center">Detalles deL Planificacion</h5>
+
+                            <p><b>Impacto Ambiental</b>: ${data.impacto_ambiental}</p>
+                            <p><b>Impacto Social</b>: ${data.impacto_social}</p>
+                          
+                
+                        `;
+
+                        $('#exampleModalScrollable .modal-body').html(planificacionesHtml);
+    
+                        if (!$('#exampleModalScrollable').is(':visible')) {
+                            $('#exampleModalScrollable').modal('show');
+                        }
+                    },
+                    error: function(error) {
+                        console.error("Error al obtener los datos:", error);
+                        alert("Error al cargar la persona. Por favor, inténtalo de nuevo.");
+                    }
+                });
+            });
+        });
+    </script>
 
 @endsection

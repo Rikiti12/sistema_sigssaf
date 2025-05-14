@@ -31,6 +31,25 @@ class SeguimientoController extends Controller
         return view ('seguimiento.index', compact('planificaciones'));
     }
 
+     public function getPlanificacionDetalles($id)
+    {
+        // Recupera el Planificacion por su ID
+        $planificacion = Planificaciones::find($id);
+
+        if (!$planificacion) {
+            // Maneja el caso en que no se encuentre la persona
+            return response()->json(['error' => 'Persona no encontrada'], 404);
+        }
+
+        // Devuelve los datos relevantes en formato JSON
+        return response()->json([
+            'impacto_ambiental' => $planificacion->impacto_ambiental,
+            'impacto_social' => $planificacion->impacto_social,
+            
+            // 'documentos' => $proyecto->documentos,
+        ]);
+ 
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -58,6 +77,7 @@ class SeguimientoController extends Controller
         //     'estatus_proye' => 'nullable|string|max:50',
         // ]);
 
+        
        
             // Crear un nuevo seguimiento
             $seguimientos = new Seguimientos();
@@ -93,19 +113,21 @@ class SeguimientoController extends Controller
             return redirect()->back()->withErrors($errorMessage);
         }
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+ 
+    public function actualizarEstatusSeguimiento(Request $request, $id)
     {
-        $seguimiento = Seguimientos::findOrFail($id); // Buscar el seguimiento por ID
-        return view('seguimiento.show', compact('seguimiento'));
-    }
+        $seguimiento = Seguimientos::find($id);
 
+        if ($seguimiento) {
+            $seguimiento->estatus_res = $request->input('estatus_res');
+            $seguimiento->save();
+
+            return response()->json(['success' => true]);
+        } else {
+            return response()->json(['success' => false, 'message' => 'Seguimiento no encontrada']);
+        }
+    }
+    
     /**
      * Show the form for editing the specified resource.
      *

@@ -13,7 +13,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
-                        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-center">
                             
                     {{-- <a href="{{ route('planificacion/pdf') }}" class="btn btn-sm btn-danger" target="_blank" id="pdfButton">
                         {{ ('PDF') }}

@@ -29,6 +29,26 @@ class ControlSeguimientosController extends Controller
         return view('controlseguimiento.index', compact('seguimientos'));
     }
 
+    // public function getPlanificacionDetalles($id)
+    // {
+    //     // Recupera el Planificacion por su ID
+    //     $seguimiento = Seguimientos::find($id);
+
+    //     if (!$seguimiento) {
+    //         // Maneja el caso en que no se encuentre la persona
+    //         return response()->json(['error' => 'Persona no encontrada'], 404);
+    //     }
+
+    //     // Devuelve los datos relevantes en formato JSON
+    //     return response()->json([
+    //         'impacto_ambiental' => $planificacion->impacto_ambiental,
+    //         'impacto_social' => $planificacion->impacto_social,
+            
+    //         // 'documentos' => $proyecto->documentos,
+    //     ]);
+ 
+    // }
+
     /**
      * Show the form for creating a new resource.
      *
