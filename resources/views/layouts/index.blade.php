@@ -220,15 +220,15 @@
                 <div class="collapse" id="charts">
                   <ul class="nav nav-collapse">
                     <li>
-                      <a href="charts/charts.html">
-                        <span class="sub-item">Chart Js</span>
+                      <a href="{{ url('estadistica')}}">
+                        <span class="sub-item">Estadística</span>
                       </a>
                     </li>
-                    <li>
+                    {{-- <li>
                       <a href="charts/sparkline.html">
                         <span class="sub-item">Sparkline</span>
                       </a>
-                    </li>
+                    </li> --}}
                   </ul>
                 </div>
               </li>

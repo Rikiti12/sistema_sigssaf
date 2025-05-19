@@ -23,6 +23,7 @@ use App\Http\Controllers\SeguimientoController;
 use App\Http\Controllers\ControlSeguimientosController;
 use App\Http\Controllers\ReporteController;
 use App\Http\Controllers\ManualController;
+use App\Http\Controllers\EstadisticaController;
 
 
 Route::get('/', function () {
@@ -122,6 +123,10 @@ Route::get('/seguimiento/detalles/{id}', [SeguimientoController::class, 'getPlan
 
 /* Rutas ControlSeguimientos */
 Route::get('/controlseguimiento', [ControlSeguimientosController::class, 'index'])->name('controlseguimiento')->middleware('auth'); 
+
+
+/* Ruta Estadistica*/
+Route::get('estadistica', [EstadisticaController::class, 'index'])->name('estadistica')->middleware('auth');
 
 /* Ruta Bitacora*/
 Route::get('bitacora', [ReporteController::class, 'bitacora'])->name('bitacora')->middleware('auth');
