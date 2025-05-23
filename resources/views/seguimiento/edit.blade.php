@@ -31,22 +31,13 @@
                             
                             <div class="col-4">
                                 <label class="font-weight-bold text-dark">Detalles del Seguimiento</label>
-                                <textarea class="form-control" id="detalle_segui" name="detalle_segui" value="{{ $seguimiento->detalle_segui }}" placeholder="Ingrese los Detalles del Seguimiento" oninput="capitalizarTextoarea('detalle_segui')" cols="10" rows=""></textarea>
+                                <textarea class="form-control" id="detalle_segui" name="detalle_segui" placeholder="Ingrese los Detalles del Seguimiento" oninput="capitalizarTextoarea('detalle_segui')" cols="10" rows="">{{ $seguimiento->detalle_segui }}</textarea>
                             </div>
 
                             <div class="col-md-4 mb-3">
                                 <label class="font-weight-bold text-dark">Fecha Inicial</label>
-                                <input type="date" class="form-control" id="fecha_segui" name="fecha_segui" value="{{ $seguimiento->fecha_seguii }}"<?php echo date('d/m/Y'); ?>">
+                                <input type="date" class="form-control" id="fecha_segui" name="fecha_segui" value="{{ $seguimiento->fecha_segui }}">
                             </div>
-                       
-                            {{-- <div class="col-4">
-                                <label class="font-weight-bold text-dark">Estado del Proyecto</label>
-                                <select class="form-select"name="estatus" id="estatus">
-                                    <option value="" selected="true" disabled>Seleccione un Estatus</option>
-                                    <option value="Aprobado">Aprobado</option>
-                                    <option value="Negado">Negado</option>
-                                </select>
-                            </div> --}}
 
                             @if(auth()->user()->hasRole('Asistente'))
                                 @if ($seguimiento->estatus_resp == "" || $seguimiento->estatus_resp == "Pendiente")
@@ -61,7 +52,7 @@
                                 @endif
                             @elseif(auth()->user()->hasRole('Administrador'))
                                 <div class="col-4">
-                                    <label  class="font-weight-bold text-primary">Estatus del proyectos</label>
+                                    <label  class="font-weight-bold text-dark">Estatus del proyectos</label>
                                     <select class="select2single form-control" name="estatus" id="estatus">
                                         <option value="0" selected="true" disabled>Seleccione un Estatus</option>
                                         <option value="Aprobado" {{ (old('estatus', $seguimiento->estatus ?? '') === 'Aprobado') ? 'selected' : '' }}>Aprobado</option>
@@ -70,29 +61,10 @@
                                 </div>
                             @endif
 
-                            {{-- @if(auth()->user()->hasRole('Administrador'))
-                                <div class="card-body" id="estatus_aprob">
-                                    <label class="font-weight-bold text-dark">Estatus Aprobacion</label>
-                                    <div class="row">
-                                        <div class="form-check form-check-inline col-1 mr-2">
-                                            <input class="form-check-input" type="radio" name="estatus_res" id="estatus_res_pen" value="Pendiente" checked>
-                                            <label class="form-check-label" for="estatus_res_pen">Pendiente</label>
-                                        </div>
-                                        <div class="form-check form-check-inline col-1 mr-2">
-                                            <input class="form-check-input" type="radio" name="estatus_res" id="estatus_res_apro" value="Aprobado">
-                                            <label class="form-check-label" for="estatus_rep_apro">Aprobado</label>
-                                        </div>
-                                        <div class="form-check form-check-inline col-1 mr-2">
-                                            <input class="form-check-input" type="radio" name="estatus_res" id="estatus_res_neg" value="Negado">
-                                            <label class="form-check-label" for="estatus_res_neg">Negado</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            @endif --}}
 
                             @if(auth()->user()->hasRole('Administrador'))
-                                <div class="card-body" id="estatus_respuesta" style="display: none;">
-                                    <label class="font-weight-bold text-primary">Estatus Aprobación</label>
+                                <div class="card-body" id="estatus_respuesta">
+                                    <label class="font-weight-bold text-dark">Estatus Aprobación</label>
                                     <div class="row">
                                         <div class="custom-control custom-radio col-1 mr-2"> 
                                             <input class="custom-control-input" type="radio" name="estatus_res" id="estatus_resp_pen" value="Pendiente" {{ ($seguimiento->estatus_res=="Pendiente")? "checked" : ""}}>

@@ -18,7 +18,7 @@
 
                         </div>
 
-                        <form method="post" action="{{ route('comunidad.store') }}" enctype="multipart/form-data" onsubmit="return Comunna(this)">
+                        <form method="post" action="{{ route('comunidad.store') }}" enctype="multipart/form-data" onsubmit="return Comunidad(this)">
                             @csrf
 
                             <div class="card-body">

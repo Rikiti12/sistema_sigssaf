@@ -19,7 +19,7 @@
                     <h2 class="font-weight-bold text-dark">Asignar Proyectos</h2>
                 </div>
 
-                <form method="post" action="{{ route('proyecto.store') }}" enctype="multipart/form-data" onsubmit="return Proyectos(this)">
+                <form method="post" action="{{ route('proyecto.store') }}" enctype="multipart/form-data" onsubmit="return Proyecto(this)">
                     @csrf
 
                         <div class="card-body">
@@ -72,12 +72,12 @@
 
                                 <div class="col-4">
                                     <label  class="font-weight-bold text-dark">Latitud de Proyecto</label>
-                                    <input type="text" class="form-control" id="latitud" name="latitud" style="background: white;" value="" placeholder="Ingrese El Nombre Del Proyecto" oninput="capitalizarInput('nombre_pro')" autocomplete="off" onkeypress="return soloLetras(event);">
+                                    <input type="text" class="form-control" id="latitud" name="latitud" style="background: white;" value="" placeholder="Ingrese la Lalitud de proyecto" oninput="capitalizarInput('nombre_pro')" autocomplete="off" onkeypress="return soloLetras(event);">
                                 </div>
                                 
                                 <div class="col-4">
                                     <label  class="font-weight-bold text-dark">Longitud de Proyecto</label>
-                                    <input type="text" class="form-control" id="longitud" name="longitud" style="background: white;" value="" placeholder="Ingrese La Descripcion" autocomplete="off" oninput="capitalizarInput('descripcion_pro')" onkeypress="return soloLetras(event);">
+                                    <input type="text" class="form-control" id="longitud" name="longitud" style="background: white;" value="" placeholder="Ingrese la Longitud de proyecto" autocomplete="off" oninput="capitalizarInput('descripcion_pro')" onkeypress="return soloLetras(event);">
                                 </div>
 
                                 <div class="col-4">

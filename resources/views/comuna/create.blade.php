@@ -18,7 +18,7 @@
 
                 </div>
 
-                    <form method="post" action="{{ route('comuna.store') }}" enctype="multipart/form-data" onsubmit="return Comunna(this)">
+                    <form method="post" action="{{ route('comuna.store') }}" enctype="multipart/form-data" onsubmit="return Comuna(this)">
                         @csrf
 
                         <div class="card-body">
@@ -67,7 +67,7 @@
 
                                 <div class="col-4">
                                     <label  class="font-weight-bold text-dark">Nombre de la Comuna</label>
-                                    <input type="text" class="form-control" id="nom_comunas" name="nom_comunas" style="background: white;" value="" placeholder="Ingrese El nombre comunidad" autocomplete="off" oninput="capitalizarInput('nombre comuna')" onkeypress="return soloLetras(event);">
+                                    <input type="text" class="form-control" id="nom_comunas" name="nom_comunas" style="background: white;" value="" placeholder="Ingrese El nombre comunidad" autocomplete="off" oninput="capitalizarInput('nombre comuna')">
                                 </div>
 
                                 <div class="col-4">

@@ -68,17 +68,7 @@ class SeguimientoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        // $request->validate([
-        //     'id_proyecto' => 'required|exists:proyectos,id', // Validación para el proyecto
-        //     'fecha_segui' => 'required|date',
-        //     'responsable_segui' => 'required|string|max:255',
-        //     'detalle_segui' => 'nullable|string',
-        //     'estatus_proye' => 'nullable|string|max:50',
-        // ]);
-
-        
-       
+    {       
             // Crear un nuevo seguimiento
             $seguimientos = new Seguimientos();
             $seguimientos->id_planificacion = $request->input('id_planificacion');
@@ -138,7 +128,8 @@ class SeguimientoController extends Controller
     {
         $seguimiento = Seguimientos::findOrFail($id);
         $proyectos = Proyectos::all();
-        return view('seguimiento.edit', compact('seguimiento', 'proyectos')); 
+        $fecha_segui = date('d/m/Y', strtotime($seguimiento->fecha_segui));
+        return view('seguimiento.edit', compact('seguimiento', 'proyectos', 'fecha_segui')); 
     }
 
     /**

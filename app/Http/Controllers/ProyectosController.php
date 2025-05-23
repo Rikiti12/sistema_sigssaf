@@ -53,13 +53,17 @@ class ProyectosController extends Controller
      */
     public function store(Request $request)
     {
-        // $request->validate([
-        //     'nombre_pro' => 'required',
-        //     'descripcion_pro' => 'required',
-        //     'id_persona' => 'required|exists:personas,id',
-        //     'id_comunidad' => 'required|exists:comunidades,id',
-        //     'fecha_inicial' => 'required|date',
-        // ]);
+        $request->validate([
+            'imagenes' => 'required|array|min:1',
+            'imagenes' => 'image|nime:jpeg,png,jpg,gif,svg',
+            'descripcion_pro' => 'required',
+            'id_persona' => 'required|exists:personas,id',
+            'id_comunidad' => 'required|exists:comunidades,id',
+            'fecha_inicial' => 'required|date',
+        ], [
+            'imagenes.required' => 'Debe registrar una o mas fotos.',
+            'imagenes.required' => 'Las imagenes deben ser tipo jpeg, png, jpg, gif o svg.',
+        ]);
 
         $proyectos = new Proyectos();
         $proyectos->id_persona = $request->input('id_persona');
@@ -86,21 +90,6 @@ class ProyectosController extends Controller
             
         }
 
-        // // Verificar si se han cargado archivos
-        // if ($request->hasFile('documentos')) {
-        //     $rutaGuardarPdf = 'pdf/';
-        //     $nombresPdf = [];
-
-        //     foreach ($request->file('documentos') as $pdf) {
-        //         $pdfProyecto = date('YmdHis') . '_' . uniqid() . '_' . pathinfo($pdf->getClientOriginalName(), PATHINFO_FILENAME) . '.' . $pdf->getClientOriginalExtension();
-        //         $pdf->move(public_path($rutaGuardarPdf), $pdfProyecto);
-        //         $nombresPdf[] = $pdfProyecto;
-        //     }
-
-        //     $proyectos->documentos = json_encode($nombresPdf);
-        // } else {
-        //     $proyectos->documentos = '[]'; // null
-        // }
         $proyectos->latitud = $request->input('latitud');
         $proyectos->longitud = $request->input('longitud');
         $proyectos->direccion = $request->input('direccion');
