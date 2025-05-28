@@ -53,17 +53,17 @@ class ProyectosController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'imagenes' => 'required|array|min:1',
-            'imagenes' => 'image|nime:jpeg,png,jpg,gif,svg',
-            'descripcion_pro' => 'required',
-            'id_persona' => 'required|exists:personas,id',
-            'id_comunidad' => 'required|exists:comunidades,id',
-            'fecha_inicial' => 'required|date',
-        ], [
-            'imagenes.required' => 'Debe registrar una o mas fotos.',
-            'imagenes.required' => 'Las imagenes deben ser tipo jpeg, png, jpg, gif o svg.',
-        ]);
+        // $request->validate([
+        //     'imagenes' => 'required|array|min:1',
+        //     'imagenes' => 'image|nime:jpeg,png,jpg,gif,svg',
+        //     'descripcion_pro' => 'required',
+        //     'id_persona' => 'required|exists:personas,id',
+        //     'id_comunidad' => 'required|exists:comunidades,id',
+        //     'fecha_inicial' => 'required|date',
+        // ], [
+        //     'imagenes.required' => 'Debe registrar una o mas fotos.',
+        //     'imagenes.required' => 'Las imagenes deben ser tipo jpeg, png, jpg, gif o svg.',
+        // ]);
 
         $proyectos = new Proyectos();
         $proyectos->id_persona = $request->input('id_persona');

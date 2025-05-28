@@ -12,7 +12,7 @@ class ConsejoComunal extends Model
 protected $table = 'consejo_comunals'; 
     protected $primaryKey = 'id';
     public $timestamps = true;
-    protected $fillable = [ 'cedula_voce', 'nom_voce', 'ape_voce', 'telefono', 'codigo_situr', 'rif', 'acta','dire_consejo','id_comunidad'];
+    protected $fillable = [ 'cedula_voce', 'nom_voce', 'ape_voce', 'telefono', 'nom_consej','codigo_situr', 'rif', 'acta','dire_consejo','id_comunidad'];
 
      public function comunidad()
     {

@@ -35,6 +35,7 @@ class ConsejoComunalController extends Controller
             $consejo_comunals = ConsejoComunal::where('cedula_voce', 'LIKE', '%' . $search . '%')
                            ->orWhere('nom_voce', 'LIKE', '%' . $search . '%')
                            ->orWhere('ape_voce', 'LIKE', '%' . $search . '%')
+                           ->orWhere('nom_consej', 'LIKE', '%' . $search . '%')
                            ->orWhere('codigo_situr', 'LIKE', '%' . $search . '%')
                            ->orWhere('rif', 'LIKE', '%' . $search . '%')
                            ->orWhere('dire_consejo', 'LIKE', '%' . $search . '%')
@@ -64,6 +65,7 @@ class ConsejoComunalController extends Controller
 
         // Devuelve los datos relevantes en formato JSON
         return response()->json([
+            'codigo_situr' => $consejocomunal->codigo_situr,
             'rif' => $consejocomunal->rif,
             'acta' => $consejocomunal->acta,
             'dire_consejo' => $consejocomunal->dire_consejo,
@@ -92,6 +94,7 @@ class ConsejoComunalController extends Controller
         $consejo_comunal->nom_voce = $request->input('nom_voce');
         $consejo_comunal->ape_voce = $request->input('ape_voce');
         $consejo_comunal->telefono = $request->input('telefono');
+        $consejo_comunal->nom_consej = $request->input('nom_consej');
         $consejo_comunal->codigo_situr = $request->input('codigo_situr');
         $consejo_comunal->rif = $request->input('rif');
         $consejo_comunal->acta = $request->input('acta');
@@ -126,6 +129,7 @@ class ConsejoComunalController extends Controller
         $consejo_comunal->nom_voce = $request->input('nom_voce');
         $consejo_comunal->ape_voce = $request->input('ape_voce');
         $consejo_comunal->telefono = $request->input('telefono');
+        $consejo_comunal->nom_consej = $request->input('nom_consej');
         $consejo_comunal->codigo_situr = $request->input('codigo_situr');
         $consejo_comunal->rif = $request->input('rif');
         $consejo_comunal->acta = $request->input('acta');
