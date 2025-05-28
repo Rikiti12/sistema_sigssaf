@@ -1,6 +1,6 @@
 @extends('layouts.index')
 
-<title>@yield('title') Ayuda sociales</title>
+<title>@yield('title') Ayudas sociales</title>
 
 @section('css-datatable')
         <link href="{{ asset ('assets/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
