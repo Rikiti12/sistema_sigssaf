@@ -43,7 +43,8 @@
                                         <th class="font-weight-bold text-dark">Nombre</th>
                                         <th class="font-weight-bold text-dark">Apellido</th>
                                         <th class="font-weight-bold text-dark">Teléfono</th>
-                                        <th class="font-weight-bold text-dark">Código SITUR</th>
+                                        <th class="font-weight-bold text-dark">Nombre del Consejo Comunal</th>
+                                        {{-- <th class="font-weight-bold text-dark">Código SITUR</th> --}}
                                         <th class="font-weight-bold text-dark"><center>Acciones</center></th>
                                         </tr>
                                     </thead>
@@ -54,7 +55,8 @@
                                             <td class="font-weight-bold text-dark">{{ $consejocomunal->nom_voce }}</td>
                                             <td class="font-weight-bold text-dark">{{ $consejocomunal->ape_voce }}</td>
                                             <td class="font-weight-bold text-dark">{{ $consejocomunal->telefono }}</td>
-                                            <td class="font-weight-bold text-dark">{{ $consejocomunal->codigo_situr }}</td>
+                                            <td class="font-weight-bold text-dark">{{ $consejocomunal->nom_consej }}</td>
+                                           {{--  <td class="font-weight-bold text-dark">{{ $consejocomunal->codigo_situr }}</td> --}}
                                             </td>
 
                                                 <td>
@@ -241,6 +243,7 @@
                         $('#exampleModalScrollable .modal-body').html(`
                             <h5 class="font-weight-bold text-primary" style="text-align: center">Detalles del Consejo Comunales</h5>
                             
+                            <p><b>Código SITUR:</b> ${data.codigo_situr}</p>
                             <p><b>Rif:</b> ${data.rif}</p>
                             <p><b>Acta:</b> ${data.acta}</p>
                             <p><b>Dirección:</b> ${data.dire_consejo}</p>

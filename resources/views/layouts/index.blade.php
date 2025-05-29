@@ -106,7 +106,7 @@
                       </a>
                        @endcan
                     </li>
-                    <li>
+                   {{--  <li>
                        @can('ver-ayuda_sociales')
                       <a class="sidebar-link"  href="{{ url('ayuda_social')}}" aria-expanded="false">
                         <span class="sub-item">Ayudas Sociales</span>
@@ -119,7 +119,7 @@
                         <span class="sub-item">Viviendas</span>
                       </a>
                        @endcan
-                    </li>
+                    </li> --}}
                     <!-- <li>
                       <a href="components/font-awesome-icons.html">
                         <span class="sub-item">Font Awesome Icons</span>

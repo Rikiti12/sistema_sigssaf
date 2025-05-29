@@ -966,7 +966,7 @@ function Comuna(obj) {
        return false;
    }
 
-   if (/(\w)\1+/i.test(nombre_comunas.toLowerCase())) {
+  /*  if (/(\w)\1+/i.test(nombre_comunas.toLowerCase())) {
     Swal.fire({
             title: 'Comuna',
             text: "El campo del nombre no debe contener caracteres repetidos.",
@@ -982,7 +982,7 @@ function Comuna(obj) {
         
         obj.nombre_comunas.focus();
         return false;
-    }
+    } */
 
    var apellido_comunas = obj.apellido_comunas.value;
    if (!apellido_comunas) {
@@ -1039,7 +1039,7 @@ function Comuna(obj) {
    }
 
 
-   if (/(\w)\1+/i.test(apellido_comunas.toLowerCase())) {
+   /* if (/(\w)\1+/i.test(apellido_comunas.toLowerCase())) {
     Swal.fire({
             title: 'Comuna',
             text: "El campo del apellido no debe contener caracteres repetidos.",
@@ -1055,7 +1055,7 @@ function Comuna(obj) {
         
         obj.apellido_comunas.focus();
         return false;
-    }
+    } */
 
 
     var telefono = obj.telefono.value;
@@ -1284,7 +1284,7 @@ function Comunidad(obj) {
        return false;
    }
 
-   if (/(\w)\1+/i.test(nom_jefe.toLowerCase())) {
+   /* if (/(\w)\1+/i.test(nom_jefe.toLowerCase())) {
     Swal.fire({
             title: 'Comunidad',
             text: "El campo del nombre no debe contener caracteres repetidos.",
@@ -1300,7 +1300,7 @@ function Comunidad(obj) {
         
         obj.nom_jefe.focus();
         return false;
-    }
+    } */
 
    var ape_jefe = obj.ape_jefe.value;
    if (!ape_jefe) {
@@ -1357,7 +1357,7 @@ function Comunidad(obj) {
    }
 
 
-   if (/(\w)\1+/i.test(ape_jefe.toLowerCase())) {
+   /* if (/(\w)\1+/i.test(ape_jefe.toLowerCase())) {
     Swal.fire({
             title: 'Comunidad',
             text: "El campo del apellido no debe contener caracteres repetidos.",
@@ -1373,7 +1373,7 @@ function Comunidad(obj) {
         
         obj.ape_jefe.focus();
         return false;
-    }
+    } */
 
 
     var telefono = obj.telefono.value;
@@ -1602,7 +1602,7 @@ function  ConsejoComunal(obj) {
        return false;
    }
 
-   if (/(\w)\1+/i.test(nom_voce.toLowerCase())) {
+  /*  if (/(\w)\1+/i.test(nom_voce.toLowerCase())) {
     Swal.fire({
             title: 'Consejo comunal',
             text: "El campo del nombre no debe contener caracteres repetidos.",
@@ -1618,7 +1618,7 @@ function  ConsejoComunal(obj) {
         
         obj.nom_voce.focus();
         return false;
-    }
+    } */
 
    var ape_voce = obj.ape_voce.value;
    if (!ape_voce) {
@@ -1656,7 +1656,7 @@ function  ConsejoComunal(obj) {
        obj.ape_voce.focus();
        return (false);
    }
-   if (ape_voce.trim() == "") {
+   /* if (ape_voce.trim() == "") {
        Swal.fire({
            title: 'Consejo comunal',
            text: "El campo de apellido no debe contener espacios en blancos.",
@@ -1672,7 +1672,7 @@ function  ConsejoComunal(obj) {
        
        obj.ape_voce.focus();
        return false;
-   }
+   } */
 
 
    if (/(\w)\1+/i.test(ape_voce.toLowerCase())) {
@@ -1710,6 +1710,25 @@ function  ConsejoComunal(obj) {
        })
        
        obj.telefono.focus();
+       return false;
+   }
+
+   var nom_consej = obj.nom_consej.value;
+   if (!nom_consej) {
+       Swal.fire({
+           title: 'Consejo comunal',
+           text: "Debe de ingresar el nombre del consejo comunal.",
+           icon: 'warning',
+           confirmButtonColor: '#3085d6',
+           cancelButtonColor: '#d33',
+           }).then((result) => {
+       if (result.isConfirmed) {
+
+           this.submit();
+       }
+       })
+       
+       obj.nom_consej.focus();
        return false;
    }
 
@@ -1974,7 +1993,7 @@ function  Personas(obj) {
        return false;
    }
 
-   if (/(\w)\1+/i.test(nombre.toLowerCase())) {
+   /* if (/(\w)\1+/i.test(nombre.toLowerCase())) {
     Swal.fire({
             title: 'Personas',
             text: "El campo del nombre no debe contener caracteres repetidos.",
@@ -1990,7 +2009,7 @@ function  Personas(obj) {
         
         obj.nombre.focus();
         return false;
-    }
+    } */
 
    var apellido = obj.apellido.value;
    if (!apellido) {
@@ -2051,7 +2070,7 @@ function  Personas(obj) {
    }
 
 
-   if (/(\w)\1+/i.test(apellido.toLowerCase())) {
+  /*  if (/(\w)\1+/i.test(apellido.toLowerCase())) {
     Swal.fire({
             title: 'Personas',
             text: "El campo del apellido no debe contener caracteres repetidos.",
@@ -2067,7 +2086,7 @@ function  Personas(obj) {
         
         obj.apellido.focus();
         return false;
-    }
+    } */
 
     var fecha_nacimiento = obj.fecha_nacimiento.value;
    if (!fecha_nacimiento) {

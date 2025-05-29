@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('nom_voce');
             $table->string('ape_voce');
             $table->string('telefono');
+            $table->string('nom_consej');
             $table->string('codigo_situr')->unique();
             $table->string('rif')->unique();
             $table->string('acta');
