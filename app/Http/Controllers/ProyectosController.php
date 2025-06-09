@@ -5,11 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Proyectos;
-use App\Models\Personas;
-use App\Models\Comunidades;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\QueryException;
-use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\BitacoraController;
 use Barryvdh\DomPDF\Facade\Pdf;
 
@@ -17,11 +14,12 @@ class ProyectosController extends Controller
 {  
     function __construct()
     {
-         $this->middleware('permission:ver-proyecto|crear-proyecto|editar-ptoyecto|', ['only' => ['index']]);
+         $this->middleware('permission:ver-proyecto|crear-proyecto|editar-proyecto|borrar-proyecto', ['only' => ['index']]);
          $this->middleware('permission:crear-proyecto', ['only' => ['create','store']]);
          $this->middleware('permission:editar-proyecto', ['only' => ['edit','update']]);
-        
+         $this->middleware('permission:borrar-proyecto', ['only' => ['destroy']]);
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -29,9 +27,32 @@ class ProyectosController extends Controller
      */
     public function index()
     {
-        // $proyectos = Proyectos::all();
-        // return view('proyecto.index', compact('proyectos'));
+        $proyectos = Proyectos::all();
+        return view('proyecto.index', compact('proyectos'));
     }
+
+     public function pdf(Request $request)
+    {
+        $search = $request->input('search');
+    
+        if ($search) {
+            // Filtrar los bancos según la consulta de búsqueda
+            $proyectos = Proyectos::where('nombre_pro', 'LIKE', '%' . $search . '%')
+                           ->orWhere('descripcion_pro', 'LIKE', '%' . $search . '%')
+                           ->orWhere('tipo_pro', 'LIKE', '%' . $search . '%')
+                           ->orWhere('fecha_inicial', 'LIKE', '%' . $search . '%')
+                           ->orWhere('fecha_final', 'LIKE', '%' . $search . '%')
+                           ->orWhere('prioridad', 'LIKE', '%' . $search . '%')
+                           ->get();
+        } else {
+            // Obtener todos los bancos si no hay término de búsqueda
+            $proyectos = Proyectos::all();
+        }
+    
+        // Generar el PDF, incluso si no se encuentran bancos
+        $pdf = Pdf::loadView('proyecto.pdf', compact('proyectos'));
+        return $pdf->stream('proyecto.pdf');
+    } 
 
     /**
      * Show the form for creating a new resource.
@@ -40,9 +61,7 @@ class ProyectosController extends Controller
      */
     public function create()
     {
-        $personas = Personas::all();
-        $comunidades = Comunidades::all();
-        return view('proyecto.create', compact('personas', 'comunidades'));
+        return view('proyecto.create');
     }
 
     /**
@@ -53,56 +72,29 @@ class ProyectosController extends Controller
      */
     public function store(Request $request)
     {
-        // $request->validate([
-        //     'imagenes' => 'required|array|min:1',
-        //     'imagenes' => 'image|nime:jpeg,png,jpg,gif,svg',
-        //     'descripcion_pro' => 'required',
-        //     'id_persona' => 'required|exists:personas,id',
-        //     'id_comunidad' => 'required|exists:comunidades,id',
-        //     'fecha_inicial' => 'required|date',
-        // ], [
-        //     'imagenes.required' => 'Debe registrar una o mas fotos.',
-        //     'imagenes.required' => 'Las imagenes deben ser tipo jpeg, png, jpg, gif o svg.',
-        // ]);
+        $request->validate([
+            'nombre_pro' => 'required|string|max:150',
+            'descripcion_pro' => 'nullable|string',
+            'tipo_pro' => 'required|in:Infraestructura,Social,Educativo,Salud,Ambiental,Otro',
+            'fecha_inicial' => 'required|date',
+            'fecha_final' => 'required|date|after_or_equal:fecha_inicial',
+            'prioridad' => 'required|in:Alta,Media,Baja'
+        ]);
+            $proyectos = new Proyectos();
+            $proyectos->nombre_pro = $request->input('nombre_pro');
+            $proyectos->descripcion_pro = $request->input('descripcion_pro');
+            $proyectos->tipo_pro = $request->input('tipo_pro');
+            $proyectos->fecha_inicial = $request->input('fecha_inicial');
+            $proyectos->fecha_final = $request->input('fecha_final');
+            $proyectos->prioridad = $request->input('prioridad');
+            $proyectos->save();
 
-        $proyectos = new Proyectos();
-        $proyectos->id_persona = $request->input('id_persona');
-        $proyectos->id_comunidad = $request->input('id_comunidad');
-        $proyectos->nombre_pro = $request->input('nombre_pro');
-        $proyectos->descripcion_pro = $request->input('descripcion_pro');
-        
-
-        // Verificar si se han cargado archivos
-        if ($request->hasFile('imagenes')) {
-            $rutaGuardarImg = 'imagenes/';
-            $nombresImagenes = [];
-
-            foreach ($request->file('imagenes') as $foto) {
-                $imagenProyecto = date('YmdHis') . '_' . uniqid() . '_' . pathinfo($foto->getClientOriginalName(), PATHINFO_FILENAME) . '.' . $foto->getClientOriginalExtension();
-                $foto->move(public_path($rutaGuardarImg), $imagenProyecto);
-                $nombresImagenes[] = $imagenProyecto;
-            }
-
-            
-            $proyectos->imagenes = json_encode($nombresImagenes);
-        } else {
-            $proyectos->imagenes = '[]'; // null
-            
-        }
-
-        $proyectos->latitud = $request->input('latitud');
-        $proyectos->longitud = $request->input('longitud');
-        $proyectos->direccion = $request->input('direccion');
-        $proyectos->fecha_inicial = $request->input('fecha_inicial');
-        $proyectos->fecha_final = $request->input('fecha_final');
-
-        $proyectos->save();
-
-        $bitacora = new BitacoraController();
-        $bitacora->update();
+            // Registrar en bitácora
+            $bitacora = new BitacoraController();
+            $bitacora->update();
 
         try {
-            return redirect()->route('planificacion.index');
+            return redirect()->route('proyecto.index');
         } catch (QueryException $exception) {
             $errorMessage = 'Error: ' . $exception->getMessage();
             return redirect()->back()->withErrors($errorMessage);
@@ -117,8 +109,8 @@ class ProyectosController extends Controller
      */
     public function show($id)
     {
-        // No se usa
-
+        // $proyecto = Proyecto::findOrFail($id);
+        // return view('proyecto.show', compact('proyecto'));
     }
 
     /**
@@ -130,15 +122,7 @@ class ProyectosController extends Controller
     public function edit($id)
     {
         $proyecto = Proyectos::find($id);
-        $personas = Personas::all();
-        $comunidades = Comunidades::all();
-        $imagenes = $proyecto->imagenes;
-        $latitud = $proyecto->latitud;
-        $longitud = $proyecto->longitud;
-        $direccion = $proyecto->direccion;
-
-        // $documentos = $proyecto->documentos;
-        return view('proyecto.edit', compact('proyecto', 'personas', 'comunidades', 'imagenes'));
+        return view('proyecto.edit', compact('proyecto'));
     }
 
     /**
@@ -150,85 +134,48 @@ class ProyectosController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // $request->validate([
-        //     'nombre_pro' => 'required',
-        //     'descripcion_pro' => 'required',
-        //     'id_persona' => 'required|exists:personas,id',
-        //     'id_comunidad' => 'required|exists:comunidades,id',
-        //     'fecha_inicial' => 'required|date',
-        // ]);
-
-        $proyecto = Proyectos::find($id);
-         $proyecto->id_persona = $request->input('id_persona');
-        $proyecto->id_comunidad = $request->input('id_comunidad');
-        $proyecto->nombre_pro = $request->input('nombre_pro');
-        $proyecto->descripcion_pro = $request->input('descripcion_pro');
-       
-
-        // Verificar si se han cargado nuevos archivos
-        if ($request->hasFile('imagenes')) {
-            $rutaGuardarImg = 'imagenes/';
-            $nombresImagenes = [];
-
-            foreach ($request->file('imagenes') as $foto) {
-                $imagenProyecto = date('YmdHis') . '_' . uniqid() . '_' . pathinfo($foto->getClientOriginalName(), PATHINFO_FILENAME) . '.' . $foto->getClientOriginalExtension();
-                $foto->move(public_path($rutaGuardarImg), $imagenProyecto);
-                $nombresImagenes[] = $imagenProyecto;
-            }
-
-            // Actualizar las imágenes
-            $proyecto->imagenes = json_encode($nombresImagenes);
-        }
-
-        // // Verificar si se han cargado nuevos archivos
-        // if ($request->hasFile('documentos')) {
-        //     $rutaGuardarPdf = 'pdf/';
-        //     $nuevosNombresPdf = [];
-
-        //     foreach ($request->file('documentos') as $pdf) {
-        //         $pdfComprobante = date('YmdHis') . '_' . uniqid() . '_' . pathinfo($pdf->getClientOriginalName(), PATHINFO_FILENAME) . '.' . $pdf->getClientOriginalExtension();
-        //         $pdf->move(public_path($rutaGuardarPdf), $pdfComprobante);
-        //         $nuevosNombresPdf[] = $pdfComprobante;
-        //     }
-
-        //     // Combinar los nuevos archivos con los existentes
-        //     $archivosExistentes = json_decode($proyecto->documentos, true) ?? [];
-        //     $todosLosArchivos = array_merge($archivosExistentes, $nuevosNombresPdf);
-
-        //     $proyecto->documentos = json_encode($todosLosArchivos);
-        // }
-       
-        $proyecto->latitud = $request->input('latitud');
-        $proyecto->longitud = $request->input('longitud');
-        $proyecto->direccion = $request->input('direccion');
-        $proyecto->fecha_inicial = $request->input('fecha_inicial');
-        $proyecto->fecha_final = $request->input('fecha_final');
-
-        $proyecto->save();
-
-        $bitacora = new BitacoraController();
+        $request->validate([
+            'nombre_pro' => 'required|string|max:150',
+            'descripcion_pro' => 'nullable|string',
+            'tipo_pro' => 'required|in:Infraestructura,Social,Educativo,Salud,Ambiental,Otro',
+            'fecha_inicial' => 'required|date',
+            'fecha_final' => 'required|date|after_or_equal:fecha_inicial',
+            'prioridad' => 'required|in:Alta,Media,Baja',
+            
+        ]);
+            $proyecto = Proyectos::find($id);
+            $proyecto->nombre_pro = $request->input('nombre_pro');
+            $proyecto->descripcion_pro = $request->input('descripcion_pro');
+            $proyecto-> tipo_pro= $request->input('tipo_pro');
+            $proyecto->fecha_inicial = $request->input('fecha_inicial');
+            $proyecto->fecha_final = $request->input('fecha_final');
+            $proyecto->prioridad = $request->input('prioridad');
+            $proyecto->save();
+        
+            // Registrar en bitácora
+           $bitacora = new BitacoraController();
         $bitacora->update();
+        
 
         try {
-            return redirect('planificacion');
+            return redirect('proyecto');
         } catch (QueryException $exception) {
             $errorMessage = 'Error: ' . $exception->getMessage();
             return redirect()->back()->withErrors($errorMessage);
         }
+
     }
 
     /**
      * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+   public function destroy($id)
     {
-        // Proyecto::find($id)->delete();
-        // $bitacora = new BitacoraController();
-        // $bitacora->update();
-        // return redirect()->route('proyecto.index')->with('eliminar', 'ok');
-    }  
+        Proyectos::find($id)->delete();
+        $bitacora = new BitacoraController();
+        $bitacora->update();
+        return redirect()->route('proyecto.index')->with('eliminar', 'ok');
+    }
+}
 
-}    
+    

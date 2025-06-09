@@ -15,9 +15,15 @@ return new class extends Migration
     {
         Schema::create('control_seguimientos', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('id_seguimiento');
             $table->timestamps();
+
+            // Establecer relaciones con las tablas correspondientes
+            $table->foreign('id_seguimiento')->references('id')->on('seguimientos');
         });
     }
+
+     
 
     /**
      * Reverse the migrations.

@@ -106,20 +106,20 @@
                       </a>
                        @endcan
                     </li>
-                   {{--  <li>
-                       @can('ver-ayuda_sociales')
-                      <a class="sidebar-link"  href="{{ url('ayuda_social')}}" aria-expanded="false">
-                        <span class="sub-item">Ayudas Sociales</span>
+                     <li>
+                        @can('ver-proyecto')
+                      <a class="sidebar-link"  href="{{ url('proyecto')}}" aria-expanded="false">
+                        <span class="sub-item">Proyectos</span>
                       </a>
-                      @endcan
+                       @endcan
                     </li>
-                    <li>
+                    {{-- <li>
                        @can('ver-vivienda')
                       <a class="sidebar-link"  href="{{ url('vivienda')}}" aria-expanded="false">
                         <span class="sub-item">Viviendas</span>
                       </a>
                        @endcan
-                    </li> --}}
+                    </li>  --}}
                     <!-- <li>
                       <a href="components/font-awesome-icons.html">
                         <span class="sub-item">Font Awesome Icons</span>
@@ -152,10 +152,17 @@
                 </a>
                 <div class="collapse" id="sidebarLayouts">
                   <ul class="nav nav-collapse">
+                    <li>
+                      @can('ver-evaluacion')
+                      <a class="sidebar-link"  href="{{ url('evaluacion')}}" aria-expanded="false">
+                        <span class="sub-item">Evaluaciones</span>
+                      </a>
+                      @endcan
+                    </li>
                   <li>
-                    @can('ver-proyecto')
-                      <a class="sidebar-link"  href="{{ route('proyecto.create') }}" aria-expanded="false">
-                        <span class="sub-item">Asignar Proyecto</span>
+                    @can('ver-asignacion')
+                      <a class="sidebar-link"  href="{{ route('asignacion.create') }}" aria-expanded="false">
+                        <span class="sub-item">Asignaciones</span>
                       </a>
                       @endcan
                     </li>

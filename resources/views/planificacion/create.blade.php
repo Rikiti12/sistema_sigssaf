@@ -22,7 +22,7 @@
 
                     <div class="card-body">
 
-                        <input type="hidden" class="form-control" id="id_proyecto" name="id_proyecto" style="background: white;" value="{{ $proyecto->id }}" autocomplete="off">
+                        <input type="hidden" class="form-control" id="id_asignacion" name="id_asignacion" style="background: white;" value="{{ $asignacion->id }}" autocomplete="off">
 
                         {{-- @php
                             echo $proyecto;    
@@ -35,12 +35,21 @@
                                 <textarea class="form-control" id="descri_alcance" name="descri_alcance" placeholder="Ingrese la Descripción del Alcance" oninput="capitalizarTextoarea('descri_alcance')" cols="10" rows="10" style="max-height: 6rem;"></textarea>
                             </div>
 
-                            <div class="col-4">
+                            <div class="col-2">
+                                <label class="font-weight-bold text-dark">Moneda</label>
+                                <select class="form-control" id="moneda_presu" name="moneda_presu">
+                                    <option value="VES">VES</option>
+                                    <option value="USD">USD</option>
+                                    <option value="EUR">EUR</option>
+                                </select>
+                            </div>
+
+                            <div class="col-3">
                                 <label class="font-weight-bold text-dark">Presupuesto</label>
                                 <input type="text" class="form-control" id="presupuesto" name="presupuesto" style="background: white;" value="" placeholder="Ingrese el Presupuesto" autocomplete="off">
                             </div>
 
-                            <div class="col-4">
+                            <div class="col-3">
                                 <label class="font-weight-bold text-dark">Descripción de la Obra</label>
                                 <textarea class="form-control" id="descri_obra" name="descri_obra" placeholder="Ingrese la Descripción de la Obra" oninput="capitalizarTextoarea('descri_obra')" cols="10" rows="10" style="max-height: 6rem;"></textarea>
                             </div>

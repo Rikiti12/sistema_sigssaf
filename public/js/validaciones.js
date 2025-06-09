@@ -1062,7 +1062,7 @@ function Comuna(obj) {
    if (!telefono) {
        Swal.fire({
            title: 'Comuna',
-           text: "Debe de ingresar la Telefono.",
+           text: "Debe de ingresar el Telefono.",
            icon: 'warning',
            confirmButtonColor: '#3085d6',
            cancelButtonColor: '#d33',
@@ -1100,7 +1100,7 @@ function Comuna(obj) {
     if (!id_parroquia){
         Swal.fire({
             title: 'Comuna',
-            text: "Debe de seleccionar una Parroquias",
+            text: "Debe de seleccionar una Parroquia",
             icon: 'warning',
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
@@ -1380,7 +1380,7 @@ function Comunidad(obj) {
    if (!telefono) {
        Swal.fire({
            title: 'Comunidad',
-           text: "Debe de ingresar la Telefono.",
+           text: "Debe de ingresar el Telefono.",
            icon: 'warning',
            confirmButtonColor: '#3085d6',
            cancelButtonColor: '#d33',
@@ -1698,7 +1698,7 @@ function  ConsejoComunal(obj) {
    if (!telefono) {
        Swal.fire({
            title: 'Consejo comunal',
-           text: "Debe de ingresar la Telefono.",
+           text: "Debe de ingresar el Telefono.",
            icon: 'warning',
            confirmButtonColor: '#3085d6',
            cancelButtonColor: '#d33',
@@ -1773,7 +1773,7 @@ function  ConsejoComunal(obj) {
     } else if (!regex.test(rif)) {
         Swal.fire({
             title: 'Consejo comunal',
-            text: "El RIF debe comenzar con una letra mayúscula, seguido por números y puede contener guiones.",
+            text: "El RIF debe comenzar con una letra mayúscula, seguido por números .",
             icon: 'warning',
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
@@ -2106,6 +2106,31 @@ function  Personas(obj) {
        obj.fecha_nacimiento.focus();
        return false;
    }
+var fecha_nacimiento = obj.fecha_nacimiento.value;
+
+// Validar que es mayor de edad
+const hoy = new Date();
+const fechaNac = new Date(fecha_nacimiento);
+let edad = hoy.getFullYear() - fechaNac.getFullYear();
+const mes = hoy.getMonth() - fechaNac.getMonth();
+
+// Ajustar edad si aún no ha pasado el mes o día de nacimiento este año
+if (mes < 0 || (mes === 0 && hoy.getDate() < fechaNac.getDate())) {
+    edad--;
+}
+
+if (edad < 18) {
+    Swal.fire({
+        title: 'Personas',
+        text: "Debe ser mayor de 18 años para registrarse.",
+        icon: 'error',
+        confirmButtonColor: '#3085d6',
+    });
+    obj.fecha_nacimiento.focus();
+    return false;
+}
+
+
 
     var genero = obj.genero.value;
    if (!genero) {
@@ -2130,7 +2155,7 @@ function  Personas(obj) {
     if (!telefono) {
        Swal.fire({
            title: 'Personas',
-           text: "Debe de ingresar la Telefono.",
+           text: "Debe de ingresar el Telefono.",
            icon: 'warning',
            confirmButtonColor: '#3085d6',
            cancelButtonColor: '#d33',
@@ -2277,198 +2302,198 @@ function  Personas(obj) {
 }
 
 //VALIDAR Ayuda Sociales
-function  AyudaSociales(obj) {
+// function  AyudaSociales(obj) {
     
-   var nombre_ayu = obj.nombre_ayu.value;
-   if (!nombre_ayu) {
-       Swal.fire({
-           title: 'Ayuda social',
-           text: "Ingrese la ayuda.",
-           icon: 'warning',
-           confirmButtonColor: '#3085d6',
-           cancelButtonColor: '#d33',
-           }).then((result) => {
-       if (result.isConfirmed) {
+//    var nombre_ayu = obj.nombre_ayu.value;
+//    if (!nombre_ayu) {
+//        Swal.fire({
+//            title: 'Ayuda social',
+//            text: "Ingrese la ayuda.",
+//            icon: 'warning',
+//            confirmButtonColor: '#3085d6',
+//            cancelButtonColor: '#d33',
+//            }).then((result) => {
+//        if (result.isConfirmed) {
 
-           this.submit();
-       }
-       })
+//            this.submit();
+//        }
+//        })
 
-       obj.nombre_ayu.focus();
-       return false;
-   }
+//        obj.nombre_ayu.focus();
+//        return false;
+//    }
 
-   if (nombre_ayu.length < 3){
-       Swal.fire({
-           title: 'Ayuda social',
-           text: "Faltan dígitos en este campo de la ayuda.",
-           icon: 'warning',
-           confirmButtonColor: '#3085d6',
-           cancelButtonColor: '#d33',
-           }).then((result) => {
-       if (result.isConfirmed) {
+//    if (nombre_ayu.length < 3){
+//        Swal.fire({
+//            title: 'Ayuda social',
+//            text: "Faltan dígitos en este campo de la ayuda.",
+//            icon: 'warning',
+//            confirmButtonColor: '#3085d6',
+//            cancelButtonColor: '#d33',
+//            }).then((result) => {
+//        if (result.isConfirmed) {
 
-           this.submit();
-       }
-       })
+//            this.submit();
+//        }
+//        })
        
-       obj.nombre_ayu.focus();
-       return (false);
-   }
+//        obj.nombre_ayu.focus();
+//        return (false);
+//    }
 
-   if (nombre_ayu.trim() == "") {
-       Swal.fire({
-           title: 'Ayuda social',
-           text: "El Campo de la ayuda no debe contener espacios en blancos.",
-           icon: 'warning',
-           confirmButtonColor: '#3085d6',
-           cancelButtonColor: '#d33',
-           }).then((result) => {
-       if (result.isConfirmed) {
+//    if (nombre_ayu.trim() == "") {
+//        Swal.fire({
+//            title: 'Ayuda social',
+//            text: "El Campo de la ayuda no debe contener espacios en blancos.",
+//            icon: 'warning',
+//            confirmButtonColor: '#3085d6',
+//            cancelButtonColor: '#d33',
+//            }).then((result) => {
+//        if (result.isConfirmed) {
 
-           this.submit();
-       }
-       })
+//            this.submit();
+//        }
+//        })
        
-       obj.nombre_ayu.focus();
-       return false;
-   }
+//        obj.nombre_ayu.focus();
+//        return false;
+//    }
 
-   if (/(\w)\1+/i.test(nombre_ayu.toLowerCase())) {
-    Swal.fire({
-            title: 'Ayuda social',
-            text: "El campo de la ayuda no debe contener caracteres repetidos.",
-            icon: 'warning',
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            }).then((result) => {
-        if (result.isConfirmed) {
+//    if (/(\w)\1+/i.test(nombre_ayu.toLowerCase())) {
+//     Swal.fire({
+//             title: 'Ayuda social',
+//             text: "El campo de la ayuda no debe contener caracteres repetidos.",
+//             icon: 'warning',
+//             confirmButtonColor: '#3085d6',
+//             cancelButtonColor: '#d33',
+//             }).then((result) => {
+//         if (result.isConfirmed) {
 
-            this.submit();
-        }
-        })
+//             this.submit();
+//         }
+//         })
         
-        obj.nombre_ayu.focus();
-        return false;
-    }
+//         obj.nombre_ayu.focus();
+//         return false;
+//     }
 
-   var descripcion = obj.descripcion.value;
-   if (!descripcion) {
-       Swal.fire({
-           title: 'Ayuda social',
-           text: "Ingrese la descripcion de la ayuda.",
-           icon: 'warning',
-           confirmButtonColor: '#3085d6',
-           cancelButtonColor: '#d33',
-           }).then((result) => {
-       if (result.isConfirmed) {
+//    var descripcion = obj.descripcion.value;
+//    if (!descripcion) {
+//        Swal.fire({
+//            title: 'Ayuda social',
+//            text: "Ingrese la descripcion de la ayuda.",
+//            icon: 'warning',
+//            confirmButtonColor: '#3085d6',
+//            cancelButtonColor: '#d33',
+//            }).then((result) => {
+//        if (result.isConfirmed) {
 
-           this.submit();
-       }
-       })
+//            this.submit();
+//        }
+//        })
    
-       obj.descripcion.focus();
-       return false;
-   }
+//        obj.descripcion.focus();
+//        return false;
+//    }
 
-}
+// }
 
-//VALIDAR VIVIENDAS
-function  Vivienda(obj) {
+// //VALIDAR VIVIENDAS
+// function  Vivienda(obj) {
     
-   var tipo_vivie = obj.tipo_vivie.value;
-   if (!tipo_vivie) {
-       Swal.fire({
-           title: 'Vivienda',
-           text: "Ingrese  El Tipo.",
-           icon: 'warning',
-           confirmButtonColor: '#3085d6',
-           cancelButtonColor: '#d33',
-           }).then((result) => {
-       if (result.isConfirmed) {
+//    var tipo_vivie = obj.tipo_vivie.value;
+//    if (!tipo_vivie) {
+//        Swal.fire({
+//            title: 'Vivienda',
+//            text: "Ingrese  El Tipo.",
+//            icon: 'warning',
+//            confirmButtonColor: '#3085d6',
+//            cancelButtonColor: '#d33',
+//            }).then((result) => {
+//        if (result.isConfirmed) {
 
-           this.submit();
-       }
-       })
+//            this.submit();
+//        }
+//        })
 
-       obj.tipo_vivie.focus();
-       return false;
-   }
+//        obj.tipo_vivie.focus();
+//        return false;
+//    }
 
-   if (tipo_vivie.length < 3){
-       Swal.fire({
-           title: 'Vivienda',
-           text: "Faltan dígitos en este campo de la tipos.",
-           icon: 'warning',
-           confirmButtonColor: '#3085d6',
-           cancelButtonColor: '#d33',
-           }).then((result) => {
-       if (result.isConfirmed) {
+//    if (tipo_vivie.length < 3){
+//        Swal.fire({
+//            title: 'Vivienda',
+//            text: "Faltan dígitos en este campo de la tipos.",
+//            icon: 'warning',
+//            confirmButtonColor: '#3085d6',
+//            cancelButtonColor: '#d33',
+//            }).then((result) => {
+//        if (result.isConfirmed) {
 
-           this.submit();
-       }
-       })
+//            this.submit();
+//        }
+//        })
        
-       obj.tipo_vivie.focus();
-       return (false);
-   }
+//        obj.tipo_vivie.focus();
+//        return (false);
+//    }
 
-   if (tipo_vivie.trim() == "") {
-       Swal.fire({
-           title: 'Vivienda',
-           text: "El Campo de la tipos no debe contener espacios en blancos.",
-           icon: 'warning',
-           confirmButtonColor: '#3085d6',
-           cancelButtonColor: '#d33',
-           }).then((result) => {
-       if (result.isConfirmed) {
+//    if (tipo_vivie.trim() == "") {
+//        Swal.fire({
+//            title: 'Vivienda',
+//            text: "El Campo de la tipos no debe contener espacios en blancos.",
+//            icon: 'warning',
+//            confirmButtonColor: '#3085d6',
+//            cancelButtonColor: '#d33',
+//            }).then((result) => {
+//        if (result.isConfirmed) {
 
-           this.submit();
-       }
-       })
+//            this.submit();
+//        }
+//        })
        
-       obj.tipo_vivie.focus();
-       return false;
-   }
+//        obj.tipo_vivie.focus();
+//        return false;
+//    }
 
-   if (/(\w)\1+/i.test(tipo_vivie.toLowerCase())) {
-    Swal.fire({
-            title: 'Vivienda',
-            text: "El campo de la tipos no debe contener caracteres repetidos.",
-            icon: 'warning',
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            }).then((result) => {
-        if (result.isConfirmed) {
+//    if (/(\w)\1+/i.test(tipo_vivie.toLowerCase())) {
+//     Swal.fire({
+//             title: 'Vivienda',
+//             text: "El campo de la tipos no debe contener caracteres repetidos.",
+//             icon: 'warning',
+//             confirmButtonColor: '#3085d6',
+//             cancelButtonColor: '#d33',
+//             }).then((result) => {
+//         if (result.isConfirmed) {
 
-            this.submit();
-        }
-        })
+//             this.submit();
+//         }
+//         })
         
-        obj.tipo_vivie.focus();
-        return false;
-    }
+//         obj.tipo_vivie.focus();
+//         return false;
+//     }
 
-   var direccion = obj.direccion.value;
-   if (!direccion) {
-       Swal.fire({
-           title: 'Vivienda',
-           text: "Ingrese la direccion .",
-           icon: 'warning',
-           confirmButtonColor: '#3085d6',
-           cancelButtonColor: '#d33',
-           }).then((result) => {
-       if (result.isConfirmed) {
+//    var direccion = obj.direccion.value;
+//    if (!direccion) {
+//        Swal.fire({
+//            title: 'Vivienda',
+//            text: "Ingrese la direccion .",
+//            icon: 'warning',
+//            confirmButtonColor: '#3085d6',
+//            cancelButtonColor: '#d33',
+//            }).then((result) => {
+//        if (result.isConfirmed) {
 
-           this.submit();
-       }
-       })
+//            this.submit();
+//        }
+//        })
    
-       obj.direccion.focus();
-       return false;
-   }
+//        obj.direccion.focus();
+//        return false;
+//    }
 
-}
+// }
 
 // Validar Proyecto
 function Proyecto (obj) {
@@ -2622,7 +2647,7 @@ function Proyecto (obj) {
     if (!latitud) {
         Swal.fire({
             title: 'Proyecto',
-            text: "Ingrese la Lalitud de proyecto.",
+            text: "Ingrese la Latitud de proyecto.",
             icon: 'warning',
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',

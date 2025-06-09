@@ -13,19 +13,19 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('proyectos', function (Blueprint $table) {
+        Schema::create('asignaciones', function (Blueprint $table) {
             $table->id();
              $table->unsignedBigInteger('id_persona');
             $table->unsignedBigInteger('id_comunidad');
-            $table->string('nombre_pro');
-            $table->text('descripcion_pro');
+            // $table->string('nombre_pro');
+            // $table->text('descripcion_pro');
             $table->json('imagenes');
             $table->text('latitud');
             $table->text('longitud');
             $table->text('direccion');
             // $table->json('documentos');
-            $table->date('fecha_inicial');
-            $table->date('fecha_final');
+            // $table->date('fecha_inicial');
+            // $table->date('fecha_final');
             $table->timestamps();
 
             // Establecer relaciones con las tablas correspondientes
@@ -43,6 +43,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('proyectos');
+        Schema::dropIfExists('asignaciones');
     }
 };

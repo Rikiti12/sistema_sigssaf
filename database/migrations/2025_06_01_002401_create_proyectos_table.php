@@ -13,12 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('viviendas', function (Blueprint $table) {
+        Schema::create('proyectos', function (Blueprint $table) {
             $table->id();
-            $table->text('dire_vivie');
-            $table->text('tipo_vivie'); 
+            $table->string('nombre_pro');
+            $table->text('descripcion_pro');
+            $table->enum('tipo_pro', ['Infraestructura', 'Social', 'Educativo', 'Salud', 'Ambiental', 'Otro']);
+            $table->date('fecha_inicial');
+            $table->date('fecha_final');
+           $table->enum('prioridad', ['Alta', 'Media', 'Baja']);
             $table->timestamps();
-
         });
     }
 
@@ -29,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('viviendas');
+        Schema::dropIfExists('proyectos');
     }
 };

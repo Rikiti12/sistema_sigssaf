@@ -8,9 +8,8 @@ use App\Models\Comunas;
 use App\Models\Comunidades;
 use App\Models\ConsejoComunal;
 use App\Models\Personas;
-use App\Models\AyudaSociales;
-use App\Models\Viviendas;
 use App\Models\Proyectos;
+use App\Models\Asignaciones;
 use App\Models\Planificaciones;
 use App\Models\Seguimientos;
 
@@ -34,29 +33,25 @@ class homeController extends Controller
         $personas = Personas::all();
         $count_persona = DB::table('personas')
         ->count();
-
-        $ayuda_sociales = AyudaSociales::all();
-        $count_ayuda = DB::table('ayuda_sociales')
-        ->count();
-
-        $viviendas = Viviendas::all();
-        $count_vivienda = DB::table('viviendas')
-        ->count();
         
         $proyectos = Proyectos::all();
         $count_proyecto = DB::table('proyectos')
+        ->count();
+
+        $asignaciones = Asignaciones::all();
+        $count_asignacion = DB::table('asignaciones')
         ->count();
 
         $planificaciones = Planificaciones::all();
         $count_planificacion = DB::table('planificaciones')
         ->count();
 
-        $mapa_proyectos = Proyectos::select('latitud','longitud')->get();
+        $mapa_asignaciones = asignaciones::select('latitud','longitud')->get();
 
 
-        return view('home.inicio' , compact('count_comuna', 'count_comunidad', 'count_consejo', 'count_persona', 'count_ayuda', 'count_vivienda',
-        'count_proyecto', 'count_planificacion', 'mapa_proyectos'  ) ,  [
-        'count' => $count_comuna, $count_comunidad, $count_consejo, $count_persona, $count_ayuda, $count_vivienda, $count_proyecto, $count_planificacion
+        return view('home.inicio' , compact('count_comuna', 'count_comunidad', 'count_consejo', 'count_persona','count_proyecto',
+        'count_asignacion', 'count_planificacion', 'mapa_asignaciones'  ) ,  [
+        'count' => $count_comuna, $count_comunidad, $count_consejo, $count_persona, $count_proyecto, $count_asignacion, $count_planificacion
 
         ]); 
 

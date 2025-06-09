@@ -31,12 +31,21 @@
                                 <textarea class="form-control" id="descri_alcance" name="descri_alcance" rows="3" placeholder="Ingrese la Descripción del Alcance" oninput="capitalizarTextoarea('descri_alcance')" cols="10" rows="10" style="max-height: 6rem;">{{ $planificacion->descri_alcance }}</textarea>
                             </div>
 
-                            <div class="col-4">
+                             <div class="col-2">
+                                <label class="font-weight-bold text-dark">Moneda</label>
+                                <select class="form-control" id="moneda_presu" name="moneda_presu">
+                                    <option value="VES" {{ $planificacion->moneda_presu == 'VES' ? 'selected' : '' }}>VES</option>
+                                    <option value="USD" {{ $planificacion->moneda_presu == 'USD' ? 'selected' : '' }}>USD</option>
+                                    <option value="EUR" {{ $planificacion->moneda_presu == 'EUR' ? 'selected' : '' }}>EUR</option>
+                                </select>
+                            </div>
+
+                            <div class="col-3">
                                 <label class="font-weight-bold text-dark">Presupuesto</label>
                                 <input type="text" class="form-control" id="presupuesto" name="presupuesto" style="background: white;" value="{{ $planificacion->presupuesto }}" placeholder="Ingrese el Presupuesto" autocomplete="off">
                             </div>
 
-                            <div class="col-4">
+                            <div class="col-3">
                                 <label class="font-weight-bold text-dark">Descripción de la Obra</label>
                                 <textarea class="form-control" id="descri_obra" name="descri_obra" rows="3" placeholder="Ingrese la Descripción de la Obra" oninput="capitalizarTextoarea('descri_obra')" cols="10" rows="10" style="max-height: 6rem;">{{ $planificacion->descri_obra }}</textarea>
                             </div>

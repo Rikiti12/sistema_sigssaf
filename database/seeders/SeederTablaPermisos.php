@@ -55,22 +55,34 @@ class SeederTablaPermisos extends Seeder
              'editar-persona',
              'borrar-persona',
 
-             // Operaciones sobre tabla Ayudas
-             'ver-ayuda_sociales',
-             'crear-ayuda_sociales',
-             'editar-ayuda_sociales',
-             'borrar-ayuda_sociales',
-
-             // Operaciones sobre tabla Viviendas
-             'ver-vivienda',
-             'crear-vivienda',
-             'editar-vivienda',
-             'borrar-vivienda',
-
-             // Operaciones sobre tabla Proyectos
+              //Operaciones sobre tabla Proyectos
              'ver-proyecto',
              'crear-proyecto',
              'editar-proyecto',
+             'borrar-proyecto',
+
+            //  // Operaciones sobre tabla Ayudas
+            //  'ver-ayuda_sociales',
+            //  'crear-ayuda_sociales',
+            //  'editar-ayuda_sociales',
+            //  'borrar-ayuda_sociales',
+
+            //  // Operaciones sobre tabla Viviendas
+            //  'ver-vivienda',
+            //  'crear-vivienda',
+            //  'editar-vivienda',
+            //  'borrar-vivienda',
+
+            // Operaciones sobre tabla Evaluaciones
+             'ver-evaluacion',
+             'crear-evaluacion',
+             'editar-evaluacion',
+             
+
+             // Operaciones sobre tabla Asignaciones
+             'ver-asignacion',
+             'crear-asignacion',
+             'editar-asignacion',
              
              // Operaciones sobre tabla Planificaciones
              'ver-planificacion',

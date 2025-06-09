@@ -24,7 +24,7 @@
                                 <th class="font-weight-bold text-dark">Responsable del Seguimiento</th>
                                 <th class="font-weight-bold text-dark">Detalles del Seguimiento</th>
                                 <th class="font-weight-bold text-dark">Estatus del Proyecto</th>
-                                <th class="font-weight-bold text-dark">Estaatus de Aprobacion</th>
+                                <th class="font-weight-bold text-dark">Estatus de Aprobacion</th>
                                 <th class="font-weight-bold text-dark"><center>Acciones</center></th>
                             </tr>
                         </thead>
@@ -211,77 +211,76 @@
     </script> --}}
 
     <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-
-        function ajustarBotones(estatus, seguimientoId) {
-            const estatusActualTd = document.querySelector(`#estatus-${seguimientoId}`);
-            // const btnRegistrarComprobante = document.querySelector(`.registrar-comprobante[href*='${seguimientoId}']`);
-            const btnAprobarSolicitud = document.querySelector(`.aprobar-solicitud[data-seguimiento-id='${seguimientoId}']`);
-            const btnNegarSolicitud = document.querySelector(`.negar-solicitud[data-seguimiento-id='${seguimientoId}']`);
-
-            if (estatusActualTd) {
-                estatusActualTd.textContent = estatus;
+document.addEventListener("DOMContentLoaded", function () {
+    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+    
+    // Función para mostrar confirmación con SweetAlert
+    function confirmarAccion(accion, seguimientoId) {
+        Swal.fire({
+            title: `¿${accion} seguimiento?`,
+            text: `Estás por ${accion.toLowerCase()} este seguimiento`,
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: `Sí, ${accion}`,
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                const estatus = accion === 'Aprobar' ? 'Aprobado' : 'Negado';
+                actualizarEstatus(seguimientoId, estatus);
             }
-
-            if (btnAprobarSolicitud && btnNegarSolicitud) {
-                if (estatus === "Aprobado") {
-                    btnAprobarSolicitud.style.display = "inline-block";
-                    btnNegarSolicitud.style.display = "none";
-                } else if (estatus === "Negado") {
-                    btnAprobarSolicitud.style.display = "none";
-                    btnNegarSolicitud.style.display = "none";
-                } else {
-                    btnAprobarSolicitud.style.display = "inline-block";
-                    btnNegarSolicitud.style.display = "inline-block";
-                }
-            } else {
-                console.error('No se encontraron los botones para la inspección ID:', seguimientoId);
-            }
-        }
-
-        function actualizarEstatus(estatus, seguimientoId) {
-            fetch(`/actualizar-estatus-seguimiento/${seguimientoId}`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': csrfToken
-                },
-                body: JSON.stringify({ estatus_res: estatus })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    ajustarBotones(estatus, seguimientoId);
-                } else {
-                    console.error('Error al actualizar el estatus:', data.message);
-                }
-            })
-            .catch(error => console.error('Error:', error));
-        }
-
-        document.querySelectorAll(".aprobar-solicitud").forEach(btn => {
-            btn.addEventListener("click", function (event) {
-                event.preventDefault();
-                const seguimientoId = this.getAttribute('data-seguimiento-id');
-                actualizarEstatus("Aprobado", seguimientoId);
-            });
         });
+    }
 
-        document.querySelectorAll(".negar-solicitud").forEach(btn => {
-            btn.addEventListener("click", function (event) {
-                event.preventDefault();
-                const seguimientoId = this.getAttribute('data-seguimiento-id');
-                actualizarEstatus("Negado", seguimientoId);
-            });
-        });
+    // Función para actualizar el estado via AJAX
+    function actualizarEstatus(seguimientoId, estatus) {
+        fetch(`/seguimientos/${seguimientoId}/actualizar-estatus`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': csrfToken,
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({ estatus_res: estatus })
+        })
+        
+        .then(data => {
+            if (data.success) {
+                // Actualizar la interfaz
+                const celdaEstatus = document.querySelector(`#estatus-aprobacion-${seguimientoId}`);
+                if (celdaEstatus) {
+                    celdaEstatus.textContent = estatus;
+                }
+                
+                // Mostrar notificación de éxito
+                Swal.fire(
+                    '¡Éxito!',
+                    `El seguimiento ha sido ${estatus.toLowerCase()}.`,
+                    'success'
+                );
+                
+            }   
+           
+        })
+        
+    }
 
-        document.querySelectorAll("tr[data-seguimiento-id]").forEach(row => {
-            const seguimientoId = row.getAttribute('data-seguimiento-id');
-            const estatus = document.querySelector(`#estatus-${seguimientoId}`).textContent.trim();
-            ajustarBotones(estatus, seguimientoId);
+    // Event listeners para los botones
+    document.querySelectorAll('.aprobar-solicitud').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            const seguimientoId = this.getAttribute('data-seguimiento-id');
+            confirmarAccion('Aprobar', seguimientoId);
         });
     });
-</script>
 
-@endsection
+    document.querySelectorAll('.negar-solicitud').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            const seguimientoId = this.getAttribute('data-seguimiento-id');
+            confirmarAccion('Negar', seguimientoId);
+        });
+    });
+});
+</script>

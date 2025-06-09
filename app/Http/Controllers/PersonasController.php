@@ -225,9 +225,9 @@ class PersonasController extends Controller
      */
     public function destroy($id)
     {
-        // Personas::find($id)->delete();
-        // $bitacora = new BitacoraController();
-        // $bitacora->update();
-        // return redirect()->route('persona.index')->with('eliminar', 'ok');
+        Personas::find($id)->delete();
+        $bitacora = new BitacoraController();
+        $bitacora->update();
+        return redirect()->route('persona.index')->with('eliminar', 'ok');
     }
 }

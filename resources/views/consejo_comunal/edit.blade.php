@@ -68,7 +68,7 @@
 
                                      <div class="col-4">
                                         <label  class="font-weight-bold text-dark">Nombre del Consejo Comunal</label>
-                                        <input type="text" class="form-control" id="nom_consej" name="nom_consej" style="background: white;" value="" placeholder="Ingrese El nombre del consejo comunal" autocomplete="off" oninput="capitalizarInput('nombre consejo comunal')" onkeypress="return soloLetrasNumero(event);">
+                                        <input type="text" class="form-control" id="nom_consej" name="nom_consej" style="background: white;" value="{{ isset($consejo_comunal->nom_consej)?$consejo_comunal->nom_consej:'' }}" placeholder="Ingrese El nombre del consejo comunal" autocomplete="off" oninput="capitalizarInput('nombre consejo comunal')" onkeypress="return soloLetrasNumero(event);">
                                     </div>
 
                                     <div class="col-4">

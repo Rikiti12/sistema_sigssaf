@@ -15,8 +15,9 @@ return new class extends Migration
     {
         Schema::create('planificaciones', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('id_proyecto');
+            $table->unsignedBigInteger('id_asignacion');
             $table->string('descri_alcance');
+            $table->string('moneda_presu', 3); // Added this line (VES, USD, EUR)
             $table->text('presupuesto');
             $table->string('impacto_ambiental');
             $table->string('impacto_social');
@@ -27,7 +28,7 @@ return new class extends Migration
             $table->timestamps();
 
             // Establecer relaciones con las tablas correspondientes
-            $table->foreign('id_proyecto')->references('id')->on('proyectos');
+            $table->foreign('id_asignacion')->references('id')->on('asignaciones');
         });
     }
 

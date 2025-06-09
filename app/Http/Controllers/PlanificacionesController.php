@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Planificaciones;
-use App\Models\Proyectos;
+use App\Models\Asignaciones;
 use Illuminate\Database\QueryException;
 use App\Http\Controllers\BitacoraController;
 
@@ -25,27 +25,27 @@ class PlanificacionesController extends Controller
      */
     public function index()
     {
-        $proyectos = Proyectos::with('personas')->get(); // Cargar la relación con tabla "personas"
-        return view('planificacion.index', compact('proyectos'));
+        $asignaciones = Asignaciones::with('personas')->get(); // Cargar la relación con tabla "personas"
+        return view('planificacion.index', compact('asignaciones'));
     }
 
-    public function getProyectoDetalles($id)
+    public function getAsignacionDetalles($id)
     {
-        // Recupera el Proyecto por su ID
-        $proyecto = Proyectos::find($id);
+        // Recupera el asigacion por su ID
+        $asignacion = Asignaciones::find($id);
 
-        if (!$proyecto) {
+        if (!$asignacion) {
             // Maneja el caso en que no se encuentre la persona
             return response()->json(['error' => 'Persona no encontrada'], 404);
         }
 
         // Devuelve los datos relevantes en formato JSON
         return response()->json([
-            'imagenes' => $proyecto->imagenes,
-            'latitud' => $proyecto->latitud,
-            'longitud' => $proyecto->longitud,
-            'direccion' => $proyecto->direccion,
-            // 'documentos' => $proyecto->documentos,
+            'imagenes' => $asignacion->imagenes,
+            'latitud' => $asignacion->latitud,
+            'longitud' => $asignacion->longitud,
+            'direccion' => $asignacion->direccion,
+            // 'documentos' => $asignacion->documentos,
         ]);
  
     }
@@ -57,8 +57,8 @@ class PlanificacionesController extends Controller
      */
     public function create($id)
     {
-        $proyecto = Proyectos::findOrFail($id);
-        return view('planificacion.create', compact('proyecto'));
+        $asignacion = Asignaciones::findOrFail($id);
+        return view('planificacion.create', compact('asignacion'));
     }
 
     /**
@@ -78,8 +78,9 @@ class PlanificacionesController extends Controller
         // ]);
 
         $planificaciones = new Planificaciones();
-        $planificaciones->id_proyecto = $request->input('id_proyecto');
+        $planificaciones->id_asignacion = $request->input('id_asignacion');
         $planificaciones->descri_alcance = $request->input('descri_alcance');
+        $planificaciones->moneda_presu = $request->input('moneda_presu');
         $planificaciones->presupuesto = $request->input('presupuesto');
         $planificaciones->impacto_ambiental = $request->input('impacto_ambiental');
         $planificaciones->impacto_social = $request->input('impacto_social');
@@ -87,7 +88,7 @@ class PlanificacionesController extends Controller
         $planificaciones->fecha_inicio = $request->input('fecha_inicio');
         $planificaciones->duracion_estimada = $request->input('duracion_estimada');
 
-        // dd($planificaciones->id_proyecto);
+        // dd($planificaciones->id_asignacion);
 
         $planificaciones->save();
 
@@ -122,8 +123,8 @@ class PlanificacionesController extends Controller
     public function edit($id)
     {
         $planificacion = Planificaciones::find($id);
-        $proyectos = Proyectos::all();
-        return view('planificacion.edit', compact('planificacion','proyectos'));
+        $asignaciones = Asignaciones::all();
+        return view('planificacion.edit', compact('planificacion','asignaciones'));
     }
 
     /**
@@ -144,8 +145,9 @@ class PlanificacionesController extends Controller
         // ]);
 
         $planificacion = Planificaciones::find($id);
-        $planificacion->id_proyecto = $request->input('id_proyecto');
+        $planificacion->id_asignacion = $request->input('id_asignacion');
         $planificacion->descri_alcance = $request->input('descri_alcance');
+        $planificacion->moneda_presu = $request->input('moneda_presu');
         $planificacion->presupuesto = $request->input('presupuesto');
         $planificacion->impacto_ambiental = $request->input('impacto_ambiental');
         $planificacion->impacto_social = $request->input('impacto_social');

@@ -28,9 +28,8 @@
                         <thead class="thead-light">
                             <tr>
                                 <th class="font-weight-bold text-dark">Descripción del Alcance</th>
+                                <th class="font-weight-bold text-dark">Moneda</th>
                                 <th class="font-weight-bold text-dark">Presupuesto</th>
-                                {{-- <th class="font-weight-bold text-dark">Impacto Ambiental</th>
-                                <th class="font-weight-bold text-dark">Impacto Social</th> --}}
                                 <th class="font-weight-bold text-dark">Descripción de la Obra</th>
                                 <th class="font-weight-bold text-dark">Fecha Inicio</th>
                                 <th class="font-weight-bold text-dark">Duración Estimada</th>
@@ -40,12 +39,11 @@
                         <tbody>
                             @foreach ($planificaciones as $planificacion)
                                 <tr>
-                                    <td class="font-weight-bold text-dark">{{ $planificacion->descri_alcance }}</td> 
+                                    <td class="font-weight-bold text-dark">{{ $planificacion->descri_alcance }}</td>
+                                     <td class="font-weight-bold text-dark">{{ $planificacion->moneda_presu }}</td> 
                                     <td class="font-weight-bold text-dark">{{ $planificacion->presupuesto }}</td>
-                                    {{-- <td class="font-weight-bold text-dark">{{ $planificacion->impacto_ambiental }}</td>
-                                    <td class="font-weight-bold text-dark">{{ $planificacion->impacto_social }}</td> --}}
                                     <td class="font-weight-bold text-dark">{{ $planificacion->descri_obra }}</td>
-                                    <td class="font-weight-bold text-dark">{{ date('d/m/Y', strtotime($planificacion->fecha_inicial)) }}</td>
+                                    <td class="font-weight-bold text-dark">{{ date('d/m/Y', strtotime($planificacion->fecha_inicio)) }}</td>
                                     <td class="font-weight-bold text-dark">{{ date('d/m/Y', strtotime($planificacion->duracion_estimada)) }}</td>
 
                                     <td>

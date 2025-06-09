@@ -104,6 +104,30 @@
             </div>
           </div>
         </div>
+        <div class="col-sm-6 col-md-3">
+          <div class="card card-stats card-round">
+            <div class="card-body">
+              <div class="row align-items-center">
+                <div class="col-icon">
+                  <div
+                    class="icon-big text-center" style="background-color: rgb(250, 66, 66)"
+                  >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40"  style="color:white;" fill="currentColor" class="bi bi-clipboard-check-fill" viewBox="0 0 16 16">
+                  <path d="M6.5 0A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0zm3 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5z"/>
+                  <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1A2.5 2.5 0 0 1 9.5 5h-3A2.5 2.5 0 0 1 4 2.5zm6.854 7.354-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708.708"/>
+                   </svg>
+                  </div>
+                </div>
+                <div class="col col-stats ms-3 ms-sm-0">
+                  <div class="numbers">
+                    <p class="card-category">Proyectos</p>
+                    <h4 class="card-title">{{ $count_proyecto }}</h4>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
         {{-- <div class="col-sm-6 col-md-3">
           <div class="card card-stats card-round">
             <div class="card-body">
@@ -158,7 +182,7 @@
               <div class="row align-items-center">
                 <div class="col-icon">
                   <div
-                  class="icon-big text-center" style="background-color: rgb(212, 168, 248)"
+                  class="icon-big text-center" style="background-color: rgb(116, 38, 241)"
                   >
                   <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40"  style="color:white;" fill="currentColor" class="bi bi-clipboard-check-fill" viewBox="0 0 16 16">
                   <path d="M6.5 0A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0zm3 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5z"/>
@@ -169,7 +193,7 @@
                 <div class="col col-stats ms-3 ms-sm-0">
                   <div class="numbers">
                     <p class="card-category"> Asignar Proyectos</p>
-                    <h4 class="card-title">{{ $count_proyecto }}</h4>
+                    <h4 class="card-title">{{ $count_asignacion }}</h4>
                   </div>
                 </div>
               </div>
@@ -184,7 +208,7 @@
                   <div
                     class="icon-big text-center icon-success bubble-shadow-small"
                   >
-                  <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" style="color:white;" fill="currentColor" class="bi bi-file-check-fill" viewBox="0 0 16 16">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" style="color:rgb(255, 255, 255);" fill="currentColor" class="bi bi-file-check-fill" viewBox="0 0 16 16">
                   <path d="M12 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2m-1.146 6.854-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 8.793l2.646-2.647a.5.5 0 0 1 .708.708"/>
                   </svg>
                   </div>
@@ -238,20 +262,20 @@
         attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
 
-    var proyectos = @json($mapa_proyectos);
+    var asignaciones = @json($mapa_asignaciones);
 
     // Definir iconos personalizados
-    var proyectoIcon = L.icon({
-        iconUrl: '/img/proyecto.png', // Ruta al icono de recepcion
+    var asignacionIcon = L.icon({
+        iconUrl: '/img/asignacion.png', // Ruta al icono de recepcion
         iconSize: [35, 41], // Tamaño del icono
         iconAnchor: [35, 41], // Punto del icono que se corresponde con la posición del marcador
         popupAnchor: [1, -34] // Punto desde el cual se abrirá el popup relativo al icono
     });
 
-    proyectos.forEach(function(proyecto) {
-        if (proyecto.latitud && proyecto.longitud) {
-            L.marker([proyecto.latitud, proyecto.longitud], { icon: proyectoIcon }).addTo(map)
-                .bindPopup('Proyecto');
+    asignaciones.forEach(function(asignacion) {
+        if (asignacion.latitud && asignacion.longitud) {
+            L.marker([asignacion.latitud, asignacion.longitud], { icon: asignacionIcon }).addTo(map)
+                .bindPopup('Asignacion');
         }
     });
 

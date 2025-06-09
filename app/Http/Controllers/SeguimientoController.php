@@ -150,11 +150,11 @@ class SeguimientoController extends Controller
         // ]);
          
             $seguimiento = Seguimientos::findOrFail($id);
-            $seguimiento->id_proyecto = $request->input('id_proyecto');
+            // $seguimiento->id_proyecto = $request->input('id_proyecto');
             $seguimiento->fecha_segui = $request->input('fecha_segui');
             $seguimiento->responsable_segui = $request->input('responsable_segui');
             $seguimiento->detalle_segui = $request->input('detalle_segui');
-            $seguimiento->estatus_proye = $request->input('estatus_proye');
+            $seguimiento->estatus = $request->input('estatus');
             $seguimiento->save();
 
             // Registrar en la bitácora
