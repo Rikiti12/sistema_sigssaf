@@ -24,44 +24,6 @@
 
                         <div class="card-body">
 
-                            <center>
-                                <h5 class="font-weight-bold text-dark">Datos del Vocero de la Comuna</h5>
-                            </center>
-
-                            <br>
-
-                            <div class="row">
-
-                                <div class="col-4">
-                                    <label  class="font-weight-bold text-dark">Cedula Vocero</label>
-                                    <input type="text" class="form-control" id="cedula_comunas" name="cedula_comunas" maxlength="8" style="background: white;" value="{{ isset($comuna->cedula_comunas)?$comuna->cedula_comunas:'' }}" placeholder="Ingrese La Cedula" autocomplete="off" onkeypress="return solonum(event);">
-                                </div>
-
-                                <div class="col-4">
-                                    <label  class="font-weight-bold text-dark">Nombre Vocero</label>
-                                    <input type="text" class="form-control" id="nombre_comunas" name="nombre_comunas" style="background: white;" value="{{ isset($comuna->nombre_comunas)?$comuna->nombre_comunas:'' }}" placeholder="Ingrese El Nombre" oninput="capitalizarInput('nombre')" autocomplete="off" onkeypress="return soloLetras(event);">
-                                </div>
-
-                                <div class="col-4">
-                                    <label  class="font-weight-bold text-dark">Apellido Vocero</label>
-                                    <input type="text" class="form-control" id="apellido_comunas" name="apellido_comunas" style="background: white;" value="{{ isset($comuna->apellido_comunas)?$comuna->apellido_comunas:'' }}" placeholder="Ingrese El Apellido" autocomplete="off"  oninput="capitalizarInput('apellido')" onkeypress="return soloLetras(event);">
-                                </div>
-
-                                <div class="col-4">
-                                    <label  class="font-weight-bold text-dark">Telefono</label>
-                                    <input type="text" class="form-control" id="telefono" name="telefono" maxlength="11" style="background: white;" value="{{ isset($comuna->telefono)?$comuna->telefono:'' }}" placeholder="Ingrese El Telefono" autocomplete="off" onkeypress="return solonum(event);">
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                        <div class="card-body">
-
-                            <center>
-                                <h5 class="font-weight-bold text-dark">Datos de la Comuna</h5>
-                            </center>
-
                             <br>
 
                             <div class="row">
@@ -76,6 +38,15 @@
                                     <select class="form-select" id="c_parroquia" name="id_parroquia">
                                         @foreach($parroquias as $parroquia)
                                             <option value="{{ $parroquia->id }}" @selected($comuna->id_parroquia == $parroquia->id)>{{ $parroquia->nom_parroquia }}</option>
+                                        @endforeach
+                                    </select>                                   
+                                </div> 
+
+                                <div class="col-4">
+                                    <label  class="font-weight-bold text-dark"> Consejo comunal Asignado</label>
+                                    <select class="form-select" id="id_consejo" name="id_consejo">
+                                        @foreach($consejo_comunals as $consejo_comunal)
+                                            <option value="{{ $consejo_comunal->id }}" @selected($comuna->id_consejo == $consejo_comunal->id)>{{ $consejo_comunal->nom_consej }}</option>
                                         @endforeach
                                     </select>                                   
                                 </div>

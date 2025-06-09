@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Comunidades;
-use App\Models\Comunas;
 use Illuminate\Database\QueryException;
 use App\Http\Controllers\BitacoraController;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -26,7 +25,7 @@ class ComunidadesController extends Controller
      */
     public function index()
     {  
-        $comunidades = Comunidades::with('comuna')->get(); // Cargar la relación con tabla "conmuas"
+        $comunidades = Comunidades::all();
         return view('comunidad.index', compact('comunidades'));
     }
 
@@ -36,45 +35,18 @@ class ComunidadesController extends Controller
     
         if ($search) {
             // Filtrar los bancos según la consulta de búsqueda
-            $comunidades = Comunidades::where('cedula_jefe', 'LIKE', '%' . $search . '%')
-                           ->orWhere('nom_jefe', 'LIKE', '%' . $search . '%')
-                           ->orWhere('ape_jefe', 'LIKE', '%' . $search . '%')
-                           ->orWhere('telefono', 'LIKE', '%' . $search . '%')
-                           ->orWhere('nom_comuni', 'LIKE', '%' . $search . '%')
-                           ->orWhereHas('comuna', function ($query) use ($search){
-                            $query->where('nom_comunas', 'LIKE', '%' . $search . '%');
-                           })
+            $comunidades = Comunidades::where('nom_comuni', 'LIKE', '%' . $search . '%')
                            ->orWhere('dire_comuni', 'LIKE', '%' . $search . '%')
                            ->get();
         } else {
             // Obtener todos los bancos si no hay término de búsqueda
-            $comunidades = Comunidades::with('comuna')->get();
+            $comunidades = Comunidades::all();
         }
     
         // Generar el PDF, incluso si no se encuentran bancos
         $pdf = Pdf::loadView('comunidad.pdf', compact('comunidades'));
         return $pdf->stream('comunidad.pdf');
     } 
-
-    public function getComunidadDetalles($id)
-    {
-        // Recupera el Proyecto por su ID
-        $comunidad = Comunidades::find($id);
-
-        if (!$comunidad) {
-            // Maneja el caso en que no se encuentre la persona
-            return response()->json(['error' => 'Comunidad no encontrada'], 404);
-        }
-
-        // Devuelve los datos relevantes en formato JSON
-        return response()->json([
-            'crear_pro' => $comunidad->crear_pro,
-            'nom_proyecto' => $comunidad->nom_proyecto,
-            'descripcion' => $comunidad->descripcion,
-            
-        ]);
- 
-    }
 
     /**
      * Show the form for creating a new resource.
@@ -83,8 +55,7 @@ class ComunidadesController extends Controller
      */
     public function create()
     {
-        $comunas = Comunas::all(); // Obtener todos los registros de la tabla "comunas"
-        return view('comunidad.create', compact('comunas'));
+        return view('comunidad.create');
     }
 
     /**
@@ -96,25 +67,10 @@ class ComunidadesController extends Controller
     public function store(Request $request)
     {
         
-        $request->validate([
-            'cedula_jefe' => 'required|unique:comunidades,cedula_jefe'
-            ],
-            [
-            'cedula_jefe.unique' => 'Está cedula ya existe.',
-            ]);
-        
-
         $comunidades = new Comunidades();
-        $comunidades->cedula_jefe = $request->input('cedula_jefe');
-        $comunidades->nom_jefe = $request->input('nom_jefe');
-        $comunidades->ape_jefe = $request->input('ape_jefe');
-        $comunidades->telefono = $request->input('telefono');
         $comunidades->nom_comuni = $request->input('nom_comuni');
         $comunidades->dire_comuni = $request->input('dire_comuni');
-        $comunidades->id_comuna = $request->input('id_comuna');
-        $comunidades->crear_pro = $request->input('crear_pro');
-        $comunidades->nom_proyecto = $request->input('nom_proyecto');
-        $comunidades->descripcion = $request->input('descripcion');
+        
 
         $comunidades->save();
 
@@ -152,8 +108,7 @@ class ComunidadesController extends Controller
     public function edit($id)
     {
         $comunidad = Comunidades::find($id);
-        $comunas =  Comunas::all();
-        return view('comunidad.edit',compact('comunidad','comunas'));
+        return view('comunidad.edit',compact('comunidad'));
     }
 
     /**
@@ -174,19 +129,10 @@ class ComunidadesController extends Controller
         // );
 
         $comunidad = Comunidades::find($id);
-        $comuna = Comunas::all();
-       
-        $comunidad->cedula_jefe = $request->input('cedula_jefe');
-        $comunidad->nom_jefe = $request->input('nom_jefe');
-        $comunidad->ape_jefe = $request->input('ape_jefe');
-        $comunidad->telefono = $request->input('telefono');
+    
         $comunidad->nom_comuni = $request->input('nom_comuni');
         $comunidad->dire_comuni = $request->input('dire_comuni');
-        $comunidad->id_comuna = $request->input('id_comuna');
-        $comunidad->crear_pro = $request->input('crear_pro');
-        $comunidad->nom_proyecto = $request->input('nom_proyecto');
-        $comunidad->descripcion = $request->input('descripcion');
-
+      
         $comunidad->save();
 
         $bitacora = new BitacoraController;

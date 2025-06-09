@@ -1,6 +1,6 @@
 @extends('layouts.index')
 
-<title>@yield('title') Registrar Personas</title>
+<title>@yield('title') Registrar Voceros</title>
 <script src="{{ asset('js/validaciones.js') }}"></script>
 <script src="{{ asset('https://cdn.jsdelivr.net/npm/sweetalert2@11')}}"></script>
 
@@ -14,11 +14,11 @@
 
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-center">
 
-                    <h2 class="font-weight-bold text-dark">Registrar Persona</h2>
+                    <h2 class="font-weight-bold text-dark">Registrar Vocero</h2>
 
                 </div>
 
-                <form method="post" action="{{ route('persona.store') }}" enctype="multipart/form-data" onsubmit="return Personas(this)">
+                <form method="post" action="{{ route('vocero.store') }}" enctype="multipart/form-data" onsubmit="return Voceros(this)">
                 @csrf
 
                     <div class="card-body">
@@ -70,35 +70,13 @@
                             </div>
 
                             <div class="col-md-4">
+                                <label class="font-weight-bold text-dark">Cargo</label>
+                                <input type="text" class="form-control" id="cargo" name="cargo" style="background: white;" value="{{ old('cargo') }}" placeholder="Ingrese el cargo" autocomplete="off">
+                            </div>
+
+                            <div class="col-md-4">
                                 <label class="font-weight-bold text-dark">Dirección</label>
                                 <textarea class="form-control" id="direccion" name="direccion" cols="10" rows="10" style="max-height: 6rem;" oninput="capitalizarInput('direccion')">{{ old('direccion') }}</textarea>
-                            </div>
-
-                            <div class="col-md-4">
-                                <label class="font-weight-bold text-dark">Discapacidad</label>
-                                <select class="form-select" id="discapacidad" name="discapacidad">
-                                    <option value="">Seleccione la discapacidad</option>
-                                    <option value="NO" {{ old('discapacidad') === 'NO' ? 'selected' : '' }}>No</option>
-                                    <option value="SI" {{ old('discapacidad') === 'SI' ? 'selected' : '' }}>Sí</option>
-                                </select>
-                            </div>
-
-                            <div class="col-md-4" id="embarazada-container" style="display: none;">
-                                <label class="font-weight-bold text-dark">Embarazada</label>
-                                <select class="form-select" id="embarazada" name="embarazada">
-                                    <option value="">Seleccione el embarazo</option>
-                                    <option value="NO" {{ old('embarazada') === 'NO' ? 'selected' : '' }}>No</option>
-                                    <option value="SI" {{ old('embarazada') === 'SI' ? 'selected' : '' }}>Sí</option>
-                                </select>
-                            </div>
-
-                            <div class="col-md-4">
-                                <label class="font-weight-bold text-dark">Jefe de Familia</label>
-                                <select class="form-select" id="jefe_familia" name="jefe_familia">
-                                    <option value="">Seleccione el jefe familiar</option>
-                                    <option value="NO" {{ old('jefe_familia') === 'NO' ? 'selected' : '' }}>No</option>
-                                    <option value="SI" {{ old('jefe_familia') === 'SI' ? 'selected' : '' }}>Sí</option>
-                                </select>
                             </div>
 
                         </div>
@@ -110,7 +88,7 @@
                                 <span class="icon text-white-60"><i class="fas fa-check"></i></span>
                                 <span class="text">Guardar</span>
                             </button>
-                            <a class="btn btn-info btn-lg" href="{{ url('persona/') }}">
+                            <a class="btn btn-info btn-lg" href="{{ url('vocero/') }}">
                                 <span class="icon text-white-50"><i class="fas fa-info-circle"></i></span>
                                 <span class="text">Regresar</span>
                             </a>
@@ -136,7 +114,7 @@
         }
     </script>
 
-    {{--! ESTA FUNCION ES PARA CALCULAR LA EDAD DE LA PERSONA  --}}
+    {{--! ESTA FUNCION ES PARA CALCULAR LA EDAD DE LA Vocero  --}}
 
     <script>
 
@@ -162,7 +140,7 @@
             var errors = @json($errors->all());
             errors.forEach(function(error) {
                 Swal.fire({
-                    title: 'Personas',
+                    title: 'Voceros',
                     text: error,
                     icon: 'warning',
                     showConfirmButton: true,
@@ -172,21 +150,5 @@
             });
         </script>
     @endif
-
-    {{--? Este script es para mostrar/ocultar el campo "Embarazada" --}}
-     
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-     
-    <script>
-        $(document).ready(function () {
-            $('#genero').change(function () {
-                if ($(this).val() === 'Femenino') {
-                    $('#embarazada-container').show();
-                } else {
-                    $('#embarazada-container').hide();
-                }
-            }).trigger('change'); // Ejecuta el cambio al cargar la página
-        });
-    </script>
 
 @endsection

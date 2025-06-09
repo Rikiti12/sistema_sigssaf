@@ -36,7 +36,7 @@
                             
 
                                 <div class="col-4">
-                                    <label class="font-weight-bold text-dark">Tipo de Proyecto *</label>
+                                    <label class="font-weight-bold text-dark">Tipo de Proyecto</label>
                                     <select class="form-select" id="tipo_pro" name="tipo_pro" required>
                                         <option value="">Seleccione...</option>
                                         <option value="Infraestructura" {{ $proyecto->tipo_pro == 'Infraestructura' ? 'selected' : '' }}>Infraestructura</option>
@@ -59,8 +59,8 @@
                                 <input type="date" class="form-control" id="fecha_final" name="fecha_final" value="{{ $proyecto->fecha_final }}">
                             </div>
 
-                                <div class="col-md-4 mb-3">
-                                    <label class="font-weight-bold text-dark">Prioridad *</label>
+                                <div class="col-4">
+                                    <label class="font-weight-bold text-dark">Prioridad</label>
                                     <select class="form-select" id="prioridad" name="prioridad" required>
                                         <option value="">Seleccione...</option>
                                         <option value="Alta" {{ $proyecto->prioridad == 'Alta' ? 'selected' : '' }}>Alta</option>

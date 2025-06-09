@@ -4,14 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Personas;
+use App\Models\Voceros;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\BitacoraController;
 use Barryvdh\DomPDF\Facade\Pdf;
 
-class PersonasController extends Controller
+class VocerosController extends Controller
 {
    
 
@@ -22,8 +22,8 @@ class PersonasController extends Controller
      */
     public function index()
     {
-        $personas = Personas::all();
-        return view('persona.index', compact('personas'));
+        $voceros = Voceros::all();
+        return view('vocero.index', compact('voceros'));
     }
 
          public function pdf(Request $request)
@@ -32,7 +32,7 @@ class PersonasController extends Controller
     
         if ($search) {
             // Filtrar los bancos según la consulta de búsqueda
-            $personas = Personas::where('cedula', 'LIKE', '%' . $search . '%')
+            $voceros = Voceros::where('cedula', 'LIKE', '%' . $search . '%')
                            ->orWhere('nombre', 'LIKE', '%' . $search . '%')
                            ->orWhere('apellido', 'LIKE', '%' . $search . '%')
                            ->orWhere('fecha_nacimiento', 'LIKE', '%' . $search . '%')
@@ -41,37 +41,33 @@ class PersonasController extends Controller
                            ->orWhere('telefono', 'LIKE', '%' . $search . '%')
                            ->orWhere('correo', 'LIKE', '%' . $search . '%')
                            ->orWhere('direccion', 'LIKE', '%' . $search . '%')
-                           ->orWhere('discapacidad', 'LIKE', '%' . $search . '%')
-                           ->orWhere('embarazada', 'LIKE', '%' . $search . '%')
-                           ->orWhere('jefe_familiar', 'LIKE', '%' . $search . '%')
+                           ->orWhere('cargo', 'LIKE', '%' . $search . '%')
                            ->get();
         } else {
             // Obtener todos los bancos si no hay término de búsqueda
-            $personas = Personas::all();
+            $voceros = Voceros::all();
         }
     
         // Generar el PDF, incluso si no se encuentran bancos
-        $pdf = Pdf::loadView('persona.pdf', compact('personas'));
-        return $pdf->stream('persona.pdf');
+        $pdf = Pdf::loadView('vocero.pdf', compact('voceros'));
+        return $pdf->stream('vocero.pdf');
     } 
 
-    public function getPersonaDetalles($id)
+    public function getVoceroDetalles($id)
     {
         // Recupera la persona por su ID
-        $persona = Personas::find($id);
+        $vocero = Voceros::find($id);
 
-        if (!$persona) {
+        if (!$vocero) {
             // Maneja el caso en que no se encuentre la persona
             return response()->json(['error' => 'Persona no encontrada'], 404);
         }
 
         // Devuelve los datos relevantes en formato JSON
         return response()->json([
-            'correo' => $persona->correo,
-            'discapacidad' => $persona->discapacidad,
-            'embarazada' =>$persona->embarazada,
-            'jefe_familia' =>$persona->jefe_familia,
-            'genero' =>$persona->genero,
+            'correo' => $vocero->correo,
+            'genero' =>$vocero->genero,
+            'cargo' =>$vocero->cargo,
 
         ]);
  
@@ -84,8 +80,8 @@ class PersonasController extends Controller
      */
     public function create()
     {
-        $personas = Personas::all();
-        return view('persona.create');
+        $voceros = Voceros::all();
+        return view('vocero.create');
     }
 
     /**
@@ -113,27 +109,25 @@ class PersonasController extends Controller
         //     'cedula.unique' => 'Este cedula ya existe.',
         // ]);
 
-        $personas = new Personas();
-        $personas->cedula = $request->input('cedula');
-        $personas->nombre = $request->input('nombre');
-        $personas->apellido = $request->input('apellido');
-        $personas->fecha_nacimiento = $request->input('fecha_nacimiento');
-        $personas->edad = $request->input('edad');
-        $personas->genero = $request->input('genero');
-        $personas->telefono = $request->input('telefono');
-        $personas->correo = $request->input('correo');
-        $personas->direccion = $request->input('direccion');
-        $personas->discapacidad = $request->input('discapacidad');
-        $personas->embarazada = $request->input('embarazada');
-        $personas->jefe_familia = $request->input('jefe_familia');
+        $voceros = new Voceros();
+        $voceros->cedula = $request->input('cedula');
+        $voceros->nombre = $request->input('nombre');
+        $voceros->apellido = $request->input('apellido');
+        $voceros->fecha_nacimiento = $request->input('fecha_nacimiento');
+        $voceros->edad = $request->input('edad');
+        $voceros->genero = $request->input('genero');
+        $voceros->telefono = $request->input('telefono');
+        $voceros->correo = $request->input('correo');
+        $voceros->direccion = $request->input('direccion');
+        $voceros->cargo = $request->input('cargo');
 
-        $personas->save();
+        $voceros->save();
 
         $bitacora = new BitacoraController();
         $bitacora->update();
 
         try {
-            return redirect()->route('persona.index');
+            return redirect()->route('vocero.index');
         } catch (QueryException $exception) {
             $errorMessage = 'Error: ' . $exception->getMessage();
             return redirect()->back()->withErrors($errorMessage);
@@ -160,8 +154,8 @@ class PersonasController extends Controller
      */
     public function edit($id)
     {
-        $persona = Personas::find($id);
-        return view('persona.edit', compact('persona'));
+        $vocero = Voceros::find($id);
+        return view('vocero.edit', compact('vocero'));
     }
 
     /**
@@ -189,27 +183,25 @@ class PersonasController extends Controller
             //'correo.unique' => 'Este correo ya existe.',
         //]);
 
-        $persona = Personas::find($id);
-        $persona->cedula = $request->input('cedula');
-        $persona->nombre = $request->input('nombre');
-        $persona->apellido = $request->input('apellido');
-        $persona->fecha_nacimiento = $request->input('fecha_nacimiento');
-        $persona->edad = $request->input('edad');
-        $persona->genero = $request->input('genero');
-        $persona->telefono = $request->input('telefono');
-        $persona->correo = $request->input('correo');
-        $persona->direccion = $request->input('direccion');
-        $persona->discapacidad = $request->input('discapacidad');
-        $persona->embarazada = $request->input('embarazada');
-        $persona->jefe_familia = $request->input('jefe_familia');
-
-        $persona->save();
+        $vocero = Voceros::find($id);
+        $vocero->cedula = $request->input('cedula');
+        $vocero->nombre = $request->input('nombre');
+        $vocero->apellido = $request->input('apellido');
+        $vocero->fecha_nacimiento = $request->input('fecha_nacimiento');
+        $vocero->edad = $request->input('edad');
+        $vocero->genero = $request->input('genero');
+        $vocero->telefono = $request->input('telefono');
+        $vocero->correo = $request->input('correo');
+        $vocero->direccion = $request->input('direccion');
+        $vocero->cargo = $request->input('cargo');
+    
+        $vocero->save();
 
         $bitacora = new BitacoraController();
         $bitacora->update();
 
         try {
-            return redirect('persona');
+            return redirect('vocero');
         } catch (QueryException $exception) {
             $errorMessage = 'Error: ' . $exception->getMessage();
             return redirect()->back()->withErrors($errorMessage);
@@ -225,9 +217,9 @@ class PersonasController extends Controller
      */
     public function destroy($id)
     {
-        Personas::find($id)->delete();
+        Voceros::find($id)->delete();
         $bitacora = new BitacoraController();
         $bitacora->update();
-        return redirect()->route('persona.index')->with('eliminar', 'ok');
+        return redirect()->route('vocero.index')->with('eliminar', 'ok');
     }
 }

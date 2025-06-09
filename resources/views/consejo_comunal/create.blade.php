@@ -23,46 +23,6 @@
 
                             <div class="card-body">
 
-                                <center>
-                                    <h5 class="font-weight-bold text-dark">Datos de Vocero del consejo comunal</h5>
-                                </center>
-
-                                <br>
-
-                                <div class="row">
-
-                                    <div class="col-4">
-                                        <label class="font-weight-bold text-dark">Cédula del Vocero</label>
-                                        <input type="text" class="form-control" id="cedula_voce" name="cedula_voce" maxlength="8" style="background: white;" value="" placeholder="Ingrese la cédula" autocomplete="off" onkeypress="return solonum(event);">
-                                    </div>
-
-                                    <div class="col-4">
-                                        <label class="font-weight-bold text-dark">Nombre del Vocero</label>
-                                        <input type="text" class="form-control" id="nom_voce" name="nom_voce" style="background: white;" value="" placeholder="Ingrese el nombre" oninput="capitalizarInput('nom_voce')" autocomplete="off" onkeypress="return soloLetras(event);">
-                                    </div>
-
-                                    <div class="col-4">
-                                        <label class="font-weight-bold text-dark">Apellido del Vocero</label>
-                                        <input type="text" class="form-control" id="ape_voce" name="ape_voce" style="background: white;" value="" placeholder="Ingrese el apellido" autocomplete="off" oninput="capitalizarInput('ape_voce')" onkeypress="return soloLetras(event);">
-                                    </div>
-
-                                    <div class="col-4">
-                                        <label class="font-weight-bold text-dark">Teléfono</label>
-                                        <input type="text" class="form-control" id="telefono" name="telefono" maxlength="11" style="background: white;" value="" placeholder="Ingrese el teléfono" autocomplete="off" onkeypress="return solonum(event);">
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                            <div class="card-body">
-
-                                <center>
-                                    <h5 class="font-weight-bold text-dark">Datos del Consejo Comunal</h5>
-                                </center>
-
-                                <br>
-
                                 <div class="row">
 
                                    <div class="col-4">
@@ -72,7 +32,7 @@
 
                                     <div class="col-4">
                                         <label class="font-weight-bold text-dark">Código SITUR</label>
-                                        <input type="text" class="form-control" id="codigo_situr" name="codigo_situr" style="background: white;" value="" placeholder="Ingrese el código SITUR" autocomplete="off">
+                                        <input type="text" class="form-control" id="situr" name="situr" style="background: white;" value="" placeholder="Ingrese el código SITUR" autocomplete="off">
                                     </div>
 
                                     <div class="col-4">
@@ -86,8 +46,13 @@
                                     </div>
 
                                     <div class="col-4">
-                                        <label class="font-weight-bold text-dark">Dirección del Consejo</label>
-                                        <textarea class="form-control" id="dire_consejo" name="dire_consejo" cols="10" rows="10" style="max-height: 6rem;" oninput="capitalizarInput('dire_consejo')">{{ old('dire_consejo') }}</textarea>
+                                        <label class="font-weight-bold text-dark">Vocero Asignada</label>
+                                        <select class="form-select" id="id_vocero" name="id_vocero">
+                                            <option value="">Seleccione un Vocero </option>
+                                            @foreach($voceros as $vocero)
+                                                <option value="{{ $vocero->id }}">{{ $vocero->cedula }} - {{ $vocero->nombre }} {{ $vocero->apellido }}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
 
                                     <div class="col-4">
@@ -98,6 +63,11 @@
                                                 <option value="{{ $comunidad->id }}">{{ $comunidad->nom_comuni }}</option>
                                             @endforeach
                                         </select>
+                                    </div>
+
+                                    <div class="col-4">
+                                        <label class="font-weight-bold text-dark">Dirección del Consejo</label>
+                                        <textarea class="form-control" id="dire_consejo" name="dire_consejo" cols="10" rows="10" style="max-height: 6rem;" oninput="capitalizarInput('dire_consejo')">{{ old('dire_consejo') }}</textarea>
                                     </div>
 
                                 </div>

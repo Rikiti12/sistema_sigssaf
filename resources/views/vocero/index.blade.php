@@ -1,6 +1,6 @@
 @extends('layouts.index')
 
-<title>@yield('title') persona</title>
+<title>@yield('title') vocero</title>
 
 @section('css-datatable')
         <link href="{{ asset ('assets/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
@@ -15,14 +15,14 @@
                     <div class="card">
                         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
 
-                            <a href="{{ url('persona/pdf') }}" class="btn btn-sm btn-danger" target="_blank" id="pdfButton">
+                            <a href="{{ url('vocero/pdf') }}" class="btn btn-sm btn-danger" target="_blank" id="pdfButton">
                                 {{ ('PDF') }}
                             </a>
 
-                            <h2 class="font-weight-bold text-dark">Gestión de Persona</h2>
+                            <h2 class="font-weight-bold text-dark">Gestión de Vocero</h2>
 
-                        {{-- @can('crear-persona') --}}
-                            <form action="{{ route('persona.create') }}" method="get" style="display:inline;">
+                        {{-- @can('crear-vocero') --}}
+                            <form action="{{ route('vocero.create') }}" method="get" style="display:inline;">
                                 <button type="submit" class="btn btn-primary btn-mb"> <span class="">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-person-plus-fill" viewBox="0 0 16 16">
                                         <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
@@ -44,43 +44,31 @@
                                 <th class="font-weight-bold text-dark">Apellido</th>
                                 <th class="font-weight-bold text-dark">Fecha de Nacimiento</th>
                                 <th class="font-weight-bold text-dark">Edad</th>
-                                <th class="font-weight-bold text-dark">Género</th>
                                 <th class="font-weight-bold text-dark">Teléfono</th>
-                                {{-- <th class="font-weight-bold text-dark">Correo</th>
-                                <th class="font-weight-bold text-dark">Dirección</th>
-                                <th class="font-weight-bold text-dark">Discapacidad</th>
-                                <th class="font-weight-bold text-dark">Embarazada</th>
-                                <th class="font-weight-bold text-dark">Jefe de Familia</th> --}}
                                 <th class="font-weight-bold text-dark"><center>Acciones</center></th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($personas as $persona)
+                            @foreach ($voceros as $vocero)
                                     <tr>
-                                    <td class="font-weight-bold text-dark">{{ $persona->cedula }}</td>
-                                    <td class="font-weight-bold text-dark">{{ $persona->nombre }}</td>
-                                    <td class="font-weight-bold text-dark">{{ $persona->apellido }}</td>
-                                    <td class="font-weight-bold text-dark">{{ $persona->fecha_nacimiento }}</td>
-                                    <td class="font-weight-bold text-dark">{{ $persona->edad }}</td>
-                                    <td class="font-weight-bold text-dark">{{ $persona->genero }}</td>
-                                    <td class="font-weight-bold text-dark">{{ $persona->telefono }}</td>
-                                    {{-- <td class="font-weight-bold text-dark">{{ $persona->correo }}</td>
-                                    <td class="font-weight-bold text-dark">{{ $persona->direccion }}</td>
-                                    <td class="font-weight-bold text-dark">{{ $persona->discapacidad ? 'Sí' : 'No' }}</td>
-                                    <td class="font-weight-bold text-dark">{{ $persona->embarazada ? 'Sí' : 'No' }}</td>
-                                    <td class="font-weight-bold text-dark">{{ $persona->jefe_familia ? 'Sí' : 'No' }}</td> --}}
+                                        <td class="font-weight-bold text-dark">{{ $vocero->cedula }}</td>
+                                        <td class="font-weight-bold text-dark">{{ $vocero->nombre }}</td>
+                                        <td class="font-weight-bold text-dark">{{ $vocero->apellido }}</td>
+                                        <td class="font-weight-bold text-dark">{{ $vocero->fecha_nacimiento }}</td>
+                                        <td class="font-weight-bold text-dark">{{ $vocero->edad }}</td>
+                                        <td class="font-weight-bold text-dark">{{ $vocero->telefono }}</td>
                                         
                                         <td>
 
                                             <div style="display: flex; justify-content: center;">
-                                                @can('editar-persona')
-                                                    <a class="btn btn-warning btn-sm" href="{{ route('persona.edit',$persona->id) }}"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
+                                                @can('editar-vocero')
+                                                    <a class="btn btn-warning btn-sm" href="{{ route('vocero.edit',$vocero->id) }}"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
                                                         <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z"/>
                                                     </svg></a>
                                                 @endcan
 
-                                                @can('borrar-persona')
-                                                    <form action="{{ route('persona.destroy', $persona->id) }}" method="POST" class="sweetalert" style="margin: 0 3px;">
+                                                @can('borrar-vocero')
+                                                    <form action="{{ route('vocero.destroy', $vocero->id) }}" method="POST" class="sweetalert" style="margin: 0 3px;">
                                                         @csrf
                                                         {{ method_field('DELETE') }}
                                                         <button class="btn btn-danger btn-sm" type="submit" value=""><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
@@ -89,7 +77,7 @@
                                                     </form> 
                                                 @endcan
                                                 
-                                                <a class="btn btn-info btn-sm" style="margin: 0 1px;" title="Ver Detalles" data-persona-id='{{ $persona->id }}' class="btn btn-primary" data-toggle="modal" data-target="#exampleModalScrollable" id="#modalScroll"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-layout-text-window-reverse" viewBox="0 0 16 16"  style="color: #ffff; cursor: pointer;">
+                                                <a class="btn btn-info btn-sm" style="margin: 0 1px;" title="Ver Detalles" data-vocero-id='{{ $vocero->id }}' class="btn btn-primary" data-toggle="modal" data-target="#exampleModalScrollable" id="#modalScroll"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-layout-text-window-reverse" viewBox="0 0 16 16"  style="color: #ffff; cursor: pointer;">
                                                     <path d="M13 6.5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h5a.5.5 0 0 0 .5-.5m0 3a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h5a.5.5 0 0 0 .5-.5m-.5 2.5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1 0-1z"/>
                                                     <path d="M14 0a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2zM2 1a1 1 0 0 0-1 1v1h14V2a1 1 0 0 0-1-1zM1 4v10a1 1 0 0 0 1 1h2V4zm4 0v11h9a1 1 0 0 0 1-1V4z"/>
                                                 </svg></a>
@@ -170,14 +158,14 @@
 
             function updatePdfLink() {
                 var searchTerm = table.search();
-                var pdfUrl = `{{ url('persona/pdf') }}?search=${encodeURIComponent(searchTerm)}`;
+                var pdfUrl = `{{ url('vocero/pdf') }}?search=${encodeURIComponent(searchTerm)}`;
                 $('#pdfButton').attr('href', pdfUrl);
             }
 
             table.on('search.dt', function () {
                 var searchTerm = table.search();
                 $.ajax({
-                    url: "{{ url('persona/pdf') }}",
+                    url: "{{ url('vocero/pdf') }}",
                     method: 'GET',
                     data: { search: searchTerm },
                     success: function(response) {
@@ -243,7 +231,7 @@
             var errors = @json($errors->all());
             errors.forEach(function(error) {
                 Swal.fire({
-                    title: 'Persona',
+                    title: 'Vocero',
                     text: error,
                     icon: 'warning',
                     showConfirmButton: true,
@@ -254,32 +242,27 @@
         </script>
     @endif
 
-    {{-- ! FUNCIÓN DEL MODAL PARA VER DETALLES DE LA PERSONA --}}
+    {{-- ! FUNCIÓN DEL MODAL PARA VER DETALLES DE LA Vocero --}}
      
     <script>
         $(document).ready(function() {
             $('#dataTable').on('click', '.btn-info', function(event) {
                 event.preventDefault();
-                var personaId = $(this).data('persona-id'); // Obtén el ID de la recepción
+                var voceroId = $(this).data('vocero-id'); // Obtén el ID de la recepción
         
                 $.ajax({
-                    url: '/persona/detalles/' + personaId,
+                    url: '/vocero/detalles/' + voceroId,
                     type: 'GET',
                     success: function(data) {
                         console.log(data);
-
-                    let embarazadaParagraph = '';
-                    if (data.genero === 'Femenino') { // Verifica el género
-                        embarazadaParagraph = `<p><b>Embarazada:</b> ${data.embarazada}</p>`;
-                    }
         
                         $('#exampleModalScrollable .modal-body').html(`
-                            <h5 class="font-weight-bold text-primary" style="text-align: center">Detalles de la Persona</h5>
+                            <h5 class="font-weight-bold text-primary" style="text-align: center">Detalles del Vocero</h5>
                             
                             <p><b>Correo:</b> ${data.correo}</p>
-                            <p><b>Discpacidad:</b> ${data.discapacidad}</p>
-                            ${embarazadaParagraph}
-                            <p><b>Jefe Familiar:</b> ${data.jefe_familia}</p>
+                            <p><b>Cargo:</b> ${data.cargo}</p>
+                            <p><b>Genero:</b> ${data.genero}</p>
+                           
                         `);
         
                         if (!$('#exampleModalScrollable').is(':visible')) {
@@ -288,7 +271,7 @@
                     },
                     error: function(error) {
                         console.error("Error al obtener los datos:", error);
-                        alert("Error al cargar la persona. Por favor, inténtalo de nuevo.");
+                        alert("Error al cargar de vocero. Por favor, inténtalo de nuevo.");
                     }
                 });
             });

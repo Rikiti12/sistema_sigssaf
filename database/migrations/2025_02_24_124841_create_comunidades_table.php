@@ -15,21 +15,11 @@ return new class extends Migration
     {
         Schema::create('comunidades', function (Blueprint $table) {
             $table->id();
-            $table->string('cedula_jefe')->unique();
-            $table->string('nom_jefe');
-            $table->string('ape_jefe');
-            $table->string('telefono');
             $table->string('nom_comuni');
             $table->text('dire_comuni');
-            $table->unsignedBigInteger('id_comuna');
-            $table->string('crear_pro');
-            $table->string('nom_proyecto')->nullable();
-            $table->text('descripcion')->nullable();
-
+            
             $table->timestamps();
 
-            // Establecer relación con la tabla de comunas
-            $table->foreign('id_comuna')->references('id')->on('comunas');
         });
     }
 

@@ -21,7 +21,7 @@ body{
 }
 
 .header{
-    background-color: rgb(15, 15, 15);
+    background-color: rgb(11, 54, 119);
     color: rgb(231, 227, 225);
 }
 
@@ -38,7 +38,7 @@ h1{
 }
 
 tbody tr td{
-    border: 2px solid black;
+    border: 2px solid rgb(153, 44, 44);
 }
 
 img {
@@ -80,30 +80,17 @@ img {
             <table class="table" cellpadding="1" cellspacing="1" width="100%" style="padding-bottom:0.4rem;front-size:0.6rem !important">
                 <thead class="header">
                     <tr>
-                        <th>Vocero de la Comunidad</th>
+                        <th>Lista</th>
                         <th>Comunidad</th>
-                        <th>Comuna Asignado</th>
                         <th>Dirección</th>
-                        <th>Proyecto de la Comunidad</th>
                     </tr>
                 </thead>
                 <tbody>
                 @foreach ($comunidades as $comunidad)
                     <tr>
-                        <td>{{ $comunidad->cedula_jefe }} - {{ $comunidad->nom_jefe }} 
-                        {{ $comunidad->ape_jefe }} {{ $comunidad->telefono }} 
-                        </td>
+                        <td>{{ $loop->iteration }}</td>
                         <td>{{ $comunidad->nom_comuni }}</td>
-                        <td>{{ $comunidad->comuna->nom_comunas }}</td>
                         <td>{{ $comunidad->dire_comuni }}</td>
-                        <td>
-                            @if(strtolower($comunidad->crear_pro) ==='si')
-                                {{ $comunidad->nom_proyecto ?? 'No Especificado' }}
-                                {{ $comunidad->descripcion ?? 'No Especificado' }}
-                            @else
-                                No Posee
-                            @endif
-                        </td>
                     </tr>
                 @endforeach  
                 </tbody>

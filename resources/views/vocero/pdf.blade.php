@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>PDF Ayuda Sociales</title>
+    <title>PDF Vocero</title>
 </head>
 
 {{-- Estilo al PDF --}}
@@ -21,7 +21,7 @@ body{
 }
 
 .header{
-    background-color: rgb(15, 15, 15);
+    background-color: rgb(11, 54, 119);
     color: rgb(231, 227, 225);
 }
 
@@ -37,8 +37,8 @@ h1{
 
 }
 
-tbody tr td{
-    border: 2px solid black;
+tbody. tr. td{
+    border: 2px solid rgb(153, 44, 44);
 }
 
 img {
@@ -76,21 +76,34 @@ img {
             <img class="centro" src="../public/img/portada2.png" alt="">
         </div>
 
-        <h1>Datos de Ayuda Sociales</h1><br>
+        <h1>Datos del Vocero</h1><br>
             <table class="table" cellpadding="1" cellspacing="1" width="100%" style="padding-bottom:0.4rem;front-size:0.6rem !important">
                 <thead class="header">
                     <tr>
-                        <th>Lista</th>
-                        <th>Nombre</th>
-                        <th>Descripción</th>
+                        <th>Vocero</th>
+                        <th>Fecha de Naciemiento</th>
+                        <th>Correo Telefono</th>
+                        <th>Cargo</th>
+                        
                     </tr>
                 </thead>
                 <tbody>
-                @foreach ($ayuda_sociales as $ayuda_social)
+                @foreach ($voceros as $vocero)
                     <tr>
-                        <td>{{ $loop->iteration }}</td>
-                        <td>{{ $ayuda_social->nombre_ayu }}</td>
-                        <td>{{ $ayuda_social->descripcion }}</td>
+                        <td>{{ $vocero->cedula }} {{ $vocero->nombre }} {{ $vocero->apellido }} </td>
+
+                        <td>
+                            {{ $vocero->fecha_nacimiento }} {{ $vocero->edad }}
+                        </td>
+
+                        <td>
+                            {{ $vocero->correo }} {{ $vocero->telefono }} 
+                        </td>
+
+                        <td>                         
+                            {{ $vocero->cargo }} 
+                        </td>
+
                     </tr>
                 @endforeach  
                 </tbody>

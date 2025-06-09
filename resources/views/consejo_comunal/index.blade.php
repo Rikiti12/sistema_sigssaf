@@ -39,23 +39,25 @@
                         <table class="table align-items-center table-flush" id="dataTable">
                             <thead class="thead-light">
                                         <tr>
-                                        <th class="font-weight-bold text-dark">Cédula</th>
-                                        <th class="font-weight-bold text-dark">Nombre</th>
-                                        <th class="font-weight-bold text-dark">Apellido</th>
-                                        <th class="font-weight-bold text-dark">Teléfono</th>
                                         <th class="font-weight-bold text-dark">Nombre del Consejo Comunal</th>
-                                        {{-- <th class="font-weight-bold text-dark">Código SITUR</th> --}}
+                                        <th class="font-weight-bold text-dark">Vocero Asignado</th>
+                                        <th class="font-weight-bold text-dark">Comunidad Asignado</th>
+                                        <th class="font-weight-bold text-dark">Dirección</th>
                                         <th class="font-weight-bold text-dark"><center>Acciones</center></th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                     @foreach ($consejo_comunals as $consejocomunal)
                                         <tr>
-                                            <td class="font-weight-bold text-dark">{{ $consejocomunal->cedula_voce }}</td>
-                                            <td class="font-weight-bold text-dark">{{ $consejocomunal->nom_voce }}</td>
-                                            <td class="font-weight-bold text-dark">{{ $consejocomunal->ape_voce }}</td>
-                                            <td class="font-weight-bold text-dark">{{ $consejocomunal->telefono }}</td>
                                             <td class="font-weight-bold text-dark">{{ $consejocomunal->nom_consej }}</td>
+
+                                            <td class="font-weight-bold text-dark">{{ $consejocomunal->vocero->cedula }} - {{ $consejocomunal->vocero->nombre }}
+                                                {{ $consejocomunal->vocero->apellido }}
+                                            </td>
+
+                                            <td class="font-weight-bold text-dark">{{ $consejocomunal->comunidad->nom_comuni }}</td>
+                                            <td class="font-weight-bold text-dark">{{ $consejocomunal->dire_consejo }}</td>
+
                                            {{--  <td class="font-weight-bold text-dark">{{ $consejocomunal->codigo_situr }}</td> --}}
                                             </td>
 
@@ -243,11 +245,9 @@
                         $('#exampleModalScrollable .modal-body').html(`
                             <h5 class="font-weight-bold text-primary" style="text-align: center">Detalles del Consejo Comunales</h5>
                             
-                            <p><b>Código SITUR:</b> ${data.codigo_situr}</p>
+                            <p><b>Código SITUR:</b> ${data.situr}</p>
                             <p><b>Rif:</b> ${data.rif}</p>
                             <p><b>Acta:</b> ${data.acta}</p>
-                            <p><b>Dirección:</b> ${data.dire_consejo}</p>
-                            <p><b>Comunidad:</b> ${data.id_comunidad}</p>
                         `);
         
                         if (!$('#exampleModalScrollable').is(':visible')) {

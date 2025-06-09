@@ -79,18 +79,18 @@
                 <div class="collapse" id="base">
                   <ul class="nav nav-collapse">
                     <li>
-                      @can('ver-comuna') 
-                      <a class="sidebar-link"  href="{{ url('comuna')}}" aria-expanded="false">
-                        <span class="sub-item">Comunas</span>
+                        @can('ver-vocero')
+                      <a class="sidebar-link"  href="{{ url('vocero')}}" aria-expanded="false">
+                        <span class="sub-item">Voceros</span>
                       </a>
                       @endcan
                     </li>
                     <li>
-                       @can('ver-comunidad') 
+                        @can('ver-comunidad') 
                       <a class="sidebar-link"  href="{{ url('comunidad')}}" aria-expanded="false">
                         <span class="sub-item">Comunidades</span>
                       </a>
-                       @endcan
+                        @endcan
                     </li>
                     <li>
                       @can('ver-consejocomunal')
@@ -100,11 +100,11 @@
                         @endcan
                     </li>
                     <li>
-                        @can('ver-persona')
-                      <a class="sidebar-link"  href="{{ url('persona')}}" aria-expanded="false">
-                        <span class="sub-item">Personas</span>
+                      @can('ver-comuna') 
+                      <a class="sidebar-link"  href="{{ url('comuna')}}" aria-expanded="false">
+                        <span class="sub-item">Comunas</span>
                       </a>
-                       @endcan
+                      @endcan
                     </li>
                      <li>
                         @can('ver-proyecto')
@@ -549,9 +549,9 @@
         </div>
 
       <!-- Funcion para cambiar los colores del sistema -->
-        <div class="custom-toggle">
+        {{-- <div class="custom-toggle">
           <i class="icon-settings"></i>
-        </div>
+        </div> --}}
 
       </div>
       @yield('content')

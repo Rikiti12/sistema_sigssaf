@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Comunas;
 use App\Models\Comunidades;
 use App\Models\ConsejoComunal;
-use App\Models\Personas;
+use App\Models\Voceros;
 use App\Models\Proyectos;
 use App\Models\Asignaciones;
 use App\Models\Planificaciones;
@@ -30,8 +30,8 @@ class homeController extends Controller
         $count_consejo = DB::table('consejo_comunals')
         ->count();
 
-        $personas = Personas::all();
-        $count_persona = DB::table('personas')
+        $voceros = Voceros::all();
+        $count_vocero = DB::table('voceros')
         ->count();
         
         $proyectos = Proyectos::all();
@@ -49,9 +49,9 @@ class homeController extends Controller
         $mapa_asignaciones = asignaciones::select('latitud','longitud')->get();
 
 
-        return view('home.inicio' , compact('count_comuna', 'count_comunidad', 'count_consejo', 'count_persona','count_proyecto',
+        return view('home.inicio' , compact('count_comuna', 'count_comunidad', 'count_consejo', 'count_vocero','count_proyecto',
         'count_asignacion', 'count_planificacion', 'mapa_asignaciones'  ) ,  [
-        'count' => $count_comuna, $count_comunidad, $count_consejo, $count_persona, $count_proyecto, $count_asignacion, $count_planificacion
+        'count' => $count_comuna, $count_comunidad, $count_consejo, $count_vocero, $count_proyecto, $count_asignacion, $count_planificacion
 
         ]); 
 

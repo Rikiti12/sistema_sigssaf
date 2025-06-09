@@ -96,8 +96,8 @@
                 </div>
                 <div class="col col-stats ms-3 ms-sm-0">
                   <div class="numbers">
-                    <p class="card-category">Personas</p>
-                    <h4 class="card-title">{{ $count_persona }}</h4>
+                    <p class="card-category">Voceros</p>
+                    <h4 class="card-title">{{ $count_vocero }}</h4>
                   </div>
                 </div>
               </div>

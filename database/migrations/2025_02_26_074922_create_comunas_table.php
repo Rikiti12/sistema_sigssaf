@@ -15,18 +15,18 @@ return new class extends Migration
     {
         Schema::create('comunas', function (Blueprint $table) {
             $table->id();
-            $table->string('cedula_comunas')->unique();
-            $table->string('nombre_comunas');
-            $table->string('apellido_comunas');
-            $table->string('telefono');
             $table->string('nom_comunas');
             $table->bigInteger('id_parroquia')->nullable();
+            $table->unsignedBigInteger('id_consejo');
             $table->text('dire_comunas');
             
             $table->timestamps();
 
             // Establecer relación con la tabla de parroquias
             $table->foreign('id_parroquia')->references('id')->on('parroquias');
+
+            // Establecer relación con la tabla de parroquias
+            $table->foreign('id_consejo')->references('id')->on('consejo_comunals');
         });
     }
 

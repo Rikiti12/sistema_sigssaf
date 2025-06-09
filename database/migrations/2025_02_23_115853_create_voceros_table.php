@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('personas', function (Blueprint $table) {
+        Schema::create('voceros', function (Blueprint $table) {
             $table->id();
             $table->string('cedula')->unique();
             $table->string('nombre');
@@ -24,9 +24,7 @@ return new class extends Migration
             $table->string('telefono');
             $table->string('correo')->unique();
             $table->text('direccion');
-            $table->string('discapacidad');
-            $table->string('embarazada')->nullable();
-            $table->string('jefe_familia');
+            $table->string('cargo');
             $table->timestamps();
         });
     }
@@ -38,6 +36,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('personas');
+        Schema::dropIfExists('voceros');
     }
 };

@@ -21,7 +21,7 @@ body{
 }
 
 .header{
-    background-color: rgb(15, 15, 15);
+    background-color: rgb(11, 54, 119);
     color: rgb(231, 227, 225);
 }
 
@@ -38,7 +38,7 @@ h1{
 }
 
 tbody tr td{
-    border: 2px solid black;
+    border: 2px solid rgb(153, 44, 44);
 }
 
 img {
@@ -80,25 +80,31 @@ img {
             <table class="table" cellpadding="1" cellspacing="1" width="100%" style="padding-bottom:0.4rem;front-size:0.6rem !important">
                 <thead class="header">
                     <tr>
-                        <th>Vocero Consejo Comunal</th>
-                        <th>Código SITUR</th>
-                        <th>Rif</th>
-                        <th>Direccion</th>
+                        <th>Lista</th>
+                        <th>Consejo Comunal</th>
+                        <th>Vocero</th>
                         <th>Comunidad</th>
+                        <th>Dirección</th>
+                        <th>Situr</th>
+                        <th>Rif</th>
+                        <th>Acta</th>
                     </tr>
                 </thead>
                 <tbody>
                 @foreach ($consejo_comunals as $consejocomunal)
                     <tr>
-                        <td>
-                            {{ $consejocomunal->cedula_voce }} - {{ $consejocomunal->nom_voce }}
-                            {{ $consejocomunal->ape_voce }} {{ $consejocomunal->telefono }}
+                        <td>{{ $loop->iteration }}</td>
+                        <td>{{ $consejocomunal->nom_consej }}</td>
+
+                        <td>{{ $consejocomunal->vocero->cedula }} {{ $consejocomunal->vocero->nombre }}
+                            {{ $consejocomunal->vocero->apellido }}
                         </td>
 
-                        <td>{{ $consejocomunal->codigo_situr }}</td>
-                        <td>{{ $consejocomunal->rif }}</td>
-                        <td>{{ $consejocomunal->dire_consejo }}</td>
                         <td>{{ $consejocomunal->comunidad->nom_comuni }}</td>
+                        <td>{{ $consejocomunal->dire_consejo }}</td>>
+                        <td>{{ $consejocomunal->situr }}</td>>
+                        <td>{{ $consejocomunal->rif }}</td>>
+                        <td>{{ $consejocomunal->acta }}</td>>
 
                     </tr>
                 @endforeach  

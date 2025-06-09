@@ -14,7 +14,7 @@ use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\ComunaController;
 use App\Http\Controllers\ComunidadesController;
 use App\Http\Controllers\ConsejoComunalController;
-use App\Http\Controllers\PersonasController;
+use App\Http\Controllers\VocerosController;
 use App\Http\Controllers\ProyectosController;
 use App\Http\Controllers\EvaluacionesController;
 use App\Http\Controllers\AsignacionesController;
@@ -62,11 +62,12 @@ Route::get('/logout', [logoutController::class, 'logout']);
 Route::get('/Perfil',  [UserSettingsController::class,'Perfil'])->name('Perfil')->middleware('auth');
 Route::post('/change/password',  [UserSettingsController::class,'changePassword'])->name('changePassword');
 
-/* Ruta Comuna */
-Route::get('/comuna',  [comunaController::class,'index'])->name('comuna')->middleware('auth');
-Route::get('/comuna/create', [ComunaController::class, 'create'])->name('create')->middleware('auth');
-Route::get('/comuna/pdf', [ComunaController::class,'pdf'])->name('comuna')->middleware('auth');
-Route::resource('comuna', ComunaController::class)->middleware('auth');
+/* Ruta Vocero */
+Route::get('/vocero',  [VocerosController::class,'index'])->name('vocero')->middleware('auth');
+Route::get('/vocero/create', [VocerosController::class, 'create'])->name('create')->middleware('auth');
+Route::get('/vocero/pdf',  [VocerosController::class,'pdf'])->name('vocero')->middleware('auth');
+Route::resource('vocero', VocerosController::class)->middleware('auth');
+Route::get('/vocero/detalles/{id}', [VocerosController::class, 'getVoceroDetalles']);
 
 /* Ruta Comunidad */
 Route::get('/comunidad',  [ComunidadesController::class,'index'])->name('comunidad')->middleware('auth');
@@ -82,17 +83,16 @@ Route::get('/consejo_comunal/pdf',  [ConsejoComunalController::class,'pdf'])->na
 Route::resource('consejo_comunal', ConsejoComunalController::class)->middleware('auth');
 Route::get('/consejo_comunal/detalles/{id}', [ConsejoComunalController::class, 'getconsejocomunalDetalles']);
 
-/* Ruta Persona */
-Route::get('/persona',  [PersonasController::class,'index'])->name('persona')->middleware('auth');
-Route::get('/persona/create', [PersonasController::class, 'create'])->name('create')->middleware('auth');
-Route::get('/persona/pdf',  [PersonasController::class,'pdf'])->name('persona')->middleware('auth');
-Route::resource('persona', PersonasController::class)->middleware('auth');
-Route::get('/persona/detalles/{id}', [PersonasController::class, 'getPersonaDetalles']);
+/* Ruta Comuna */
+Route::get('/comuna',  [comunaController::class,'index'])->name('comuna')->middleware('auth');
+Route::get('/comuna/create', [ComunaController::class, 'create'])->name('create')->middleware('auth');
+Route::get('/comuna/pdf', [ComunaController::class,'pdf'])->name('comuna')->middleware('auth');
+Route::resource('comuna', ComunaController::class)->middleware('auth');
 
 /* Rutas Proyecto */
 Route::get('/proyecto', [ProyectosController::class, 'index'])->name('proyecto')->middleware('auth');
 Route::get('/proyecto/create', [ProyectosController::class, 'create'])->name('proyecto.create')->middleware('auth');
-Route::get('/proyecto/pdf', [ProyectosController::class, 'generarPDF'])->name('proyecto.pdf')->middleware('auth'); // <-- Aquí faltaba el ;
+Route::get('/proyecto/pdf', [ProyectosController::class, 'pdf'])->name('proyecto.pdf')->middleware('auth'); // <-- Aquí faltaba el ;
 Route::resource('proyecto', ProyectosController::class)->middleware('auth');
 
 /* Rutas Evaluación */

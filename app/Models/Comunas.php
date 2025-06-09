@@ -12,10 +12,18 @@ class Comunas extends Model
     protected $table = 'comunas'; 
     protected $primaryKey = 'id';
     public $timestamps = true;
-    protected $fillable = ['cedula_comunas', 'nombre_comunas', 'apellido_comunas','telefono', 'nom_comunas','dire_comunas'];
+    protected $fillable = ['nom_comunas','id_parroquia','id_consejo','dire_comunas'];
 
     public function parroquia()
     {
         return $this->belongsTo(Parroquia::class, 'id_parroquia');
     }
+
+    public function consejo_comunals()
+    {
+        return $this->belongsTo(ConsejoComunal::class, 'id_consejo');
+    }
+
+
+
 }

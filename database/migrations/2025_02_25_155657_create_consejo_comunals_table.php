@@ -15,19 +15,20 @@ return new class extends Migration
     {
         Schema::create('consejo_comunals', function (Blueprint $table) {
             $table->id();
-            $table->string('cedula_voce')->unique();
-            $table->string('nom_voce');
-            $table->string('ape_voce');
-            $table->string('telefono');
             $table->string('nom_consej');
-            $table->string('codigo_situr')->unique();
+            $table->string('situr')->unique();
             $table->string('rif')->unique();
             $table->string('acta');
             $table->text('dire_consejo');
+            $table->unsignedBigInteger('id_vocero');
             $table->unsignedBigInteger('id_comunidad');
 
-            // Establecer relación con la tabla de comunas
+            // Establecer relación con la tabla de voceros
+            $table->foreign('id_vocero')->references('id')->on('voceros');
+
+            // Establecer relación con la tabla de comunidades
             $table->foreign('id_comunidad')->references('id')->on('comunidades');
+            
             $table->timestamps();
         });
     }

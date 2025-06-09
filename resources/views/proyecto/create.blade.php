@@ -57,7 +57,7 @@
                                     <input type="date" class="form-control" id="fecha_final" name="fecha_final" value="<?php echo date('d/m/Y'); ?>">
                                 </div>
 
-                            <div class="col-md-3">
+                            <div class="col-4">
                                 <label for="prioridad" class="form-label">Prioridad *</label>
                                 <select class="form-select" id="prioridad" name="prioridad" required>
                                     <option value="">Seleccione...</option>

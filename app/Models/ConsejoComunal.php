@@ -9,12 +9,17 @@ class ConsejoComunal extends Model
 {
     use HasFactory;
 
-protected $table = 'consejo_comunals'; 
+    protected $table = 'consejo_comunals'; 
     protected $primaryKey = 'id';
     public $timestamps = true;
-    protected $fillable = [ 'cedula_voce', 'nom_voce', 'ape_voce', 'telefono', 'nom_consej','codigo_situr', 'rif', 'acta','dire_consejo','id_comunidad'];
+    protected $fillable = ['nom_consej','situr', 'rif', 'acta','dire_consejo','id_vocero', 'id_comunidad'];
 
-     public function comunidad()
+    public function vocero()
+    {
+        return $this->belongsTo(Voceros::class, 'id_vocero');
+    }
+
+    public function comunidad()
     {
         return $this->belongsTo(Comunidades::class, 'id_comunidad');
     }

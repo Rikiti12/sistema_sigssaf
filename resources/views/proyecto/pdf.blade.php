@@ -151,8 +151,8 @@
                         </span>
                     </td>
                     <td>
-                        Inicio: {{ $proyecto->fecha_inicial->format('d/m/Y') }}<br>
-                        Fin: {{ $proyecto->fecha_final->format('d/m/Y') }}
+                        Inicio: {{ $proyecto->fecha_inicial }}<br>
+                        Fin: {{ $proyecto->fecha_final }}
                     </td>
                 
                     <td>{{ Str::limit($proyecto->descripcion_pro, 50) }}</td>

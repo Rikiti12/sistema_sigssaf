@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('asignaciones', function (Blueprint $table) {
             $table->id();
-             $table->unsignedBigInteger('id_persona');
+             $table->unsignedBigInteger('id_vocero');
             $table->unsignedBigInteger('id_comunidad');
             // $table->string('nombre_pro');
             // $table->text('descripcion_pro');
@@ -29,7 +29,7 @@ return new class extends Migration
             $table->timestamps();
 
             // Establecer relaciones con las tablas correspondientes
-            $table->foreign('id_persona')->references('id')->on('personas');
+            $table->foreign('id_vocero')->references('id')->on('voceros');
 
              // Establecer relación con la tabla de comunas
              $table->foreign('id_comunidad')->references('id')->on('comunidades');

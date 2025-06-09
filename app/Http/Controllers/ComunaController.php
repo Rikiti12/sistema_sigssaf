@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Comunas;
 use App\Models\Parroquia;
+use App\Models\ConsejoComunal;
 use Illuminate\Database\QueryException;
 use App\Http\Controllers\BitacoraController;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -27,7 +28,7 @@ class ComunaController extends Controller
      */
     public function index()
     {
-        $comunas = Comunas::all();
+        $comunas = Comunas::with('consejo_comunal')->get();
         return view('comuna.index', compact('comunas'));
     }
 
@@ -37,19 +38,22 @@ class ComunaController extends Controller
     
         if ($search) {
             // Filtrar los bancos según la consulta de búsqueda
-            $comunas = Comunas::where('cedula_comunas', 'LIKE', '%' . $search . '%')
-                           ->orWhere('nombre_comunas', 'LIKE', '%' . $search . '%')
-                           ->orWhere('apellido_comunas', 'LIKE', '%' . $search . '%')
-                           ->orWhere('telefono', 'LIKE', '%' . $search . '%')
-                           ->orWhere('nom_comunas', 'LIKE', '%' . $search . '%')
+            $comunas = Comunas::where('nom_comunas', 'LIKE', '%' . $search . '%')
                            ->orWhereHas('parroquia', function ($query) use ($search){
                             $query->where('nom_parroquia', 'LIKE', '%' . $search . '%');
+                           })
+                           ->orWhereHas('consejo_comunal', function ($query) use ($search){
+                            $query->where('cedula', 'LIKE', '%' . $search . '%')
+                            ->orWhere('nombre', 'LIKE', '%' . $search . '%')
+                            ->orWhereHas('apellido', 'LIKE', '%' . $search . '%')
+                            ->orWhere('nom_consej', 'LIKE', '%' . $search . '%');
                            })
                            ->orWhere('dire_comunas', 'LIKE', '%' . $search . '%')
                            ->get();
         } else {
             // Obtener todos los bancos si no hay término de búsqueda
             $comunas = Comunas::with('parroquia')->get();
+            $comunas = Comunas::with('consejo_comunal')->get();
         }
     
         // Generar el PDF, incluso si no se encuentran bancos
@@ -65,7 +69,8 @@ class ComunaController extends Controller
     public function create()
     {
         $parroquias = Parroquia::all();
-        return view('comuna.create', compact('parroquias'));
+        $consejo_comunals = ConsejoComunal::all();
+        return view('comuna.create', compact('parroquias', 'consejo_comunals'));
     }
 
     /**
@@ -76,21 +81,18 @@ class ComunaController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'cedula_comunas' => 'required|unique:comunas,cedula_comunas'
-            ],
-            [
-            'cedula_comunas.unique' => 'Está cedula Ya Existe.',
-            ]
-        );
+        // $request->validate([
+        //     'cedula_comunas' => 'required|unique:comunas,cedula_comunas'
+        //     ],
+        //     [
+        //     'cedula_comunas.unique' => 'Está cedula Ya Existe.',
+        //     ]
+        // );
 
         $comunas = new Comunas();
-        $comunas->cedula_comunas = $request->input('cedula_comunas');
-        $comunas->nombre_comunas = $request->input('nombre_comunas');
-        $comunas->apellido_comunas = $request->input('apellido_comunas');
-        $comunas->telefono = $request->input('telefono');
         $comunas->nom_comunas = $request->input('nom_comunas');
         $comunas->id_parroquia = $request->input('id_parroquia');
+        $comunas->id_consejo = $request->input('id_consejo');
         $comunas->dire_comunas = $request->input('dire_comunas');
 
         $comunas->save();
@@ -130,7 +132,8 @@ class ComunaController extends Controller
     {
         $comuna =  Comunas::find($id);
         $parroquias = Parroquia::all();
-        return view('comuna.edit',compact('comuna','parroquias'));
+        $consejo_comunals = ConsejoComunal::all();
+        return view('comuna.edit',compact('comuna','parroquias', 'consejo_comunals'));
     }
 
     /**
