@@ -40,7 +40,7 @@
                                 <label class="font-weight-bold text-dark">Fecha Inicial</label>
                                 <input type="date" class="form-control" id="fecha_segui" name="fecha_segui" value="<?php echo date('d/m/Y'); ?>">
                             </div>
-                       
+
                             <div class="col-4">
                                 <label class="font-weight-bold text-dark">Estado del Proyecto</label>
                                 <select class="form-select"name="estatus" id="estatus">

@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Asignaciones;
-use App\Models\Personas;
+use App\Models\Evaluaciones;
+use App\Models\Voceros;
 use App\Models\Comunidades;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\QueryException;
@@ -27,11 +28,11 @@ class AsignacionesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    // public function index()
-    // {
-    //     $asignaciones = asignaciones::all();
-    //     return view('asignacion.index', compact('asignaciones'));
-    // }
+    public function index()
+    {
+        $evaluaciones = Evaluaciones::with('proyectos')->get();
+        return view('asignacion.index', compact('evaluaciones'));
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -40,9 +41,9 @@ class AsignacionesController extends Controller
      */
     public function create()
     {
-        $personas = Personas::all();
+        $voceros = Voceros::all();
         $comunidades = Comunidades::all();
-        return view('asignacion.create', compact('personas', 'comunidades'));
+        return view('asignacion.create', compact('voceros', 'comunidades'));
     }
 
     /**
@@ -66,7 +67,7 @@ class AsignacionesController extends Controller
         // ]);
 
         $asignaciones = new Asignaciones();
-        $asignaciones->id_persona = $request->input('id_persona');
+        $asignaciones->id_vocero = $request->input('id_vocero');
         $asignaciones->id_comunidad = $request->input('id_comunidad');
         // $asignaciones->nombre_pro = $request->input('nombre_pro');
         // $asignaciones->descripcion_pro = $request->input('descripcion_pro');
@@ -127,7 +128,7 @@ class AsignacionesController extends Controller
     public function edit($id)
     {
         $asignacion = Asignaciones::find($id);
-        $personas = Personas::all();
+        $voceros = Voceros::all();
         $comunidades = Comunidades::all();
         $imagenes = $asignacion->imagenes;
         $latitud = $asignacion->latitud;
@@ -135,7 +136,7 @@ class AsignacionesController extends Controller
         $direccion = $asignacion->direccion;
 
         // $documentos = $asignacion->documentos;
-        return view('asignacion.edit', compact('asignacion', 'personas', 'comunidades', 'imagenes'));
+        return view('asignacion.edit', compact('asignacion', 'voceros', 'comunidades', 'imagenes'));
     }
 
     /**
@@ -156,7 +157,7 @@ class AsignacionesController extends Controller
         // ]);
 
         $asignacion = Asignaciones::find($id);
-        $asignacion->id_persona = $request->input('id_persona');
+        $asignacion->id_vocero = $request->input('id_vocero');
         $asignacion->id_comunidad = $request->input('id_comunidad');
         $asignacion->nombre_pro = $request->input('nombre_pro');
         $asignacion->descripcion_pro = $request->input('descripcion_pro');

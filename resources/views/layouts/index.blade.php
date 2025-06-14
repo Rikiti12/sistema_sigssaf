@@ -161,7 +161,7 @@
                     </li>
                   <li>
                     @can('ver-asignacion')
-                      <a class="sidebar-link"  href="{{ route('asignacion.create') }}" aria-expanded="false">
+                      <a class="sidebar-link"  href="{{ url('asignacion') }}" aria-expanded="false">
                         <span class="sub-item">Asignaciones</span>
                       </a>
                       @endcan

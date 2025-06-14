@@ -25,7 +25,7 @@ class PlanificacionesController extends Controller
      */
     public function index()
     {
-        $asignaciones = Asignaciones::with('personas')->get(); // Cargar la relación con tabla "personas"
+        $asignaciones = Asignaciones::with('voceros')->get(); // Cargar la relación con tabla "personas"
         return view('planificacion.index', compact('asignaciones'));
     }
 
@@ -35,8 +35,8 @@ class PlanificacionesController extends Controller
         $asignacion = Asignaciones::find($id);
 
         if (!$asignacion) {
-            // Maneja el caso en que no se encuentre la persona
-            return response()->json(['error' => 'Persona no encontrada'], 404);
+            // Maneja el caso en que no se encuentre la vocero
+            return response()->json(['error' => 'Vocero no encontrada'], 404);
         }
 
         // Devuelve los datos relevantes en formato JSON
@@ -44,7 +44,7 @@ class PlanificacionesController extends Controller
             'imagenes' => $asignacion->imagenes,
             'latitud' => $asignacion->latitud,
             'longitud' => $asignacion->longitud,
-            'direccion' => $asignacion->direccion,
+            // 'direccion' => $asignacion->direccion,
             // 'documentos' => $asignacion->documentos,
         ]);
  

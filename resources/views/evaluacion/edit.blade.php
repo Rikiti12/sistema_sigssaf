@@ -23,7 +23,7 @@
                     @csrf
                     {{ method_field('PATCH') }}
                    <div class="row">
-                       <div class="col-md-6 mb-3">  
+                       <div class="col-4">  
                            <label for="id_proyecto" class="font-weight-bold text-dark">Proyecto a Evaluar</label>
                            <select class="form-select" id="id_proyecto" name="id_proyecto" required>
                                <option value="">Seleccione un proyecto...</option>
@@ -35,12 +35,12 @@
                            </select>
                        </div>
                        
-                       <div class="col-md-6 mb-3">
+                       <div class="col-4">
                            <label class="font-weight-bold text-dark">Responsable de la Evaluación</label>
-                           <input type="text" class="form-control" id="respon_evalu" name="respon_evalu" style="background: white;" value="{{ $evaluacion->responsable }}" placeholder="Ingrese el nombre del responsable" oninput="capitalizarInput('responsable')" autocomplete="off" onkeypress="return soloLetras(event);" required>
+                           <input type="text" class="form-control" id="respon_evalu" name="respon_evalu" style="background: white;" value="{{ $evaluacion->respon_evalu }}" placeholder="Ingrese el nombre del responsable" oninput="capitalizarInput('responsable')" autocomplete="off" onkeypress="return soloLetras(event);" required>
                        </div>
                        
-                       <div class="col-md-6 mb-3">
+                       <div class="col-4">
                            <label for="estado_evalu" class="form-label">Estado de la Evaluación </label>
                            <select class="form-select" id="estado_evalu" name="estado_evalu" required>
                                <option value="Pendiente" {{ $evaluacion->estado_evalu == 'Pendiente' ? 'selected' : '' }}>Pendiente</option>
@@ -50,12 +50,12 @@
                            </select>
                        </div>
 
-                       <div class="col-md-12 mb-3">
+                       <div class="col-4">
                            <label class="font-weight-bold text-dark">Observaciones</label>
                            <textarea class="form-control" id="observaciones" name="observaciones" rows="4" required>{{ $evaluacion->observaciones }}</textarea>
                        </div>
 
-                       <div class="col-md-4 mb-3">
+                       <div class="col-4">
                            <label for="viabilidad" class="form-label">Viabilidad</label>
                            <select class="form-select" id="viabilidad" name="viabilidad" required>
                                <option value="Alta" {{ $evaluacion->viabilidad == 'Alta' ? 'selected' : '' }}>Alta</option>
@@ -64,12 +64,12 @@
                            </select>
                        </div>
                    
-                       <div class="col-md-6 mb-3">
+                       <div class="col-4">
                            <label class="font-weight-bold text-dark">Fecha de Evaluación</label>
-                           <input type="date" class="form-control" id="fecha_evalu" name="fecha_evalu" value="{{ $evaluacion->fecha_evaluacion }}" required>
+                           <input type="date" class="form-control" id="fecha_evalu" name="fecha_evalu" value="{{ $evaluacion->fecha_evalu }}" required>
                        </div>
                    
-                       <div class="col-md-12 mb-3">
+                       {{-- <div class="col-md-12 mb-3">
                            <label class="font-weight-bold text-dark">Documentos Adjuntos</label>
                            @if($evaluacion->documentos)
                                <div class="mb-2">
@@ -81,13 +81,13 @@
                            @endif
                            <input type="file" class="form-control" id="documentos" name="documentos[]" multiple>
                            <small class="text-muted">Puede seleccionar múltiples archivos si es necesario</small>
-                       </div>
+                       </div> --}}
                    </div>
 
                     <div class="card-body">
                         <center>
-                            <button type="submit" class="btn btn-success btn-lg"><span class="icon text-white-60"><i class="fas fa-check"></i></span>
-                                <span class="text">Actualizar Evaluación</span>
+                            <button type="submit" class="btn btn-success btn-lg"><span class="icon text-white-50"><i class="fas fa-check"></i></span>
+                                <span class="text">Guardar</span>
                             </button>
                            <a class="btn btn-info btn-lg" href="{{ route('evaluacion.index') }}"><span class="icon text-white-50">
                                             <i class="fas fa-info-circle"></i>

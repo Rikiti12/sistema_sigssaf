@@ -18,10 +18,11 @@
 
                     <h2 class="font-weight-bold text-dark">Evaluación de Proyecto</h2>
                 </div>
-
+              
                 <form method="post" action="{{ route('evaluacion.store') }}" enctype="multipart/form-data" onsubmit="return Evaluaciones(this)">
                     @csrf
                    
+                <div class="card-body">
                    <div class="row">
                        <div class="col-4">
                            <label for="id_proyecto" class="font-weight-bold text-dark">Proyecto a Evaluar</label>
@@ -69,11 +70,11 @@
                                 <input type="date" class="form-control" id="fecha_evalu" name="fecha_evalu" value="<?php echo date('Y-m-d'); ?>">
                         </div>
 
-                        <div class="col-4">
+                        {{-- <div class="col-4">
                            <label class="font-weight-bold text-dark">Documentos Adjuntos</label>
                            <input type="file" class="form-control" id="documentos" name="documentos[]" multiple>
                            <small class="text-muted">Puede seleccionar múltiples archivos si es necesario</small>
-                       </div>
+                       </div> --}}
                    </div>  
                     <div class="card-body">
                        <center>
@@ -86,7 +87,7 @@
                                 <span class="text">Regresar</span></a>
                         </center>
                     </div>
-                    </form>
+                 </form>
                 </div>
             </div>
         </div>

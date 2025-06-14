@@ -27,10 +27,10 @@
                     <table class="table align-items-center table-flush" id="dataTable">
                         <thead class="thead-light">
                             <tr> 
-                                <th class="font-weight-bold text-dark">Persona Asignada</th>
+                                <th class="font-weight-bold text-dark">Vocero Asignada</th>
                                 <th class="font-weight-bold text-dark">Comunidad Asignado</th>
-                                <th class="font-weight-bold text-dark">Nombre Del Proyecto</th>
-                                <th class="font-weight-bold text-dark">Descripción</th>
+                                <th class="font-weight-bold text-dark">Direccion</th>
+                                {{-- <th class="font-weight-bold text-dark">Descripción</th> --}}
                                 {{-- <th class="font-weight-bold text-dark">Fecha Inicial</th>
                                 <th class="font-weight-bold text-dark">Fecha Final</th> --}}
                                 <th class="font-weight-bold text-dark"><center>Acciones</center></th>
@@ -39,10 +39,10 @@
                         <tbody>
                             @foreach ($asignaciones as $asignacion)
                                 <tr>
-                                    <td class="font-weight-bold text-dark">{{ $asignacion->personas->cedula}} - {{ $asignacion->personas->nombre}} {{ $asignacion->personas->apellido}}</td>
+                                    <td class="font-weight-bold text-dark">{{ $asignacion->voceros->cedula}} - {{ $asignacion->voceros->nombre}} {{ $asignacion->voceros->apellido}}</td>
                                     <td class="font-weight-bold text-dark">{{ $asignacion->comunidad->nom_comuni }}</td>
-                                    <td class="font-weight-bold text-dark">{{ $asignacion->nombre_pro }}</td>
-                                    <td class="font-weight-bold text-dark">{{ $asignacion->descripcion_pro }}</td>
+                                    <td class="font-weight-bold text-dark">{{ $asignacion->direccion }}</td>
+                                    {{-- <td class="font-weight-bold text-dark">{{ $asignacion->descripcion_pro }}</td> --}}
                                    {{-- <td class="font-weight-bold text-dark">{{ date('d/m/Y', strtotime($asignacion->fecha_inicial)) }}</td>
                                    <td class="font-weight-bold text-dark">{{ date('d/m/Y', strtotime($asignacion->fecha_final)) }}</td> --}}
 
@@ -208,7 +208,7 @@
                     success: function(data) {
                         console.log(data);
     
-                        let asignacionessHtml = `
+                        let asignacionesHtml = `
                             <h5 class="font-weight-bold text-primary" style="text-align: center">Detalles de la Asignacion</h5>
 
                             <p><b>Latitud</b>${data.latitud}</p>
@@ -235,7 +235,7 @@
                     },
                     error: function(error) {
                         console.error("Error al obtener los datos:", error);
-                        alert("Error al cargar la persona. Por favor, inténtalo de nuevo.");
+                        alert("Error al cargar la vocero. Por favor, inténtalo de nuevo.");
                     }
                 });
             });

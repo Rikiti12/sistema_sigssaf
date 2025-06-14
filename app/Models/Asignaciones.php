@@ -12,12 +12,12 @@ class Asignaciones extends Model
     protected $table = 'asignaciones'; 
     protected $primaryKey = 'id'; 
     public $timestamps = true; 
-    protected $fillable = [ 'id_persona','id_comunidad','imagenes','latitud','longtud','direccion'];
+    protected $fillable = [ 'id_vocero','id_comunidad','imagenes','latitud','longtud','direccion'];
 
     // Relaciones (si es necesario)
-    public function personas()
+    public function voceros()
     {
-        return $this->belongsTo(Personas::class, 'id_persona');
+        return $this->belongsTo(Voceros::class, 'id_vocero');
     }
 
     public function comunidad()

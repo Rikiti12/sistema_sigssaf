@@ -28,9 +28,8 @@ class EvaluacionesController extends Controller
     public function index()
     {
         $evaluaciones = Evaluaciones::with('proyectos')->get();
-        // === SOLUCIÓN: Agrega la definición y paso de $proyectos aquí también ===
-        $proyectos = Proyectos::all(); // Obtén todos los proyectos
-        return view('evaluacion.create', compact('evaluaciones', 'proyectos')); // Pasa ambas variables
+        $proyectos = Proyectos::all(); 
+        return view('evaluacion.create', compact('evaluaciones', 'proyectos'));
     }
 
     /**
@@ -74,27 +73,27 @@ class EvaluacionesController extends Controller
         $evaluaciones->estado_evalu = $request->input('estado_evalu');
         $evaluaciones->viabilidad = $request->input('viabilidad');
 
-        // Manejo de documentos adjuntos
-        if ($request->hasFile('documentos')) {
-            $rutaGuardarDocs = 'documentos/evaluaciones/';
-            $nombresDocumentos = [];
+        // // Manejo de documentos adjuntos
+        // if ($request->hasFile('documentos')) {
+        //     $rutaGuardarDocs = 'documentos/evaluaciones/';
+        //     $nombresDocumentos = [];
 
-            foreach ($request->file('documentos') as $documento) {
-                $nombreDocumento = date('YmdHis') . '_' . uniqid() . '_' . pathinfo($documento->getClientOriginalName(), PATHINFO_FILENAME) . '.' . $documento->getClientOriginalExtension();
-                $documento->move(public_path($rutaGuardarDocs), $nombreDocumento);
-                $nombresDocumentos[] = $nombreDocumento;
-            }
+        //     foreach ($request->file('documentos') as $documento) {
+        //         $nombreDocumento = date('YmdHis') . '_' . uniqid() . '_' . pathinfo($documento->getClientOriginalName(), PATHINFO_FILENAME) . '.' . $documento->getClientOriginalExtension();
+        //         $documento->move(public_path($rutaGuardarDocs), $nombreDocumento);
+        //         $nombresDocumentos[] = $nombreDocumento;
+        //     }
 
-            $evaluacion->documentos = json_encode($nombresDocumentos);
-        }
+        //     $evaluacion->documentos = json_encode($nombresDocumentos);
+        // }
 
-        $evaluacion->save();
+        $evaluaciones->save();
 
         $bitacora = new BitacoraController();
         $bitacora->update();
 
         try {
-            return redirect()->route('evaluacion.index')->with('success', 'Evaluación creada exitosamente');
+            return redirect()->route('asignacion.index')->with('success', 'Evaluación creada exitosamente');
         } catch (QueryException $exception) {
             $errorMessage = 'Error: ' . $exception->getMessage();
             return redirect()->back()->withErrors($errorMessage)->withInput();
@@ -123,9 +122,9 @@ class EvaluacionesController extends Controller
     {
         $evaluacion = Evaluaciones::findOrFail($id);
         $proyectos = Proyectos::all();
-        $documentos = json_decode($evaluacion->documentos, true) ?? [];
+       
         
-        return view('evaluacion.edit', compact('evaluacion', 'proyectos', 'documentos'));
+        return view('evaluacion.edit', compact('evaluacion', 'proyectos'));
     }
 
     /**
@@ -156,23 +155,23 @@ class EvaluacionesController extends Controller
         $evaluacion->estado_evalu = $request->input('estado_evalu');
         $evaluacion->viabilidad = $request->input('viabilidad');
 
-        // Manejo de documentos adjuntos
-        if ($request->hasFile('documentos')) {
-            $rutaGuardarDocs = 'documentos/evaluaciones/';
-            $nuevosDocumentos = [];
+        // // Manejo de documentos adjuntos
+        // if ($request->hasFile('documentos')) {
+        //     $rutaGuardarDocs = 'documentos/evaluaciones/';
+        //     $nuevosDocumentos = [];
 
-            foreach ($request->file('documentos') as $documento) {
-                $nombreDocumento = date('YmdHis') . '_' . uniqid() . '_' . pathinfo($documento->getClientOriginalName(), PATHINFO_FILENAME) . '.' . $documento->getClientOriginalExtension();
-                $documento->move(public_path($rutaGuardarDocs), $nombreDocumento);
-                $nuevosDocumentos[] = $nombreDocumento;
-            }
+        //     foreach ($request->file('documentos') as $documento) {
+        //         $nombreDocumento = date('YmdHis') . '_' . uniqid() . '_' . pathinfo($documento->getClientOriginalName(), PATHINFO_FILENAME) . '.' . $documento->getClientOriginalExtension();
+        //         $documento->move(public_path($rutaGuardarDocs), $nombreDocumento);
+        //         $nuevosDocumentos[] = $nombreDocumento;
+        //     }
 
-            // Combinar con documentos existentes
-            $documentosExistentes = json_decode($evaluacion->documentos, true) ?? [];
-            $todosDocumentos = array_merge($documentosExistentes, $nuevosDocumentos);
+        //     // Combinar con documentos existentes
+        //     $documentosExistentes = json_decode($evaluacion->documentos, true) ?? [];
+        //     $todosDocumentos = array_merge($documentosExistentes, $nuevosDocumentos);
             
-            $evaluacion->documentos = json_encode($todosDocumentos);
-        }
+        //     $evaluacion->documentos = json_encode($todosDocumentos);
+        // }
 
         $evaluacion->save();
 
@@ -180,7 +179,7 @@ class EvaluacionesController extends Controller
         $bitacora->update();
 
         try {
-            return redirect()->route('evaluacion.index')->with('success', 'Evaluación actualizada exitosamente');
+            return redirect()->route('asignacion.index')->with('success', 'Evaluación actualizada exitosamente');
         } catch (QueryException $exception) {
             $errorMessage = 'Error: ' . $exception->getMessage();
             return redirect()->back()->withErrors($errorMessage)->withInput();

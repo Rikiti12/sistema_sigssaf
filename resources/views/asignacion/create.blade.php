@@ -27,11 +27,11 @@
                             <div class="row">
 
                                 <div class="col-4">
-                                    <label class="font-weight-bold text-dark">Persona Asignada</label>
-                                    <select class="form-select" id="id_persona" name="id_persona">
-                                        <option value="">Seleccione una persona</option>
-                                        @foreach($personas as $persona)
-                                            <option value="{{ $persona->id }}">{{ $persona->nombre }} {{ $persona->apellido }}  {{ $persona->cedula }}</option>
+                                    <label class="font-weight-bold text-dark">Vocero Asignada</label>
+                                    <select class="form-select" id="id_vocero" name="id_vocero">
+                                        <option value="">Seleccione un vocero</option>
+                                        @foreach($voceros as $vocero)
+                                            <option value="{{ $vocero->id }}">{{ $vocero->nombre }} {{ $vocero->apellido }}  {{ $vocero->cedula }}</option>
                                         @endforeach
                                     </select>
                                 </div>
