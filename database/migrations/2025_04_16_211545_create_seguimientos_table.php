@@ -16,11 +16,14 @@ return new class extends Migration
         Schema::create('seguimientos', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('id_planificacion');
-            $table->dateTime('fecha_segui');
+            $table->dateTime('fecha_hor');
             $table->string('responsable_segui');
             $table->text('detalle_segui');
-            $table->string('estatus');
-            $table->string('estatus_res');
+            $table->decimal('gasto_incu', 10, 2)->nullable(); 
+            $table->string('estado_actual');
+            $table->string('riesgos')->nullable();
+            // $table->string('estatus');
+            // $table->string('estatus_res');
             $table->timestamps();
 
             // Establecer relaciones con las tablas correspondientes

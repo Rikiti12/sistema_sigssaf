@@ -19,8 +19,8 @@ class homeController extends Controller
     //
     public function index(){
 
-        $comunas = Comunas::all();
-        $count_comuna = DB::table('comunas')
+        $voceros = Voceros::all();
+        $count_vocero = DB::table('voceros')
         ->count();
 
         $comunidades = Comunidades::all();
@@ -31,8 +31,8 @@ class homeController extends Controller
         $count_consejo = DB::table('consejo_comunals')
         ->count();
 
-        $voceros = Voceros::all();
-        $count_vocero = DB::table('voceros')
+        $comunas = Comunas::all();
+        $count_comuna = DB::table('comunas')
         ->count();
         
         $proyectos = Proyectos::all();
@@ -54,9 +54,9 @@ class homeController extends Controller
         $mapa_asignaciones = asignaciones::select('latitud','longitud')->get();
 
 
-        return view('home.inicio' , compact('count_comuna', 'count_comunidad', 'count_consejo', 'count_vocero','count_proyecto','count_evaluacion',
+        return view('home.inicio' , compact('count_vocero', 'count_comunidad', 'count_consejo', 'count_comuna','count_proyecto','count_evaluacion',
         'count_asignacion', 'count_planificacion', 'mapa_asignaciones'  ) ,  [
-        'count' => $count_comuna, $count_comunidad, $count_consejo, $count_vocero, $count_proyecto,$count_evaluacion, $count_asignacion, $count_planificacion
+        'count' => $count_vocero, $count_comunidad, $count_consejo, $count_comuna, $count_proyecto,$count_evaluacion, $count_asignacion, $count_planificacion
 
         ]); 
 

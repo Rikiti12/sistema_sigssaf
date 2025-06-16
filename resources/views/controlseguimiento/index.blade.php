@@ -20,24 +20,42 @@
                     <table class="table align-items-center table-flush" id="dataTable">
                         <thead class="thead-light">
                             <tr>
-                                <th class="font-weight-bold text-dark">Fecha de Seguimiento</th>
+                                <th class="font-weight-bold text-dark">Fecha y Hora de Seguimiento</th>
                                 <th class="font-weight-bold text-dark">Responsable del Seguimiento</th>
                                 <th class="font-weight-bold text-dark">Detalles del Seguimiento</th>
-                                <th class="font-weight-bold text-dark">Estatus del Proyecto</th>
-                                <th class="font-weight-bold text-dark">Estatus de Aprobacion</th>
+                                <th class="font-weight-bold text-dark">Estado</th>
+                                <th class="font-weight-bold text-dark">Gasto</th>
+                                {{-- <th class="font-weight-bold text-dark">Estatus del Proyecto</th>
+                                <th class="font-weight-bold text-dark">Estatus de Aprobacion</th> --}}
                                 <th class="font-weight-bold text-dark"><center>Acciones</center></th>
                             </tr>
                         </thead>
                         <tbody>
                                 @foreach ($seguimientos as $seguimiento)
                                     <tr>
-                                        <td class="font-weight-bold text-dark">{{ date('d/m/Y H:i', strtotime($seguimiento->fecha_segui)) }}</td>
+                                        <td class="font-weight-bold text-dark">{{ date('d/m/Y H:i', strtotime($seguimiento->fecha_hor)) }}</td>
                                         <td class="font-weight-bold text-dark">{{ $seguimiento->responsable_segui }}</td>
                                         <td class="font-weight-bold text-dark">{{ $seguimiento->detalle_segui }}</td>
-                                        <td class="font-weight-bold text-dark">{{ $seguimiento->estatus }}</td>
-                                        <td class="font-weight-bold text-dark">{{ $seguimiento->estatus_res }}</td>
                                         <td>
-                                            <div style="display: flex; justify-content: center;">
+                                                    <span class="badge badge-{{ 
+                                                        $seguimiento->estado_actual == 'Completado' ? 'success' : 
+                                                        ($seguimiento->estado_actual == 'Retrasado' ? 'danger' : 
+                                                        ($seguimiento->estado_actual == 'En riesgo' ? 'warning' : 'info'))
+                                                    }}">
+                                                        {{ $seguimiento->estado_actual }}
+                                                    </span>
+                                                </td>
+                                                <td>
+                                                    @if($seguimiento->gasto_incu)
+                                                        ${{ number_format($seguimiento->gasto_incu, 2) }}
+                                                    @else
+                                                        -
+                                                    @endif
+                                                </td>
+                                        {{-- <td class="font-weight-bold text-dark">{{ $seguimiento->estatus }}</td>
+                                        <td class="font-weight-bold text-dark">{{ $seguimiento->estatus_res }}</td> --}}
+                                        <td>
+                                            {{-- <div style="display: flex; justify-content: center;">
                                                 <a class="btn btn-success btn-sm aprobar-solicitud" style="margin: 0 3px;" title="Aprobar Solicitud" data-seguimiento-id='{{ $seguimiento->id }}'>
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle" viewBox="0 0 16 16">
                                                         <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
@@ -49,7 +67,7 @@
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-octagon-fill" viewBox="0 0 16 16">
                                                         <path d="M11.46.146A.5.5 0 0 0 11.107 0H4.893a.5.5 0 0 0-.353.146L.146 4.54A.5.5 0 0 0 0 4.893v6.214a.5.5 0 0 0 .146.353l4.394 4.394a.5.5 0 0 0 .353.146h6.214a.5.5 0 0 0 .353-.146l4.394-4.394a.5.5 0 0 0 .146-.353V4.893a.5.5 0 0 0-.146-.353zm-6.106 4.5L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 1 1 .708-.708"/>
                                                     </svg>
-                                                </a>
+                                                </a> --}}
 
                                                 @can('editar-seguimiento')
                                                     <a class="btn btn-warning btn-sm" style="margin: 0 3px;" title="Desea Editar el Seguimiento" href="{{ route('seguimiento.edit', $seguimiento->id) }}">
@@ -210,7 +228,7 @@
         
     </script> --}}
 
-    <script>
+    {{-- <script>
 document.addEventListener("DOMContentLoaded", function () {
     const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
     
@@ -283,4 +301,4 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 });
-</script>
+</script> --}}

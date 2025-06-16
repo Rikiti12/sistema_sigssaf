@@ -72,25 +72,29 @@ class SeguimientoController extends Controller
             // Crear un nuevo seguimiento
             $seguimientos = new Seguimientos();
             $seguimientos->id_planificacion = $request->input('id_planificacion');
-            $seguimientos->fecha_segui = $request->input('fecha_segui');
+            $seguimientos->fecha_hor = $request->input('fecha_hor');
             $seguimientos->responsable_segui = $request->input('responsable_segui');
             $seguimientos->detalle_segui = $request->input('detalle_segui');
-
-            $seguimientos->estatus = $request->input('estatus');
-
-                if($seguimientos->estatus ==="Aprobado") {
-                    if ($seguimientos->estatus_res = '') {
-                        $seguimientos->estatus_res = 'Pendiente';
-                    }else{
-                        $seguimientos->estatus_res = $request->input('estatus_res');
-                    }
-                }else{
-                    $seguimientos->estatus_res = 'Negado';
-                }
-
-            $administradores = User::role('Administrador')->get();
-           
+            $seguimientos->gasto_incu = $request->input('gasto_incu');
+            $seguimientos->estado_actual = $request->input('estado_actual');
+            $seguimientos->riesgos = $request->input('riesgos');
             $seguimientos->save();
+
+            // $seguimientos->estatus = $request->input('estatus');
+
+            //     if($seguimientos->estatus ==="Aprobado") {
+            //         if ($seguimientos->estatus_res = '') {
+            //             $seguimientos->estatus_res = 'Pendiente';
+            //         }else{
+            //             $seguimientos->estatus_res = $request->input('estatus_res');
+            //         }
+            //     }else{
+            //         $seguimientos->estatus_res = 'Negado';
+            //     }
+
+            // $administradores = User::role('Administrador')->get();
+           
+            
 
             // Registrar en la bitácora
             $bitacora = new BitacoraController();
@@ -104,19 +108,19 @@ class SeguimientoController extends Controller
         }
     }
  
-    public function actualizarEstatusSeguimiento(Request $request, $id)
-    {
-        $seguimiento = Seguimientos::find($id);
+    // public function actualizarEstatusSeguimiento(Request $request, $id)
+    // {
+    //     $seguimiento = Seguimientos::find($id);
 
-        if ($seguimiento) {
-            $seguimiento->estatus_res = $request->input('estatus_res');
-            $seguimiento->save();
+    //     if ($seguimiento) {
+    //         $seguimiento->estatus_res = $request->input('estatus_res');
+    //         $seguimiento->save();
 
-            return response()->json(['success' => true]);
-        } else {
-            return response()->json(['success' => false, 'message' => 'Seguimiento no encontrada']);
-        }
-    }
+    //         return response()->json(['success' => true]);
+    //     } else {
+    //         return response()->json(['success' => false, 'message' => 'Seguimiento no encontrada']);
+    //     }
+    // }
     
     /**
      * Show the form for editing the specified resource.
@@ -128,8 +132,8 @@ class SeguimientoController extends Controller
     {
         $seguimiento = Seguimientos::findOrFail($id);
         $proyectos = Proyectos::all();
-        $fecha_segui = date('d/m/Y', strtotime($seguimiento->fecha_segui));
-        return view('seguimiento.edit', compact('seguimiento', 'proyectos', 'fecha_segui')); 
+        $fecha_segui = date('d/m/Y', strtotime($seguimiento->fecha_hor));
+        return view('seguimiento.edit', compact('seguimiento', 'proyectos')); 
     }
 
     /**
@@ -151,10 +155,12 @@ class SeguimientoController extends Controller
          
             $seguimiento = Seguimientos::findOrFail($id);
             // $seguimiento->id_proyecto = $request->input('id_proyecto');
-            $seguimiento->fecha_segui = $request->input('fecha_segui');
+            $seguimiento->fecha_hor = $request->input('fecha_hor');
             $seguimiento->responsable_segui = $request->input('responsable_segui');
             $seguimiento->detalle_segui = $request->input('detalle_segui');
-            $seguimiento->estatus = $request->input('estatus');
+            $seguimiento->gasto_incu = $request->input('gasto_incu');
+            $seguimiento->estado_actual = $request->input('estado_actual');
+            $seguimiento->riesgos = $request->input('riesgos');
             $seguimiento->save();
 
             // Registrar en la bitácora

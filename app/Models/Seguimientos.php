@@ -12,7 +12,7 @@ class Seguimientos extends Model
     protected $table = 'seguimientos';
     protected $primaryKey = 'id';
     public $timestamps = true;
-    protected $fillable = ['id_planificacion', 'fecha_segui','responsable_segui','detalle_segui','estatus', 'estatus_res',
+    protected $fillable = ['id_planificacion', 'fecha_hor','responsable_segui','detalle_segui','gasto_incu','estado_actual','riesgos'
     ];
 
     // Relaciones

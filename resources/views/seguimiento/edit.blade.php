@@ -34,12 +34,43 @@
                                 <textarea class="form-control" id="detalle_segui" name="detalle_segui" placeholder="Ingrese los Detalles del Seguimiento" oninput="capitalizarTextoarea('detalle_segui')" cols="10" rows="">{{ $seguimiento->detalle_segui }}</textarea>
                             </div>
 
-                            <div class="col-md-4 mb-3">
-                                <label class="font-weight-bold text-dark">Fecha Inicial</label>
-                                <input type="date" class="form-control" id="fecha_segui" name="fecha_segui" value="{{ $seguimiento->fecha_segui }}">
+                            <div class="col-4">
+                                <label class="font-weight-bold text-dark">Fecha y Hora del Seguimiento *</label>
+                                <input type="datetime-local" class="form-control" id="fecha_hor" name="fecha_hor" 
+                                       value="{{ old('fecha_hora_segui', date('Y-m-d\TH:i', strtotime($seguimiento->fecha_hor))) }}" required>
                             </div>
 
-                            @if(auth()->user()->hasRole('Asistente'))
+                              <div class="col-4">
+                                <label class="font-weight-bold text-dark">Gasto Incurrido </label>
+                                <input type="number" class="form-control" id="gasto_incu" name="gasto_incu" 
+                                       min="0" step="0.01" placeholder="0.00"
+                                       value="{{ old('gasto_incurrido', $seguimiento->gasto_incur) }}">
+                                <small class="text-muted">Ingrese el monto gastado hasta ahora</small>
+                            </div>
+
+                            <div class="col-4">
+                                <label class="font-weight-bold text-dark">Estado Actual *</label>
+                                <select class="form-select" name="estado_actual" id="estado_actual" required>
+                                    <option value="" disabled>Seleccione estado</option>
+                                    <option value="En progreso" {{ old('estado_actual', $seguimiento->estado_actual) == 'En progreso' ? 'selected' : '' }}>En progreso</option>
+                                    <option value="Completado" {{ old('estado_actual', $seguimiento->estado_actual) == 'Completado' ? 'selected' : '' }}>Completado</option>
+                                    <option value="Retrasado" {{ old('estado_actual', $seguimiento->estado_actual) == 'Retrasado' ? 'selected' : '' }}>Retrasado</option>
+                                    <option value="En revisión" {{ old('estado_actual', $seguimiento->estado_actual) == 'En revisión' ? 'selected' : '' }}>En revisión</option>
+                                    <option value="En riesgo" {{ old('estado_actual', $seguimiento->estado_actual) == 'En riesgo' ? 'selected' : '' }}>En riesgo</option>
+                                </select>
+                            </div>
+
+                            <div class="col-4">
+                                <label class="font-weight-bold text-dark">Riesgos identificados</label>
+                                <select class="form-select" name="riesgos" id="riesgos">
+                                    <option value="" {{ old('riesgos', $seguimiento->riesgos) == '' ? 'selected' : '' }}>Ninguno</option>
+                                    <option value="Bajo" {{ old('riesgos', $seguimiento->riesgos) == 'Bajo' ? 'selected' : '' }}>Bajo</option>
+                                    <option value="Medio" {{ old('riesgos', $seguimiento->riesgos) == 'Medio' ? 'selected' : '' }}>Medio</option>
+                                    <option value="Alto" {{ old('riesgos', $seguimiento->riesgos) == 'Alto' ? 'selected' : '' }}>Alto</option>
+                                </select>
+                            </div>
+
+                            {{-- @if(auth()->user()->hasRole('Asistente'))
                                 @if ($seguimiento->estatus_resp == "" || $seguimiento->estatus_resp == "Pendiente")
                                 <div class="col-4">
                                     <label  class="font-weight-bold text-dark">Estatus del proyectos</label>
@@ -59,10 +90,10 @@
                                         <option value="Negado" {{ (old('estatus', $seguimiento->estatus ?? '') === 'Negado') ? 'selected' : '' }}>Negado</option>
                                     </select>
                                 </div>
-                            @endif
+                            @endif --}}
 
 
-                            @if(auth()->user()->hasRole('Administrador'))
+                            {{-- @if(auth()->user()->hasRole('Administrador'))
                                 <div class="card-body" id="estatus_respuesta">
                                     <label class="font-weight-bold text-dark">Estatus Aprobación</label>
                                     <div class="row">
@@ -82,7 +113,7 @@
                                 </div>
                             @else
                                 <input type="hidden" name="estatus_resp" id="estatus_resp" value="Pendiente">
-                            @endif
+                            @endif --}}
 
 
                         </div>

@@ -21,15 +21,15 @@
               <div class="row align-items-center">
                 <div class="col-icon">
                   <div
-                    class="icon-big text-center icon-primary bubble-shadow-small"
+                    class="icon-big text-center icon-info bubble-shadow-small"
                   >
-                    <i class="fas fa-users"></i>
+                    <i class="fas fa-user-check"></i>
                   </div>
                 </div>
                 <div class="col col-stats ms-3 ms-sm-0">
                   <div class="numbers">
-                    <p class="card-category">Comunas</p>
-                    <h4 class="card-title">{{ $count_comuna }}</h4>
+                    <p class="card-category">Voceros</p>
+                    <h4 class="card-title">{{ $count_vocero }}</h4>
                   </div>
                 </div>
               </div>
@@ -89,15 +89,15 @@
               <div class="row align-items-center">
                 <div class="col-icon">
                   <div
-                    class="icon-big text-center icon-info bubble-shadow-small"
+                    class="icon-big text-center icon-primary bubble-shadow-small"
                   >
-                    <i class="fas fa-user-check"></i>
+                    <i class="fas fa-users"></i>
                   </div>
                 </div>
                 <div class="col col-stats ms-3 ms-sm-0">
                   <div class="numbers">
-                    <p class="card-category">Voceros</p>
-                    <h4 class="card-title">{{ $count_vocero }}</h4>
+                    <p class="card-category">Comunas</p>
+                    <h4 class="card-title">{{ $count_comuna }}</h4>
                   </div>
                 </div>
               </div>
@@ -230,8 +230,8 @@
               <div class="row align-items-center">
                 <div class="col-icon">
                   <div
-                    class="icon-big text-center icon-success bubble-shadow-small"
-                  >
+                     class="icon-big text-center" style="background-color: rgb(221, 157, 38)"
+                     >
                   <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" style="color:rgb(255, 255, 255);" fill="currentColor" class="bi bi-file-check-fill" viewBox="0 0 16 16">
                   <path d="M12 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2m-1.146 6.854-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 8.793l2.646-2.647a.5.5 0 0 1 .708.708"/>
                   </svg>

@@ -24,9 +24,9 @@ class EstadisticaController extends Controller
         $data_proyecto = $this->preprareChartData($proyectos);
 
         $seguimientos = DB::table('seguimientos')
-        ->select(DB::raw('count(*) as total'), DB::raw('EXTRACT(MONTH FROM fecha_segui) as mes'), 'estatus')
-        ->whereYear('fecha_segui', date('Y'))
-        ->groupBy('estatus', DB::raw('EXTRACT(MONTH FROM fecha_segui)'))
+        ->select(DB::raw('count(*) as total'), DB::raw('EXTRACT(MONTH FROM fecha_hor) as mes'), 'estatus')
+        ->whereYear('fecha_hor', date('Y'))
+        ->groupBy('estatus', DB::raw('EXTRACT(MONTH FROM fecha_hor)'))
         ->get();
 
         $data_seguimiento = $this->preparePieChartData($seguimientos);

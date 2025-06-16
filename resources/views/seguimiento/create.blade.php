@@ -36,12 +36,45 @@
                                 <textarea class="form-control" id="detalle_segui" name="detalle_segui" placeholder="Ingrese los Detalles del Seguimiento" oninput="capitalizarTextoarea('detalle_segui')" cols="10" rows=""></textarea>
                             </div>
 
-                            <div class="col-md-4 mb-3">
-                                <label class="font-weight-bold text-dark">Fecha Inicial</label>
-                                <input type="date" class="form-control" id="fecha_segui" name="fecha_segui" value="<?php echo date('d/m/Y'); ?>">
+                            <div class="col-4">
+                                <label class="font-weight-bold text-dark">Fecha y Hora del Seguimiento *</label>
+                                <input type="datetime-local" class="form-control" id="fecha_hor" name="fecha_hor" 
+                                       value="{{ date('Y-m-d\TH:i') }}" required>
                             </div>
 
+
                             <div class="col-4">
+                                <label class="font-weight-bold text-dark">Gasto Incurrido </label>
+                                <input type="number" class="form-control" id="gasto_incu" name="gasto_incu" 
+                                       min="0" step="0.01" placeholder="0.00">
+                                <small class="text-muted">Ingrese el monto gastado hasta ahora</small>
+                            </div>
+
+
+                            <div class="col-4">
+                                <label class="font-weight-bold text-dark">Estado Actual *</label>
+                                <select class="form-select" name="estado_actual" id="estado_actual" required>
+                                    <option value="" disabled selected>Seleccione estado</option>
+                                    <option value="En progreso">En progreso</option>
+                                    <option value="Completado">Completado</option>
+                                    <option value="Retrasado">Retrasado</option>
+                                    <option value="En revisión">En revisión</option>
+                                    <option value="En riesgo">En riesgo</option>
+                                </select>
+                            </div>
+                             
+                              <div class="col-4">
+                                <label class="font-weight-bold text-dark">Riesgos identificados</label>
+                                <select class="form-select" name="riesgos" id="riesgos">
+                                    <option value="" selected>Ninguno</option>
+                                    <option value="Bajo">Bajo</option>
+                                    <option value="Medio">Medio</option>
+                                    <option value="Alto">Alto</option>
+                                </select>
+                            </div>
+
+                            
+                            {{-- <div class="col-4">
                                 <label class="font-weight-bold text-dark">Estado del Proyecto</label>
                                 <select class="form-select"name="estatus" id="estatus">
                                     <option value="" selected="true" disabled>Seleccione un Estatus</option>
@@ -68,7 +101,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            @endif
+                            @endif --}}
 
 
                         </div>
@@ -114,7 +147,7 @@
         }
     </script>
 
-    <script>
+    {{-- <script>
         document.addEventListener('DOMContentLoaded' function (){
         const estatusSeguimiento = document.getElementById('estatus');
         const estatusAprobacion = document.getElementById('estatus_aprob');
@@ -134,7 +167,7 @@
         toggleEstatusAprobacion();
 
         });
-    </script>
+    </script> --}}
 
     @if ($errors->any())
         <script>
