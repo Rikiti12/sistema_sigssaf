@@ -73,8 +73,8 @@ class ConsejoComunalController extends Controller
             'situr' => $consejocomunal->situr,
             'rif' => $consejocomunal->rif,
             'acta' => $consejocomunal->acta,
-            'dire_consejo' => $consejocomunal->dire_consejo,
-            'id_comunidad' => $consejocomunal->comunidad->nom_comuni,
+            // 'dire_consejo' => $consejocomunal->dire_consejo,
+            // 'id_comunidad' => $consejocomunal->comunidad->nom_comuni,
             
         ]);
  

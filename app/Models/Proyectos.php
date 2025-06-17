@@ -11,6 +11,7 @@ class Proyectos extends Model
     protected $table = 'proyectos'; 
     protected $primaryKey = 'id'; 
     public $timestamps = true; 
-    protected $fillable = [ 'nombre_pro','descripcion_pro','tipo_pro','fecha_inicial', 'fecha_final','prioridad'];
+    protected $fillable = [ 'nombre_pro','descripcion_pro','tipo_pro','fecha_inicial', 'fecha_final',
+    'prioridad', 'acta_conformidad'];
 
 }

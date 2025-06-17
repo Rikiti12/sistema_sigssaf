@@ -20,7 +20,8 @@ return new class extends Migration
             $table->enum('tipo_pro', ['Infraestructura', 'Social', 'Educativo', 'Salud', 'Ambiental', 'Otro']);
             $table->date('fecha_inicial');
             $table->date('fecha_final');
-           $table->enum('prioridad', ['Alta', 'Media', 'Baja']);
+            $table->enum('prioridad', ['Alta', 'Media', 'Baja']);
+            $table->json('acta_conformidad');
             $table->timestamps();
         });
     }

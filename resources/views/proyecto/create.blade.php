@@ -19,22 +19,25 @@
                     <h2 class="font-weight-bold text-dark"> Registrar Proyectos</h2>
                 </div>
 
-                <div class="card-body">
-                    <form method="post" action="{{ route('proyecto.store') }}" enctype="multipart/form-data" onsubmit="return Proyectos(this)">
+                <form method="post" action="{{ route('proyecto.store') }}" enctype="multipart/form-data" onsubmit="return Proyectos(this)">
                     @csrf
-                   <div class="row">
-                       <div class="col-4">
-                                    <label  class="font-weight-bold text-dark">Nombre Del Proyecto</label>
-                                    <input type="text" class="form-control" id="nombre_pro" name="nombre_pro" style="background: white;" value="" placeholder="Ingrese El Nombre Del Proyecto" oninput="capitalizarInput('nombre_pro')" autocomplete="off" onkeypress="return soloLetras(event);">
-                                </div>
-                                
-                                <div class="col-4">
-                                    <label  class="font-weight-bold text-dark">Descripción</label>
-                                    <input type="text" class="form-control" id="descripcion_pro" name="descripcion_pro" style="background: white;" value="" placeholder="Ingrese La Descripcion" autocomplete="off" oninput="capitalizarInput('descripcion_pro')" onkeypress="return soloLetras(event);">
-                                </div>
+
+                    <div class="card-body">
+                    
+                        <div class="row">
 
                             <div class="col-4">
-                                <label for="tipo_proyecto" class="form-label">Tipo de Proyecto *</label>
+                                <label  class="font-weight-bold text-dark">Nombre Del Proyecto</label>
+                                <input type="text" class="form-control" id="nombre_pro" name="nombre_pro" style="background: white;" value="" placeholder="Ingrese El Nombre Del Proyecto" oninput="capitalizarInput('nombre_pro')" autocomplete="off" onkeypress="return soloLetras(event);">
+                            </div>
+                                
+                            <div class="col-4">
+                                <label  class="font-weight-bold text-dark">Descripción</label>
+                                <input type="text" class="form-control" id="descripcion_pro" name="descripcion_pro" style="background: white;" value="" placeholder="Ingrese La Descripcion" autocomplete="off" oninput="capitalizarInput('descripcion_pro')" onkeypress="return soloLetras(event);">
+                            </div>
+
+                            <div class="col-4">
+                                <label class="font-weight-bold text-dark">Tipo de Proyecto</label>
                                 <select class="form-select" id="tipo_pro" name="tipo_pro" required>
                                     <option value="">Seleccione...</option>
                                     <option value="Infraestructura">Infraestructura</option>
@@ -45,20 +48,19 @@
                                     <option value="Otro">Otro</option>
                                 </select>
                             </div>
-                        
 
-                         <div class="col-md-4 mb-3">
-                                    <label class="font-weight-bold text-dark">Fecha Inicial</label>
-                                    <input type="date" class="form-control" id="fecha_inicial" name="fecha_inicial" value="<?php echo date('d/m/Y'); ?>">
-                                </div>
+                            <div class="col-md-4 mb-3">
+                                <label class="font-weight-bold text-dark">Fecha Inicial</label>
+                                <input type="date" class="form-control" id="fecha_inicial" name="fecha_inicial" value="<?php echo date('d/m/Y'); ?>">
+                            </div>
 
-                                <div class="col-md-4 mb-3">
-                                    <label class="font-weight-bold text-dark">Fecha Final</label>
-                                    <input type="date" class="form-control" id="fecha_final" name="fecha_final" value="<?php echo date('d/m/Y'); ?>">
-                                </div>
+                            <div class="col-md-4 mb-3">
+                                <label class="font-weight-bold text-dark">Fecha Final</label>
+                                <input type="date" class="form-control" id="fecha_final" name="fecha_final" value="<?php echo date('d/m/Y'); ?>">
+                            </div>
 
                             <div class="col-4">
-                                <label for="prioridad" class="form-label">Prioridad *</label>
+                                <label class="font-weight-bold text-dark">Prioridad</label>
                                 <select class="form-select" id="prioridad" name="prioridad" required>
                                     <option value="">Seleccione...</option>
                                     <option value="Alta">Alta</option>
@@ -66,30 +68,43 @@
                                     <option value="Baja">Baja</option>
                                 </select>
                             </div>
-                         </div>
-                    </div>  
 
-                        <div class="card-body">
+                            <div class="grid grid-cols-1 mt-5 mx-7">
+                                <img id="miniaturas">
+                            </div>
+    
+                            <div class="col-4">
+                                <label  class="font-weight-bold text-dark">Acta Conformidad</label>
+                                <input type="file" class="form-control" id="acta_conformidad" name="acta_conformidad[]" multiple>
+                                    <div id="foto_container"></div>
+                            </div>
+
+                       </div>
+
+                        </div>
+
+                        <br><br>
 
                         <center>
                             <button type="submit" class="btn btn-success btn-lg"><span class="icon text-white-60"><i class="fas fa-check"></i></span>
                                 <span class="text">Guardar</span>
                             </button>
                            <a class="btn btn-info btn-lg" href="{{ route('proyecto.index') }}"><span class="icon text-white-50">
-                                            <i class="fas fa-info-circle"></i>
-                                        </span>
-                                        <span class="text">Regresar</span></a>
+                                <i class="fas fa-info-circle"></i>
+                                </span>
+                                <span class="text">Regresar</span>
+                            </a>
                         </center>
 
                     </div>
-                    </form>
-                </div>
+                    
+                </form>
             </div>
         </div>
     </div>
 </div>
 
-<script>
+    <script>
         function capitalizarPrimeraLetra(texto) {
             return texto.charAt(0).toUpperCase() + texto.slice(1).toLowerCase();
         }
@@ -101,6 +116,31 @@
 
         
     </script>
+
+    {{-- * FUNCION PARA MOSTRAR LA FOTO --}}
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#acta_conformidad').change(function () {
+                const fotoContainer = document.getElementById('foto_container');
+    
+                for (const file of this.files) {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        const img = document.createElement('img');
+                        img.src = e.target.result;
+                        img.style.maxWidth = '40%';
+                        img.style.maxHeight = '40%';
+                        fotoContainer.appendChild(img);
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+        });
+    </script>
+
      @if ($errors->any())
         <script>
             var errors = @json($errors->all());

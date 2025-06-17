@@ -21,7 +21,7 @@ body{
 }
 
 .header{
-    background-color: rgb(15, 15, 15);
+    background-color: rgb(11, 54, 119);
     color: rgb(231, 227, 225);
 }
 
@@ -38,7 +38,7 @@ h1{
 }
 
 tbody tr td{
-    border: 2px solid black;
+    border: 2px solid rgb(153, 44, 44);
 }
 
 img {
@@ -84,6 +84,7 @@ img {
                         <th>Vocero Comuna</th>
                         <th>Nombre Comuna</th>
                         <th>Parroquia Asignado</th>
+                        <th>Consejo Asignado</th>
                         <th>Direccion</th>
                     </tr>
                 </thead>
@@ -92,9 +93,10 @@ img {
                     <tr>
                         <td>{{ $loop->iteration }}</td>
                         
-                        <td>{{ $comuna->cedula_comunas }} - {{ $comuna->nombre_comunas }} 
-                        {{ $comuna->apellido_comunas }} {{ $comuna->telefono }}</td>
-
+                        <td>{{ $comuna->vocero->cedula }} - {{ $comuna->vocero->nombre }} 
+                        {{ $comuna->vocero->apellido }}
+                        </td>
+        
                         <td>{{ $comuna->nom_comunas }}</td>
 
                         <td>
@@ -103,7 +105,12 @@ img {
                             @endif
                         </td>
 
+                        <td>{{ $comuna->consejo_comunals->nom_consej }} - {{ $comuna->consejo_comunals->situr }} 
+                            {{ $comuna->consejo_comunals->rif }}
+                        </td>                                            
+
                         <td>{{ $comuna->dire_comunas }}</td>
+                            
                     </tr>
                 @endforeach  
                 </tbody>

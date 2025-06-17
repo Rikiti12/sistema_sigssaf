@@ -40,9 +40,10 @@
                             <table class="table align-items-center table-flush" id="dataTable">
                                 <thead class="thead-light">
                                     <tr> 
-                                        <th  class="font-weight-bold text-dark">Vocero Comuna</th>
-                                        <th  class="font-weight-bold text-dark">Nombre Comunas</th>
+                                        <th  class="font-weight-bold text-dark">Vocero Asignado</th>
+                                        <th  class="font-weight-bold text-dark">Nombre Comuna</th>
                                         <th  class="font-weight-bold text-dark">Parroquia</th>
+                                        <th  class="font-weight-bold text-dark">Consejo Asignado</th>
                                         <th  class="font-weight-bold text-dark">Dirección</th>
                                         <th  class="font-weight-bold text-dark"><center>Acciones</center></th>
                                     </tr>
@@ -51,8 +52,8 @@
                                     @foreach ($comunas as $comuna)
                                         <tr>
                                             <!-- <td class="font-weight-bold text-Secondary">{{ $comuna->id}}</td> -->
-                                            <td class="font-weight-bold text-dark">{{ $comuna->cedula_comunas }} - {{ $comuna->nombre_comunas }} 
-                                            {{ $comuna->apellido_comunas }} {{ $comuna->telefono }} 
+                                            <td class="font-weight-bold text-dark">{{ $comuna->vocero->cedula }} - {{ $comuna->vocero->nombre }} 
+                                            {{ $comuna->vocero->apellido }}
                                             </td>
                             
                                             <td class="font-weight-bold text-dark">{{ $comuna->nom_comunas }}</td>
@@ -62,6 +63,10 @@
                                                     {{$comuna->parroquia->nom_parroquia }} @else
                                                 @endif
                                             </td>
+
+                                            <td class="font-weight-bold text-dark">{{ $comuna->consejo_comunals->nom_consej }} - {{ $comuna->consejo_comunals->situr }} 
+                                                {{ $comuna->consejo_comunals->rif }}
+                                            </td>                                            
 
                                             <td class="font-weight-bold text-dark">{{ $comuna->dire_comunas }}</td>
                                             

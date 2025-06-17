@@ -26,6 +26,18 @@
                             <div class="row">
 
                                 <div class="col-4">
+                                    <label  class="font-weight-bold text-dark">Vocero Asignado</label>
+                                    <select class="form-select" id="id_vocero" name="id_vocero">
+                                        <option value="">Seleccione un vocero</option>
+                                        @foreach($voceros as $vocero)
+                                            @if($vocero->tipo_vocero === 'comuna')
+                                                <option value="{{ $vocero->id }}"> {{ $vocero->cedula }} {{ $vocero->nombre }} {{ $vocero->apellido }}</option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                </div>
+
+                                <div class="col-4">
                                     <label  class="font-weight-bold text-dark">Nombre de la Comuna</label>
                                     <input type="text" class="form-control" id="nom_comunas" name="nom_comunas" style="background: white;" value="" placeholder="Ingrese El nombre comunidad" autocomplete="off" oninput="capitalizarInput('nombre comuna')">
                                 </div>
@@ -45,7 +57,7 @@
                                     <select class="form-select" id="id_consejo" name="id_consejo">
                                         <option value="">Seleccione una consejo comunal </option>
                                         @foreach($consejo_comunals as $consejo_comunal)
-                                            <option value="{{ $consejo_comunal->id }}">Nombre:{{ $consejo_comunal->nom_consej }}  Codigo:{{ $consejo_comunal->situr }}  Rif:{{ $consejo_comunal->rif }}  </option>
+                                            <option value="{{ $consejo_comunal->id }}">Nombre: {{ $consejo_comunal->nom_consej }}  Codigo: {{ $consejo_comunal->situr }}  Rif: {{ $consejo_comunal->rif }}  </option>
                                         @endforeach
                                     </select>
                                 </div>

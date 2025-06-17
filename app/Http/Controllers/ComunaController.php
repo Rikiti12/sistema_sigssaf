@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Comunas;
 use App\Models\Parroquia;
 use App\Models\ConsejoComunal;
+use App\Models\Voceros;
 use Illuminate\Database\QueryException;
 use App\Http\Controllers\BitacoraController;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -28,7 +29,8 @@ class ComunaController extends Controller
      */
     public function index()
     {
-        $comunas = Comunas::with('consejo_comunal')->get();
+        $comunas = Comunas::with('consejo_comunals')->get();
+        $comunas = Comunas::with('vocero')->get();
         return view('comuna.index', compact('comunas'));
     }
 
@@ -43,17 +45,22 @@ class ComunaController extends Controller
                             $query->where('nom_parroquia', 'LIKE', '%' . $search . '%');
                            })
                            ->orWhereHas('consejo_comunal', function ($query) use ($search){
+                            $query->where('nom_consej', 'LIKE', '%' . $search . '%')
+                            ->orWhere('rif', 'LIKE', '%' . $search . '%')
+                            ->orWhere('situr', 'LIKE', '%' . $search . '%');
+                           })
+                           ->orWhereHas('vocero', function ($query) use ($search){
                             $query->where('cedula', 'LIKE', '%' . $search . '%')
-                            ->orWhere('nombre', 'LIKE', '%' . $search . '%')
-                            ->orWhereHas('apellido', 'LIKE', '%' . $search . '%')
-                            ->orWhere('nom_consej', 'LIKE', '%' . $search . '%');
+                            >orWhere('nombre', 'LIKE', '%' . $search . '%')
+                            ->orWhere('apellido', 'LIKE', '%' . $search . '%');
                            })
                            ->orWhere('dire_comunas', 'LIKE', '%' . $search . '%')
                            ->get();
         } else {
             // Obtener todos los bancos si no hay término de búsqueda
             $comunas = Comunas::with('parroquia')->get();
-            $comunas = Comunas::with('consejo_comunal')->get();
+            $comunas = Comunas::with('consejo_comunals')->get();
+            $comunas = Comunas::with('vocero')->get();
         }
     
         // Generar el PDF, incluso si no se encuentran bancos
@@ -70,7 +77,8 @@ class ComunaController extends Controller
     {
         $parroquias = Parroquia::all();
         $consejo_comunals = ConsejoComunal::all();
-        return view('comuna.create', compact('parroquias', 'consejo_comunals'));
+        $voceros = Voceros::all();
+        return view('comuna.create', compact('parroquias', 'consejo_comunals', 'voceros'));
     }
 
     /**
@@ -93,6 +101,7 @@ class ComunaController extends Controller
         $comunas->nom_comunas = $request->input('nom_comunas');
         $comunas->id_parroquia = $request->input('id_parroquia');
         $comunas->id_consejo = $request->input('id_consejo');
+        $comunas->id_vocero = $request->input('id_vocero');
         $comunas->dire_comunas = $request->input('dire_comunas');
 
         $comunas->save();
@@ -156,14 +165,14 @@ class ComunaController extends Controller
         // Obtener La Comuna por ID
         $comuna =  Comunas::find($id);
         $parroquias = Parroquia::all();
+        $consejo_comunals = ConsejoComunal::all();
+        $voceros = Voceros::all();
 
         // Actualizar los campos segun los del formulario
-        $comuna->cedula_comunas = $request->input('cedula_comunas');
-        $comuna->nombre_comunas = $request->input('nombre_comunas');
-        $comuna->apellido_comunas = $request->input('apellido_comunas');
-        $comuna->telefono = $request->input('telefono');
         $comuna->nom_comunas = $request->input('nom_comunas');
         $comuna->id_parroquia = $request->input('id_parroquia');
+        $comuna->id_consejo = $request->input('id_consejo');
+        $comuna->id_vocero = $request->input('id_vocero');
         $comuna->dire_comunas = $request->input('dire_comunas');
 
         // Guardar los cambios en la base de datos

@@ -73,20 +73,6 @@ class EvaluacionesController extends Controller
         $evaluaciones->estado_evalu = $request->input('estado_evalu');
         $evaluaciones->viabilidad = $request->input('viabilidad');
 
-        // // Manejo de documentos adjuntos
-        // if ($request->hasFile('documentos')) {
-        //     $rutaGuardarDocs = 'documentos/evaluaciones/';
-        //     $nombresDocumentos = [];
-
-        //     foreach ($request->file('documentos') as $documento) {
-        //         $nombreDocumento = date('YmdHis') . '_' . uniqid() . '_' . pathinfo($documento->getClientOriginalName(), PATHINFO_FILENAME) . '.' . $documento->getClientOriginalExtension();
-        //         $documento->move(public_path($rutaGuardarDocs), $nombreDocumento);
-        //         $nombresDocumentos[] = $nombreDocumento;
-        //     }
-
-        //     $evaluacion->documentos = json_encode($nombresDocumentos);
-        // }
-
         $evaluaciones->save();
 
         $bitacora = new BitacoraController();

@@ -42,6 +42,7 @@ class VocerosController extends Controller
                            ->orWhere('correo', 'LIKE', '%' . $search . '%')
                            ->orWhere('direccion', 'LIKE', '%' . $search . '%')
                            ->orWhere('cargo', 'LIKE', '%' . $search . '%')
+                           ->orWhere('tipo', 'LIKE', '%' . $search . '%')
                            ->get();
         } else {
             // Obtener todos los bancos si no hay término de búsqueda
@@ -68,6 +69,7 @@ class VocerosController extends Controller
             'correo' => $vocero->correo,
             'genero' =>$vocero->genero,
             'cargo' =>$vocero->cargo,
+            'tipo_vocero' =>$vocero->tipo_vocero,
 
         ]);
  
@@ -120,6 +122,7 @@ class VocerosController extends Controller
         $voceros->correo = $request->input('correo');
         $voceros->direccion = $request->input('direccion');
         $voceros->cargo = $request->input('cargo');
+        $voceros->tipo_vocero = $request->input('tipo_vocero');
 
         $voceros->save();
 
@@ -194,6 +197,7 @@ class VocerosController extends Controller
         $vocero->correo = $request->input('correo');
         $vocero->direccion = $request->input('direccion');
         $vocero->cargo = $request->input('cargo');
+        $vocero->tipo_vocero = $request->input('tipo_vocero');
     
         $vocero->save();
 

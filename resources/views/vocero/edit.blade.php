@@ -72,6 +72,20 @@
                             </div>
 
                             <div class="col-md-4">
+                                <label class="font-weight-bold text-dark">Teléfono</label>
+                                <input type="text" class="form-control" id="cargo" name="cargo" maxlength="11" style="background: white;" value="{{ $vocero->cargo }}" placeholder="Ingrese el teléfono" autocomplete="off" onkeypress="return soloLetras(event);">
+                            </div>
+
+                            <div class="col-md-4">
+                                <label class="font-weight-bold text-dark">Tipo de Vocero</label>
+                                <select class="form-select" id="tipo_vocero" name="tipo_vocero">
+                                    <option value="">Seleccione el género</option>
+                                    <option value="comuna" {{ $vocero->tipo_vocero == 'comuna' ? 'selected' : '' }}>Comuna</option>
+                                    <option value="consejo_comunal" {{ $vocero->tipo_vocero == 'consejo_comunal' ? 'selected' : '' }}>Consejo Comunal</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-4">
                                 <label class="font-weight-bold text-dark">Dirección</label>
                                 <textarea class="form-control" id="direccion" name="direccion" cols="10" rows="10"style="max-height: 6rem;" oninput="capitalizarInput('direccion')">{{ $vocero->direccion }}</textarea>
                             </div>

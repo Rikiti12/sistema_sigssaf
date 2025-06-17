@@ -39,8 +39,8 @@
                         <table class="table align-items-center table-flush" id="dataTable">
                             <thead class="thead-light">
                                         <tr>
-                                        <th class="font-weight-bold text-dark">Nombre del Consejo Comunal</th>
                                         <th class="font-weight-bold text-dark">Vocero Asignado</th>
+                                        <th class="font-weight-bold text-dark">Nombre del Consejo Comunal</th>
                                         <th class="font-weight-bold text-dark">Comunidad Asignado</th>
                                         <th class="font-weight-bold text-dark">Dirección</th>
                                         <th class="font-weight-bold text-dark"><center>Acciones</center></th>
@@ -49,13 +49,15 @@
                                     <tbody>
                                     @foreach ($consejo_comunals as $consejocomunal)
                                         <tr>
-                                            <td class="font-weight-bold text-dark">{{ $consejocomunal->nom_consej }}</td>
 
                                             <td class="font-weight-bold text-dark">{{ $consejocomunal->vocero->cedula }} - {{ $consejocomunal->vocero->nombre }}
                                                 {{ $consejocomunal->vocero->apellido }}
                                             </td>
 
+                                            <td class="font-weight-bold text-dark">{{ $consejocomunal->nom_consej }}</td>
+
                                             <td class="font-weight-bold text-dark">{{ $consejocomunal->comunidad->nom_comuni }}</td>
+                                            
                                             <td class="font-weight-bold text-dark">{{ $consejocomunal->dire_consejo }}</td>
 
                                            {{--  <td class="font-weight-bold text-dark">{{ $consejocomunal->codigo_situr }}</td> --}}

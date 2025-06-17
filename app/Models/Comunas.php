@@ -12,7 +12,7 @@ class Comunas extends Model
     protected $table = 'comunas'; 
     protected $primaryKey = 'id';
     public $timestamps = true;
-    protected $fillable = ['nom_comunas','id_parroquia','id_consejo','dire_comunas'];
+    protected $fillable = ['nom_comunas','id_parroquia','id_consejo', 'id_vocero', 'dire_comunas'];
 
     public function parroquia()
     {
@@ -24,6 +24,9 @@ class Comunas extends Model
         return $this->belongsTo(ConsejoComunal::class, 'id_consejo');
     }
 
-
+    public function vocero()
+    {
+        return $this->belongsTo(Voceros::class, 'id_vocero');
+    }
 
 }

@@ -25,10 +25,10 @@
 
                         <div class="row">
 
-                        <div class="col-4">
-                                    <label  class="font-weight-bold text-dark">Cédula </label>
-                                    <input type="text" class="form-control" id="cedula" name="cedula" maxlength="8" style="background: white;" value="{{ old('cedula') }}" placeholder="Ingrese La Cedula" autocomplete="off" onkeypress="return solonum(event);">
-                                </div>
+                            <div class="col-4">
+                                <label  class="font-weight-bold text-dark">Cédula </label>
+                                <input type="text" class="form-control" id="cedula" name="cedula" maxlength="8" style="background: white;" value="{{ old('cedula') }}" placeholder="Ingrese La Cedula" autocomplete="off" onkeypress="return solonum(event);">
+                            </div>
 
                             <div class="col-md-4">
                                 <label class="font-weight-bold text-dark">Nombre</label>
@@ -72,6 +72,15 @@
                             <div class="col-md-4">
                                 <label class="font-weight-bold text-dark">Cargo</label>
                                 <input type="text" class="form-control" id="cargo" name="cargo" style="background: white;" value="{{ old('cargo') }}" placeholder="Ingrese el cargo" autocomplete="off">
+                            </div>
+
+                            <div class="col-md-4">
+                                <label class="font-weight-bold text-dark">Tipo de Vocero</label>
+                                <select class="form-select" id="tipo_vocero" name="tipo_vocero">
+                                    <option value="">Seleccione el género</option>
+                                    <option value="comuna" {{ old('tipo_vocero') === 'comuna' ? 'selected' : '' }}>Comunas</option>
+                                    <option value="consejo_comunal" {{ old('tipo_vocero') === 'consejo_comunal' ? 'selected' : '' }}>Consejo Comunal</option>
+                                </select>
                             </div>
 
                             <div class="col-md-4">

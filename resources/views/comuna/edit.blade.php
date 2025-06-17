@@ -29,6 +29,17 @@
                             <div class="row">
 
                                 <div class="col-4">
+                                    <label class="font-weight-bold text-dark">Vocero Asignada</label>
+                                    <select class="form-select" id="id_vocero" name="id_vocero">
+                                        @foreach($voceros as $vocero)
+                                            @if($vocero->tipo_vocero === 'comuna')
+                                                <option value="{{ $vocero->id }}" @selected($vocero->id_vocero == $vocero->id)>{{ $vocero->cedula }} - {{ $vocero->nombre }} {{ $vocero->apellido }}</option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                </div>
+
+                                <div class="col-4">
                                     <label  class="font-weight-bold text-dark">Nombre de la Comuna</label>
                                     <input type="text" class="form-control" id="nom_comunas" name="nom_comunas" style="background: white;" value="{{ isset($comuna->nom_comunas)?$comuna->nom_comunas:'' }}" placeholder="Ingrese El nombre de la comuna" autocomplete="off" oninput="capitalizarInput('nombre comuna')">
                                 </div>

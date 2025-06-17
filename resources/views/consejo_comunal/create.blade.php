@@ -25,6 +25,18 @@
 
                                 <div class="row">
 
+                                    <div class="col-4">
+                                        <label  class="font-weight-bold text-dark">Vocero Asignado</label>
+                                        <select class="form-select" id="id_vocero" name="id_vocero">
+                                            <option value="">Seleccione un vocero</option>
+                                            @foreach($voceros as $vocero)
+                                                @if($vocero->tipo_vocero === 'consejo_comunal')
+                                                    <option value="{{ $vocero->id }}"> {{ $vocero->cedula }} {{ $vocero->nombre }} {{ $vocero->apellido }}</option>
+                                                @endif
+                                            @endforeach
+                                        </select>
+                                    </div>
+
                                    <div class="col-4">
                                         <label  class="font-weight-bold text-dark">Nombre del Consejo Comunal</label>
                                         <input type="text" class="form-control" id="nom_consej" name="nom_consej" style="background: white;" value="" placeholder="Ingrese El nombre del consejo comunal" autocomplete="off" oninput="capitalizarInput('nombre consejo comunal')" onkeypress="return soloLetrasNumero(event);">
@@ -43,16 +55,6 @@
                                     <div class="col-4">
                                         <label class="font-weight-bold text-dark">Acta</label>
                                         <input type="text" class="form-control" id="acta" name="acta" style="background: white;" value="" placeholder="Ingrese el acta" autocomplete="off">
-                                    </div>
-
-                                    <div class="col-4">
-                                        <label class="font-weight-bold text-dark">Vocero Asignada</label>
-                                        <select class="form-select" id="id_vocero" name="id_vocero">
-                                            <option value="">Seleccione un Vocero </option>
-                                            @foreach($voceros as $vocero)
-                                                <option value="{{ $vocero->id }}">{{ $vocero->cedula }} - {{ $vocero->nombre }} {{ $vocero->apellido }}</option>
-                                            @endforeach
-                                        </select>
                                     </div>
 
                                     <div class="col-4">

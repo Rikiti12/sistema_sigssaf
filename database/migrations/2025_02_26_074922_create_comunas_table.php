@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('nom_comunas');
             $table->bigInteger('id_parroquia')->nullable();
             $table->unsignedBigInteger('id_consejo');
+            $table->unsignedBigInteger('id_vocero');
             $table->text('dire_comunas');
             
             $table->timestamps();
@@ -27,6 +28,9 @@ return new class extends Migration
 
             // Establecer relación con la tabla de parroquias
             $table->foreign('id_consejo')->references('id')->on('consejo_comunals');
+
+            // Establecer relación con la tabla de voceros
+            $table->foreign('id_vocero')->references('id')->on('voceros');
         });
     }
 

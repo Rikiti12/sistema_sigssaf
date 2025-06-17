@@ -87,6 +87,20 @@ class ProyectosController extends Controller
             $proyectos->fecha_inicial = $request->input('fecha_inicial');
             $proyectos->fecha_final = $request->input('fecha_final');
             $proyectos->prioridad = $request->input('prioridad');
+
+            if ($request->hasFile('acta_conformidad')) {
+            $rutaGuardarDocs = 'acta_conformidad/proyectos/';
+            $nombresActas = [];
+
+            foreach ($request->file('acta_conformidad') as $acta_conformidad) {
+                $nombreActa = date('YmdHis') . '_' . uniqid() . '_' . pathinfo($acta_conformidad->getClientOriginalName(), PATHINFO_FILENAME) . '.' . $acta_conformidad->getClientOriginalExtension();
+                $acta_conformidad->move(public_path($rutaGuardarDocs), $nombreActa);
+                $nombresActas[] = $nombreActa;
+            }
+
+                $proyectos->acta_conformidad = json_encode($nombresActas);
+            }
+
             $proyectos->save();
 
             // Registrar en bitácora
@@ -143,6 +157,7 @@ class ProyectosController extends Controller
             'prioridad' => 'required|in:Alta,Media,Baja',
             
         ]);
+
             $proyecto = Proyectos::find($id);
             $proyecto->nombre_pro = $request->input('nombre_pro');
             $proyecto->descripcion_pro = $request->input('descripcion_pro');
@@ -154,7 +169,7 @@ class ProyectosController extends Controller
         
             // Registrar en bitácora
            $bitacora = new BitacoraController();
-        $bitacora->update();
+           $bitacora->update();
         
 
         try {

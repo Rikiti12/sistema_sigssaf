@@ -83,8 +83,7 @@ img {
                         <th>Vocero</th>
                         <th>Fecha de Naciemiento</th>
                         <th>Correo Telefono</th>
-                        <th>Cargo</th>
-                        
+                        <th>Cargo / Tipo de Vocero</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -101,9 +100,9 @@ img {
                         </td>
 
                         <td>                         
-                            {{ $vocero->cargo }} 
+                            {{ $vocero->cargo }}  {{ $vocero->tipo_vocero}} 
                         </td>
-
+                        
                     </tr>
                 @endforeach  
                 </tbody>

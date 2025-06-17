@@ -25,6 +25,7 @@ return new class extends Migration
             $table->string('correo')->unique();
             $table->text('direccion');
             $table->string('cargo');
+            $table->string('tipo_vocero');
             $table->timestamps();
         });
     }

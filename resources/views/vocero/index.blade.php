@@ -1,6 +1,6 @@
 @extends('layouts.index')
 
-<title>@yield('title') vocero</title>
+<title>@yield('title') Vocero</title>
 
 @section('css-datatable')
         <link href="{{ asset ('assets/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
@@ -21,7 +21,7 @@
 
                             <h2 class="font-weight-bold text-dark">Gestión de Vocero</h2>
 
-                        {{-- @can('crear-vocero') --}}
+                        @can('crear-vocero')
                             <form action="{{ route('vocero.create') }}" method="get" style="display:inline;">
                                 <button type="submit" class="btn btn-primary btn-mb"> <span class="">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-person-plus-fill" viewBox="0 0 16 16">
@@ -31,7 +31,7 @@
                                 </span>
                                 <span class="text">Crear</span></button>
                             </form>
-                        {{-- @endcan --}}
+                        @endcan
 
                 </div>
 
@@ -165,7 +165,7 @@
             table.on('search.dt', function () {
                 var searchTerm = table.search();
                 $.ajax({
-                    url: "{{ url('vocero/pdf') }}",
+                    url: '{{ url('vocero/pdf') }}',
                     method: 'GET',
                     data: { search: searchTerm },
                     success: function(response) {
@@ -262,6 +262,7 @@
                             <p><b>Correo:</b> ${data.correo}</p>
                             <p><b>Cargo:</b> ${data.cargo}</p>
                             <p><b>Genero:</b> ${data.genero}</p>
+                            <p><b>Tipo de Vocero:</b> ${data.tipo_vocero}</p>
                            
                         `);
         
