@@ -23,12 +23,6 @@
 
                             <div class="card-body">
 
-                                <center>
-                                    <h5 class="font-weight-bold text-dark">Datos de la Comunidad</h5>
-                                </center>
-
-                                <br>
-
                                 <div class="row">
 
                                     <div class="col-4">

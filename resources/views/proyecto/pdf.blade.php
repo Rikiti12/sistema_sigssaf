@@ -16,7 +16,7 @@
         }
 
         .header {
-            background-color: rgb(15, 15, 15);
+            background-color: rgb(11, 54, 119);
             color: rgb(231, 227, 225);
         }
 
