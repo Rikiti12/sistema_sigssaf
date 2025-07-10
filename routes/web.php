@@ -101,6 +101,8 @@ Route::get('/evaluacion', [EvaluacionesController::class, 'index'])->name('evalu
 Route::get('/evaluacion/create', [EvaluacionesController::class, 'create'])->name('evaluacion.create')->middleware('auth');
 Route::get('/evaluacion/pdf', [EvaluacionesController::class, 'pdf'])->name('evaluacion.pdf')->middleware('auth');
 Route::resource('evaluacion', EvaluacionesController::class)->except(['index', 'create'])->middleware('auth');
+Route::post('/actualizar-estatus-evaluacion/{id}', [EvaluacionesController::class, 'actualizarEstatusEvaluacion']);
+
 /* Rutas Asignaciones */
 Route::get('/asignacion', [AsignacionesController::class, 'index'])->name('asignacion')->middleware('auth');
 Route::get('/asignacion/create', [AsignacionesController::class, 'create'])->name('create')->middleware('auth');

@@ -19,7 +19,7 @@ return new class extends Migration
             $table->date('fecha_evalu');
             $table->string('respon_evalu', 100);
             $table->text('observaciones');
-            $table->enum('estado_evalu', ['Pendiente', 'En Proceso', 'Completada', 'Aprobada'])->default('Pendiente');
+            $table->string('estado_evalu');
             $table->enum('viabilidad', ['Alta', 'Media', 'Baja']);
             $table->json('documentos')->nullable();
             $table->timestamps();

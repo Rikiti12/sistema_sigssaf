@@ -86,6 +86,56 @@ class EvaluacionesController extends Controller
         }
     }
 
+    public function actualizarEstatusEvaluacion(Request $request, $id)
+    {
+        // $evaluacion = Evaluaciones::find($id);
+
+        // if ($evaluacion) {
+        //     $evaluacion->estado_evalu = $request->input('estado_evalu');
+        //     $evaluacion->save();
+
+        //     return response()->json(['success' => true]);
+        // } else {
+        //     return response()->json(['success' => false, 'message' => 'Evaluacion no encontrada']);
+        // }
+        {
+            // 1. Validar la solicitud
+            // Es crucial para asegurarnos de que 'estado_evalu' siempre venga en la solicitud
+            // y tenga un valor esperado.
+            $request->validate([
+                'estado_evalu' => 'required|string|in:Aprobado,Pendiente', // Ajusta 'Negado' si ya no lo usas
+            ]);
+    
+            try {
+                // 2. Encontrar la evaluación por ID
+                $evaluacion = Evaluaciones::find($id);
+    
+                if (!$evaluacion) {
+                    // Si la evaluación no se encuentra, devuelve un error JSON con un código 404
+                    return response()->json(['success' => false, 'message' => 'Evaluación no encontrada.'], 404);
+                }
+    
+                // 3. Actualizar el estado de la evaluación
+                $evaluacion->estado_evalu = $request->input('estado_evalu');
+                $evaluacion->save();
+    
+                // 4. Devolver una respuesta JSON de éxito con un mensaje descriptivo
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Estatus de la evaluación actualizado a ' . $evaluacion->estado_evalu . ' correctamente.'
+                ]);
+    
+            } catch (\Exception $e) {
+                // 5. Capturar cualquier error inesperado y devolver un JSON de error con un código 500
+                // Registra el error para depuración (opcional pero recomendado)
+                \Log::error('Error al actualizar el estatus de la evaluación ID ' . $id . ': ' . $e->getMessage());
+    
+                return response()->json(['success' => false, 'message' => 'Ocurrió un error en el servidor al actualizar el estatus.'], 500);
+            }
+        }
+    }
+
+
     /**
      * Display the specified resource.
      *

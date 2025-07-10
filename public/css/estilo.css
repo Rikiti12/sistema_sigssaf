@@ -107,7 +107,7 @@ body{
 }
 
 .container input[name="reset_Password"]{
-    background-color: #5c6bc0;
+    background-image: linear-gradient(to right, white 0%, #0000ff 30%, black 100%);
     color: #fff;
 }
 
