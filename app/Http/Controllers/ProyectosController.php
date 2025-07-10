@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Proyectos;
+use App\Models\Actividades;
+use App\Models\ActividadProyectos;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\QueryException;
 use App\Http\Controllers\BitacoraController;
@@ -27,7 +29,7 @@ class ProyectosController extends Controller
      */
     public function index()
     {
-        $proyectos = Proyectos::all();
+        $proyectos = Proyectos::with('actividades')->get();
         return view('proyecto.index', compact('proyectos'));
     }
 
@@ -61,7 +63,9 @@ class ProyectosController extends Controller
      */
     public function create()
     {
-        return view('proyecto.create');
+        $actividades = Actividades::all();
+        $actividad_proyectos = ActividadProyectos::get();
+        return view('proyecto.create', compact('actividades', 'actividad_proyectos'));
     }
 
     /**
@@ -84,9 +88,15 @@ class ProyectosController extends Controller
             $proyectos->nombre_pro = $request->input('nombre_pro');
             $proyectos->descripcion_pro = $request->input('descripcion_pro');
             $proyectos->tipo_pro = $request->input('tipo_pro');
+
+            // Asociar las actividades al proyecto
+            $proyectos->actividades()->sync($request->actividades);
+
             $proyectos->fecha_inicial = $request->input('fecha_inicial');
             $proyectos->fecha_final = $request->input('fecha_final');
             $proyectos->prioridad = $request->input('prioridad');
+
+
 
             if ($request->hasFile('acta_conformidad')) {
             $rutaGuardarDocs = 'acta_conformidad/proyectos/';

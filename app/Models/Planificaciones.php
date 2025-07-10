@@ -16,7 +16,7 @@ class Planificaciones extends Model
     ];
     
     // Relaciones 
-    public function asignacion()
+    public function asignaciones()
     {
         return $this->belongsTo(Asignaciones::class, 'id_asignacion');
     }

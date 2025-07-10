@@ -53,7 +53,6 @@ class homeController extends Controller
 
         $mapa_asignaciones = asignaciones::select('latitud','longitud')->get();
 
-
         return view('home.inicio' , compact('count_vocero', 'count_comunidad', 'count_consejo', 'count_comuna','count_proyecto','count_evaluacion',
         'count_asignacion', 'count_planificacion', 'mapa_asignaciones'  ) ,  [
         'count' => $count_vocero, $count_comunidad, $count_consejo, $count_comuna, $count_proyecto,$count_evaluacion, $count_asignacion, $count_planificacion

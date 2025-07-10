@@ -16,6 +16,7 @@
     <div class="page-inner">
       <div class="row">
         <div class="col-sm-6 col-md-3">
+             <a href="{{ route('vocero.index') }}" class="card-link"></a>
           <div class="card card-stats card-round">
             <div class="card-body">
               <div class="row align-items-center">

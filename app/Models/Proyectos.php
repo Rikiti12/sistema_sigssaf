@@ -14,4 +14,9 @@ class Proyectos extends Model
     protected $fillable = [ 'nombre_pro','descripcion_pro','tipo_pro','fecha_inicial', 'fecha_final',
     'prioridad', 'acta_conformidad'];
 
+    public function actividades()
+    {
+        return $this->belongsToMany(actividades::class, 'actividad_proyectos', 'id_proyecto', 'id_actividad');
+    }
+    
 }

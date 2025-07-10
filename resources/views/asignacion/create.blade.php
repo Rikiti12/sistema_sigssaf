@@ -23,7 +23,9 @@
                     @csrf
 
                         <div class="card-body">
-
+                            
+                            <input type="hidden" class="form-control" id="id_evaluacion" name="id_evaluacion" style="background: white;" value="{{ isset($evaluacion->id)?$evaluacion->id:'' }}" placeholder="" autocomplete="off">
+                            
                             <div class="row">
 
                                 <div class="col-4">
@@ -31,7 +33,9 @@
                                     <select class="form-select" id="id_vocero" name="id_vocero">
                                         <option value="">Seleccione un vocero</option>
                                         @foreach($voceros as $vocero)
-                                            <option value="{{ $vocero->id }}">{{ $vocero->nombre }} {{ $vocero->apellido }}  {{ $vocero->cedula }}</option>
+                                            @if($vocero->tipo_vocero === 'consejo_comunal')
+                                                <option value="{{ $vocero->id }}"> {{ $vocero->cedula }} {{ $vocero->nombre }} {{ $vocero->apellido }}</option>
+                                            @endif
                                         @endforeach
                                     </select>
                                 </div>
@@ -45,16 +49,6 @@
                                         @endforeach
                                     </select>                                   
                                 </div>
-
-                                {{-- <div class="col-4">
-                                    <label  class="font-weight-bold text-dark">Nombre Del Proyecto</label>
-                                    <input type="text" class="form-control" id="nombre_pro" name="nombre_pro" style="background: white;" value="" placeholder="Ingrese El Nombre Del Proyecto" oninput="capitalizarInput('nombre_pro')" autocomplete="off" onkeypress="return soloLetras(event);">
-                                </div>
-                                
-                                <div class="col-4">
-                                    <label  class="font-weight-bold text-dark">Descripción</label>
-                                    <input type="text" class="form-control" id="descripcion_pro" name="descripcion_pro" style="background: white;" value="" placeholder="Ingrese La Descripcion" autocomplete="off" oninput="capitalizarInput('descripcion_pro')" onkeypress="return soloLetras(event);">
-                                </div> --}}
 
                                 <div class="col-md-4 mb-3">
                                     <label class="font-weight-bold text-dark">Memoria Fotográfica</label>

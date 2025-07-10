@@ -79,7 +79,7 @@
                             <div class="col-md-4">
                                 <label class="font-weight-bold text-dark">Tipo de Vocero</label>
                                 <select class="form-select" id="tipo_vocero" name="tipo_vocero">
-                                    <option value="">Seleccione el género</option>
+                                    <option value="">Seleccione el tipo de vocero</option>
                                     <option value="comuna" {{ $vocero->tipo_vocero == 'comuna' ? 'selected' : '' }}>Comuna</option>
                                     <option value="consejo_comunal" {{ $vocero->tipo_vocero == 'consejo_comunal' ? 'selected' : '' }}>Consejo Comunal</option>
                                 </select>

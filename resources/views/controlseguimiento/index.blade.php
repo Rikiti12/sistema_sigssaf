@@ -37,21 +37,17 @@
                                         <td class="font-weight-bold text-dark">{{ $seguimiento->responsable_segui }}</td>
                                         <td class="font-weight-bold text-dark">{{ $seguimiento->detalle_segui }}</td>
                                         <td>
-                                                    <span class="badge badge-{{ 
-                                                        $seguimiento->estado_actual == 'Completado' ? 'success' : 
-                                                        ($seguimiento->estado_actual == 'Retrasado' ? 'danger' : 
-                                                        ($seguimiento->estado_actual == 'En riesgo' ? 'warning' : 'info'))
-                                                    }}">
-                                                        {{ $seguimiento->estado_actual }}
-                                                    </span>
-                                                </td>
-                                                <td>
-                                                    @if($seguimiento->gasto_incu)
-                                                        ${{ number_format($seguimiento->gasto_incu, 2) }}
-                                                    @else
-                                                        -
-                                                    @endif
-                                                </td>
+                                            <span class="badge badge-{{ 
+                                                $seguimiento->estado_actual == 'Completado' ? 'success' : 
+                                                ($seguimiento->estado_actual == 'Retrasado' ? 'danger' : 
+                                                ($seguimiento->estado_actual == 'En riesgo' ? 'warning' : 'info'))
+                                            }}">
+                                                {{ $seguimiento->estado_actual }}
+                                            </span>
+                                        </td>
+                                        
+                                        <td class="font-weight-bold text-dark">{{ $seguimiento->gasto }}</td>
+ 
                                         {{-- <td class="font-weight-bold text-dark">{{ $seguimiento->estatus }}</td>
                                         <td class="font-weight-bold text-dark">{{ $seguimiento->estatus_res }}</td> --}}
                                         <td>

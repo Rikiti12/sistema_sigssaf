@@ -21,13 +21,22 @@
                     @method('PATCH')
 
                      <div class="card-body">
+
+                        <input type="hidden" class="form-control" id="id_planificacion" name="id_planificacion" style="background: white;" value="{{ isset($seguimiento->planificacion->id)?$seguimiento->planificacion->id:'' }}" placeholder="" autocomplete="off">                                  
                         
                        <div class="row"> 
 
                             <div class="col-4">
-                                <label class="font-weight-bold text-dark">Responsable del Seguimiento</label>
-                                <input type="text" class="form-control" id="responsable_segui" name="responsable_segui" value="{{ $seguimiento->responsable_segui}}" placeholder="Ingrese el Nombre del Responsable" oninput="capitalizarInput('responsable_segui')" autocomplete="off">
-                            </div>
+                                <label  class="font-weight-bold text-dark">Responsable del Seguimiento</label>
+                                <select class="form-select" name="responsable_segui" id="responsable_segui" @readonly(true)>
+                                    <option value="" selected="true" disabled>Seleccione un Responsable</option>
+                                    @if($seguimiento->planificacion)
+                                        <option value="{{ $seguimiento->planificacion->asignaciones->evaluaciones->respon_evalu }}" selected>
+                                            {{ $seguimiento->planificacion->asignaciones->evaluaciones->respon_evalu }}
+                                        </option>
+                                    @endif
+                                </select>
+                            </div> 
                             
                             <div class="col-4">
                                 <label class="font-weight-bold text-dark">Detalles del Seguimiento</label>
@@ -40,12 +49,9 @@
                                        value="{{ old('fecha_hora_segui', date('Y-m-d\TH:i', strtotime($seguimiento->fecha_hor))) }}" required>
                             </div>
 
-                              <div class="col-4">
-                                <label class="font-weight-bold text-dark">Gasto Incurrido </label>
-                                <input type="number" class="form-control" id="gasto_incu" name="gasto_incu" 
-                                       min="0" step="0.01" placeholder="0.00"
-                                       value="{{ old('gasto_incurrido', $seguimiento->gasto_incur) }}">
-                                <small class="text-muted">Ingrese el monto gastado hasta ahora</small>
+                            <div class="col-4">
+                                <label class="font-weight-bold text-dark">Gasto</label>
+                                <input type="text" class="form-control" id="gasto" name="gasto" value="{{ isset($seguimiento->gasto)?$seguimiento->gasto:'' }}"  placeholder="Ingrese el gasto" autocomplete="off">
                             </div>
 
                             <div class="col-4">
@@ -62,59 +68,8 @@
 
                             <div class="col-4">
                                 <label class="font-weight-bold text-dark">Riesgos identificados</label>
-                                <select class="form-select" name="riesgos" id="riesgos">
-                                    <option value="" {{ old('riesgos', $seguimiento->riesgos) == '' ? 'selected' : '' }}>Ninguno</option>
-                                    <option value="Bajo" {{ old('riesgos', $seguimiento->riesgos) == 'Bajo' ? 'selected' : '' }}>Bajo</option>
-                                    <option value="Medio" {{ old('riesgos', $seguimiento->riesgos) == 'Medio' ? 'selected' : '' }}>Medio</option>
-                                    <option value="Alto" {{ old('riesgos', $seguimiento->riesgos) == 'Alto' ? 'selected' : '' }}>Alto</option>
-                                </select>
+                                <textarea class="form-control" name="riesgos" id="riesgos"rows="3" placeholder="Describa los riesgos identificados">{{ old('riesgos', $seguimiento->riesgos) }}</textarea>
                             </div>
-
-                            {{-- @if(auth()->user()->hasRole('Asistente'))
-                                @if ($seguimiento->estatus_resp == "" || $seguimiento->estatus_resp == "Pendiente")
-                                <div class="col-4">
-                                    <label  class="font-weight-bold text-dark">Estatus del proyectos</label>
-                                    <select class="select2single form-control" name="estatus" id="estatus">
-                                        <option value="0" selected="true" disabled>Seleccione un Estatus</option>
-                                        <option value="Aprobado" {{ (old('estatus', $seguimiento->estatus ?? '') === 'Aprobado') ? 'selected' : '' }}>Aprobado</option>
-                                        <option value="Negado" {{ (old('estatus', $seguimiento->estatus ?? '') === 'Negado') ? 'selected' : '' }}>Negado</option>
-                                    </select>
-                                </div>
-                                @endif
-                            @elseif(auth()->user()->hasRole('Administrador'))
-                                <div class="col-4">
-                                    <label  class="font-weight-bold text-dark">Estatus del proyectos</label>
-                                    <select class="select2single form-control" name="estatus" id="estatus">
-                                        <option value="0" selected="true" disabled>Seleccione un Estatus</option>
-                                        <option value="Aprobado" {{ (old('estatus', $seguimiento->estatus ?? '') === 'Aprobado') ? 'selected' : '' }}>Aprobado</option>
-                                        <option value="Negado" {{ (old('estatus', $seguimiento->estatus ?? '') === 'Negado') ? 'selected' : '' }}>Negado</option>
-                                    </select>
-                                </div>
-                            @endif --}}
-
-
-                            {{-- @if(auth()->user()->hasRole('Administrador'))
-                                <div class="card-body" id="estatus_respuesta">
-                                    <label class="font-weight-bold text-dark">Estatus Aprobación</label>
-                                    <div class="row">
-                                        <div class="custom-control custom-radio col-1 mr-2"> 
-                                            <input class="custom-control-input" type="radio" name="estatus_res" id="estatus_resp_pen" value="Pendiente" {{ ($seguimiento->estatus_res=="Pendiente")? "checked" : ""}}>
-                                            <label class="custom-control-label" for="estatus_res_pen">Pendiente</label>
-                                        </div>
-                                        <div class="custom-control custom-radio col-1 mr-2">
-                                            <input class="custom-control-input" type="radio" name="estatus_res" id="estatus_resp_apro" value="Aprobado" {{ ($seguimiento->estatus_res=="Aprobado")? "checked" : ""}}>
-                                            <label class="custom-control-label" for="estatus_res_apro">Aprobado</label>
-                                        </div>
-                                        <div class="custom-control custom-radio col-1 mr-2">
-                                            <input class="custom-control-input" type="radio" name="estatus_res" id="estatus_resp_neg" value="Negado" {{ ($seguimiento->estatus_res=="Negado")? "checked" : ""}}>
-                                            <label class="custom-control-label" for="estatus_res_neg">Negado</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            @else
-                                <input type="hidden" name="estatus_resp" id="estatus_resp" value="Pendiente">
-                            @endif --}}
-
 
                         </div>
 
@@ -125,7 +80,7 @@
                             <button type="submit" class="btn btn-success btn-lg"><span class="icon text-white-60"><i class="fas fa-check"></i></span>
                                 <span class="text">Guardar</span>
                             </button>
-                            <a class="btn btn-info btn-lg" href="{{ url('controlseguimiento.index') }}"><span class="icon text-white-50">
+                            <a class="btn btn-info btn-lg" href="{{ url('controlseguimiento') }}"><span class="icon text-white-50">
                                     <i class="fas fa-info-circle"></i>
                                 </span>
                                 <span class="text">Regresar</span></a>

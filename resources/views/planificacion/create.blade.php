@@ -24,10 +24,6 @@
 
                         <input type="hidden" class="form-control" id="id_asignacion" name="id_asignacion" style="background: white;" value="{{ $asignacion->id }}" autocomplete="off">
 
-                        {{-- @php
-                            echo $proyecto;    
-                        @endphp --}}
-
                         <div class="row">
 
                             <div class="col-4">

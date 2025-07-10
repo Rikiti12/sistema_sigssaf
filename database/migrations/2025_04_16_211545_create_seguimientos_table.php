@@ -19,11 +19,9 @@ return new class extends Migration
             $table->dateTime('fecha_hor');
             $table->string('responsable_segui');
             $table->text('detalle_segui');
-            $table->decimal('gasto_incu', 10, 2)->nullable(); 
+            $table->string('gasto'); 
             $table->string('estado_actual');
-            $table->string('riesgos')->nullable();
-            // $table->string('estatus');
-            // $table->string('estatus_res');
+            $table->text('riesgos');
             $table->timestamps();
 
             // Establecer relaciones con las tablas correspondientes

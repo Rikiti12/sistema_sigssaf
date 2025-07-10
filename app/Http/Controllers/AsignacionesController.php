@@ -31,6 +31,10 @@ class AsignacionesController extends Controller
     public function index()
     {
         $evaluaciones = Evaluaciones::with('proyectos')->get();
+        $evaluaciones->each(function ($evaluacion) {
+            $evaluacion->yaAsignada = Asignaciones::where('id_evaluacion', $evaluacion->id)->exists();
+        });
+
         return view('asignacion.index', compact('evaluaciones'));
     }
 
@@ -39,11 +43,12 @@ class AsignacionesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
+        $evaluacion = Evaluaciones::findOrFail($id);
         $voceros = Voceros::all();
         $comunidades = Comunidades::all();
-        return view('asignacion.create', compact('voceros', 'comunidades'));
+        return view('asignacion.create', compact('evaluacion','voceros', 'comunidades'));
     }
 
     /**
@@ -67,12 +72,10 @@ class AsignacionesController extends Controller
         // ]);
 
         $asignaciones = new Asignaciones();
+        $asignaciones->id_evaluacion = $request->input('id_evaluacion');
         $asignaciones->id_vocero = $request->input('id_vocero');
         $asignaciones->id_comunidad = $request->input('id_comunidad');
-        // $asignaciones->nombre_pro = $request->input('nombre_pro');
-        // $asignaciones->descripcion_pro = $request->input('descripcion_pro');
         
-
         // Verificar si se han cargado archivos
         if ($request->hasFile('imagenes')) {
             $rutaGuardarImg = 'imagenes/';
@@ -94,6 +97,9 @@ class AsignacionesController extends Controller
         $asignaciones->latitud = $request->input('latitud');
         $asignaciones->longitud = $request->input('longitud');
         $asignaciones->direccion = $request->input('direccion');
+
+        // dd($asignaciones);
+
         $asignaciones->save();
 
         $bitacora = new BitacoraController();
@@ -128,6 +134,7 @@ class AsignacionesController extends Controller
     public function edit($id)
     {
         $asignacion = Asignaciones::find($id);
+        $evaluacion = Evaluaciones::all();
         $voceros = Voceros::all();
         $comunidades = Comunidades::all();
         $imagenes = $asignacion->imagenes;
@@ -136,7 +143,7 @@ class AsignacionesController extends Controller
         $direccion = $asignacion->direccion;
 
         // $documentos = $asignacion->documentos;
-        return view('asignacion.edit', compact('asignacion', 'voceros', 'comunidades', 'imagenes'));
+        return view('asignacion.edit', compact('evaluacion','asignacion', 'voceros', 'comunidades', 'imagenes','latitud','longitud','direccion'));
     }
 
     /**
@@ -157,10 +164,10 @@ class AsignacionesController extends Controller
         // ]);
 
         $asignacion = Asignaciones::find($id);
+        $asignacion->id_evaluacion = $request->input('id_evaluacion');
         $asignacion->id_vocero = $request->input('id_vocero');
         $asignacion->id_comunidad = $request->input('id_comunidad');
-        $asignacion->nombre_pro = $request->input('nombre_pro');
-        $asignacion->descripcion_pro = $request->input('descripcion_pro');
+       
        
 
         // Verificar si se han cargado nuevos archivos
@@ -177,24 +184,6 @@ class AsignacionesController extends Controller
             // Actualizar las imágenes
             $asignacion->imagenes = json_encode($nombresImagenes);
         }
-
-        // // Verificar si se han cargado nuevos archivos
-        // if ($request->hasFile('documentos')) {
-        //     $rutaGuardarPdf = 'pdf/';
-        //     $nuevosNombresPdf = [];
-
-        //     foreach ($request->file('documentos') as $pdf) {
-        //         $pdfComprobante = date('YmdHis') . '_' . uniqid() . '_' . pathinfo($pdf->getClientOriginalName(), PATHINFO_FILENAME) . '.' . $pdf->getClientOriginalExtension();
-        //         $pdf->move(public_path($rutaGuardarPdf), $pdfComprobante);
-        //         $nuevosNombresPdf[] = $pdfComprobante;
-        //     }
-
-        //     // Combinar los nuevos archivos con los existentes
-        //     $archivosExistentes = json_decode($asignacion->documentos, true) ?? [];
-        //     $todosLosArchivos = array_merge($archivosExistentes, $nuevosNombresPdf);
-
-        //     $asignacion->documentos = json_encode($todosLosArchivos);
-        // }
        
         $asignacion->latitud = $request->input('latitud');
         $asignacion->longitud = $request->input('longitud');

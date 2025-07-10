@@ -24,12 +24,19 @@
 
                     <div class="card-body">
                         
-                       <div class="row"> 
-
+                       <div class="row">
+                        
                             <div class="col-4">
-                                <label class="font-weight-bold text-dark">Responsable del Seguimiento</label>
-                                <input type="text" class="form-control" id="responsable_segui" name="responsable_segui" placeholder="Ingrese el Nombre del Responsable" oninput="capitalizarInput('responsable_segui')" autocomplete="off">
-                            </div>
+                                <label  class="font-weight-bold text-dark">Responsable del Seguimiento</label>
+                                <select class="form-select" name="responsable_segui" id="responsable_segui">
+                                    <option value="" selected="true" disabled>Seleccione un Responsable</option>
+                                    @if($planificacion)
+                                        <option value="{{ $planificacion->asignaciones->evaluaciones->respon_evalu }}" selected>
+                                            {{ $planificacion->asignaciones->evaluaciones->respon_evalu }}
+                                        </option>
+                                    @endif
+                                </select>
+                            </div> 
                             
                             <div class="col-4">
                                 <label class="font-weight-bold text-dark">Detalles del Seguimiento</label>
@@ -44,10 +51,8 @@
 
 
                             <div class="col-4">
-                                <label class="font-weight-bold text-dark">Gasto Incurrido </label>
-                                <input type="number" class="form-control" id="gasto_incu" name="gasto_incu" 
-                                       min="0" step="0.01" placeholder="0.00">
-                                <small class="text-muted">Ingrese el monto gastado hasta ahora</small>
+                                <label class="font-weight-bold text-dark">Gasto</label>
+                                <input type="text" class="form-control" id="gasto" name="gasto" placeholder="Ingrese el Nombre del Responsable" autocomplete="off">
                             </div>
 
 
@@ -63,46 +68,10 @@
                                 </select>
                             </div>
                              
-                              <div class="col-4">
+                            <div class="col-4">
                                 <label class="font-weight-bold text-dark">Riesgos identificados</label>
-                                <select class="form-select" name="riesgos" id="riesgos">
-                                    <option value="" selected>Ninguno</option>
-                                    <option value="Bajo">Bajo</option>
-                                    <option value="Medio">Medio</option>
-                                    <option value="Alto">Alto</option>
-                                </select>
+                                <textarea class="form-control" name="riesgos" id="riesgos" rows="3" placeholder="Describa los riesgos identificados" >{{ old('riesgos') ?? '' }}</textarea>
                             </div>
-
-                            
-                            {{-- <div class="col-4">
-                                <label class="font-weight-bold text-dark">Estado del Proyecto</label>
-                                <select class="form-select"name="estatus" id="estatus">
-                                    <option value="" selected="true" disabled>Seleccione un Estatus</option>
-                                    <option value="Aprobado">Aprobado</option>
-                                    <option value="Negado">Negado</option>
-                                </select>
-                            </div>
-
-                            @if(auth()->user()->hasRole('Administrador'))
-                                <div class="card-body" id="estatus_aprob">
-                                    <label class="font-weight-bold text-dark">Estatus Aprobacion</label>
-                                    <div class="row">
-                                        <div class="form-check form-check-inline col-1 mr-2">
-                                            <input class="form-check-input" type="radio" name="estatus_res" id="estatus_res_pen" value="Pendiente" checked>
-                                            <label class="form-check-label" for="estatus_res_pen">Pendiente</label>
-                                        </div>
-                                        <div class="form-check form-check-inline col-1 mr-2">
-                                            <input class="form-check-input" type="radio" name="estatus_res" id="estatus_res_apro" value="Aprobado">
-                                            <label class="form-check-label" for="estatus_rep_apro">Aprobado</label>
-                                        </div>
-                                        <div class="form-check form-check-inline col-1 mr-2">
-                                            <input class="form-check-input" type="radio" name="estatus_res" id="estatus_res_neg" value="Negado">
-                                            <label class="form-check-label" for="estatus_res_neg">Negado</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            @endif --}}
-
 
                         </div>
 

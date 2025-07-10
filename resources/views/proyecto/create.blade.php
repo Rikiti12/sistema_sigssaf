@@ -1,10 +1,10 @@
 @extends('layouts.index')
 
 <title>@yield('title')  Registrar Proyectos</title>
-<script src="{{ asset('js/validaciones.js') }}"></script>
-<script src="{{ asset('https://cdn.jsdelivr.net/npm/sweetalert2@11')}}"></script>
-<link  href="{{ asset('https://unpkg.com/leaflet@1.9.4/dist/leaflet.css')}}" rel="stylesheet" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
-<script src="{{ asset('https://unpkg.com/leaflet@1.9.4/dist/leaflet.js')}}" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<script src="{{asset ('js/validaciones.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
 @section('content')
 
@@ -49,6 +49,16 @@
                                 </select>
                             </div>
 
+                            <div class="col-4">
+                                <label class="font-weight-bold text-dark">Actividades</label>
+                                <select class="select2-single form-control" id="actividades" name="actividades[]" multiple>
+                                    <option value="">Seleccione las Actividades</option>
+                                    @foreach($actividades as $actividad)
+                                        <option value="{{ $actividad->id }}">{{ $actividad->nom_actividad }}</option>
+                                    @endforeach
+                                </select>                                   
+                            </div>
+
                             <div class="col-md-4 mb-3">
                                 <label class="font-weight-bold text-dark">Fecha Inicial</label>
                                 <input type="date" class="form-control" id="fecha_inicial" name="fecha_inicial" value="<?php echo date('d/m/Y'); ?>">
@@ -79,9 +89,9 @@
                                     <div id="foto_container"></div>
                             </div>
 
-                       </div>
-
                         </div>
+
+    
 
                         <br><br>
 
@@ -104,6 +114,28 @@
     </div>
 </div>
 
+    
+    {{-- ? FUNCION DE SELECT MULTIPLE--}}
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            // Inicialización de Select2 para el select de actividades
+            $('.select2-single').select2({
+                placeholder: "Seleccione las Actividades",
+                allowClear: true
+            });
+
+            // Si tienes otros selects con Select2, también inicialízalos aquí
+            // $('.otro-select2-clase').select2();
+        });
+    </script>
+
+    {{-- ! FUNCION PARA UNA LETRA MAYUCUSLAS Y LAS DEMAS EN MINICUSLAS--}}
+
     <script>
         function capitalizarPrimeraLetra(texto) {
             return texto.charAt(0).toUpperCase() + texto.slice(1).toLowerCase();
@@ -119,7 +151,7 @@
 
     {{-- * FUNCION PARA MOSTRAR LA FOTO --}}
 
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></scrip>
 
     <script>
         $(document).ready(function () {
@@ -156,8 +188,6 @@
             });
         </script>
     @endif
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
    
 @endsection

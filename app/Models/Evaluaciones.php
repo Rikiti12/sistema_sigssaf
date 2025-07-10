@@ -20,6 +20,11 @@ class Evaluaciones extends Model
         return $this->belongsTo(Proyectos::class, 'id_proyecto');
     }
 
+    public function asignaciones()
+    {
+        return $this->hasMany(Asignaciones::class, 'id_evaluacion');
+    }
+
     // Accesor para los documentos (convertir de JSON a array automáticamente)
     public function getDocumentosAttribute($value)
     {

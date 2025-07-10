@@ -54,6 +54,7 @@ Route::post('/login', [LoginController::class, 'login']);
 
 /* Ruta Home o Vista Principal(Inicio) */
 Route::get('/home', [HomeController::class, 'index'])->middleware('auth');
+Route::get('/vocero', [HomeController::class, 'showVoceros'])->name('vocero.index');
 
 /* Ruta Logout o Cierre de Sesión */
 Route::get('/logout', [logoutController::class, 'logout']);
@@ -102,13 +103,15 @@ Route::get('/evaluacion/pdf', [EvaluacionesController::class, 'pdf'])->name('eva
 Route::resource('evaluacion', EvaluacionesController::class)->except(['index', 'create'])->middleware('auth');
 /* Rutas Asignaciones */
 Route::get('/asignacion', [AsignacionesController::class, 'index'])->name('asignacion')->middleware('auth');
-Route::get('/asignacion/create', [AsignacionesController::class, 'create'])->name('asignacion.create')->middleware('auth');
+Route::get('/asignacion/create', [AsignacionesController::class, 'create'])->name('create')->middleware('auth');
+Route::get('/asignacion/create/{id}', [AsignacionesController::class,'create'])->name('asignacion.create')->middleware('auth');
 Route::get('/asignacion/pdf', [AsignacionesController::class, 'pdf'])->name('asignacion.pdf')->middleware('auth');
 Route::resource('asignacion', AsignacionesController::class)->middleware('auth');
 
 /* Rutas Planificacion */
 Route::get('/planificacion', [PlanificacionesController::class, 'index'])->name('planificacion')->middleware('auth');
-Route::get('/planificacion/create/{id}', [PlanificacionesController::class, 'create'])->name('planificacion.create')->middleware('auth');
+Route::get('/planificacion/create', [PlanificacionesController::class, 'create'])->name('create')->middleware('auth');
+Route::get('/planificacion/create/{id}', [PlanificacionesController::class,'create'])->name('planificacion.create')->middleware('auth');
 Route::get('/planificacion/pdf', [PlanificacionesController::class, 'pdf'])->name('planificacion.pdf')->middleware('auth');
 Route::resource('planificacion', PlanificacionesController::class)->middleware('auth')->except(['create']); // Excluye la ruta 'create' del resource para evitar duplicados;
 Route::get('/planificacion/detalles/{id}', [PlanificacionesController::class, 'getProyectoDetalles']);

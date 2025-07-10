@@ -15,21 +15,19 @@ return new class extends Migration
     {
         Schema::create('asignaciones', function (Blueprint $table) {
             $table->id();
-             $table->unsignedBigInteger('id_vocero');
+            $table->unsignedBigInteger('id_evaluacion');
+            $table->unsignedBigInteger('id_vocero');
             $table->unsignedBigInteger('id_comunidad');
-            // $table->string('nombre_pro');
-            // $table->text('descripcion_pro');
             $table->json('imagenes');
             $table->text('latitud');
             $table->text('longitud');
             $table->text('direccion');
-            // $table->json('documentos');
-            // $table->date('fecha_inicial');
-            // $table->date('fecha_final');
             $table->timestamps();
 
             // Establecer relaciones con las tablas correspondientes
             $table->foreign('id_vocero')->references('id')->on('voceros');
+            
+            $table->foreign('id_evaluacion')->references('id')->on('evaluaciones');
 
              // Establecer relación con la tabla de comunas
              $table->foreign('id_comunidad')->references('id')->on('comunidades');

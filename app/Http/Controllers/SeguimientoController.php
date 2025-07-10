@@ -28,6 +28,7 @@ class SeguimientoController extends Controller
     public function index()
     {
         $planificaciones = Planificaciones::all();
+        
         return view ('seguimiento.index', compact('planificaciones'));
     }
 
@@ -57,8 +58,11 @@ class SeguimientoController extends Controller
      */
     public function create($id)
     {
-        $planificacion = Planificaciones::findOrFail($id);
-        return view('seguimiento.create', compact('planificacion')); // Pasar los proyectos a la vista
+        $planificacion = Planificaciones::with('asignaciones.evaluaciones')->findOrFail($id);
+
+        $respon_evalu = $planificacion->asignaciones->evaluaciones->respon_evalu;
+
+        return view('seguimiento.create', compact('planificacion','respon_evalu')); // Pasar los proyectos a la vista
     }
 
     /**
@@ -75,7 +79,7 @@ class SeguimientoController extends Controller
             $seguimientos->fecha_hor = $request->input('fecha_hor');
             $seguimientos->responsable_segui = $request->input('responsable_segui');
             $seguimientos->detalle_segui = $request->input('detalle_segui');
-            $seguimientos->gasto_incu = $request->input('gasto_incu');
+            $seguimientos->gasto = $request->input('gasto');
             $seguimientos->estado_actual = $request->input('estado_actual');
             $seguimientos->riesgos = $request->input('riesgos');
             $seguimientos->save();
@@ -131,9 +135,11 @@ class SeguimientoController extends Controller
     public function edit($id)
     {
         $seguimiento = Seguimientos::findOrFail($id);
-        $proyectos = Proyectos::all();
+        // $planificacion = Planificaciones::findOrFail($id);
+        // $respon_evalu = $seguimiento->planificacion->asignaciones->evaluaciones->respon_evalu;
+        $responsable_segui = $seguimiento->responsable_segui;
         $fecha_segui = date('d/m/Y', strtotime($seguimiento->fecha_hor));
-        return view('seguimiento.edit', compact('seguimiento', 'proyectos')); 
+        return view('seguimiento.edit', compact('seguimiento','fecha_segui','responsable_segui')); 
     }
 
     /**
@@ -154,11 +160,11 @@ class SeguimientoController extends Controller
         // ]);
          
             $seguimiento = Seguimientos::findOrFail($id);
-            // $seguimiento->id_proyecto = $request->input('id_proyecto');
+            $seguimiento->id_planificacion = $request->input('id_planificacion');
             $seguimiento->fecha_hor = $request->input('fecha_hor');
             $seguimiento->responsable_segui = $request->input('responsable_segui');
             $seguimiento->detalle_segui = $request->input('detalle_segui');
-            $seguimiento->gasto_incu = $request->input('gasto_incu');
+            $seguimiento->gasto = $request->input('gasto');
             $seguimiento->estado_actual = $request->input('estado_actual');
             $seguimiento->riesgos = $request->input('riesgos');
             $seguimiento->save();
