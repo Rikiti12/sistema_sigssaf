@@ -36,17 +36,16 @@
                                 <input type="text" class="form-control" id="descripcion_pro" name="descripcion_pro" style="background: white;" value="{{ $proyecto->descripcion_pro }}" placeholder="Ingrese La Descripción" autocomplete="off" oninput="capitalizarInput('descripcion_pro')" onkeypress="return soloLetras(event);">
                             </div> --}}
 
-                            <div class="col-4">
-                                <label class="font-weight-bold text-dark">Vocero Asignada</label>
-                                <select class="form-select" id="id_vocero" name="id_vocero">
-                                    <option value="">Seleccione una vocero</option>
-                                    @foreach($voceros as $vocero)
-                                        <option value="{{ $vocero->id }}" {{ $asignacion->id_vocero == $vocero->id ? 'selected' : '' }}>
-                                            {{ $vocero->nombre }} {{ $vocero->apellido }} {{ $vocero->cedula }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                            </div>
+                           <div class="col-4">
+                                        <label class="font-weight-bold text-dark">Vocero Asignada</label>
+                                        <select class="form-select" id="id_vocero" name="id_vocero">
+                                            @foreach($voceros as $vocero)
+                                                @if($vocero->tipo_vocero === 'consejo_comunal')
+                                                    <option value="{{ $vocero->id }}" @selected($vocero->id_vocero == $vocero->id)>{{ $vocero->cedula }} - {{ $vocero->nombre }} {{ $vocero->apellido }}</option>
+                                                @endif
+                                            @endforeach
+                                        </select>
+                                    </div>
 
                             <div class="col-4">
                                 <label class="font-weight-bold text-dark">Comunidad Asignada</label>
