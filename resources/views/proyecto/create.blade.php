@@ -48,7 +48,7 @@
                                     <option value="Otro">Otro</option>
                                 </select>
                             </div>
-
+{{-- 
                             <div class="col-4">
                                 <label class="font-weight-bold text-dark">Actividades</label>
                                 <select class="select2-single form-control" id="actividades" name="actividades[]" multiple>
@@ -57,7 +57,7 @@
                                         <option value="{{ $actividad->id }}">{{ $actividad->nom_actividad }}</option>
                                     @endforeach
                                 </select>                                   
-                            </div>
+                            </div> --}}
 
                             <div class="col-md-4 mb-3">
                                 <label class="font-weight-bold text-dark">Fecha Inicial</label>
