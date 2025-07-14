@@ -163,17 +163,17 @@
                   <li>
                     @can('ver-asignacion')
                       <a class="sidebar-link"  href="{{ url('asignacion') }}" aria-expanded="false">
-                        <span class="sub-item">Asignaciones</span>
+                        <span class="sub-item">Planificaciones</span>
                       </a>
                       @endcan
                     </li>
-                    <li>
+                    {{-- <li>
                       @can('ver-planificacion')
                       <a class="sidebar-link"  href="{{ url('planificacion')}}" aria-expanded="false">
                         <span class="sub-item">Planificaciones</span>
                       </a>
                       @endcan
-                    </li>
+                    </li> --}}
                     <li>
                        @can('ver-seguimiento')
                       <a class="sidebar-link"  href="{{ url('seguimiento')}}" aria-expanded="false">

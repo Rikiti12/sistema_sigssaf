@@ -31,7 +31,7 @@ class ComunaController extends Controller
     {
         $comunas = Comunas::with('consejo_comunals')->get();
         $comunas = Comunas::with('vocero')->get();
-        return view('comuna.index', compact('comunas'));
+        return view('comuna.index', compact( 'comunas'));
     }
 
     public function pdf(Request $request)
@@ -142,7 +142,8 @@ class ComunaController extends Controller
         $comuna =  Comunas::find($id);
         $parroquias = Parroquia::all();
         $consejo_comunals = ConsejoComunal::all();
-        return view('comuna.edit',compact('comuna','parroquias', 'consejo_comunals'));
+         $voceros = Voceros::all();
+        return view('comuna.edit',compact('comuna','parroquias', 'consejo_comunals','voceros'));
     }
 
     /**
@@ -154,13 +155,13 @@ class ComunaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'cedula_comunas' => 'required|unique:comunas,cedula_comunas,' . $id,
-            ],
-            [
-            'cedula_comunas.unique' => 'Está cedula Ya Existe.'
-            ]
-        );
+        // $request->validate([
+        //     'cedula_comunas' => 'required|unique:comunas,cedula_comunas,' . $id,
+        //     ],
+        //     [
+        //     'cedula_comunas.unique' => 'Está cedula Ya Existe.'
+        //     ]
+        // );
 
         // Obtener La Comuna por ID
         $comuna =  Comunas::find($id);

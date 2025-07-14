@@ -182,7 +182,7 @@ class ProyectosController extends Controller
         // Asociar las actividades al proyecto
         // $proyectos->actividades()->sync($request->actividades);
 
-        $proyectos->actividades = $request->input('actividades');
+        // $proyectos->actividades = $request->input('actividades');
         $proyectos->fecha_inicial = Carbon::createFromFormat('d/m/Y', $fechaInicialInput)->format('Y-m-d');
         $proyectos->fecha_final = Carbon::createFromFormat('d/m/Y', $fechaFinalInput)->format('Y-m-d');
         $proyectos->prioridad = $request->input('prioridad');
@@ -263,7 +263,7 @@ class ProyectosController extends Controller
             $proyecto->nombre_pro = $request->input('nombre_pro');
             $proyecto->descripcion_pro = $request->input('descripcion_pro');
             $proyecto->tipo_pro= $request->input('tipo_pro');
-            $proyecto->actividades = $request->input('actividades');
+            // $proyecto->actividades = $request->input('actividades');
             $proyecto->fecha_inicial = Carbon::createFromFormat('d/m/Y', $fechaInicialInput)->format('Y-m-d');
             $proyecto->fecha_final = Carbon::createFromFormat('d/m/Y', $fechaFinalInput)->format('Y-m-d');
             $proyecto->prioridad = $request->input('prioridad');

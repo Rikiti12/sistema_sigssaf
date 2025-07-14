@@ -30,28 +30,28 @@
                                 <th class="font-weight-bold text-dark">Descripción del Alcance</th>
                                 <th class="font-weight-bold text-dark">Moneda</th>
                                 <th class="font-weight-bold text-dark">Presupuesto</th>
-                                <th class="font-weight-bold text-dark">Descripción de la Obra</th>
+                                <th class="font-weight-bold text-dark">Dirección / Lugar</th>
                                 <th class="font-weight-bold text-dark">Fecha Inicio</th>
                                 <th class="font-weight-bold text-dark">Duración Estimada</th>
                                 <th class="font-weight-bold text-dark"><center>Acciones</center></th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($planificaciones as $planificacion)
+                             @foreach ($asignaciones as $asignacion)
                                 <tr>
-                                    <td class="font-weight-bold text-dark">{{ $planificacion->descri_alcance }}</td>
-                                     <td class="font-weight-bold text-dark">{{ $planificacion->moneda_presu }}</td> 
-                                    <td class="font-weight-bold text-dark">{{ $planificacion->presupuesto }}</td>
-                                    <td class="font-weight-bold text-dark">{{ $planificacion->descri_obra }}</td>
-                                    <td class="font-weight-bold text-dark">{{ date('d/m/Y', strtotime($planificacion->fecha_inicio)) }}</td>
-                                    <td class="font-weight-bold text-dark">{{ date('d/m/Y', strtotime($planificacion->duracion_estimada)) }}</td>
+                                    <td class="font-weight-bold text-dark">{{ $asignacion->descri_alcance }}</td>
+                                     <td class="font-weight-bold text-dark">{{ $asignacion->moneda_presu }}</td> 
+                                    <td class="font-weight-bold text-dark">{{ $asignacion->presupuesto }}</td>
+                                    <td class="font-weight-bold text-dark">{{ $asignacion->direccion }}</td>
+                                    <td class="font-weight-bold text-dark">{{ date('d/m/Y', strtotime($asignacion->fecha_inicio)) }}</td>
+                                    <td class="font-weight-bold text-dark">{{ date('d/m/Y', strtotime($asignacion->duracion_estimada)) }}</td>
 
                                     <td>
                                         <div style="display: flex; justify-content: center;">
 
                                             @can('crear-seguimiento')
-                                                @if (!$planificacion->yaSeguimiento)
-                                                    <a class="btn btn-primary btn-sm" title="Desea Crear el Seguimiento" href="{{ route('seguimiento.create', ['id' => $planificacion->id]) }}">
+                                                @if (!$asignacion->yaSeguimiento)
+                                                    <a class="btn btn-primary btn-sm" title="Desea Crear el Seguimiento" href="{{ route('seguimiento.create', ['id' => $asignacion->id]) }}">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-card-checklist" viewBox="0 0 16 16">
                                                             <path d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2z"/>
                                                             <path d="M7 5.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m-1.496-.854a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 1 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0M7 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m-1.496-.854a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 0 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0"/>
@@ -60,18 +60,18 @@
                                                 @endif
                                             @endcan
                                             
-                                            @can('editar-planificacion')
-                                                <a class="btn btn-warning btn-sm" style="margin: 0 3px;" title="Desea Editar la Planificacion" href="{{ route('planificacion.edit',$planificacion->id) }}">
+                                            @can('editar-asignacion')
+                                                <a class="btn btn-warning btn-sm" style="margin: 0 3px;" title="Desea Editar la asignacion" href="{{ route('asignacion.edit',$asignacion->id) }}">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
                                                         <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z"/>
                                                     </svg>
                                                 </a>
                                             @endcan
 
-                                            <a class="btn btn-info btn-sm" style="margin: 0 1px;" title="Ver Detalles" data-planificacion-id='{{ $planificacion->id }}' class="btn btn-primary" data-toggle="modal" data-target="#exampleModalScrollable" id="#modalScroll"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-layout-text-window-reverse" viewBox="0 0 16 16"  style="color: #ffff; cursor: pointer;">
+                                            {{-- <a class="btn btn-info btn-sm" style="margin: 0 1px;" title="Ver Detalles" data-asignacion-id='{{ $asignacion->id }}' class="btn btn-primary" data-toggle="modal" data-target="#exampleModalScrollable" id="#modalScroll"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-layout-text-window-reverse" viewBox="0 0 16 16"  style="color: #ffff; cursor: pointer;">
                                                 <path d="M13 6.5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h5a.5.5 0 0 0 .5-.5m0 3a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h5a.5.5 0 0 0 .5-.5m-.5 2.5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1 0-1z"/>
                                                 <path d="M14 0a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2zM2 1a1 1 0 0 0-1 1v1h14V2a1 1 0 0 0-1-1zM1 4v10a1 1 0 0 0 1 1h2V4zm4 0v11h9a1 1 0 0 0 1-1V4z"/>
-                                            </svg></a>
+                                            </svg></a> --}}
 
                                         </div>
                                     </td>
@@ -92,8 +92,8 @@
                 <div class="modal-header">
                     {{-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
-                    </button> --}}
-                </div>
+                    </button>
+                </div> --}}
 
                 <div class="modal-body" id="modal-body-content">
 
@@ -154,7 +154,7 @@
             var errors = @json($errors->all());
             errors.forEach(function (error) {
                 Swal.fire({
-                    title: 'Planificación',
+                    title: 'Asingnacion',
                     text: error,
                     icon: 'warning',
                     showConfirmButton: true,
@@ -170,16 +170,16 @@
         $(document).ready(function() {
             $('#dataTable').on('click', '.btn-info', function(event) {
                 event.preventDefault();
-                var planificacionId = $(this).data('planificacion-id');
+                var asignacionId = $(this).data('asignacion-id');
     
                 $.ajax({
-                    url: '/seguimiento/detalles/' + planificacionId,
+                    url: '/seguimiento/detalles/' + asignacionId,
                     type: 'GET',
                     success: function(data) {
                         console.log(data);
     
-                        let planificacionesHtml = `
-                            <h5 class="font-weight-bold text-primary" style="text-align: center">Detalles deL Planificacion</h5>
+                        let asignacionesHtml = `
+                            <h5 class="font-weight-bold text-primary" style="text-align: center">Detalles deL asignacion</h5>
 
                             <p><b>Impacto Ambiental</b>: ${data.impacto_ambiental}</p>
                             <p><b>Impacto Social</b>: ${data.impacto_social}</p>
@@ -187,7 +187,7 @@
                 
                         `;
 
-                        $('#exampleModalScrollable .modal-body').html(planificacionesHtml);
+                        $('#exampleModalScrollable .modal-body').html(asignacionesHtml);
     
                         if (!$('#exampleModalScrollable').is(':visible')) {
                             $('#exampleModalScrollable').modal('show');

@@ -47,15 +47,15 @@ class homeController extends Controller
         $count_asignacion = DB::table('asignaciones')
         ->count();
 
-        $planificaciones = Planificaciones::all();
-        $count_planificacion = DB::table('planificaciones')
+        $seguimientos = Seguimientos::all();
+        $count_seguimiento = DB::table('seguimientos')
         ->count();
 
         $mapa_asignaciones = asignaciones::select('latitud','longitud')->get();
 
         return view('home.inicio' , compact('count_vocero', 'count_comunidad', 'count_consejo', 'count_comuna','count_proyecto','count_evaluacion',
-        'count_asignacion', 'count_planificacion', 'mapa_asignaciones'  ) ,  [
-        'count' => $count_vocero, $count_comunidad, $count_consejo, $count_comuna, $count_proyecto,$count_evaluacion, $count_asignacion, $count_planificacion
+        'count_asignacion', 'count_seguimiento', 'mapa_asignaciones'  ) ,  [
+        'count' => $count_vocero, $count_comunidad, $count_consejo, $count_comuna, $count_proyecto,$count_evaluacion, $count_asignacion, $count_seguimiento
 
         ]); 
 

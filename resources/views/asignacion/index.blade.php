@@ -14,7 +14,7 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-center">
-                            <h2 class="font-weight-bold text-dark">Asignación de Proyectos</h2>
+                            <h2 class="font-weight-bold text-dark">Planificación de Proyectos</h2>
                         </div>
 
                         <div class="table-responsive p-3">
@@ -35,13 +35,13 @@
                                             <td class="font-weight-bold text-dark">{{ $evaluacion->proyectos->nombre_pro }} {{ $evaluacion->proyectos->descripcion_pro }}</td>
                                             <td class="font-weight-bold text-dark">{{ $evaluacion->respon_evalu }}</td>
                                             <td class="font-weight-bold text-dark">
-                                                {{-- <span class="badge 
+                                                <span class="badge 
                                                     @if($evaluacion->viabilidad == 'Alta') bg-danger
                                                     @elseif($evaluacion->viabilidad == 'Media') bg-warning
                                                     @else bg-primary
                                                     @endif">
                                                     {{ $evaluacion->viabilidad }}
-                                                </span> --}}
+                                                </span>
                                             </td>
                                             <td class="font-weight-bold text-dark">{{ $evaluacion->estatus }}</td>
                                             <td class="font-weight-bold text-dark" id="estatus-{{ $evaluacion->id }}">{{ $evaluacion->estatus_resp}}</td>
