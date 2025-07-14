@@ -19,9 +19,9 @@ return new class extends Migration
             $table->date('fecha_evalu');
             $table->string('respon_evalu', 100);
             $table->text('observaciones');
-            $table->string('estado_evalu');
+            $table->string('estatus');
+            $table->string('estatus_resp')->nullable();
             $table->enum('viabilidad', ['Alta', 'Media', 'Baja']);
-            $table->json('documentos')->nullable();
             $table->timestamps();
             
              // Establecer relaciones con las tablas correspondientes

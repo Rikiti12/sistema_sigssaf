@@ -108,25 +108,22 @@
         </div>
     </div>
 
-    <!-- MODAL PARA VER DETALLES DEL PROYECTO -->
-    <div class="modal fade" id="proyectoModal" tabindex="-1" role="dialog" aria-labelledby="proyectoModalTitle" aria-hidden="true">
+    <!-- MODAL PARA VER DETALLES -->
+    <div class="modal fade" id="exampleModalScrollable" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title font-weight-bold text-primary" id="proyectoModalTitle">Detalles del Proyecto</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
-                    </button>
+                    </button> -->
                 </div>
+
                 <div class="modal-body" id="modal-body-content">
-                    <!-- Datos cargados por AJAX -->
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                </div>
+
             </div>
         </div>
     </div>
+    
 @endsection
 
 @section('datatable')
@@ -245,34 +242,49 @@
     @endif
 
     {{-- FUNCIÓN DEL MODAL PARA VER DETALLES DEL PROYECTO --}}
+    
     <script>
         $(document).ready(function() {
             $('#dataTable').on('click', '.btn-info', function(event) {
                 event.preventDefault();
                 var proyectoId = $(this).data('proyecto-id');
-        
+    
                 $.ajax({
                     url: '/proyecto/detalles/' + proyectoId,
                     type: 'GET',
                     success: function(data) {
-                        $('#proyectoModal .modal-body').html(`
-                            <p><b>Descripción:</b> ${data.descripcion || 'No especificado'}</p>
-                            <p><b>Fecha de creación:</b> ${new Date(data.created_at).toLocaleDateString()}</p>
-                            <p><b>Última actualización:</b> ${new Date(data.updated_at).toLocaleDateString()}</p>
-                        `);
-        
-                        $('#proyectoModal').modal('show');
+                        console.log(data);
+    
+                        let proyectosHtml = `
+                            <h5 class="font-weight-bold text-primary" style="text-align: center">Detalles del Proyecto</h5>
+
+                            <p><b>Actividades del Proyecto</b>${data.actividades}</p>
+                
+                        `;
+
+                        // Verifica si existen imágenes y agrégalas
+                        if (data.acta_conformidad && data.acta_conformidad.length > 0) {
+                            proyectosHtml += `<p><b>Fotos:</b></p><div style="display: flex; flex-wrap: wrap; gap: 10px;">`;
+                            let acta_conformidad = JSON.parse(data.acta_conformidad);
+                            acta_conformidad.forEach(function(acta) {
+                                proyectosHtml += `<img src="/acta_conformidad/proyectos/${acta}" width="60%" style="width: calc(50% - 10px); margin-bottom: 10px;">`;
+                            });
+                            proyectosHtml += '</div>';
+                        }
+
+                        $('#exampleModalScrollable .modal-body').html(proyectosHtml);
+    
+                        if (!$('#exampleModalScrollable').is(':visible')) {
+                            $('#exampleModalScrollable').modal('show');
+                        }
                     },
                     error: function(error) {
                         console.error("Error al obtener los datos:", error);
-                        Swal.fire({
-                            title: 'Error',
-                            text: 'Error al cargar los detalles del proyecto',
-                            icon: 'error'
-                        });
+                        alert("Error al cargar la vocero. Por favor, inténtalo de nuevo.");
                     }
                 });
             });
         });
     </script>
+
 @endsection

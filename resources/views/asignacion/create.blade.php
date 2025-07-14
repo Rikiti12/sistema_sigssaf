@@ -56,6 +56,30 @@
                                     <div id="imagenes_container" class="mt-2"></div>
                                 </div>
 
+                                <div class="col-4">
+                                    <label class="font-weight-bold text-dark">Descripción del Alcance</label>
+                                    <textarea class="form-control" id="descri_alcance" name="descri_alcance" placeholder="Ingrese la Descripción del Alcance" oninput="capitalizarTextoarea('descri_alcance')" cols="10" rows="10" style="max-height: 6rem;"></textarea>
+                                </div>
+    
+                                <div class="col-2">
+                                    <label class="font-weight-bold text-dark">Moneda</label>
+                                    <select class="form-control" id="moneda_presu" name="moneda_presu">
+                                        <option value="VES">VES</option>
+                                        <option value="USD">USD</option>
+                                        <option value="EUR">EUR</option>
+                                    </select>
+                                </div>
+    
+                                <div class="col-3">
+                                    <label class="font-weight-bold text-dark">Presupuesto</label>
+                                    <input type="text" class="form-control" id="presupuesto" name="presupuesto" style="background: white;" value="" placeholder="Ingrese el Presupuesto" autocomplete="off">
+                                </div>
+    
+                                <div class="col-3">
+                                    <label class="font-weight-bold text-dark">Descripción de la Obra</label>
+                                    <textarea class="form-control" id="descri_obra" name="descri_obra" placeholder="Ingrese la Descripción de la Obra" oninput="capitalizarTextoarea('descri_obra')" cols="10" rows="10" style="max-height: 6rem;"></textarea>
+                                </div>
+
                             </div>
 
                         </div>
@@ -85,6 +109,52 @@
                                 
                             </div>
 
+                        </div>
+
+                        <div class="card-body">
+
+                            <div class="row">
+    
+                                <div class="col-2">
+                                    <label class="font-weight-bold text-dark">Impacto Ambiental</label>
+                                    <div class="form-group">
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="impacto_ambiental" id="impacto_ambiental" value="SI" onchange=")">
+                                            <label class="form-check-label" for="impacto_ambiental">SI</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="impacto_ambiental" id="impacto_ambiental" value="NO" onchange=")">
+                                            <label class="form-check-label" for="impacto_ambiental">NO</label>
+                                        </div>
+                                    </div>
+                                </div>
+    
+                                <div class="col-2">
+                                    <label class="font-weight-bold text-dark">Impacto Social</label>
+                                    <div class="form-group">
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="impacto_social" id="impacto_social" value="SI" onchange="">
+                                            <label class="form-check-label" for="impacto_social">SI</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="impacto_social" id="impacto_social" value="NO" onchange="">
+                                            <label class="form-check-label" for="impacto_social">NO</label>
+                                        </div>
+                                    </div>
+                                </div>
+    
+                                <div class="col-4">
+                                    <label class="font-weight-bold text-dark">Fecha de Inicio</label>
+                                    <input type="date" class="form-control" id="fecha_inicio" name="fecha_inicio" value="<?php echo date('Y-m-d'); ?>">
+                                </div>
+    
+                                <div class="col-4">
+                                    <label class="font-weight-bold text-dark">Duración Estimada</label>
+                                    <input type="date" class="form-control" id="duracion_estimada" name="duracion_estimada" value="<?php echo date('Y-m-d'); ?>">
+                                </div>
+    
+                            </div>
+    
                         </div>
 
                     <div class="card-body">

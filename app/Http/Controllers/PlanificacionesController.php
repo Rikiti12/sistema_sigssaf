@@ -25,13 +25,13 @@ class PlanificacionesController extends Controller
      */
     public function index()
     {
-        $asignaciones = Asignaciones::with('voceros')->get(); // Cargar la relación con tabla "personas"
+        // $asignaciones = Asignaciones::with('voceros')->get(); // Cargar la relación con tabla "personas"
 
-        $asignaciones->each(function ($asignacion) {
-            $asignacion->yaPlanificada = Planificaciones::where('id_asignacion', $asignacion->id)->exists();
-        });
+        // $asignaciones->each(function ($asignacion) {
+        //     $asignacion->yaPlanificada = Planificaciones::where('id_asignacion', $asignacion->id)->exists();
+        // });
 
-        return view('planificacion.index', compact('asignaciones'));
+        // return view('planificacion.index', compact('asignaciones'));
     }
 
     public function getAsignacionDetalles($id)

@@ -4,6 +4,7 @@
 
 @section('css-datatable')
     <link href="{{ asset('assets/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
+    <script src="{{ asset('https://cdn.jsdelivr.net/npm/sweetalert2@11')}}"></script>
 @endsection
 
 @section('content')
@@ -24,99 +25,57 @@
                                         <th class="font-weight-bold text-dark">Responsable</th>
                                         <th class="font-weight-bold text-dark">Viabilidad</th>
                                         <th class="font-weight-bold text-dark">Estado de Proyecto</th>
+                                        <th class="font-weight-bold text-dark">Estatus Aprobación</th>
                                         <th class="font-weight-bold text-dark"><center>Acciones</center></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($evaluaciones as $evaluacion)
-                                        <tr>
+                                        <tr data-evaluacion-id="{{ $evaluacion->id }}">
                                             <td class="font-weight-bold text-dark">{{ $evaluacion->proyectos->nombre_pro }} {{ $evaluacion->proyectos->descripcion_pro }}</td>
                                             <td class="font-weight-bold text-dark">{{ $evaluacion->respon_evalu }}</td>
                                             <td class="font-weight-bold text-dark">
-                                                <span class="badge 
+                                                {{-- <span class="badge 
                                                     @if($evaluacion->viabilidad == 'Alta') bg-danger
                                                     @elseif($evaluacion->viabilidad == 'Media') bg-warning
                                                     @else bg-primary
                                                     @endif">
                                                     {{ $evaluacion->viabilidad }}
-                                                </span>
+                                                </span> --}}
                                             </td>
-                                            <td class="font-weight-bold text-dark">{{ $evaluacion->estado_evalu }}</td>
-                                            
-                                            
-                                            {{-- <td>
-                                                <div style="display: flex; justify-content: center;">   
-                                                    @can('crear-asignacion') --}}
-                                                            {{-- <a class="btn btn-success btn-sm aprobar-solicitud" style="margin: 0 3px;" title="Aprobar Solicitud" data-evaluacion-id='{{ $evaluacion->id }}'>
-                                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-card-checklist" viewBox="0 0 16 16">
-                                                                    <path d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2z"/>
-                                                                    <path d="M7 5.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m-1.496-.854a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 1 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0M7 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m-1.496-.854a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 0 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0"/>
-                                                                </svg>
-                                                            </a>                                            
-                                                            
-                                                            <meta name="csrf-token" content="{{ csrf_token() }}">
-
-                                                            @if (!$evaluacion->yaAsignada)
-                                                            <a class="btn btn-primary btn-sm" title="Asignar Proyecto" href="{{ route('asignacion.create', ['id' => $evaluacion->id]) }}">
-                                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-card-checklist" viewBox="0 0 16 16" style="color: #ffff; cursor: pointer; position: center;">
-                                                                    <path d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2z"/>
-                                                                    <path d="M7 5.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m-1.496-.854a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 1 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0M7 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m-1.496-.854a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 0 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0"/>
-                                                                </svg>
-                                                            </a>
-
-                                                        @endif --}}
-
-                                                        <td>
-                                                            <div style="display: flex; justify-content: center;">
-                                                        
-                                                                {{-- Botón Aprobar Solicitud --}}
-                                                                @can('crear-asignacion') {{-- Asegúrate de que el permiso 'crear-asignacion' siga siendo relevante para aprobar --}}
-                                                                    <a class="btn btn-success btn-sm aprobar-solicitud" style="margin: 0 3px;" title="Aprobar Solicitud" data-evaluacion-id='{{ $evaluacion->id }}'>
-                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-card-checklist" viewBox="0 0 16 16">
-                                                                            <path d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2z"/>
-                                                                            <path d="M7 5.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m-1.496-.854a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 1 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0M7 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m-1.496-.854a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 0 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0"/>
-                                                                        </svg>
-                                                                    </a>
-                                                                @endcan
-                                                        
-                                                                {{-- Botón para Registrar Planificación (anteriormente "Asignar Proyecto") --}}
-                                                                {{-- Inicialmente oculto, el JS lo mostrará cuando la evaluación sea aprobada --}}
-                                                                {{-- Quitamos el @if (!$evaluacion->yaAsignada) porque el JS lo controla --}}
-                                                                @can('crear-asignacion') {{-- Mantén este can si aplica para la acción de planificar --}}
-                                                                    <a class="btn btn-info btn-sm registrar-planificacion" style="margin: 0 3px; display: none;" title="Registrar Planificación" href="{{ route('asignacion.create', ['id' => $evaluacion->id]) }}" data-evaluacion-id='{{ $evaluacion->id }}'>
-                                                                        {{-- Puedes cambiar el SVG si quieres un ícono más de "planificación" o "registro" --}}
-                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-journal-plus" viewBox="0 0 16 16">
-                                                                            <path fill-rule="evenodd" d="M8 5.5a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5H6a.5.5 0 0 1 0-1h1.5V6a.5.5 0 0 1 .5-.5"/>
-                                                                            <path d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2m0 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1z"/>
-                                                                            <path fill-rule="evenodd" d="M10 5.5a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5H8a.5.5 0 0 1 0-1h1.5V6a.5.5 0 0 1 .5-.5"/>
-                                                                        </svg>
-                                                                    </a>
-                                                                @endcan
-                                                        
-                                                                {{-- Botón Editar Evaluación --}}
-                                                                @can('editar-evaluacion')
-                                                                    <a class="btn btn-warning btn-sm" style="margin: 0 3px;" title="Desea Editar la valuacion" href="{{ route('evaluacion.edit',$evaluacion->id) }}">
-                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
-                                                                            <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z"/>
-                                                                        </svg>
-                                                                    </a>
-                                                                @endcan
-                                                        
-                                                            </div>
-                                                        </td>
-
-                                                    {{-- @endcan --}}
+                                            <td class="font-weight-bold text-dark">{{ $evaluacion->estatus }}</td>
+                                            <td class="font-weight-bold text-dark" id="estatus-{{ $evaluacion->id }}">{{ $evaluacion->estatus_resp}}</td>
+                                        
+                                            <td>
+                                                <div style="display: flex; justify-content: center;">
+                                                    @can('crear-asignacion')
+                                                        @if (!$evaluacion->yaAsignada)
+                                                        <a class="btn btn-success btn-sm registrar-comprobante" title="Registar Comprobante" href="{{ route('asignacion.create', ['id' => $evaluacion->id]) }}"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-currency-dollar" viewBox="0 0 16 16">
+                                                        <path d="M4 10.781c.148 1.667 1.513 2.85 3.591 3.003V15h1.043v-1.216c2.27-.179 3.678-1.438 3.678-3.3 0-1.59-.947-2.51-2.956-3.028l-.722-.187V3.467c1.122.11 1.879.714 2.07 1.616h1.47c-.166-1.6-1.54-2.748-3.54-2.875V1H7.591v1.233c-1.939.23-3.27 1.472-3.27 3.156 0 1.454.966 2.483 2.661 2.917l.61.162v4.031c-1.149-.17-1.94-.8-2.131-1.718zm3.391-3.836c-1.043-.263-1.6-.825-1.6-1.616 0-.944.704-1.641 1.8-1.828v3.495l-.2-.05zm1.591 1.872c1.287.323 1.852.859 1.852 1.769 0 1.097-.826 1.828-2.2 1.939V8.73z"/>
+                                                        </svg></a>
                                                     
-                                                    {{-- @can('editar-evaluacion')
-                                                        <a class="btn btn-warning btn-sm" style="margin: 0 3px;" title="Desea Editar la valuacion" href="{{ route('evaluacion.edit',$evaluacion->id) }}">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
-                                                                <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z"/>
+                                                        <a class="btn btn-success btn-sm aprobar-solicitud" style="margin: 0 3px;" title="Aprobar Solicitud" data-evaluacion-id='{{ $evaluacion->id }}'><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle" viewBox="0 0 16 16" style="color: #ffff; cursor: pointer; position: center;">
+                                                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                                                            <path d="m10.97 4.97-.02.022-3.473 4.425-2.093-2.094a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05"/>
                                                             </svg>
-                                                        </a>
-                                                    @endcan --}}
-                                                
-                                                {{-- </div>
-                                            </td> --}}
+                                                        </a>                                            
+                                                        
+                                                        <meta name="csrf-token" content="{{ csrf_token() }}">
+    
+                                                        <a class="btn btn-danger btn-sm negar-solicitud" style="margin: 0 1px;" title="Negar Solicitud" data-evaluacion-id='{{ $evaluacion->id }}'><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-square" viewBox="0 0 16 16" style="color: #ffff; cursor: pointer; position: center;">
+                                                            <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
+                                                            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
+                                                        </svg></a>
+                                                        @endif
+                                                    @endcan
+                                                    
+                                                    @can('editar-evaluacion')
+                                                        <a class="btn btn-warning btn-sm" style="margin: 0 3px;" title="Desea Editar la Inspección" href="{{ route('evaluacion.edit', $evaluacion->id) }}"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
+                                                            <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z"/>
+                                                        </svg></a>
+                                                    @endcan
+                                                </div>
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -206,111 +165,93 @@
             
             </script>
 
-            {{-- ? FUNCION DE LOS BOTONES PARA APROBAR O PENDIENTE DE LA EVALUACION DEL PROYECTO --}}
+        
+    {{-- ? FUNCION DE LOS BOTONES PARA APROBAR O PENDIENTE DE LA EVALUACION DEL PROYECTO --}}
 
-            {{-- FUNCION DE LOS BOTONES PARA APROBAR O PENDIENTE DE LA EVALUACION DEL PROYECTO --}}
+    {{-- <script>
+                            
+            document.addEventListener("DOMContentLoaded", function () { // Espera a que el DOM esté completamente cargado
+            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content'); // Obtiene el token CSRF para las solicitudes
 
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+            // Función para ajustar el estatus y botones en la interfaz de usuario
+            function ajustarBotones(estatus, evaluacionId) {
+                const estatusActualTd = document.querySelector(`#estatus-${evaluacionId}`); // Selecciona el td correspondiente al estatus actual
+                const btnRegistrarAsignada = document.querySelector(`.registrar-asignada[href*='${evaluacionId}']`); // Selecciona el botón de "Registrar PabtnRegistrarPlanificacion"
+                const btnAprobarSolicitud = document.querySelector(`.aprobar-solicitud[data-evaluacion-id='${evaluacionId}']`); // Selecciona el botón de "Aprobar Solicitud"
+                const btnNegarSolicitud = document.querySelector(`.negar-solicitud[data-evaluacion-id='${evaluacionId}']`); // Selecciona el botón de "Negar Solicitud"
 
-        function ajustarBotones(estatus, evaluacionId) {
-        const estatusActualTd = document.querySelector(`#estatus-${evaluacionId}`);
-        // Asegúrate que el href del botón 'registrar-planificacion' contenga el evaluacionId
-        const btnRegistrarPlanificacion = document.querySelector(`.registrar-planificacion[href*='${evaluacionId}']`);
-        const btnAprobarSolicitud = document.querySelector(`.aprobar-solicitud[data-evaluacion-id='${evaluacionId}']`);
-
-        if (estatusActualTd) {
-            estatusActualTd.textContent = estatus;
-        }
-
-        if (btnRegistrarPlanificacion && btnAprobarSolicitud) {
-            // *** CAMBIO CRUCIAL AQUÍ: Coincidir con "Aprobado" (masculino) ***
-            if (estatus === "Aprobado") { // Si el estado es "Aprobado" (como en tu captura)
-                btnRegistrarPlanificacion.style.display = "inline-block"; // Muestra el botón de Registro
-                btnAprobarSolicitud.style.display = "none";             // Oculta el botón de Aprobar
-            } else { // Si el estatus es "Pendiente" o cualquier otro valor
-                btnRegistrarPlanificacion.style.display = "none";      // Oculta el botón de Registro
-                btnAprobarSolicitud.style.display = "inline-block";    // Muestra el botón de Aprobar
-            }
-        } else {
-            console.error('No se encontraron todos los botones necesarios para la evaluación ID:', evaluacionId);
-            if (!btnRegistrarPlanificacion) console.error('Falta .registrar-planificacion para ID:', evaluacionId);
-            if (!btnAprobarSolicitud) console.error('Falta .aprobar-solicitud para ID:', evaluacionId);
-        }
-    }
-
-        // Función para actualizar el estatus en el servidor y ajustar los botones
-        function actualizarEstatus(estatus, evaluacionId) {
-            fetch(`/actualizar-estatus-evaluacion/${evaluacionId}`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': csrfToken
-                },
-                body: JSON.stringify({ estado_evalu: estatus })
-            })
-            .then(response => {
-                if (!response.ok) {
-                    // Si la respuesta no es OK (ej. 404, 500), lanzamos un error
-                    return response.json().then(err => { throw new Error(err.message || 'Error en la respuesta del servidor'); });
+                // Verifica si los elementos existen antes de intentar acceder a sus propiedades
+                if (estatusActualTd) {
+                    estatusActualTd.textContent = estatus; // Actualiza el contenido del td con el estatus actual
                 }
-                return response.json();
-            })
-            .then(data => {
-                if (data.success) {
-                    // Muestra un mensaje de éxito con SweetAlert2
-                    Swal.fire({
-                        icon: 'success',
-                        title: '¡Éxito!',
-                        text: `Evaluación ${estatus} correctamente.`,
-                        showConfirmButton: false,
-                        timer: 1500
-                    });
-                    ajustarBotones(estatus, evaluacionId); // Ajusta los botones en la interfaz de usuario
-                } else {
-                    Swal.fire({
-                        icon: 'error',
-                        title: '¡Error!',
-                        text: data.message || 'No se pudo actualizar el estatus.',
-                    });
-                    console.error('Error al actualizar el estatus:', data.message);
-                }
-            })
-            .catch(error => {
-                Swal.fire({
-                    icon: 'error',
-                    title: '¡Error de conexión!',
-                    text: 'Hubo un problema al comunicarse con el servidor.',
-                });
-                console.error('Error en la solicitud Fetch:', error);
-            });
-        }
 
-        // Añadir los escuchadores de eventos a cada botón de "Aprobar Solicitud"
-        document.querySelectorAll(".aprobar-solicitud").forEach(btn => {
-            btn.addEventListener("click", function (event) {
-                event.preventDefault();
-                const evaluacionId = this.getAttribute('data-evaluacion-id');
-                // Confirmación con SweetAlert2 antes de aprobar
-                Swal.fire({
-                    title: '¿Estás seguro?',
-                    text: "¿Quieres aprobar esta solicitud?",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Sí, ¡aprobar!',
-                    cancelButtonText: 'Cancelar'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        actualizarEstatus("Aprobado", evaluacionId); // Llama a la función para actualizar el estatus a "Aprobado"
+                if (btnRegistrarAsignada && btnAprobarSolicitud && btnNegarSolicitud) {
+                    if (estatus === "Aprobado") { // Si el estatus es "Aprobado"
+                        btnRegistrarAsignada.style.display = "inline-block"; // Muestra el botón de "Registrar PabtnRegistrarAsignada"
+                        btnAprobarSolicitud.style.display = "none"; // Oculta el botón de "Aprobar Solicitud"
+                        btnNegarSolicitud.style.display = "none"; // Oculta el botón de "Negar Solicitud"
+                    } else if (estatus === "Negado") { // Si el estatus es "Negado"
+                        btnRegistrarAsignada.style.display = "none"; // Oculta el botón de "Registrar PabtnRegistrarAsignada"
+                        btnAprobarSolicitud.style.display = "none"; // Oculta el botón de "Aprobar Solicitud"
+                        btnNegarSolicitud.style.display = "none"; // Oculta el botón de "Negar Solicitud"
+                    } else { // Si el estatus es "Pendiente" o cualquier otro valor inicial
+                        btnRegistrarAsignada.style.display = "none"; // Oculta el botón de "Registrar PabtnRegistrarAsignada"
+                        btnAprobarSolicitud.style.display = "inline-block"; // Muestra el botón de "Aprobar Solicitud"
+                        btnNegarSolicitud.style.display = "inline-block"; // Muestra el botón de "Negar Solicitud"
                     }
+                } else {
+                    console.error('No se encontraron los botones para la inspección ID:', evaluacionId);
+                }
+            }
+
+            // Función para actualizar el estatus en el servidor y ajustar los botones
+            function actualizarEstatus(estatus, evaluacionId) {
+                fetch(`/actualizar-estatus-evaluacion/${evaluacionId}`, { // Hace una solicitud fetch a la URL para actualizar el estatus
+                    method: 'POST', // Método HTTP POST
+                    headers: {
+                        'Content-Type': 'application/json', // Tipo de contenido JSON
+                        'X-CSRF-TOKEN': csrfToken // Añade el token CSRF a la cabecera
+                    },
+                    body: JSON.stringify({ estatus_resp: estatus }) // Convierte el estatus a una cadena JSON y la envía en el cuerpo de la solicitud
+                })
+                .then(response => response.json()) // Convierte la respuesta a JSON
+                .then(data => { // Maneja la respuesta del servidor
+                    if (data.success) { // Si la actualización fue exitosa
+                        ajustarBotones(estatus, evaluacionId); // Ajusta los botones en la interfaz de usuario
+                    } else {
+                        console.error('Error al actualizar el estatus:', data.message); // Muestra un error en la consola si la actualización falla
+                    }
+                })
+                .catch(error => console.error('Error:', error)); // Muestra un error en la consola si la solicitud falla
+            }
+
+            // Añadir los escuchadores de eventos a cada botón de "Aprobar Solicitud"
+            document.querySelectorAll(".aprobar-solicitud").forEach(btn => {
+                btn.addEventListener("click", function (event) {
+                    event.preventDefault(); // Previene la acción por defecto del clic
+                    const evaluacionId = this.getAttribute('data-evaluacion-id'); // Obtiene el ID de la inspección del atributo data-evaluacion-id
+                    actualizarEstatus("Aprobado", evaluacionId); // Llama a la función para actualizar el estatus a "Aprobado"
                 });
+            });
+
+            // Añadir los escuchadores de eventos a cada botón de "Negar Solicitud"
+            document.querySelectorAll(".negar-solicitud").forEach(btn => {
+                btn.addEventListener("click", function (event) {
+                    event.preventDefault(); // Previene la acción por defecto del clic
+                    const evaluacionId = this.getAttribute('data-evaluacion-id'); // Obtiene el ID de la inspección del atributo data-evaluacion-id
+                    actualizarEstatus("Negado", evaluacionId); // Llama a la función para actualizar el estatus a "Negado"
+                });
+            });
+
+            // Ajustar los botones según el estatus actual cuando la página se carga
+            document.querySelectorAll("tr[data-evaluacion-id]").forEach(row => {
+                const evaluacionId = row.getAttribute('data-evaluacion-id'); // Obtiene el ID de la inspección de la fila
+                const estatus = document.querySelector(`#estatus-${evaluacionId}`).textContent.trim(); // Obtiene el estatus actual del td correspondiente
+                ajustarBotones(estatus, evaluacionId); // Llama a la función para ajustar los botones según el estatus actual
             });
         });
-
-    });
-</script>
+        
+    </script> --}}
+            
 
 @endsection

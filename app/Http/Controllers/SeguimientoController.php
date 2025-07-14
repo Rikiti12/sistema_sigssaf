@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Seguimientos;
-use App\Models\Planificaciones;
+use App\Models\Asignaciones;
 use App\Models\Proyectos;
 use App\Models\User;
 use Illuminate\Database\QueryException;
@@ -27,27 +27,39 @@ class SeguimientoController extends Controller
      */
     public function index()
     {
-        $planificaciones = Planificaciones::all();
-        
-        return view ('seguimiento.index', compact('planificaciones'));
+        $asignaciones = Asignaciones::with('voceros')->get(); // Cargar la relación con tabla "personas"
+
+        $asignaciones->each(function ($asignacion) {
+            $asignacion->yaSeguimiento = Seguimientos::where('id_asignacion', $asignacion->id)->exists();
+        });
+
+        return view('seguimiento.index', compact('asignaciones'));
     }
 
-     public function getPlanificacionDetalles($id)
+    public function getAsignacionDetalles($id)
     {
-        // Recupera el Planificacion por su ID
-        $planificacion = Planificaciones::find($id);
+        // Recupera el asigacion por su ID
+        $asignacion = Asignaciones::find($id);
 
-        if (!$planificacion) {
-            // Maneja el caso en que no se encuentre la persona
-            return response()->json(['error' => 'Persona no encontrada'], 404);
+        if (!$asignacion) {
+            // Maneja el caso en que no se encuentre la vocero
+            return response()->json(['error' => 'Vocero no encontrada'], 404);
         }
 
         // Devuelve los datos relevantes en formato JSON
         return response()->json([
-            'impacto_ambiental' => $planificacion->impacto_ambiental,
-            'impacto_social' => $planificacion->impacto_social,
-            
-            // 'documentos' => $proyecto->documentos,
+            'imagenes' => $asignacion->imagenes,
+            'latitud' => $asignacion->latitud,
+            'longitud' => $asignacion->longitud,
+            'descri_alcance' => $asignacion->descri_alcance,
+            'moneda_presu' => $asignacion->moneda_presu,
+            'presupuesto' => $asignacion->presupuesto,
+            'impacto_ambiental' => $asignacion->impacto_ambiental,
+            'impacto_social' => $asignacion->impacto_social,
+            'fecha_inicio' => $asignacion->fecha_inicio,
+            'duracion_estimada' => $asignacion->duracion_estimada,
+            // 'direccion' => $asignacion->direccion,
+            // 'documentos' => $asignacion->documentos,
         ]);
  
     }
@@ -59,8 +71,6 @@ class SeguimientoController extends Controller
     public function create($id)
     {
         $planificacion = Planificaciones::with('asignaciones.evaluaciones')->findOrFail($id);
-
-        $respon_evalu = $planificacion->asignaciones->evaluaciones->respon_evalu;
 
         return view('seguimiento.create', compact('planificacion','respon_evalu')); // Pasar los proyectos a la vista
     }

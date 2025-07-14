@@ -95,6 +95,7 @@ Route::get('/proyecto', [ProyectosController::class, 'index'])->name('proyecto')
 Route::get('/proyecto/create', [ProyectosController::class, 'create'])->name('proyecto.create')->middleware('auth');
 Route::get('/proyecto/pdf', [ProyectosController::class, 'pdf'])->name('proyecto.pdf')->middleware('auth'); // <-- Aquí faltaba el ;
 Route::resource('proyecto', ProyectosController::class)->middleware('auth');
+Route::get('/proyecto/detalles/{id}', [ProyectosController::class, 'getproyectoDetalles']);
 
 /* Rutas Evaluación */
 Route::get('/evaluacion', [EvaluacionesController::class, 'index'])->name('evaluacion.index')->middleware('auth');

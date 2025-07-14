@@ -24,28 +24,19 @@
                     {{ method_field('PATCH') }}
 
                     <div class="card-body">
+
                         <div class="row">
 
-                            {{-- <div class="col-4">
-                                <label class="font-weight-bold text-dark">Nombre Del Proyecto</label>
-                                <input type="text" class="form-control" id="nombre_pro" name="nombre_pro" style="background: white;" value="{{ $proyecto->nombre_pro }}" placeholder="Ingrese El Nombre Del Proyecto" oninput="capitalizarInput('nombre_pro')" autocomplete="off" onkeypress="return soloLetras(event);">
-                            </div>
-
-                            <div class="col-4">
-                                <label class="font-weight-bold text-dark">Descripción</label>
-                                <input type="text" class="form-control" id="descripcion_pro" name="descripcion_pro" style="background: white;" value="{{ $proyecto->descripcion_pro }}" placeholder="Ingrese La Descripción" autocomplete="off" oninput="capitalizarInput('descripcion_pro')" onkeypress="return soloLetras(event);">
-                            </div> --}}
-
                            <div class="col-4">
-                                        <label class="font-weight-bold text-dark">Vocero Asignada</label>
-                                        <select class="form-select" id="id_vocero" name="id_vocero">
-                                            @foreach($voceros as $vocero)
-                                                @if($vocero->tipo_vocero === 'consejo_comunal')
-                                                    <option value="{{ $vocero->id }}" @selected($vocero->id_vocero == $vocero->id)>{{ $vocero->cedula }} - {{ $vocero->nombre }} {{ $vocero->apellido }}</option>
-                                                @endif
-                                            @endforeach
-                                        </select>
-                                    </div>
+                                <label class="font-weight-bold text-dark">Vocero Asignada</label>
+                                <select class="form-select" id="id_vocero" name="id_vocero">
+                                    @foreach($voceros as $vocero)
+                                        @if($vocero->tipo_vocero === 'consejo_comunal')
+                                            <option value="{{ $vocero->id }}" @selected($vocero->id_vocero == $vocero->id)>{{ $vocero->cedula }} - {{ $vocero->nombre }} {{ $vocero->apellido }}</option>
+                                        @endif
+                                    @endforeach
+                                </select>
+                            </div>
 
                             <div class="col-4">
                                 <label class="font-weight-bold text-dark">Comunidad Asignada</label>
@@ -67,6 +58,30 @@
                                 <label  class="font-weight-bold text-primary">Reseña Fotográfica</label>
                                 <input type="file" id="imagenes" name="imagenes[]" multiple value="{{ $imagenes }}" class="btn btn-outline-info d-block w-100">
                                     <div id="foto_container" style="margin-top: 3%; display: flex; flex-wrap: wrap;"></div>
+                            </div>
+
+                            <div class="col-4">
+                                <label class="font-weight-bold text-dark">Descripción del Alcance</label>
+                                <textarea class="form-control" id="descri_alcance" name="descri_alcance" rows="3" placeholder="Ingrese la Descripción del Alcance" oninput="capitalizarTextoarea('descri_alcance')" cols="10" rows="10" style="max-height: 6rem;">{{ $asignacion->descri_alcance }}</textarea>
+                            </div>
+
+                             <div class="col-2">
+                                <label class="font-weight-bold text-dark">Moneda</label>
+                                <select class="form-control" id="moneda_presu" name="moneda_presu">
+                                    <option value="VES" {{ $asignacion->moneda_presu == 'VES' ? 'selected' : '' }}>VES</option>
+                                    <option value="USD" {{ $asignacion->moneda_presu == 'USD' ? 'selected' : '' }}>USD</option>
+                                    <option value="EUR" {{ $asignacion->moneda_presu == 'EUR' ? 'selected' : '' }}>EUR</option>
+                                </select>
+                            </div>
+
+                            <div class="col-3">
+                                <label class="font-weight-bold text-dark">Presupuesto</label>
+                                <input type="text" class="form-control" id="presupuesto" name="presupuesto" style="background: white;" value="{{ $asignacion->presupuesto }}" placeholder="Ingrese el Presupuesto" autocomplete="off">
+                            </div>
+
+                            <div class="col-3">
+                                <label class="font-weight-bold text-dark">Descripción de la Obra</label>
+                                <textarea class="form-control" id="descri_obra" name="descri_obra" rows="3" placeholder="Ingrese la Descripción de la Obra" oninput="capitalizarTextoarea('descri_obra')" cols="10" rows="10" style="max-height: 6rem;">{{ $asignacion->descri_obra }}</textarea>
                             </div>
 
                         </div>
@@ -98,6 +113,52 @@
                         
                         </div>
                         
+                    </div>
+
+                    <div class="card-body">
+
+                        <div class="row">
+
+                            <div class="col-2">
+                                <label class="font-weight-bold text-dark">Impacto Ambiental</label>
+                                <div class="form-group">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="impacto_ambiental" id="impacto_ambiental" value="SI" {{ ($asignacion->impacto_ambiental=="SI")? "checked" : ""}}>
+                                        <label class="form-check-label" for="impacto_ambiental">Si</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="impacto_ambiental" id="impacto_ambiental" value="NO" {{ ($asignacion->impacto_ambiental=="NO")? "checked" : ""}}>
+                                        <label class="form-check-label" for="impacto_ambiental">No</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-2">
+                                <label class="font-weight-bold text-dark">Impacto Ambiental</label>
+                                <div class="form-group">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="impacto_social" id="impacto_social" value="SI" {{ ($asignacion->impacto_social=="SI")? "checked" : ""}}>
+                                        <label class="form-check-label" for="impacto_social">Si</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="impacto_social" id="impacto_social" value="NO" {{ ($asignacion->impacto_social=="NO")? "checked" : ""}}>
+                                        <label class="form-check-label" for="impacto_social">No</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-4">
+                                <label class="font-weight-bold text-dark">Fecha de Inicio</label>
+                                <input type="date" class="form-control" id="fecha_inicio" name="fecha_inicio" value="{{ $asignacion->fecha_inicio }}">
+                            </div>
+
+                            <div class="col-4">
+                                <label class="font-weight-bold text-dark">Duración Estimada</label>
+                                <input type="text" class="form-control" id="duracion_estimada" name="duracion_estimada" style="background: white;" value="{{ $asignacion->duracion_estimada }}" placeholder="Ingrese la Duración Estimada (ej: 3 meses, 15 días)" autocomplete="off">
+                            </div>
+
+                        </div>
+
                     </div>
 
                     <div class="card-body">

@@ -18,10 +18,17 @@ return new class extends Migration
             $table->unsignedBigInteger('id_evaluacion');
             $table->unsignedBigInteger('id_vocero');
             $table->unsignedBigInteger('id_comunidad');
+            $table->string('descri_alcance');
+            $table->string('moneda_presu', 3); // Added this line (VES, USD, EUR)
+            $table->text('presupuesto');
+            $table->string('impacto_ambiental');
+            $table->string('impacto_social');
             $table->json('imagenes');
             $table->text('latitud');
             $table->text('longitud');
             $table->text('direccion');
+            $table->date('fecha_inicio');
+            $table->date('duracion_estimada');
             $table->timestamps();
 
             // Establecer relaciones con las tablas correspondientes

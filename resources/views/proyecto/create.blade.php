@@ -3,8 +3,8 @@
 <title>@yield('title')  Registrar Proyectos</title>
 <script src="{{asset ('js/validaciones.js') }}"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+{{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" /> --}}
 
 @section('content')
 
@@ -30,10 +30,10 @@
                                 <label  class="font-weight-bold text-dark">Nombre Del Proyecto</label>
                                 <input type="text" class="form-control" id="nombre_pro" name="nombre_pro" style="background: white;" value="" placeholder="Ingrese El Nombre Del Proyecto" oninput="capitalizarInput('nombre_pro')" autocomplete="off" onkeypress="return soloLetras(event);">
                             </div>
-                                
-                            <div class="col-4">
-                                <label  class="font-weight-bold text-dark">Descripción</label>
-                                <input type="text" class="form-control" id="descripcion_pro" name="descripcion_pro" style="background: white;" value="" placeholder="Ingrese La Descripcion" autocomplete="off" oninput="capitalizarInput('descripcion_pro')" onkeypress="return soloLetras(event);">
+
+                            <div class="col-md-4">
+                                <label class="font-weight-bold text-dark">Descripción</label>
+                                <textarea class="form-control" id="descripcion_pro" name="descripcion_pro" cols="10" rows="10" style="max-height: 6rem;" oninput="capitalizarInput('descripcion_pro')">{{ old('descripcion_pro') }}</textarea>
                             </div>
 
                             <div class="col-4">
@@ -49,7 +49,12 @@
                                 </select>
                             </div>
 
-                            <div class="col-4">
+                            <div class="col-md-4">
+                                <label class="font-weight-bold text-dark">Actividades</label>
+                                <textarea class="form-control" id="actividades" name="actividades" cols="10" rows="10" style="max-height: 6rem;" oninput="capitalizarInput('actividades')">{{ old('actividades') }}</textarea>
+                            </div>
+
+                            {{-- <div class="col-4">
                                 <label class="font-weight-bold text-dark">Actividades</label>
                                 <select class="select2-single form-control" id="actividades" name="actividades[]" multiple>
                                     <option value="">Seleccione las Actividades</option>
@@ -57,17 +62,7 @@
                                         <option value="{{ $actividad->id }}">{{ $actividad->nom_actividad }}</option>
                                     @endforeach
                                 </select>                                   
-                            </div>
-
-                            <div class="col-md-4 mb-3">
-                                <label class="font-weight-bold text-dark">Fecha Inicial</label>
-                                <input type="date" class="form-control" id="fecha_inicial" name="fecha_inicial" value="<?php echo date('d/m/Y'); ?>">
-                            </div>
-
-                            <div class="col-md-4 mb-3">
-                                <label class="font-weight-bold text-dark">Fecha Final</label>
-                                <input type="date" class="form-control" id="fecha_final" name="fecha_final" value="<?php echo date('d/m/Y'); ?>">
-                            </div>
+                            </div> --}}
 
                             <div class="col-4">
                                 <label class="font-weight-bold text-dark">Prioridad</label>
@@ -89,33 +84,42 @@
                                     <div id="foto_container"></div>
                             </div>
 
+                            <div class="col-md-4">
+                                <label class="font-weight-bold text-dark">Fecha Inicial</label>
+                                <input type="text" class="form-control" id="fecha_inicial" name="fecha_inicial" value="<?php echo date('d/m/Y'); ?>" placeholder="DD/MM/YYYY">
+                            </div>
+                            
+                            <div class="col-md-4">
+                                <label class="font-weight-bold text-dark">Fecha Final</label>
+                                <input type="text" class="form-control" id="fecha_final" name="fecha_final" value="<?php echo date('d/m/Y'); ?>" placeholder="DD/MM/YYYY">
+                            </div>
+                            
                         </div>
 
-    
-
-                        <br><br>
-
-                        <center>
-                            <button type="submit" class="btn btn-success btn-lg"><span class="icon text-white-60"><i class="fas fa-check"></i></span>
-                                <span class="text">Guardar</span>
-                            </button>
-                           <a class="btn btn-info btn-lg" href="{{ route('proyecto.index') }}"><span class="icon text-white-50">
-                                <i class="fas fa-info-circle"></i>
-                                </span>
-                                <span class="text">Regresar</span>
-                            </a>
-                        </center>
-
                     </div>
-                    
+
+                    <br><br>
+
+                    <center>
+                        <button type="submit" class="btn btn-success btn-lg"><span class="icon text-white-60"><i class="fas fa-check"></i></span>
+                            <span class="text">Guardar</span>
+                        </button>
+                        <a class="btn btn-info btn-lg" href="{{ route('proyecto.index') }}"><span class="icon text-white-50">
+                            <i class="fas fa-info-circle"></i>
+                            </span>
+                            <span class="text">Regresar</span>
+                        </a>
+                    </center>
+
                 </form>
             </div>
         </div>
     </div>
 </div>
 
+    <script src="{{ asset('https://cdn.jsdelivr.net/npm/sweetalert2@11')}}"></script>
     
-    {{-- ? FUNCION DE SELECT MULTIPLE--}}
+    {{-- ? FUNCION DE SELECT MULTIPLE
     
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -131,6 +135,28 @@
 
             // Si tienes otros selects con Select2, también inicialízalos aquí
             // $('.otro-select2-clase').select2();
+        });
+    </script> --}}
+
+    <script>
+        $(document).ready(function() {
+            // Asumiendo que usas jQuery UI Datepicker o similar
+            // Si no lo tienes, deberás incluir la librería (ej. desde un CDN o npm)
+            $("#fecha_inicial").datepicker({
+                dateFormat: "dd/mm/yy", // Esto asegura que el valor del input sea DD/MM/YYYY
+                onSelect: function(selectedDate) {
+                    // Opcional: Asegurarse que fecha_final no sea anterior a fecha_inicial
+                    $("#fecha_final").datepicker("option", "minDate", selectedDate);
+                }
+            });
+    
+            $("#fecha_final").datepicker({
+                dateFormat: "dd/mm/yy", // Esto asegura que el valor del input sea DD/MM/YYYY
+                onSelect: function(selectedDate) {
+                    // Opcional: Asegurarse que fecha_inicial no sea posterior a fecha_final
+                    $("#fecha_inicial").datepicker("option", "maxDate", selectedDate);
+                }
+            });
         });
     </script>
 
@@ -151,7 +177,7 @@
 
     {{-- * FUNCION PARA MOSTRAR LA FOTO --}}
 
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></scrip>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
     <script>
         $(document).ready(function () {
@@ -173,12 +199,12 @@
         });
     </script>
 
-     @if ($errors->any())
+    @if ($errors->any())
         <script>
             var errors = @json($errors->all());
             errors.forEach(function(error) {
                 Swal.fire({
-                    title: 'Proyectos',
+                    title: 'Proyecto',
                     text: error,
                     icon: 'warning',
                     showConfirmButton: true,
@@ -189,5 +215,4 @@
         </script>
     @endif
 
-   
 @endsection

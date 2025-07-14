@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('nombre_pro');
             $table->text('descripcion_pro');
             $table->enum('tipo_pro', ['Infraestructura', 'Social', 'Educativo', 'Salud', 'Ambiental', 'Otro']);
+            $table->text('actividades');
             $table->date('fecha_inicial');
             $table->date('fecha_final');
             $table->enum('prioridad', ['Alta', 'Media', 'Baja']);

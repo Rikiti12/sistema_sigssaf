@@ -70,7 +70,38 @@
                                 <input type="date" class="form-control" id="fecha_evalu" name="fecha_evalu" value="<?php echo date('Y-m-d'); ?>">
                             </div>
 
+                            <div class="col-4">
+                                <label  class="font-weight-bold text-dark">Estatus Evaluación</label>
+                                <select class="select2single form-control" name="estatus" id="estatus">
+                                    <option value="" selected="true" disabled>Seleccione un Estatus</option>
+                                    <option value="Aprobado">Aprobado</option>
+                                    <option value="Negado">Negado</option>
+                                </select>
+                            </div>
+
                             @if(auth()->user()->hasRole('Administrador'))
+                                <div class="card-body" id="estatus_aprob">
+                                    <label class="font-weight-bold text-dark">Estatus Aprobación</label>
+                                    <div class="row">
+                                        <div class="custom-control custom-radio col-1 mr-2"> 
+                                            <input class="custom-control-input" type="radio" name="estatus_resp" id="estatus_resp_pen" value="Pendiente" checked>
+                                            <label class="custom-control-label" for="estatus_resp_pen">Pendiente</label>
+                                        </div>
+                                        <div class="custom-control custom-radio col-1 mr-2">
+                                            <input class="custom-control-input" type="radio" name="estatus_resp" id="estatus_resp_apro" value="Aprobado">
+                                            <label class="custom-control-label" for="estatus_resp_apro">Aprobado</label>
+                                        </div>
+                                        <div class="custom-control custom-radio col-1 mr-2">
+                                            <input class="custom-control-input" type="radio" name="estatus_resp" id="estatus_resp_neg" value="Negado">
+                                            <label class="custom-control-label" for="estatus_resp_neg">Negado</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
+
+                            <input type="hidden" name="estatus_resp" value="Pendiente">
+
+                            {{-- @if(auth()->user()->hasRole('Administrador'))
                                 <div class="card-body" id="estatus">
                                     <label class="font-weight-bold text-dark">Estado de la Evaluación</label>
                                     <div class="row">
@@ -84,7 +115,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            @endif
+                            @endif --}}
 
                         </div>  
 
@@ -110,45 +141,44 @@
     </div>
 </div>
 
-<script>
-    function capitalizarPrimeraLetra(texto) {
-        return texto.charAt(0).toUpperCase() + texto.slice(1).toLowerCase();
-    }
+    <script>
+        function capitalizarPrimeraLetra(texto) {
+            return texto.charAt(0).toUpperCase() + texto.slice(1).toLowerCase();
+        }
 
-    function capitalizarInput(idInput) {
-        const inputElement = document.getElementById(idInput);
-        inputElement.value = capitalizarPrimeraLetra(inputElement.value);
-    }
-    
-    function validarEvaluacion(form) {
-        // Aquí puedes agregar validaciones adicionales si es necesario
-        return true;
-    }
-</script>
+        function capitalizarInput(idInput) {
+            const inputElement = document.getElementById(idInput);
+            inputElement.value = capitalizarPrimeraLetra(inputElement.value);
+        }
+        
+        function validarEvaluacion(form) {
+            // Aquí puedes agregar validaciones adicionales si es necesario
+            return true;
+        }
+    </script>
 
-{{-- * FUNCION  PARA MOSTRAR EL ESTATUS APROBACION SEGUN EL ESTATUS DE INSPECCION --}}
+    {{-- * FUNCION  PARA MOSTRAR EL ESTATUS APROBACION SEGUN EL ESTATUS DE EVALUACION --}}
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-        const estatusInspeccion = document.getElementById('estatus_evalu');
-        const estatusAprobacion = document.getElementById('estatus');
+        const estatusEvaluacion = document.getElementById('estatus');
+        const estatusAprobacion = document.getElementById('estatus_aprob');
 
         function toggleEstatusAprobacion() {
-            if (estatusInspeccion.value === 'Pendiente') {
+            if (estatusEvaluacion.value === 'Negado') {
                 estatusAprobacion.style.display = 'none';
-            } else if (estatusInspeccion.value === 'Aprobado') {
+            } else if (estatusEvaluacion.value === 'Aprobado') {
                 estatusAprobacion.style.display = 'block';
             } else {
                 estatusAprobacion.style.display = 'block';
             }
         }
 
-        estatusInspeccion.addEventListener('change', toggleEstatusAprobacion);
+        estatusEvaluacion.addEventListener('change', toggleEstatusAprobacion);
 
         // Ejecutar al cargar la página para establecer el estado inicial
         toggleEstatusAprobacion();
-    });
-
+        });
     </script>
 
 @if ($errors->any())

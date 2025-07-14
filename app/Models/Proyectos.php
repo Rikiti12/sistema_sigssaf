@@ -11,12 +11,12 @@ class Proyectos extends Model
     protected $table = 'proyectos'; 
     protected $primaryKey = 'id'; 
     public $timestamps = true; 
-    protected $fillable = [ 'nombre_pro','descripcion_pro','tipo_pro','fecha_inicial', 'fecha_final',
+    protected $fillable = [ 'nombre_pro','descripcion_pro','tipo_pro', 'actividades', 'fecha_inicial', 'fecha_final',
     'prioridad', 'acta_conformidad'];
 
-    public function actividades()
-    {
-        return $this->belongsToMany(actividades::class, 'actividad_proyectos', 'id_proyecto', 'id_actividad');
-    }
+    // public function actividades()
+    // {
+    //     return $this->belongsToMany(actividades::class, 'actividad_proyectos', 'id_proyecto', 'id_actividad');
+    // }
     
 }

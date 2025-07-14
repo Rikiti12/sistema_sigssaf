@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('seguimientos', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('id_planificacion');
+            $table->unsignedBigInteger('id_asignacion');
             $table->dateTime('fecha_hor');
             $table->string('responsable_segui');
             $table->text('detalle_segui');
@@ -25,7 +25,7 @@ return new class extends Migration
             $table->timestamps();
 
             // Establecer relaciones con las tablas correspondientes
-            $table->foreign('id_planificacion')->references('id')->on('planificaciones');
+            $table->foreign('id_asignacion')->references('id')->on('asignaciones');
         });
     }
 
