@@ -17,7 +17,7 @@
       <div class="row">
         <div class="col-sm-6 col-md-3">
              <a href="{{ route('vocero.index') }}" class="card-link"></a>
-          <div class="card card-stats card-round">
+             <div class="card card-stats card-round" onclick="window.location.href='{{ route('vocero.index') }}'" style="cursor: pointer;">
             <div class="card-body">
               <div class="row align-items-center">
                 <div class="col-icon">
@@ -38,7 +38,7 @@
           </div>
         </div>
         <div class="col-sm-6 col-md-3">
-          <div class="card card-stats card-round">
+             <div class="card card-stats card-round" onclick="window.location.href='{{ route('comunidad.index') }}'" style="cursor: pointer;">
             <div class="card-body">
               <div class="row align-items-center">
                 <div class="col-icon">
@@ -61,7 +61,7 @@
           </div>
         </div>
         <div class="col-sm-6 col-md-3">
-          <div class="card card-stats card-round">
+            <div class="card card-stats card-round" onclick="window.location.href='{{ route('consejo_comunal.index') }}'" style="cursor: pointer;">
             <div class="card-body">
               <div class="row align-items-center">
                 <div class="col-icon">
@@ -85,7 +85,7 @@
           </div>
         </div>
         <div class="col-sm-6 col-md-3">
-          <div class="card card-stats card-round">
+          <div class="card card-stats card-round" onclick="window.location.href='{{ route('comuna.index') }}'" style="cursor: pointer;">
             <div class="card-body">
               <div class="row align-items-center">
                 <div class="col-icon">
@@ -106,7 +106,7 @@
           </div>
         </div>
         <div class="col-sm-6 col-md-3">
-          <div class="card card-stats card-round">
+          <div class="card card-stats card-round" onclick="window.location.href='{{ route('proyecto.index') }}'" style="cursor: pointer;">
             <div class="card-body">
               <div class="row align-items-center">
                 <div class="col-icon">
@@ -178,7 +178,7 @@
           </div>
         </div> --}}
  <div class="col-sm-6 col-md-3">
-          <div class="card card-stats card-round">
+           <div class="card card-stats card-round" onclick="window.location.href='{{ route('evaluacion.index') }}'" style="cursor: pointer;">
             <div class="card-body">
               <div class="row align-items-center">
                 <div class="col-icon">
@@ -202,7 +202,7 @@
           </div>
         </div>
         <div class="col-sm-6 col-md-3">
-          <div class="card card-stats card-round">
+           <div class="card card-stats card-round" onclick="window.location.href='{{ route('asignacion.index') }}'" style="cursor: pointer;">
             <div class="card-body">
               <div class="row align-items-center">
                 <div class="col-icon">
@@ -226,7 +226,7 @@
           </div>
         </div>
         <div class="col-sm-6 col-md-3">
-          <div class="card card-stats card-round">
+           <div class="card card-stats card-round" onclick="window.location.href='{{ route('planificacion.index') }}'" style="cursor: pointer;">
             <div class="card-body">
               <div class="row align-items-center">
                 <div class="col-icon">
@@ -257,6 +257,7 @@
             <!-- Area Chart -->
             <div class="col-xl-8 col-lg-7">
               <div class="card mb-4">
+                <div class="card card-stats card-round" onclick="window.location.href='{{ route('asignacion.index') }}'" style="cursor: pointer;">
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-center">
                   <h6 class="m-0 font-weight-bold text-primary">Mapa de los Proyectos</h6>
                   <div class="dropdown no-arrow">
