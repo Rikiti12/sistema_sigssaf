@@ -182,7 +182,7 @@ class ProyectosController extends Controller
         // Asociar las actividades al proyecto
         // $proyectos->actividades()->sync($request->actividades);
 
-        // $proyectos->actividades = $request->input('actividades');
+        // // $proyectos->actividades = $request->input('actividades');
         $proyectos->id_ayuda = $request->input('id_ayuda');
         $proyectos->fecha_inicial = Carbon::createFromFormat('d/m/Y', $fechaInicialInput)->format('Y-m-d');
         $proyectos->fecha_final = Carbon::createFromFormat('d/m/Y', $fechaFinalInput)->format('Y-m-d');
