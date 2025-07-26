@@ -19,7 +19,7 @@ return new class extends Migration
             $table->text('descripcion_pro');
             $table->enum('tipo_pro', ['Infraestructura', 'Social', 'Educativo', 'Salud', 'Ambiental', 'Otro']);
             // $table->text('actividades');
-            $table->text('actividades');
+            // $table->text('actividades');
             $table->unsignedBigInteger('id_ayuda');
             $table->date('fecha_inicial');
             $table->date('fecha_final');

@@ -56,15 +56,6 @@
                                 </div> --}}
 
                                 <div class="col-4">
-                                    <label  class="font-weight-bold text-dark">Ayudas Sociales</label>
-                                    <select class="form-select" id="id_ayuda" name="id_ayuda">
-                                        @foreach($ayudas as $ayuda)
-                                            <option value="{{ $ayuda->id }}" @selected($proyecto->id_ayuda == $ayuda->id)>Nombre Ayuda: {{ $ayuda->nombre_ayuda }} - {{ $ayuda->tipo_ayuda }} </option>
-                                        @endforeach
-                                    </select>                                   
-                                </div>
-
-                                <div class="col-4">
                                     <label class="font-weight-bold text-dark">Prioridad</label>
                                     <select class="form-select" id="prioridad" name="prioridad" required>
                                         <option value="">Seleccione...</option>
