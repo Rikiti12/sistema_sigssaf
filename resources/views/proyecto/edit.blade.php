@@ -49,11 +49,10 @@
                                     </select>
                                 </div>
                             
-
-                                {{-- <div class="col-4">
+                                <div class="col-4">
                                     <label class="font-weight-bold text-dark">Actividades</label>
                                     <textarea class="form-control" id="actividades" name="actividades" rows="3" oninput="capitalizarInput('actividades')">{{ old('actividades', $proyecto->actividades) }}</textarea>
-                                </div> --}}
+                                </div>
 
                                 <div class="col-4">
                                     <label class="font-weight-bold text-dark">Prioridad</label>
