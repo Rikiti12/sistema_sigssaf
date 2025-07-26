@@ -99,7 +99,7 @@ class AsignacionesController extends Controller
         $asignaciones->presupuesto = $request->input('presupuesto');
         $asignaciones->impacto_ambiental = $request->input('impacto_ambiental');
         $asignaciones->impacto_social = $request->input('impacto_social');
-        $asignaciones->descri_obra = $request->input('descri_obra');
+        // $asignaciones->descri_obra = $request->input('descri_obra');
         $asignaciones->fecha_inicio = $request->input('fecha_inicio');
         $asignaciones->duracion_estimada = $request->input('duracion_estimada');
 
@@ -199,7 +199,7 @@ class AsignacionesController extends Controller
         $asignacion->presupuesto = $request->input('presupuesto');
         $asignacion->impacto_ambiental = $request->input('impacto_ambiental');
         $asignacion->impacto_social = $request->input('impacto_social');
-        $asignacion->descri_obra = $request->input('descri_obra');
+        // $asignacion->descri_obra = $request->input('descri_obra');
         $asignacion->fecha_inicio = $request->input('fecha_inicio');
         $asignacion->duracion_estimada = $request->input('duracion_estimada');
        

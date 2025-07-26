@@ -20,7 +20,7 @@
                 <form method="post" action="{{ route('seguimiento.store') }}" enctype="multipart/form-data">
                     @csrf
 
-                    <input type="hidden" class="form-control" id="id_planificacion" name="id_planificacion" style="background: white;" value="{{ $planificacion->id }}" autocomplete="off">
+                    <input type="hidden" class="form-control" id="id_asignacion" name="id_asignacion" style="background: white;" value="{{ $asignacion->id }}" autocomplete="off">
 
                     <div class="card-body">
                         
@@ -30,9 +30,9 @@
                                 <label  class="font-weight-bold text-dark">Responsable del Seguimiento</label>
                                 <select class="form-select" name="responsable_segui" id="responsable_segui">
                                     <option value="" selected="true" disabled>Seleccione un Responsable</option>
-                                    @if($planificacion)
-                                        <option value="{{ $planificacion->asignaciones->evaluaciones->respon_evalu }}" selected>
-                                            {{ $planificacion->asignaciones->evaluaciones->respon_evalu }}
+                                    @if($asignacion)
+                                        <option value="{{ $asignacion->evaluaciones->respon_evalu }}" selected>
+                                            {{ $asignacion->evaluaciones->respon_evalu }}
                                         </option>
                                     @endif
                                 </select>

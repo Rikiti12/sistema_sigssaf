@@ -217,7 +217,7 @@
                 </div>
                 <div class="col col-stats ms-3 ms-sm-0">
                   <div class="numbers">
-                    <p class="card-category"> Asignar Proyectos</p>
+                    <p class="card-category"> Planificaciones</p>
                     <h4 class="card-title">{{ $count_asignacion }}</h4>
                   </div>
                 </div>
@@ -226,7 +226,7 @@
           </div>
         </div>
         <div class="col-sm-6 col-md-3">
-           <div class="card card-stats card-round" onclick="window.location.href='{{ route('planificacion.index') }}'" style="cursor: pointer;">
+           <div class="card card-stats card-round" onclick="window.location.href='{{ route('seguimiento.index') }}'" style="cursor: pointer;">
             <div class="card-body">
               <div class="row align-items-center">
                 <div class="col-icon">
@@ -240,8 +240,8 @@
                 </div>
                 <div class="col col-stats ms-3 ms-sm-0">
                   <div class="numbers">
-                    <p class="card-category">Planificaciones</p>
-                    <h4 class="card-title">{{ $count_planificacion }}</h4>
+                    <p class="card-category">Seguimientos</p>
+                    <h4 class="card-title">{{ $count_seguimiento }}</h4>
                   </div>
                 </div>
               </div>

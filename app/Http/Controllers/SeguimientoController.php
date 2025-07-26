@@ -70,9 +70,9 @@ class SeguimientoController extends Controller
      */
     public function create($id)
     {
-        $planificacion = Planificaciones::with('asignaciones.evaluaciones')->findOrFail($id);
+        $asignacion = Asignaciones::with('evaluaciones')->findOrFail($id);
 
-        return view('seguimiento.create', compact('planificacion','respon_evalu')); // Pasar los proyectos a la vista
+        return view('seguimiento.create', compact('asignacion')); // Pasar los proyectos a la vista
     }
 
     /**
@@ -85,7 +85,7 @@ class SeguimientoController extends Controller
     {       
             // Crear un nuevo seguimiento
             $seguimientos = new Seguimientos();
-            $seguimientos->id_planificacion = $request->input('id_planificacion');
+            $seguimientos->id_asignacion = $request->input('id_asignacion');
             $seguimientos->fecha_hor = $request->input('fecha_hor');
             $seguimientos->responsable_segui = $request->input('responsable_segui');
             $seguimientos->detalle_segui = $request->input('detalle_segui');
@@ -170,7 +170,7 @@ class SeguimientoController extends Controller
         // ]);
          
             $seguimiento = Seguimientos::findOrFail($id);
-            $seguimiento->id_planificacion = $request->input('id_planificacion');
+            // $seguimiento->id_asignacion = $request->input('id_asignacion');
             $seguimiento->fecha_hor = $request->input('fecha_hor');
             $seguimiento->responsable_segui = $request->input('responsable_segui');
             $seguimiento->detalle_segui = $request->input('detalle_segui');

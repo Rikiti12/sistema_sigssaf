@@ -79,10 +79,10 @@
                                 <input type="text" class="form-control" id="presupuesto" name="presupuesto" style="background: white;" value="{{ $asignacion->presupuesto }}" placeholder="Ingrese el Presupuesto" autocomplete="off">
                             </div>
 
-                            <div class="col-3">
+                            {{-- <div class="col-3">
                                 <label class="font-weight-bold text-dark">Descripción de la Obra</label>
                                 <textarea class="form-control" id="descri_obra" name="descri_obra" rows="3" placeholder="Ingrese la Descripción de la Obra" oninput="capitalizarTextoarea('descri_obra')" cols="10" rows="10" style="max-height: 6rem;">{{ $asignacion->descri_obra }}</textarea>
-                            </div>
+                            </div> --}}
 
                         </div>
                     
@@ -167,7 +167,7 @@
                                 <span class="icon text-white-60"><i class="fas fa-check"></i></span>
                                 <span class="text">Guardar</span>
                             </button>
-                            <a class="btn btn-info btn-lg" href="{{ url('planificacion/') }}">
+                            <a class="btn btn-info btn-lg" href="{{ url('seguimiento/') }}">
                                 <span class="icon text-white-50"><i class="fas fa-info-circle"></i></span>
                                 <span class="text">Regresar</span>
                             </a>

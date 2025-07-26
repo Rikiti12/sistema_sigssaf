@@ -266,7 +266,6 @@ class ProyectosController extends Controller
             $proyecto->descripcion_pro = $request->input('descripcion_pro');
             $proyecto->tipo_pro= $request->input('tipo_pro');
             $proyecto->actividades = $request->input('actividades');
-            $proyecto->id_ayuda = $request->input('id_ayuda');
             $proyecto->fecha_inicial = Carbon::createFromFormat('d/m/Y', $fechaInicialInput)->format('Y-m-d');
             $proyecto->fecha_final = Carbon::createFromFormat('d/m/Y', $fechaFinalInput)->format('Y-m-d');
             $proyecto->prioridad = $request->input('prioridad');

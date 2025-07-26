@@ -64,6 +64,16 @@
                                 </select>                                   
                             </div>
 
+                            <div class="col-md-4 mb-3">
+                                <label class="font-weight-bold text-dark">Fecha Inicial</label>
+                                <input type="date" class="form-control" id="fecha_inicial" name="fecha_inicial" value="<?php echo date('d/m/Y'); ?>">
+                            </div>
+
+                            <div class="col-md-4 mb-3">
+                                <label class="font-weight-bold text-dark">Fecha Final</label>
+                                <input type="date" class="form-control" id="fecha_final" name="fecha_final" value="<?php echo date('d/m/Y'); ?>">
+                            </div>
+
                             <div class="col-4">
                                 <label class="font-weight-bold text-dark">Prioridad</label>
                                 <select class="form-select" id="prioridad" name="prioridad" required>
@@ -146,7 +156,7 @@
             // Si tienes otros selects con Select2, también inicialízalos aquí
             // $('.otro-select2-clase').select2();
         });
-    </script>
+    </script> --}}
 
     <script>
         $(document).ready(function() {
