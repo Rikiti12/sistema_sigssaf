@@ -19,11 +19,16 @@ return new class extends Migration
             $table->text('descripcion_pro');
             $table->enum('tipo_pro', ['Infraestructura', 'Social', 'Educativo', 'Salud', 'Ambiental', 'Otro']);
             $table->text('actividades');
+            $table->unsignedBigInteger('id_ayuda');
             $table->date('fecha_inicial');
             $table->date('fecha_final');
             $table->enum('prioridad', ['Alta', 'Media', 'Baja']);
             $table->json('acta_conformidad');
             $table->timestamps();
+
+            // Establecer relación con la tabla de ayudas
+            $table->foreign('id_ayuda')->references('id')->on('ayudas');
+
         });
     }
 

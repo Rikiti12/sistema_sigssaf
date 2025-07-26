@@ -26,7 +26,7 @@ class VocerosController extends Controller
         return view('vocero.index', compact('voceros'));
     }
 
-         public function pdf(Request $request)
+    public function pdf(Request $request)
     {
         $search = $request->input('search');
     

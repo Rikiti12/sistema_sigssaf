@@ -11,8 +11,13 @@ class Proyectos extends Model
     protected $table = 'proyectos'; 
     protected $primaryKey = 'id'; 
     public $timestamps = true; 
-    protected $fillable = [ 'nombre_pro','descripcion_pro','tipo_pro', 'actividades', 'fecha_inicial', 'fecha_final',
+    protected $fillable = [ 'nombre_pro','descripcion_pro','tipo_pro', 'id_ayuda', 'actividades', 'fecha_inicial', 'fecha_final',
     'prioridad', 'acta_conformidad'];
+
+    public function ayuda()
+    {
+        return $this->belongsTo(Ayudas::class, 'id_ayuda');
+    }
 
     // public function actividades()
     // {

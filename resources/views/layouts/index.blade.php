@@ -107,12 +107,19 @@
                       </a>
                       @endcan
                     </li>
-                     <li>
-                        @can('ver-proyecto')
+                    <li>
+                      @can('ver-ayuda')
+                      <a class="sidebar-link"  href="{{ url('ayuda')}}" aria-expanded="false">
+                        <span class="sub-item">Ayudas Sociales</span>
+                      </a>
+                      @endcan
+                    </li>
+                    <li>
+                      @can('ver-proyecto')
                       <a class="sidebar-link"  href="{{ url('proyecto')}}" aria-expanded="false">
                         <span class="sub-item">Proyectos</span>
                       </a>
-                       @endcan
+                      @endcan
                     </li>
                     {{-- <li>
                        @can('ver-vivienda')

@@ -4,8 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Proyectos;
-// use App\Models\Actividades;
-// use App\Models\ActividadProyectos;
+use App\Models\Ayudas;
 use App\Http\Controllers\BitacoraController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -31,7 +30,7 @@ class ProyectosController extends Controller
      */
     public function index()
     {
-        $proyectos = Proyectos::all();
+        $proyectos = Proyectos::with('ayuda')->get();
         return view('proyecto.index', compact('proyectos'));
     }
 
@@ -72,6 +71,8 @@ class ProyectosController extends Controller
         return response()->json([
             'actividades' => $proyecto->actividades,
             'acta_conformidad' => $proyecto->acta_conformidad,
+            'nombre_ayuda' => $proyecto->ayuda->nombre_ayuda,
+            'tipo_ayuda' => $proyecto->ayuda->tipo_ayuda,
         ]);
  
     }
@@ -83,9 +84,8 @@ class ProyectosController extends Controller
      */
     public function create()
     {
-        // $actividades = Actividades::all();
-        // $actividad_proyectos = ActividadProyectos::get();
-        return view('proyecto.create');
+        $ayudas = Ayudas::all();
+        return view('proyecto.create', compact('ayudas'));
     }
 
     /**
@@ -183,6 +183,7 @@ class ProyectosController extends Controller
         // $proyectos->actividades()->sync($request->actividades);
 
         $proyectos->actividades = $request->input('actividades');
+        $proyectos->id_ayuda = $request->input('id_ayuda');
         $proyectos->fecha_inicial = Carbon::createFromFormat('d/m/Y', $fechaInicialInput)->format('Y-m-d');
         $proyectos->fecha_final = Carbon::createFromFormat('d/m/Y', $fechaFinalInput)->format('Y-m-d');
         $proyectos->prioridad = $request->input('prioridad');
@@ -236,8 +237,9 @@ class ProyectosController extends Controller
     public function edit($id)
     {
         $proyecto = Proyectos::find($id);
+        $ayudas = Ayudas::all();
         $acta_conformidad = $proyecto->acta_conformidad;
-        return view('proyecto.edit', compact('proyecto', 'acta_conformidad'));
+        return view('proyecto.edit', compact('proyecto', 'ayudas', 'acta_conformidad'));
     }
 
     /**
@@ -264,6 +266,7 @@ class ProyectosController extends Controller
             $proyecto->descripcion_pro = $request->input('descripcion_pro');
             $proyecto->tipo_pro= $request->input('tipo_pro');
             $proyecto->actividades = $request->input('actividades');
+            $proyecto->id_ayuda = $request->input('id_ayuda');
             $proyecto->fecha_inicial = Carbon::createFromFormat('d/m/Y', $fechaInicialInput)->format('Y-m-d');
             $proyecto->fecha_final = Carbon::createFromFormat('d/m/Y', $fechaFinalInput)->format('Y-m-d');
             $proyecto->prioridad = $request->input('prioridad');

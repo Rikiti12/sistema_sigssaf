@@ -48,25 +48,20 @@
                                     <option value="Otro">Otro</option>
                                 </select>
                             </div>
-{{-- 
-                            <div class="col-4">
+
+                            <div class="col-md-4">
                                 <label class="font-weight-bold text-dark">Actividades</label>
-                                <select class="select2-single form-control" id="actividades" name="actividades[]" multiple>
-                                    <option value="">Seleccione las Actividades</option>
-                                    @foreach($actividades as $actividad)
-                                        <option value="{{ $actividad->id }}">{{ $actividad->nom_actividad }}</option>
+                                <textarea class="form-control" id="actividades" name="actividades" cols="10" rows="10" style="max-height: 6rem;" oninput="capitalizarInput('actividades')">{{ old('actividades') }}</textarea>
+                            </div>
+ 
+                            <div class="col-4">
+                                <label class="font-weight-bold text-dark">Ayudas Sociales</label>
+                                <select class="form-select" id="id_ayuda" name="id_ayuda">
+                                    <option value="">Seleccione las Ayudas Sociales</option>
+                                    @foreach($ayudas as $ayuda)
+                                        <option value="{{ $ayuda->id }}">Nombre Ayuda: {{ $ayuda->nombre_ayuda }} - Tipo de Ayuda:{{ $ayuda->tipo_ayuda }}</option>
                                     @endforeach
                                 </select>                                   
-                            </div>
-
-                            <div class="col-md-4 mb-3">
-                                <label class="font-weight-bold text-dark">Fecha Inicial</label>
-                                <input type="date" class="form-control" id="fecha_inicial" name="fecha_inicial" value="<?php echo date('d/m/Y'); ?>">
-                            </div>
-
-                            <div class="col-md-4 mb-3">
-                                <label class="font-weight-bold text-dark">Fecha Final</label>
-                                <input type="date" class="form-control" id="fecha_final" name="fecha_final" value="<?php echo date('d/m/Y'); ?>">
                             </div>
 
                             <div class="col-4">
@@ -88,6 +83,16 @@
                                 <input type="file" class="form-control" id="acta_conformidad" name="acta_conformidad[]" multiple>
                                     <div id="foto_container"></div>
                             </div>
+
+                            {{-- <div class="col-md-4 mb-3">
+                                <label class="font-weight-bold text-dark">Fecha Inicial</label>
+                                <input type="date" class="form-control" id="fecha_inicial" name="fecha_inicial" value="<?php echo date('d/m/Y'); ?>">
+                            </div>
+
+                            <div class="col-md-4 mb-3">
+                                <label class="font-weight-bold text-dark">Fecha Final</label>
+                                <input type="date" class="form-control" id="fecha_final" name="fecha_final" value="<?php echo date('d/m/Y'); ?>">
+                            </div> --}}
 
                             <div class="col-md-4">
                                 <label class="font-weight-bold text-dark">Fecha Inicial</label>
@@ -141,7 +146,7 @@
             // Si tienes otros selects con Select2, también inicialízalos aquí
             // $('.otro-select2-clase').select2();
         });
-    </script> --}}
+    </script>
 
     <script>
         $(document).ready(function() {

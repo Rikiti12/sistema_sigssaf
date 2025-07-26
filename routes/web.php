@@ -15,6 +15,7 @@ use App\Http\Controllers\ComunaController;
 use App\Http\Controllers\ComunidadesController;
 use App\Http\Controllers\ConsejoComunalController;
 use App\Http\Controllers\VocerosController;
+use App\Http\Controllers\AyudasController;
 use App\Http\Controllers\ProyectosController;
 use App\Http\Controllers\EvaluacionesController;
 use App\Http\Controllers\AsignacionesController;
@@ -89,6 +90,12 @@ Route::get('/comuna',  [comunaController::class,'index'])->name('comuna')->middl
 Route::get('/comuna/create', [ComunaController::class, 'create'])->name('create')->middleware('auth');
 Route::get('/comuna/pdf', [ComunaController::class,'pdf'])->name('comuna')->middleware('auth');
 Route::resource('comuna', ComunaController::class)->middleware('auth');
+
+/* Rutas Ayuda */
+Route::get('/ayuda', [AyudasController::class, 'index'])->name('ayuda')->middleware('auth');
+Route::get('/ayuda/create', [AyudasController::class, 'create'])->name('ayuda.create')->middleware('auth');
+Route::get('/ayuda/pdf', [AyudasController::class, 'pdf'])->name('ayuda.pdf')->middleware('auth'); // <-- Aquí faltaba el ;
+Route::resource('ayuda', AyudasController::class)->middleware('auth');
 
 /* Rutas Proyecto */
 Route::get('/proyecto', [ProyectosController::class, 'index'])->name('proyecto')->middleware('auth');
