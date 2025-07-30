@@ -255,8 +255,8 @@ class ProyectosController extends Controller
                 'nombre_pro' => 'required|string|max:150',
                 'descripcion_pro' => 'nullable|string',
                 'tipo_pro' => 'required|in:Infraestructura,Social,Educativo,Salud,Ambiental,Otro',
-                'fecha_inicial' => 'required|date',
-                'fecha_final' => 'required|date|after_or_equal:fecha_inicial',
+                'fecha_inicial' => 'required|date_format:d/m/Y',
+                'fecha_final' => 'required|date_format:d/m/Y|after_or_equal:fecha_inicial',
                 'prioridad' => 'required|in:Alta,Media,Baja',
                 
             ]);
@@ -267,8 +267,10 @@ class ProyectosController extends Controller
             $proyecto->tipo_pro= $request->input('tipo_pro');
             $proyecto->actividades = $request->input('actividades');
             $proyecto->id_ayuda = $request->input('id_ayuda');
-            $proyecto->fecha_inicial = Carbon::createFromFormat('d/m/Y', $fechaInicialInput)->format('Y-m-d');
-            $proyecto->fecha_final = Carbon::createFromFormat('d/m/Y', $fechaFinalInput)->format('Y-m-d');
+            // $proyecto->fecha_inicial = Carbon::createFromFormat('d/m/Y', $fechaInicialInput)->format('Y-m-d');
+            // $proyecto->fecha_final = Carbon::createFromFormat('d/m/Y', $fechaFinalInput)->format('Y-m-d');
+            $proyecto->fecha_inicial = Carbon::createFromFormat('d/m/Y', $request->input('fecha_inicial'))->format('Y-m-d');
+            $proyecto->fecha_final = Carbon::createFromFormat('d/m/Y', $request->input('fecha_final'))->format('Y-m-d');
             $proyecto->prioridad = $request->input('prioridad');
 
              // Verificar si se han cargado nuevos archivos

@@ -3,8 +3,7 @@
 <title>@yield('title')  Registrar Proyectos</title>
 <script src="{{asset ('js/validaciones.js') }}"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-{{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" /> --}}
+
 
 @section('content')
 
@@ -49,8 +48,6 @@
                                 </select>
                             </div>
 
-                            <div class="col-md-4">
-
                             <div class="col-4">
                                 <label class="font-weight-bold text-dark">Actividades</label>
                                 <textarea class="form-control" id="actividades" name="actividades" cols="10" rows="10" style="max-height: 6rem;" oninput="capitalizarInput('actividades')">{{ old('actividades') }}</textarea>
@@ -65,16 +62,6 @@
                                     @endforeach
                                 </select>                                   
                             </div>
-
-                            {{-- <div class="col-md-4 mb-3">
-                                <label class="font-weight-bold text-dark">Fecha Inicial</label>
-                                <input type="date" class="form-control" id="fecha_inicial" name="fecha_inicial" value="<?php echo date('d/m/Y'); ?>">
-                            </div>
-
-                            <div class="col-md-4 mb-3">
-                                <label class="font-weight-bold text-dark">Fecha Final</label>
-                                <input type="date" class="form-control" id="fecha_final" name="fecha_final" value="<?php echo date('d/m/Y'); ?>">
-                            </div> --}}
 
                             <div class="col-4">
                                 <label class="font-weight-bold text-dark">Prioridad</label>
@@ -129,26 +116,6 @@
     </div>
 </div>
 
-    <script src="{{ asset('https://cdn.jsdelivr.net/npm/sweetalert2@11')}}"></script>
-    
-    {{-- ? FUNCION DE SELECT MULTIPLE
-    
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-
-    <script>
-        $(document).ready(function() {
-            // Inicialización de Select2 para el select de actividades
-            $('.select2-single').select2({
-                placeholder: "Seleccione las Actividades",
-                allowClear: true
-            });
-
-            // Si tienes otros selects con Select2, también inicialízalos aquí
-            // $('.otro-select2-clase').select2();
-        });
-    </script> 
 
     <script>
         $(document).ready(function() {

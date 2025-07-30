@@ -258,9 +258,9 @@
                         let proyectosHtml = `
                             <h5 class="font-weight-bold text-primary" style="text-align: center">Detalles del Proyecto</h5>
 
-                            <p><b>Actividades del Proyecto</b>${data.actividades}</p>
-                            <p><b>Nombre de la Ayuda Social</b>${data.nombre_ayuda}</p>
-                            <p><b>Tipo de Ayuda Social</b>${data.tipo_ayuda}</p>
+                            <p><b>Actividades del Proyecto</b>: ${data.actividades}</p>
+                            <p><b>Nombre de la Ayuda Social</b>: ${data.nombre_ayuda}</p>
+                            <p><b>Tipo de Ayuda Social</b>: ${data.tipo_ayuda}</p>
                 
                         `;
 

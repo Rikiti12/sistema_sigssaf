@@ -54,6 +54,18 @@
                                     <textarea class="form-control" id="actividades" name="actividades" rows="3" oninput="capitalizarInput('actividades')">{{ old('actividades', $proyecto->actividades) }}</textarea>
                                 </div>
 
+                                <div class="col-4">  
+                                    <label class="font-weight-bold text-dark">Ayudas Sociales</label>
+                                    <select class="form-select" id="id_ayuda" name="id_ayuda" required>
+                                        <option value="">Seleccione una Ayuda...</option>
+                                        @foreach($ayudas as $ayuda)
+                                            <option value="{{ $ayuda->id }}" {{ $proyecto->id_ayuda == $ayuda->id ? 'selected' : '' }}>
+                                                Nombre Ayuda: {{ $ayuda->nombre_ayuda }} - Tipo de Ayuda:{{ $ayuda->tipo_ayuda }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
                                 <div class="col-4">
                                     <label class="font-weight-bold text-dark">Prioridad</label>
                                     <select class="form-select" id="prioridad" name="prioridad" required>
@@ -76,13 +88,23 @@
 
                                 <div class="col-md-4">
                                     <label class="font-weight-bold text-dark">Fecha Inicial</label>
+                                    <input type="text" class="form-control" id="fecha_inicial" name="fecha_inicial" value="{{ $proyecto->fecha_inicial ? Carbon\Carbon::parse($proyecto->fecha_inicial)->format('d/m/Y') : '' }}">
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label class="font-weight-bold text-dark">Fecha Final</label>
+                                    <input type="text" class="form-control" id="fecha_final" name="fecha_final" value="{{ $proyecto->fecha_final ? Carbon\Carbon::parse($proyecto->fecha_final)->format('d/m/Y') : '' }}">
+                                </div>
+
+                                {{-- <div class="col-md-4">
+                                    <label class="font-weight-bold text-dark">Fecha Inicial</label>
                                     <input type="text" class="form-control" id="fecha_inicial" name="fecha_inicial" value="{{ $proyecto->fecha_inicial }}" placeholder="DD/MM/YYYY">
                                 </div>
                                 
                                 <div class="col-md-4">
                                     <label class="font-weight-bold text-dark">Fecha Final</label>
                                     <input type="text" class="form-control" id="fecha_final" name="fecha_final"  value="{{ $proyecto->fecha_final }}" placeholder="DD/MM/YYYY">
-                                </div>
+                                </div> --}}
 
                             </div>
 
@@ -108,7 +130,7 @@
     </div>
 </div>
 
-    <script>
+    {{-- <script>
         $(document).ready(function() {
             $("#fecha_inicial").datepicker({
                 dateFormat: "dd/mm/yy", // Esto asegura que el valor del input sea DD/MM/YYYY
@@ -124,7 +146,7 @@
                 }
             });
         });
-    </script>
+    </script> --}}
 
     {{-- * FUNCION PARA MOSTRAR LA FOTO --}}
 
