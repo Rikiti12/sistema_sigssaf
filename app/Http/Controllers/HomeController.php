@@ -8,11 +8,13 @@ use App\Models\Comunas;
 use App\Models\Comunidades;
 use App\Models\ConsejoComunal;
 use App\Models\Voceros;
+use App\Models\Ayudas;
 use App\Models\Proyectos;
 use App\Models\Evaluaciones;
 use App\Models\Asignaciones;
 use App\Models\Planificaciones;
 use App\Models\Seguimientos;
+
 
 class homeController extends Controller
 {
@@ -34,6 +36,10 @@ class homeController extends Controller
         $comunas = Comunas::all();
         $count_comuna = DB::table('comunas')
         ->count();
+
+        $ayudas = Ayudas::all();
+        $count_ayuda = DB::table('ayudas')
+        ->count();
         
         $proyectos = Proyectos::all();
         $count_proyecto = DB::table('proyectos')
@@ -50,12 +56,13 @@ class homeController extends Controller
         $seguimientos = Seguimientos::all();
         $count_seguimiento = DB::table('seguimientos')
         ->count();
+       
 
         $mapa_asignaciones = asignaciones::select('latitud','longitud')->get();
 
-        return view('home.inicio' , compact('count_vocero', 'count_comunidad', 'count_consejo', 'count_comuna','count_proyecto','count_evaluacion',
+        return view('home.inicio' , compact('count_vocero', 'count_comunidad', 'count_consejo', 'count_comuna','count_ayuda','count_proyecto','count_evaluacion',
         'count_asignacion', 'count_seguimiento', 'mapa_asignaciones'  ) ,  [
-        'count' => $count_vocero, $count_comunidad, $count_consejo, $count_comuna, $count_proyecto,$count_evaluacion, $count_asignacion, $count_seguimiento
+        'count' => $count_vocero, $count_comunidad, $count_consejo, $count_comuna,  $count_ayuda,$count_proyecto,$count_evaluacion, $count_asignacion, $count_seguimiento
 
         ]); 
 

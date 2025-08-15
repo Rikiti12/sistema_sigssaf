@@ -34,6 +34,7 @@ class AyudasController extends Controller
             $ayudas = Ayudas::where('nombre_ayuda', 'LIKE', '%' . $search . '%')
                            ->orWhere('tipo_ayuda', 'LIKE', '%' . $search . '%')
                            ->orWhere('descripcion', 'LIKE', '%' . $search . '%')
+                           ->orWhere('foto_ayuda', 'LIKE', '%' . $search . '%')
                            ->get();
         } else {
             // Obtener todos los bancos si no hay término de búsqueda
@@ -41,8 +42,26 @@ class AyudasController extends Controller
         }
     
         // Generar el PDF, incluso si no se encuentran bancos
-        $pdf = Pdf::loadView('ayuda.pdf', compact('ayudass'));
+        $pdf = Pdf::loadView('ayuda.pdf', compact('ayudas'));
         return $pdf->stream('ayuda.pdf');
+    }
+
+    public function getayudaDetalles($id)
+    {
+        // Recupera el Ayuda por su ID
+        $ayuda = Ayudas::find($id);
+
+        if (!$ayuda) {
+            // Maneja el caso en que no se encuentre la ayuda
+            return response()->json(['error' => 'La Ayuda no encontrada'], 404);
+        }
+
+        // Devuelve los datos relevantes en formato JSON
+        return response()->json([
+            'foto_ayuda' => $ayuda->foto_ayuda,
+            
+        ]);
+ 
     }
 
     /**
@@ -64,11 +83,33 @@ class AyudasController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request, [
+            'foto_ayuda' => 'required|array|min:1',
+            'foto_ayuda.*' => 'image|mimes:jpeg,png,jpg,gif,svg',
+        ], [
+            'foto_ayuda.required' => 'Debe registrar una o más fotos.',
+            'foto_ayuda.min' => 'Debe registrar al menos una foto.',
+            'foto_ayuda.*.image' => 'Cada archivo debe ser una imagen.',
+            'foto_ayuda.*.mimes' => 'Las imágenes deben ser de tipo jpeg, png, jpg, gif o svg.',
+        ]);
 
         $ayudas = new Ayudas();
         $ayudas->nombre_ayuda = $request->input('nombre_ayuda');
         $ayudas->tipo_ayuda = $request->input('tipo_ayuda');
         $ayudas->descripcion = $request->input('descripcion');
+
+        if ($request->hasFile('foto_ayuda')) {
+            $rutaGuardarDocs = 'foto_ayuda/ayudas/';
+            $nombresAyudas = [];
+    
+            foreach ($request->file('foto_ayuda') as $foto_ayuda) {
+                $nombreAyuda = date('YmdHis') . '_' . uniqid() . '_' . pathinfo($foto_ayuda->getClientOriginalName(), PATHINFO_FILENAME) . '.' . $foto_ayuda->getClientOriginalExtension();
+                $foto_ayuda->move(public_path($rutaGuardarDocs), $nombreAyuda);
+                $nombresAyudas[] = $nombreAyuda;
+            }
+    
+                $ayudas->foto_ayuda = json_encode($nombresAyudas);
+            }
 
         $ayudas->save();
 
@@ -103,7 +144,8 @@ class AyudasController extends Controller
     public function edit($id)
     {
         $ayuda = Ayudas::find($id);
-        return view('ayuda.edit', compact('ayuda'));
+        $foto_ayuda = $ayuda->foto_ayuda;
+        return view('ayuda.edit', compact('ayuda', 'foto_ayuda'));
     }
 
     /**
@@ -119,6 +161,21 @@ class AyudasController extends Controller
         $ayuda->nombre_ayuda = $request->input('nombre_ayuda');
         $ayuda->tipo_ayuda = $request->input('tipo_ayuda');
         $ayuda->descripcion = $request->input('descripcion');
+
+         // Verificar si se han cargado nuevos archivos
+         if ($request->hasFile('foto_ayuda')) {
+            $rutaGuardarImg = 'foto_ayuda/ayudas/';
+            $nombresAyudas = [];
+
+            foreach ($request->file('foto_ayuda') as $foto_ayuda) {
+                $nombreAyuda = date('YmdHis') . '_' . uniqid() . '_' . pathinfo($foto_ayuda->getClientOriginalName(), PATHINFO_FILENAME) . '.' . $foto_ayuda->getClientOriginalExtension();
+                $foto_ayuda->move(public_path($rutaGuardarImg), $nombreAyuda);
+                $nombresAyudas[] = $nombreAyuda;
+            }
+
+            // Actualizar las imágenes
+            $ayuda->foto_ayuda = json_encode($nombresAyudas);
+        }
 
         $ayuda->save();
 

@@ -94,22 +94,22 @@ class VocerosController extends Controller
      */
     public function store(Request $request)
     {
-        // $request->validate([
-        //     'cedula' => 'required|unique:personas,cedula',
-        //     'nombre' => 'required',
-        //     'apellido' => 'required',
-        //     'fecha_nacimiento' => 'required|date',
-        //     'genero' => 'required',
-        //     'telefono' => 'required',
-        //     'correo' => 'required|email|unique:personas,correo',
-        //     'direccion' => 'required',
-        //     'discapacidad' => 'required|boolean',
-        //     'embarazada' => 'required|boolean',
-        //     'jefe_familia' => 'required|boolean',
-        // ], [
-        //     'correo.unique' => 'Este correo ya existe.',
-        //     'cedula.unique' => 'Este cedula ya existe.',
-        // ]);
+        $request->validate([
+            'cedula' => 'required|unique:voceros,cedula',
+            'nombre' => 'required',
+            'apellido' => 'required',
+            'fecha_nacimiento' => 'required|date',
+            'genero' => 'required',
+            'telefono' => 'required',
+            'correo' => 'required|email|unique:voceros,correo',
+            'direccion' => 'required',
+            // 'discapacidad' => 'required|boolean',
+            // 'embarazada' => 'required|boolean',
+            // 'jefe_familia' => 'required|boolean',
+        ], [
+            'correo.unique' => 'Este correo ya existe.',
+            'cedula.unique' => 'Este cedula ya existe.',
+        ]);
 
         $voceros = new Voceros();
         $voceros->cedula = $request->input('cedula');

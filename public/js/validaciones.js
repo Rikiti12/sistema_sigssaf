@@ -2190,43 +2190,115 @@ else if (/(\w)\2+/i.test(dire_comunas.toLowerCase())) {
  }
 }
 
+// Validar Ayuda
+function Ayuda (obj) {
+    // Dentro de la función de validación del formulario (por ejemplo, en el evento 'submit').
+var nombre_ayuda = document.getElementById('nombre_ayuda').value;
+
+// 1. Validar que el campo no esté vacío o solo contenga espacios en blanco.
+if (nombre_ayuda.trim() === "") {
+    Swal.fire({
+        title: 'Nombre de la ayuda',
+        text: "Debe ingresar el nombre de la ayuda. No puede estar vacío o contener solo espacios en blanco.",
+        icon: 'warning',
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+    });
+
+    document.getElementById('nombre_ayuda').focus();
+    return false; // Evita que el formulario se envíe.
+}
+// 2. Validar que no contenga caracteres especiales (segunda capa de seguridad).
+else if (/[^a-zA-Z0-9\s]/.test(nombre_ayuda)) {
+    Swal.fire({
+        title: 'Caracter no permitido',
+        text: "El nombre de la ayuda no puede contener caracteres especiales.",
+        icon: 'error',
+        confirmButtonColor: '#d33',
+    });
+
+    document.getElementById('nombre_ayuda').focus();
+    return false; // Evita que el formulario se envíe.
+}
+
+
+var tipo_ayuda = obj.tipo_ayuda.value;
+if (!tipo_ayuda) {
+    Swal.fire({
+        title: 'Tipo de ayuda',
+        text: "Debe seleccionar un tipo de ayuda.",
+        icon: 'warning',
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+    }).then((result) => {
+        if (result.isConfirmed) {
+            this.submit();
+        }
+    });
+    
+    obj.tipo_ayuda.focus();
+    return false;
+}
+var descripcion = obj.descripcion.value;
+
+// 1. Validate that the field is not empty.
+if (!descripcion) {
+    Swal.fire({
+        title: 'Descripción',
+        text: "Debe ingresar la descripción.",
+        icon: 'warning',
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+    }).then((result) => {
+        if (result.isConfirmed) {
+            this.submit();
+        }
+    });
+
+    obj.descripcion.focus();
+    return false;
+}
+
+// 2. Validate that the field doesn't contain only whitespace.
+if (descripcion.trim() === "") {
+    Swal.fire({
+        title: 'Descripción',
+        text: "El campo de la descripción no debe contener solo espacios en blanco.",
+        icon: 'warning',
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+    }).then((result) => {
+        if (result.isConfirmed) {
+            this.submit();
+        }
+    });
+
+    obj.descripcion.focus();
+    return false;
+}
+
+// 3. Validate the minimum length (at least 5 characters).
+if (descripcion.length < 5) {
+    Swal.fire({
+        title: 'Descripción',
+        text: "Faltan dígitos en este campo de texto. La descripción debe tener al menos 5 caracteres.",
+        icon: 'warning',
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+    }).then((result) => {
+        if (result.isConfirmed) {
+            this.submit();
+        }
+    });
+
+    obj.descripcion.focus();
+    return false;
+}
+
+}
 // Validar Proyecto
 function Proyecto (obj) {
-    // var id_persona = obj.id_persona.value;
-    // if (id_persona==0){
-    //     Swal.fire({
-    //         title: 'Proyecto',
-    //         text: "Debe seleccionar una persona.",
-    //         icon: 'warning',
-    //         confirmButtonColor: '#3085d6',
-    //         cancelButtonColor: '#d33',
-    //         }).then((result) => {
-    //     if (result.isConfirmed) {
-
-    //         this.submit();
-    //     }
-    //     })
-        
-    //     return (false);
-    // }
-
-    // var id_comunidad = obj.id_comunidad.value;
-    // if (!id_comunidad){
-    //     Swal.fire({
-    //         title: 'Proyecto',
-    //         text: "Debe seleccionar una comunidad.",
-    //         icon: 'warning',
-    //         confirmButtonColor: '#3085d6',
-    //         cancelButtonColor: '#d33',
-    //         }).then((result) => {
-    //     if (result.isConfirmed) {
-
-    //         this.submit();
-    //     }
-    //     })
-        
-    //     return (false);
-    // }
+    
 
    // Obtén el campo de nombre de proyecto para aplicar la validación en tiempo real.
 var nombre_proInput = obj.nombre_pro;

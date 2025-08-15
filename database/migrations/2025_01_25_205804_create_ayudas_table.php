@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('nombre_ayuda');
             $table->string('tipo_ayuda');
             $table->string('descripcion');
+            $table->json('foto_ayuda');
 
             $table->timestamps();
         });

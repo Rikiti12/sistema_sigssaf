@@ -11,7 +11,7 @@ class Ayudas extends Model
     protected $table = 'ayudas'; 
     protected $primaryKey = 'id';
     public $timestamps = true;
-    protected $fillable = [ 'nombre_ayuda', 'tipo_ayuda', 'descripcion'];
+    protected $fillable = [ 'nombre_ayuda', 'tipo_ayuda', 'descripcion', 'foto_ayuda'];
 
     public function proyecto()
     {

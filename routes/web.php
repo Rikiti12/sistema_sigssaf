@@ -96,6 +96,7 @@ Route::get('/ayuda', [AyudasController::class, 'index'])->name('ayuda')->middlew
 Route::get('/ayuda/create', [AyudasController::class, 'create'])->name('ayuda.create')->middleware('auth');
 Route::get('/ayuda/pdf', [AyudasController::class, 'pdf'])->name('ayuda.pdf')->middleware('auth'); // <-- Aquí faltaba el ;
 Route::resource('ayuda', AyudasController::class)->middleware('auth');
+Route::get('/ayuda/detalles/{id}', [AyudasController::class, 'getayudaDetalles']);
 
 /* Rutas Proyecto */
 Route::get('/proyecto', [ProyectosController::class, 'index'])->name('proyecto')->middleware('auth');

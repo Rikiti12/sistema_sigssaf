@@ -75,7 +75,11 @@ img {
         <div class="row">
             <img class="centro" src="../public/img/portada2.png" alt="">
         </div>
-
+        
+        <div class="date-info" style="">
+            Generado el: {{ now()->format('d/m/Y H:i:s') }}
+        </div>
+        
         <h1>Datos del Vocero</h1><br>
             <table class="table" cellpadding="1" cellspacing="1" width="100%" style="padding-bottom:0.4rem;front-size:0.6rem !important">
                 <thead class="header">
