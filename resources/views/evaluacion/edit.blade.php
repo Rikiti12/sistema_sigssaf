@@ -22,7 +22,11 @@
                 <form method="post" action="{{ url('/evaluacion/'.$evaluacion->id) }}" enctype="multipart/form-data" onsubmit="return Evaluaciones(this)">
                     @csrf
                     {{ method_field('PATCH') }}
+
+                <div class="card-body">
+
                    <div class="row">
+
                        <div class="col-4">  
                            <label for="id_proyecto" class="font-weight-bold text-dark">Proyecto a Evaluar</label>
                            <select class="form-select" id="id_proyecto" name="id_proyecto" required>
@@ -39,16 +43,7 @@
                            <label class="font-weight-bold text-dark">Responsable de la Evaluación</label>
                            <input type="text" class="form-control" id="respon_evalu" name="respon_evalu" style="background: white;" value="{{ $evaluacion->respon_evalu }}" placeholder="Ingrese el nombre del responsable" oninput="capitalizarInput('responsable')" autocomplete="off" onkeypress="return soloLetras(event);" required>
                        </div>
-                       
-                       <div class="col-4">
-                           <label for="estado_evalu" class="form-label">Estado de la Evaluación </label>
-                           <select class="form-select" id="estado_evalu" name="estado_evalu" required>
-                               <option value="Pendiente" {{ $evaluacion->estado_evalu == 'Pendiente' ? 'selected' : '' }}>Pendiente</option>
-                               <option value="En Proceso" {{ $evaluacion->estado_evalu == 'En Proceso' ? 'selected' : '' }}>En Proceso</option>
-                               <option value="Completada" {{ $evaluacion->estado_evalu == 'Completada' ? 'selected' : '' }}>Completada</option>
-                               <option value="Aprobada" {{ $evaluacion->estado_evalu == 'Aprobada' ? 'selected' : '' }}>Aprobada</option>
-                           </select>
-                       </div>
+
 
                        <div class="col-4">
                            <label class="font-weight-bold text-dark">Observaciones</label>
@@ -68,21 +63,49 @@
                            <label class="font-weight-bold text-dark">Fecha de Evaluación</label>
                            <input type="date" class="form-control" id="fecha_evalu" name="fecha_evalu" value="{{ $evaluacion->fecha_evalu }}" required>
                        </div>
-                   
-                       {{-- <div class="col-md-12 mb-3">
-                           <label class="font-weight-bold text-dark">Documentos Adjuntos</label>
-                           @if($evaluacion->documentos)
-                               <div class="mb-2">
-                                   <small class="text-muted">Documentos actuales:</small>
-                                   @foreach(json_decode($evaluacion->documentos) as $documento)
-                                       <div>{{ $documento }}</div>
-                                   @endforeach
-                               </div>
-                           @endif
-                           <input type="file" class="form-control" id="documentos" name="documentos[]" multiple>
-                           <small class="text-muted">Puede seleccionar múltiples archivos si es necesario</small>
-                       </div> --}}
+
+                        @if(auth()->user()->hasRole('Administrador'))
+                        @if ($evaluacion->estatus_resp == "" || $evaluacion->estatus_resp == "Pendiente")
+                            <div class="col-4">
+                                <label  class="font-weight-bold text-dark">Estatus Evaluación</label>
+                                <select class="form-select" name="estatus" id="estatus">
+                                    <option value="0" selected="true" disabled>Seleccione un Estatus</option>
+                                    <option value="Aprobado" {{ (old('estatus', $evaluacion->estatus ?? '') === 'Aprobado') ? 'selected' : '' }}>Aprobado</option>
+                                    <option value="Negado" {{ (old('estatus', $evaluacion->estatus ?? '') === 'Negado') ? 'selected' : '' }}>Negado</option>
+                                </select>
+                            </div>
+                            @endif
+                            <div class="col-4">
+                                <label  class="font-weight-bold text-dark">Estatus Evaluación</label>
+                                <select class="form-select" name="estatus" id="estatus">
+                                    <option value="0" selected="true" disabled>Seleccione un Estatus</option>
+                                    <option value="Aprobado" {{ (old('estatus', $evaluacion->estatus ?? '') === 'Aprobado') ? 'selected' : '' }}>Aprobado</option>
+                                    <option value="Negado" {{ (old('estatus', $evaluacion->estatus ?? '') === 'Negado') ? 'selected' : '' }}>Negado</option>
+                                </select>
+                            </div>
+                        @endif
+
+                       @if(auth()->user()->hasRole('Administrador'))
+                            <div class="card-body" id="estatus_respuesta" style="display: none;">
+                                <label class="font-weight-bold text-dark">Estatus Aprobación</label>
+                                <div class="row">
+                                    <div class="custom-control custom-radio col-1 mr-2"> 
+                                        <input class="custom-control-input" type="radio" name="estatus_resp" id="estatus_resp_pen" value="Pendiente" {{ ($evaluacion->estatus_resp=="Pendiente")? "checked" : ""}}>
+                                        <label class="custom-control-label" for="estatus_resp_pen">Pendiente</label>
+                                    </div>
+                                    <div class="custom-control custom-radio col-1 mr-2">
+                                        <input class="custom-control-input" type="radio" name="estatus_resp" id="estatus_resp_apro" value="Aprobado" {{ ($evaluacion->estatus_resp=="Aprobado")? "checked" : ""}}>
+                                        <label class="custom-control-label" for="estatus_resp_apro">Aprobado</label>
+                                    </div>
+                                </div>
+                            </div>
+                        @else
+                            <input type="hidden" name="estatus_resp" id="estatus_resp" value="Pendiente">
+                        @endif
+
                    </div>
+                
+                </div>
 
                     <div class="card-body">
                         <center>
@@ -95,6 +118,7 @@
                                         <span class="text">Regresar</span></a>
                         </center>
                     </div>
+
                     </form>
                 </div>
             </div>
@@ -118,6 +142,30 @@
     }
 </script>
 
+ {{-- * FUNCION PARA MOSTRAR/OCULTAR EL ESTATUS DE RESPUESTA Y ENVIAR EL VALUE OCULTO --}}
+
+ <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const estatusSelect = document.getElementById('estatus');
+        const estatusRespuestaDiv = document.getElementById('estatus_respuesta');
+
+        function toggleEstatusRespuesta() {
+            const selectedValue = estatusSelect.value;
+            if (selectedValue === 'Aprobado') {
+                estatusRespuestaDiv.style.display = 'block';
+            } else {
+                estatusRespuestaDiv.style.display = 'none';
+            }
+        }
+
+        // Ejecutar al cargar la página
+        toggleEstatusRespuesta();
+
+        // Ejecutar al cambiar la selección
+        estatusSelect.addEventListener('change', toggleEstatusRespuesta);
+    });
+</script>
+
 @if ($errors->any())
     <script>
         var errors = @json($errors->all());
@@ -133,7 +181,5 @@
         });
     </script>
 @endif
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 @endsection

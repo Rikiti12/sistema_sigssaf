@@ -10,6 +10,34 @@
 <link rel="stylesheet" href="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css') }}">
 <script src="{{ asset('https://unpkg.com/leaflet@1.9.4/dist/leaflet.js')}}" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 
+<style>
+  @keyframes rotateAnimation {
+    0% {
+      transform: rotateY(0deg);
+    }
+    25% {
+      transform: rotateY(360deg);
+    }
+    100% {
+      transform: rotateY(360deg);
+    }
+  }
+
+  @keyframes hoverRotateAnimation {
+    from {
+      transform: rotateY(0deg);
+    }
+    to {
+      transform: rotateY(360deg);
+    }
+  }
+
+  .rotate {
+    animation: rotateAnimation 5s linear 1;
+  }
+
+</style>
+
 @section('content')
 
 <div class="container">
@@ -129,54 +157,7 @@
             </div>
           </div>
         </div>
-        {{-- <div class="col-sm-6 col-md-3">
-          <div class="card card-stats card-round">
-            <div class="card-body">
-              <div class="row align-items-center">
-                <div class="col-icon">
-                  <div
-                    class="icon-big text-center icon-info bubble-shadow-small"
-                  >
-                  <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40"  style="color:white;" fill="currentColor" class="bi bi-person-raised-hand" viewBox="0 0 16 16">
-                  <path d="M6 6.207v9.043a.75.75 0 0 0 1.5 0V10.5a.5.5 0 0 1 1 0v4.75a.75.75 0 0 0 1.5 0v-8.5a.25.25 0 1 1 .5 0v2.5a.75.75 0 0 0 1.5 0V6.5a3 3 0 0 0-3-3H6.236a1 1 0 0 1-.447-.106l-.33-.165A.83.83 0 0 1 5 2.488V.75a.75.75 0 0 0-1.5 0v2.083c0 .715.404 1.37 1.044 1.689L5.5 5c.32.32.5.754.5 1.207"/>
-                  <path d="M8 3a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3"/>
-                 </svg>
-                  </div>
-                </div>
-                <div class="col col-stats ms-3 ms-sm-0">
-                  <div class="numbers">
-                    <p class="card-category">Ayuda Sociales</p>
-                    <h4 class="card-title">{{ $count_ayuda }}</h4>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div> --}}
-        {{-- <div class="col-sm-6 col-md-3">
-          <div class="card card-stats card-round">
-            <div class="card-body">
-              <div class="row align-items-center">
-                <div class="col-icon">
-                  <div
-                    class="icon-big text-center icon-primary bubble-shadow-small"
-                  >
-                  <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40"   style="color:white;" fill="currentColor" class="bi bi-house-check" viewBox="0 0 16 16">
-                  <path d="M7.293 1.5a1 1 0 0 1 1.414 0L11 3.793V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v3.293l2.354 2.353a.5.5 0 0 1-.708.708L8 2.207l-5 5V13.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 1 0 1h-4A1.5 1.5 0 0 1 2 13.5V8.207l-.646.647a.5.5 0 1 1-.708-.708z"/>
-                  <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7m1.679-4.493-1.335 2.226a.75.75 0 0 1-1.174.144l-.774-.773a.5.5 0 0 1 .708-.707l.547.547 1.17-1.951a.5.5 0 1 1 .858.514"/>
-                  </svg>
-                  </div>
-                </div>
-                <div class="col col-stats ms-3 ms-sm-0">
-                  <div class="numbers">
-                    <p class="card-category">Viviendas</p>
-                    <h4 class="card-title">{{ $count_vivienda }}</h4>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div> --}}
+      
  <div class="col-sm-6 col-md-3">
            <div class="card card-stats card-round" onclick="window.location.href='{{ route('evaluacion.index') }}'" style="cursor: pointer;">
             <div class="card-body">

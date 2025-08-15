@@ -40,15 +40,6 @@
                                 <label class="font-weight-bold text-dark">Responsable de la Evaluación</label>
                                 <input type="text" class="form-control" id="respon_evalu" name="respon_evalu" style="background: white;" placeholder="Ingrese el nombre del responsable" oninput="capitalizarInput('responsable')" autocomplete="off" onkeypress="return soloLetras(event);" required>
                             </div>
-                            
-                            {{-- <div class="col-4">
-                                <label for="estado_evalu" class="font-weight-bold text-dark">Estado de la Evaluación</label>
-                                <select class="form-select" id="estado_evalu" name="estado_evalu" required>
-                                    <option value="">Seleccione...</option>
-                                    <option value="Pendiente">Pendiente</option>
-                                    <option value="Aprobada">Aprobada</option>
-                                </select>
-                            </div> --}}
 
                             <div class="col-md-4 mb-4">
                                 <label class="font-weight-bold text-dark">Observaciones</label>
@@ -72,7 +63,7 @@
 
                             <div class="col-4">
                                 <label  class="font-weight-bold text-dark">Estatus Evaluación</label>
-                                <select class="select2single form-control" name="estatus" id="estatus">
+                                <select class="form-select" name="estatus" id="estatus">
                                     <option value="" selected="true" disabled>Seleccione un Estatus</option>
                                     <option value="Aprobado">Aprobado</option>
                                     <option value="Negado">Negado</option>
@@ -100,22 +91,6 @@
                             @endif
 
                             <input type="hidden" name="estatus_resp" value="Pendiente">
-
-                            {{-- @if(auth()->user()->hasRole('Administrador'))
-                                <div class="card-body" id="estatus">
-                                    <label class="font-weight-bold text-dark">Estado de la Evaluación</label>
-                                    <div class="row">
-                                        <div class="custom-control custom-radio col-1 mr-2"> 
-                                            <input class="custom-control-input" type="radio" name="estado_evalu" id="estatus_resp_pen" value="Pendiente" checked>
-                                            <label class="custom-control-label" for="estatus_resp_pen">Pendiente</label>
-                                        </div>
-                                        <div class="custom-control custom-radio col-1 mr-2">
-                                            <input class="custom-control-input" type="radio" name="estado_evalu" id="estatus_resp_apro" value="Aprobado">
-                                            <label class="custom-control-label" for="estatus_resp_apro">Aprobado</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            @endif --}}
 
                         </div>  
 

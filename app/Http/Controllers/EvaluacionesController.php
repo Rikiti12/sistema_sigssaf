@@ -167,26 +167,41 @@ class EvaluacionesController extends Controller
         $evaluacion->fecha_evalu = $request->input('fecha_evalu');
         $evaluacion->respon_evalu = $request->input('respon_evalu');
         $evaluacion->observaciones = $request->input('observaciones');
-        $evaluacion->estado_evalu = $request->input('estado_evalu');
+        $evaluacion->estatus = $request->input('estatus');
         $evaluacion->viabilidad = $request->input('viabilidad');
 
         // // Manejo de documentos adjuntos
-        // if ($request->hasFile('documentos')) {
-        //     $rutaGuardarDocs = 'documentos/evaluaciones/';
-        //     $nuevosDocumentos = [];
+        if ($request->hasFile('documentos')) {
+            $rutaGuardarDocs = 'documentos/evaluaciones/';
+            $nuevosDocumentos = [];
 
-        //     foreach ($request->file('documentos') as $documento) {
-        //         $nombreDocumento = date('YmdHis') . '_' . uniqid() . '_' . pathinfo($documento->getClientOriginalName(), PATHINFO_FILENAME) . '.' . $documento->getClientOriginalExtension();
-        //         $documento->move(public_path($rutaGuardarDocs), $nombreDocumento);
-        //         $nuevosDocumentos[] = $nombreDocumento;
-        //     }
+            foreach ($request->file('documentos') as $documento) {
+                $nombreDocumento = date('YmdHis') . '_' . uniqid() . '_' . pathinfo($documento->getClientOriginalName(), PATHINFO_FILENAME) . '.' . $documento->getClientOriginalExtension();
+                $documento->move(public_path($rutaGuardarDocs), $nombreDocumento);
+                $nuevosDocumentos[] = $nombreDocumento;
+            }
 
-        //     // Combinar con documentos existentes
-        //     $documentosExistentes = json_decode($evaluacion->documentos, true) ?? [];
-        //     $todosDocumentos = array_merge($documentosExistentes, $nuevosDocumentos);
+            // Combinar con documentos existentes
+            $documentosExistentes = json_decode($evaluacion->documentos, true) ?? [];
+            $todosDocumentos = array_merge($documentosExistentes, $nuevosDocumentos);
             
-        //     $evaluacion->documentos = json_encode($todosDocumentos);
-        // }
+            $evaluacion->documentos = json_encode($todosDocumentos);
+        }
+
+        $evaluacion->estatus = $request->input('estatus');
+        $evaluacion->estatus_resp = $request->input('estatus_resp');
+
+        if ($evaluacion->estatus == "Aprobado") {
+
+            if ($evaluacion->estatus_resp = '') {
+                $evaluacion->estatus_resp = 'Pendiente';
+            }else{
+                $evaluacion->estatus_resp = $request->input('estatus_resp');
+            }
+           
+        } else {
+            $evaluacion->estatus_resp = 'Negado';
+        }
 
         $evaluacion->save();
 

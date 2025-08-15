@@ -70,7 +70,7 @@
                                                     @endcan
                                                     
                                                     @can('editar-evaluacion')
-                                                        <a class="btn btn-warning btn-sm" style="margin: 0 3px;" title="Desea Editar la Inspección" href="{{ route('evaluacion.edit', $evaluacion->id) }}"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
+                                                        <a class="btn btn-warning btn-sm" style="margin: 0 3px;" title="Desea Editar la evaluacion" href="{{ route('evaluacion.edit', $evaluacion->id) }}"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
                                                             <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z"/>
                                                         </svg></a>
                                                     @endcan
@@ -167,6 +167,91 @@
 
         
     {{-- ? FUNCION DE LOS BOTONES PARA APROBAR O PENDIENTE DE LA EVALUACION DEL PROYECTO --}}
+
+    <script>
+                            
+        document.addEventListener("DOMContentLoaded", function () { // Espera a que el DOM esté completamente cargado
+        const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content'); // Obtiene el token CSRF para las solicitudes
+
+            // Función para ajustar el estatus y botones en la interfaz de usuario
+            function ajustarBotones(estatus, evaluacionId) {
+                const estatusActualTd = document.querySelector(`#estatus-${evaluacionId}`); // Selecciona el td correspondiente al estatus actual
+                const btnRegistrarComprobante = document.querySelector(`.registrar-comprobante[href*='${evaluacionId}']`); // Selecciona el botón de "Registrar Comprobante"
+                const btnAprobarSolicitud = document.querySelector(`.aprobar-solicitud[data-evaluacion-id='${evaluacionId}']`); // Selecciona el botón de "Aprobar Solicitud"
+                const btnNegarSolicitud = document.querySelector(`.negar-solicitud[data-evaluacion-id='${evaluacionId}']`); // Selecciona el botón de "Negar Solicitud"
+
+                // Verifica si los elementos existen antes de intentar acceder a sus propiedades
+                if (estatusActualTd) {
+                    estatusActualTd.textContent = estatus; // Actualiza el contenido del td con el estatus actual
+                }
+
+                if (btnRegistrarComprobante && btnAprobarSolicitud && btnNegarSolicitud) {
+                    if (estatus === "Aprobado") { // Si el estatus es "Aprobado"
+                        btnRegistrarComprobante.style.display = "inline-block"; // Muestra el botón de "Registrar Comprobante"
+                        btnAprobarSolicitud.style.display = "none"; // Oculta el botón de "Aprobar Solicitud"
+                        btnNegarSolicitud.style.display = "none"; // Oculta el botón de "Negar Solicitud"
+                    } else if (estatus === "Negado") { // Si el estatus es "Negado"
+                        btnRegistrarComprobante.style.display = "none"; // Oculta el botón de "Registrar Comprobante"
+                        btnAprobarSolicitud.style.display = "none"; // Oculta el botón de "Aprobar Solicitud"
+                        btnNegarSolicitud.style.display = "none"; // Oculta el botón de "Negar Solicitud"
+                    } else { // Si el estatus es "Pendiente" o cualquier otro valor inicial
+                        btnRegistrarComprobante.style.display = "none"; // Oculta el botón de "Registrar Comprobante"
+                        btnAprobarSolicitud.style.display = "inline-block"; // Muestra el botón de "Aprobar Solicitud"
+                        btnNegarSolicitud.style.display = "inline-block"; // Muestra el botón de "Negar Solicitud"
+                    }
+                } else {
+                    console.error('No se encontraron los botones para la inspección ID:', evaluacionId);
+                }
+            }
+
+            // Función para actualizar el estatus en el servidor y ajustar los botones
+            function actualizarEstatus(estatus, evaluacionId) {
+                fetch(`/actualizar-estatus-evaluacion/${evaluacionId}`, { // Hace una solicitud fetch a la URL para actualizar el estatus
+                    method: 'POST', // Método HTTP POST
+                    headers: {
+                        'Content-Type': 'application/json', // Tipo de contenido JSON
+                        'X-CSRF-TOKEN': csrfToken // Añade el token CSRF a la cabecera
+                    },
+                    body: JSON.stringify({ estatus_resp: estatus }) // Convierte el estatus a una cadena JSON y la envía en el cuerpo de la solicitud
+                })
+                .then(response => response.json()) // Convierte la respuesta a JSON
+                .then(data => { // Maneja la respuesta del servidor
+                    if (data.success) { // Si la actualización fue exitosa
+                        ajustarBotones(estatus, evaluacionId); // Ajusta los botones en la interfaz de usuario
+                    } else {
+                        console.error('Error al actualizar el estatus:', data.message); // Muestra un error en la consola si la actualización falla
+                    }
+                })
+                .catch(error => console.error('Error:', error)); // Muestra un error en la consola si la solicitud falla
+            }
+
+            // Añadir los escuchadores de eventos a cada botón de "Aprobar Solicitud"
+            document.querySelectorAll(".aprobar-solicitud").forEach(btn => {
+                btn.addEventListener("click", function (event) {
+                    event.preventDefault(); // Previene la acción por defecto del clic
+                    const evaluacionId = this.getAttribute('data-evaluacion-id'); // Obtiene el ID de la inspección del atributo data-evaluacion-id
+                    actualizarEstatus("Aprobado", evaluacionId); // Llama a la función para actualizar el estatus a "Aprobado"
+                });
+            });
+
+            // Añadir los escuchadores de eventos a cada botón de "Negar Solicitud"
+            document.querySelectorAll(".negar-solicitud").forEach(btn => {
+                btn.addEventListener("click", function (event) {
+                    event.preventDefault(); // Previene la acción por defecto del clic
+                    const evaluacionId = this.getAttribute('data-evaluacion-id'); // Obtiene el ID de la inspección del atributo data-evaluacion-id
+                    actualizarEstatus("Negado", evaluacionId); // Llama a la función para actualizar el estatus a "Negado"
+                });
+            });
+
+            // Ajustar los botones según el estatus actual cuando la página se carga
+            document.querySelectorAll("tr[data-evaluacion-id]").forEach(row => {
+                const evaluacionId = row.getAttribute('data-evaluacion-id'); // Obtiene el ID de la inspección de la fila
+                const estatus = document.querySelector(`#estatus-${evaluacionId}`).textContent.trim(); // Obtiene el estatus actual del td correspondiente
+                ajustarBotones(estatus, evaluacionId); // Llama a la función para ajustar los botones según el estatus actual
+            });
+        });
+        
+    </script>
 
     {{-- <script>
                             
