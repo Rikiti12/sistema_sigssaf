@@ -22,8 +22,8 @@ class DatabaseSeeder extends Seeder
         // ]);
 
         // $this->call(SuperAdminSeeder::class);
-        $this->call(AsistSeeder::class);
-        $this->call(CoordinadorSeeder::class);
+        $this->call([SeederTablaPermisos::class, AlvaroValeroSeeder::class, RicardoSandovalSeeder::class,]);
+        //$this->call(CoordinadorSeeder::class);
         //$this->call(EstadisticaSeeder::class);
         //$this->call(JoseFernandoSeeder::class);
         // $this->call(SeederTablaPermisos::class);
