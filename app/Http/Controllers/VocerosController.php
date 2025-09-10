@@ -126,8 +126,8 @@ class VocerosController extends Controller
 
         $voceros->save();
 
-        $bitacora = new BitacoraController();
-        $bitacora->update();
+        //$bitacora = new BitacoraController();
+        //$bitacora->update();
 
         try {
             return redirect()->route('vocero.index');

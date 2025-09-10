@@ -74,8 +74,8 @@ class ComunidadesController extends Controller
 
         $comunidades->save();
 
-        $bitacora = new BitacoraController();
-        $bitacora->update();
+        //$bitacora = new BitacoraController();
+       // $bitacora->update();
 
         try {
         

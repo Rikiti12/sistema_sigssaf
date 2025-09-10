@@ -113,8 +113,8 @@ class AyudasController extends Controller
 
         $ayudas->save();
 
-        $bitacora = new BitacoraController();
-        $bitacora->update();
+        //$bitacora = new BitacoraController();
+        //$bitacora->update();
 
         try {
             return redirect()->route('ayuda.index');

@@ -106,8 +106,8 @@ class ConsejoComunalController extends Controller
 
         $consejo_comunal->save();
 
-        $bitacora = new BitacoraController();
-        $bitacora->update();
+        //$bitacora = new BitacoraController();
+        //$bitacora->update();
 
         try {
             return redirect()->route('consejo_comunal.index');

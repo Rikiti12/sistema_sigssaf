@@ -111,8 +111,8 @@ class AsignacionesController extends Controller
 
         $asignaciones->save();
 
-        $bitacora = new BitacoraController();
-        $bitacora->update();
+        //$bitacora = new BitacoraController();
+        //$bitacora->update();
 
         try {
             return redirect()->route('seguimiento.index');

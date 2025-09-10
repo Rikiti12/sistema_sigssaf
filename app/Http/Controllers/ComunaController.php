@@ -51,7 +51,7 @@ class ComunaController extends Controller
                            })
                            ->orWhereHas('vocero', function ($query) use ($search){
                             $query->where('cedula', 'LIKE', '%' . $search . '%')
-                            >orWhere('nombre', 'LIKE', '%' . $search . '%')
+                            ->orWhere('nombre', 'LIKE', '%' . $search . '%')
                             ->orWhere('apellido', 'LIKE', '%' . $search . '%');
                            })
                            ->orWhere('dire_comunas', 'LIKE', '%' . $search . '%')
@@ -106,8 +106,8 @@ class ComunaController extends Controller
 
         $comunas->save();
 
-        $bitacora = new BitacoraController();
-        $bitacora->update();
+        //$bitacora = new BitacoraController();
+        //$bitacora->update();
 
         try {
         
