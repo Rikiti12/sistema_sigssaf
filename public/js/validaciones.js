@@ -2296,370 +2296,136 @@ if (descripcion.length < 5) {
 }
 
 }
-// Validar Proyecto
-function Proyecto (obj) {
+
     
+// Validar Proyecto
+function Proyecto(obj) {
+    // Definimos una función de utilidad para el evento de teclado,
+    // para evitar repetir el mismo código en cada campo.
+    function setupOnkeydown(inputElement, fieldName) {
+        inputElement.onkeydown = function(e) {
+            // Teclas permitidas: Backspace, Delete, Flechas, etc.
+            var teclasPermitidas = [8, 46, 37, 39];
 
-   // Obtén el campo de nombre de proyecto para aplicar la validación en tiempo real.
-var nombre_proInput = obj.nombre_pro;
+            // Si la tecla es una de las permitidas, salimos de la función.
+            if (teclasPermitidas.includes(e.keyCode)) {
+                return;
+            }
 
-// Agrega un evento de teclado que se activa cada vez que se presiona una tecla.
-nombre_proInput.onkeydown = function(e) {
-    // Teclas permitidas para el borrado y navegación
-    // 8: Backspace, 46: Delete, 37: Flecha izquierda, 39: Flecha derecha
-    var teclasPermitidas = [8, 46, 37, 39];
+            // Expresión regular para bloquear los caracteres especiales: * . /
+            var regex = /[.*\/]/;
 
-    // Si la tecla presionada es una de las permitidas, salimos de la función.
-    if (teclasPermitidas.includes(e.keyCode)) {
-        return;
+            // Obtiene el carácter de la tecla presionada (solo para caracteres imprimibles).
+            var caracterPresionado = String.fromCharCode(e.keyCode);
+
+            // Si el carácter coincide con nuestra expresión regular, lo bloqueamos.
+            if (regex.test(caracterPresionado)) {
+                Swal.fire({
+                    title: 'Caracter no permitido',
+                    text: `El campo de ${fieldName} no puede contener los caracteres especiales: *, . o /.`,
+                    icon: 'error',
+                    confirmButtonColor: '#d33',
+                });
+                return false;
+            }
+        };
     }
 
-    // Definimos una expresión regular que coincide con cualquier carácter que no sea una letra, un número o un espacio.
-    var regex = /[^a-zA-Z0-9\s]/; 
-
-    // Obtiene el carácter de la tecla presionada.
-    // var caracterPresionado = String.fromCharCode(e.keyCode);
-
-    // Si el carácter coincide con nuestra expresión regular (es un caracter no permitido), lo bloqueamos.
-    if (regex.test(caracterPresionado)) {
-        // Muestra una alerta para informar al usuario.
+    // Validación del Nombre del Proyecto
+    if (nombre_pro.trim() === "") {
         Swal.fire({
-            title: 'Caracter no permitido',
-            text: 'El nombre del proyecto no puede contener caracteres especiales.',
+            title: 'Proyecto',
+            text: "Debe ingresar el nombre del proyecto. No puede estar vacío o contener solo espacios en blanco.",
+            icon: 'warning',
+        });
+        obj.nombre_pro.focus();
+        return false;
+    } else if (/[.*\/]/.test(nombre_pro)) {
+        Swal.fire({
+            title: 'Error de formato',
+            text: "El nombre del proyecto no puede contener los caracteres especiales: *, . o /.",
             icon: 'error',
-            confirmButtonColor: '#d33',
+        });
+        obj.nombre_pro.focus();
+        return false;
+    } else if (nombre_pro.length < 5) {
+        Swal.fire({
+            title: 'Proyecto',
+            text: "El nombre del proyecto debe tener al menos 5 caracteres.",
+            icon: 'warning',
+        });
+        obj.nombre_pro.focus();
+        return false;
+    }
+
+    // Validación de la Descripción
+    if (descripcion_pro.trim() === "") {
+        Swal.fire({
+            title: 'Proyecto',
+            text: "Debe ingresar la descripción. No puede estar vacía o contener solo espacios en blanco.",
+            icon: 'warning',
+        });
+        obj.descripcion_pro.focus();
+        return false;
+    } else if (/[.*\/]/.test(descripcion_pro)) {
+        Swal.fire({
+            title: 'Error de formato',
+            text: "La descripción no puede contener los caracteres especiales: *, . o /.",
+            icon: 'error',
+        });
+        obj.descripcion_pro.focus();
+        return false;
+    } else if (descripcion_pro.length < 5) {
+        Swal.fire({
+            title: 'Proyecto',
+            text: "La descripción debe tener al menos 5 caracteres.",
+            icon: 'warning',
+        });
+        obj.descripcion_pro.focus();
+        return false;
+    }
+
+    // validacion de tipo de proyecto
+    var tipo_pro = obj.tipo_pro.value;
+    if (!tipo_pro) {
+        Swal.fire({
+            title: 'Proyecto',
+            text: "Debe seleccionar un tipo de proyecto.",
+            icon: 'warning',
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                this.submit();
+            }
         });
         
-        // Evita que el carácter se escriba en el campo.
-        return false;
-    }
-};
-
-// --- Tus validaciones para el envío del formulario, ahora en un orden lógico ---
-
-var nombre_pro = obj.nombre_pro.value;
-
-// 1. Validar que el campo no esté vacío o contenga solo espacios en blanco.
-if (nombre_pro.trim() === "") {
-    Swal.fire({
-        title: 'Proyecto',
-        text: "Debe ingresar el nombre del proyecto. No puede estar vacío o contener solo espacios en blanco.",
-        icon: 'warning',
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-    }).then((result) => {
-        if (result.isConfirmed) {
-            this.submit();
-        }
-    });
-
-    obj.nombre_pro.focus();
-    return false;
-}
-// 2. Validar que no contenga los caracteres especiales (segunda capa de seguridad).
-else if (/[^a-zA-Z0-9\s]/.test(nombre_pro)) {
-    Swal.fire({
-        title: 'Error de formato',
-        text: "El nombre del proyecto no puede contener caracteres especiales.",
-        icon: 'error',
-        confirmButtonColor: '#d33',
-    });
-
-    obj.nombre_pro.focus();
-    return false;
-}
-    if (nombre_pro.length < 5){
-        Swal.fire({
-            title: 'Proyecto',
-            text: "Faltan dígitos en este campo de texto.",
-            icon: 'warning',
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            }).then((result) => {
-        if (result.isConfirmed) {
-
-            this.submit();
-        }
-        })
-       
-        obj.nombre_pro.focus();
-        return (false);
-    }
-
-    var descripcion_pro = obj.descripcion_pro.value;
-    if (!descripcion_pro) {
-        Swal.fire({
-            title: 'Proyecto',
-            text: "Debe ingresar la descripcion.",
-            icon: 'warning',
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            }).then((result) => {
-        if (result.isConfirmed) {
-
-            this.submit();
-        }
-        })
-
-        obj.descripcion_pro.focus();
+        obj.tipo_pro.focus();
         return false;
     }
 
-    if (descripcion_pro.trim() == "") {
-        Swal.fire({
-            title: 'Recepción de Recaudos',
-            text: "El campo de la Descripcion no debe contener espacios en blanco.",
-            icon: 'warning',
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            }).then((result) => {
-        if (result.isConfirmed) {
 
-            this.submit();
-        }
-        })
-
-        obj.descripcion_pro.focus();
-        return false;
-    }
-
-    if (descripcion_pro.length < 5){
-        Swal.fire({
-            title: 'Proyecto',
-            text: "Faltan dígitos en este campo de texto.",
-            icon: 'warning',
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            }).then((result) => {
-        if (result.isConfirmed) {
-
-            this.submit();
-        }
-        })
-       
-        obj.descripcion_pro.focus();
-        return (false);
-    }
-
-    var latitud = obj.latitud.value;
-    if (!latitud) {
-        Swal.fire({
-            title: 'Proyecto',
-            text: "Ingrese la Latitud de proyecto.",
-            icon: 'warning',
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            }).then((result) => {
-        if (result.isConfirmed) {
-
-            this.submit();
-        }
-        })
-
-        obj.latitud.focus();
-        return false;
-    }
-
-    if (latitud.trim() == "") {
-        Swal.fire({
-            title: 'Proyecto',
-            text: "El campo de la Descripcion no debe contener espacios en blanco.",
-            icon: 'warning',
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            }).then((result) => {
-        if (result.isConfirmed) {
-
-            this.submit();
-        }
-        })
-
-        obj.latitud.focus();
-        return false;
-    }
-
-    if (latitud.length < 5){
-        Swal.fire({
-            title: 'Proyecto',
-            text: "Faltan dígitos en este campo de texto.",
-            icon: 'warning',
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            }).then((result) => {
-        if (result.isConfirmed) {
-
-            this.submit();
-        }
-        })
-       
-        obj.latitud.focus();
-        return (false);
-    }
-
-    var longitud = obj.longitud.value;
-    if (!longitud) {
-        Swal.fire({
-            title: 'Proyecto',
-            text: "Ingrese la Longitud de proyecto.",
-            icon: 'warning',
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            }).then((result) => {
-        if (result.isConfirmed) {
-
-            this.submit();
-        }
-        })
-
-        obj.longitud.focus();
-        return false;
-    }
-
-    if (longitud.trim() == "") {
-        Swal.fire({
-            title: 'Proyecto',
-            text: "El campo de la  no debe contener espacios en blanco.",
-            icon: 'warning',
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            }).then((result) => {
-        if (result.isConfirmed) {
-
-            this.submit();
-        }
-        })
-
-        obj.longitud.focus();
-        return false;
-    }
-
-    if (longitud.length < 5){
-        Swal.fire({
-            title: 'Proyecto',
-            text: "Faltan dígitos en este campo de texto.",
-            icon: 'warning',
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            }).then((result) => {
-        if (result.isConfirmed) {
-
-            this.submit();
-        }
-        })
-       
-        obj.longitud.focus();
-        return (false);
-    }
-
-    var direccion = obj.direccion.value;
-    if (!direccion) {
-        Swal.fire({
-            title: 'Proyecto',
-            text: "Debe ingresar la dirección.",
-            icon: 'warning',
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            }).then((result) => {
-        if (result.isConfirmed) {
-
-            this.submit();
-        }
-        })
-
-        obj.direccion.focus();
-        return false;
-    }
-
-    if (direccion.trim() == "") {
-        Swal.fire({
-            title: 'Proyecto',
-            text: "El campo de direccion no debe contener espacios en blanco.",
-            icon: 'warning',
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            }).then((result) => {
-        if (result.isConfirmed) {
-
-            this.submit();
-        }
-        })
-
-        obj.direccion.focus();
-        return false;
-    }
-
-    if (/(\w)\2+/i.test(direccion.toLowerCase())) {
-    Swal.fire({
-            title: 'Proyecto',
-            text: "El campo nombre no debe contener caracteres repetidos.",
-            icon: 'warning',
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            }).then((result) => {
-        if (result.isConfirmed) {
-
-            this.submit();
-        }
-        })
-        
-        obj.direccion.focus();
-        return false;
-    }
-
-    if (direccion.length < 5){
-        Swal.fire({
-            title: 'Proyecto',
-            text: "Faltan dígitos en este campo de texto.",
-            icon: 'warning',
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            }).then((result) => {
-        if (result.isConfirmed) {
-
-            this.submit();
-        }
-        })
-       
-        obj.direccion.focus();
-        return (false);
-    }
-    
-    var fecha_inicial = obj.fecha_inicial.value;
-    if (!fecha_inicial){
+    // Validación de Fechas
+    if (!fecha_inicial) {
         Swal.fire({
             title: 'Proyecto',
             text: "Debe seleccionar una fecha inicial.",
             icon: 'warning',
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            }).then((result) => {
-        if (result.isConfirmed) {
-
-            this.submit();
-        }
-        })
-        
-        return (false);
+        });
+        return false;
     }
 
-    var fecha_evalu = obj.fecha_evalu.value;
-    if (!fecha_evalu){
+    if (!fecha_evalu) {
         Swal.fire({
-            title: 'Evaluacion',
-            text: "la fecha de evaluacion no puede ser muy vieja.",
+            title: 'Evaluación',
+            text: "Debe seleccionar la fecha de evaluación.",
             icon: 'warning',
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            }).then((result) => {
-        if (result.isConfirmed) {
-
-            this.submit();
-        }
-        })
-        
-        return (false);
+        });
+        return false;
     }
 
+    // Si todas las validaciones pasan, el formulario se envía.
+    return true;
 }
 
 

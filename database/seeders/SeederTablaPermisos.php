@@ -110,7 +110,7 @@ class SeederTablaPermisos extends Seeder
         ];
 
         foreach($permisos as $permiso) {
-            Permission::create(['name'=>$permiso]);
+            Permission::firstOrCreate(['name' => $permiso, 'guard_name' => 'web']);
         }
     }
 }
