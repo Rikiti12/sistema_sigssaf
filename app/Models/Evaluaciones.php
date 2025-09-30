@@ -20,7 +20,7 @@ class Evaluaciones extends Model
         return $this->belongsTo(Proyectos::class, 'id_proyecto');
     }
 
-    public function asignaciones()
+     public function asignaciones()
     {
         return $this->hasMany(Asignaciones::class, 'id_evaluacion');
     }

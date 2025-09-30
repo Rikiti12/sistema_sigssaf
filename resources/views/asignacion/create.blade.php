@@ -50,6 +50,16 @@
                                     </select>                                   
                                 </div>
 
+                                 <div class="col-4">
+                                    <label  class="font-weight-bold text-dark">Tipo de Ayuda Asignado</label>
+                                    <select class="form-select" id="id_ayuda" name="id_ayuda">
+                                        <option value="">Seleccione una ayuda </option>
+                                        @foreach($ayudas as $ayuda)
+                                            <option value="{{ $ayuda->id }}">{{ $ayuda->nombre_ayuda }} - {{ $ayuda->tipo_ayuda }}</option>
+                                        @endforeach
+                                    </select>                                   
+                                </div>
+
                                 <div class="col-md-4 mb-3">
                                     <label class="font-weight-bold text-dark">Memoria Fotográfica</label>
                                     <input type="file" id="imagenes" name="imagenes[]" multiple class="btn btn-outline-info d-block w-100">
@@ -74,11 +84,6 @@
                                     <label class="font-weight-bold text-dark">Presupuesto</label>
                                     <input type="text" class="form-control" id="presupuesto" name="presupuesto" style="background: white;" value="" placeholder="Ingrese el Presupuesto" autocomplete="off">
                                 </div>
-    
-                                {{-- <div class="col-3">
-                                    <label class="font-weight-bold text-dark">Descripción de la Obra</label>
-                                    <textarea class="form-control" id="descri_obra" name="descri_obra" placeholder="Ingrese la Descripción de la Obra" oninput="capitalizarTextoarea('descri_obra')" cols="10" rows="10" style="max-height: 6rem;"></textarea>
-                                </div> --}}
 
                             </div>
 
@@ -206,63 +211,6 @@
         });
     </script>
 
-    {{-- ? FUNCION PARA MOSTRAR LOS PDF --}}
-
-    {{-- <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-
-    <script>
-        $(document).ready(function () {
-            $('#documentos_pdf').change(function () {
-                const pdfcontainer = document.getElementById('pdf_container');
-                pdfcontainer.innerHTML = ''; // Limpiar el contenedor antes de agregar nuevos archivos
-
-                for (const file of this.files) {
-                    const reader = new FileReader();
-                    reader.onload = (e) => {
-                        const embed = document.createElement('embed');
-                        embed.src = e.target.result;
-                        embed.type = 'application/pdf';
-                        embed.style.width = '100%';
-                        embed.style.height = '400px';
-                        pdfcontainer.appendChild(embed);
-                    };
-                    reader.readAsDataURL(file);
-                }
-            });
-        });
-    </script> --}}
-
-    {{-- ? FUNCION PARA MOSTRAR LOS PDF --}}
-
-    {{-- <script>
-        $(document).ready(function () {
-            $('#documentos').change(function () {
-                const pdfContainer = document.getElementById('documentos_container');
-                pdfContainer.innerHTML = '';
-                
-                Array.from(this.files).forEach(file => {
-                    if (file.type !== 'application/pdf') return;
-                    
-                    const pdfElement = document.createElement('div');
-                    pdfElement.className = 'pdf-item flex items-center mb-2 p-2 bg-gray-100 rounded';
-                    
-                    // Icono de PDF
-                    const icon = document.createElement('div');
-                    icon.innerHTML = '📄';
-                    icon.className = 'mr-2 text-xl';
-                    
-                    // Nombre del archivo
-                    const name = document.createElement('span');
-                    name.textContent = file.name;
-                    name.className = 'text-sm truncate';
-                    
-                    pdfElement.appendChild(icon);
-                    pdfElement.appendChild(name);
-                    pdfContainer.appendChild(pdfElement);
-                });
-            });
-        });
-    </script> --}}
 
     {{-- ? FUNCION PARA CAPITALIZAR PRIMERA LETRA --}}
 

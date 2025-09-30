@@ -8,6 +8,7 @@ use App\Models\Asignaciones;
 use App\Models\Evaluaciones;
 use App\Models\Voceros;
 use App\Models\Comunidades;
+use App\Models\Ayudas;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
@@ -30,7 +31,7 @@ class AsignacionesController extends Controller
      */
     public function index()
     {
-        $evaluaciones = Evaluaciones::with('proyectos')->get();
+        $evaluaciones = Evaluaciones::all();
         $evaluaciones->each(function ($evaluacion) {
             $evaluacion->yaAsignada = Asignaciones::where('id_evaluacion', $evaluacion->id)->exists();
         });
@@ -48,7 +49,8 @@ class AsignacionesController extends Controller
         $evaluacion = Evaluaciones::findOrFail($id);
         $voceros = Voceros::all();
         $comunidades = Comunidades::all();
-        return view('asignacion.create', compact('evaluacion','voceros', 'comunidades'));
+        $ayudas = Ayudas::all();
+        return view('asignacion.create', compact('evaluacion','voceros', 'comunidades', 'ayudas'));
     }
 
     /**
@@ -59,22 +61,12 @@ class AsignacionesController extends Controller
      */
     public function store(Request $request)
     {
-        // $request->validate([
-        //     'imagenes' => 'required|array|min:1',
-        //     'imagenes' => 'image|nime:jpeg,png,jpg,gif,svg',
-        //     'descripcion_pro' => 'required',
-        //     'id_persona' => 'required|exists:personas,id',
-        //     'id_comunidad' => 'required|exists:comunidades,id',
-        //     'fecha_inicial' => 'required|date',
-        // ], [
-        //     'imagenes.required' => 'Debe registrar una o mas fotos.',
-        //     'imagenes.required' => 'Las imagenes deben ser tipo jpeg, png, jpg, gif o svg.',
-        // ]);
 
         $asignaciones = new Asignaciones();
         $asignaciones->id_evaluacion = $request->input('id_evaluacion');
         $asignaciones->id_vocero = $request->input('id_vocero');
         $asignaciones->id_comunidad = $request->input('id_comunidad');
+        $asignaciones->id_ayuda = $request->input('id_ayuda');
         
         // Verificar si se han cargado archivos
         if ($request->hasFile('imagenes')) {
@@ -99,7 +91,6 @@ class AsignacionesController extends Controller
         $asignaciones->presupuesto = $request->input('presupuesto');
         $asignaciones->impacto_ambiental = $request->input('impacto_ambiental');
         $asignaciones->impacto_social = $request->input('impacto_social');
-        // $asignaciones->descri_obra = $request->input('descri_obra');
         $asignaciones->fecha_inicio = $request->input('fecha_inicio');
         $asignaciones->duracion_estimada = $request->input('duracion_estimada');
 
@@ -107,7 +98,7 @@ class AsignacionesController extends Controller
         $asignaciones->longitud = $request->input('longitud');
         $asignaciones->direccion = $request->input('direccion');
 
-        // dd($asignaciones);
+        // dd($asignaciones->id_evaluacion);
 
         $asignaciones->save();
 
@@ -115,7 +106,7 @@ class AsignacionesController extends Controller
         $bitacora->update();
 
         try {
-            return redirect()->route('seguimiento.index');
+            return redirect()->route('seguimiento.index')->with('success', 'Asignación creada exitosamente.');
         } catch (QueryException $exception) {
             $errorMessage = 'Error: ' . $exception->getMessage();
             return redirect()->back()->withErrors($errorMessage);
@@ -142,17 +133,19 @@ class AsignacionesController extends Controller
      */
     public function edit($id)
     {
-        $asignacion = Asignaciones::find($id);
-        $evaluacion = Evaluaciones::all();
+        // $asignacion = Asignaciones::findOrFail($id);
+         $asignacion = Asignaciones::with('evaluacion')->findOrFail($id); 
+        // $evaluacion = Evaluaciones::find($id);
+        $evaluacion = $asignacion->evaluacion; 
         $voceros = Voceros::all();
         $comunidades = Comunidades::all();
+        $ayudas = Ayudas::all();
         $imagenes = $asignacion->imagenes;
         $latitud = $asignacion->latitud;
         $longitud = $asignacion->longitud;
         $direccion = $asignacion->direccion;
 
-        // $documentos = $asignacion->documentos;
-        return view('asignacion.edit', compact('evaluacion','asignacion', 'voceros', 'comunidades', 'imagenes','latitud','longitud','direccion'));
+        return view('asignacion.edit', compact('evaluacion','asignacion', 'voceros', 'comunidades', 'ayudas', 'imagenes','latitud','longitud','direccion'));
     }
 
     /**
@@ -164,21 +157,13 @@ class AsignacionesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // $request->validate([
-        //     'nombre_pro' => 'required',
-        //     'descripcion_pro' => 'required',
-        //     'id_persona' => 'required|exists:personas,id',
-        //     'id_comunidad' => 'required|exists:comunidades,id',
-        //     'fecha_inicial' => 'required|date',
-        // ]);
 
-        $asignacion = Asignaciones::find($id);
+        $asignacion = Asignaciones::findOrFail($id);
         $asignacion->id_evaluacion = $request->input('id_evaluacion');
         $asignacion->id_vocero = $request->input('id_vocero');
         $asignacion->id_comunidad = $request->input('id_comunidad');
+        $asignacion->id_ayuda = $request->input('id_ayuda');
        
-       
-
         // Verificar si se han cargado nuevos archivos
         if ($request->hasFile('imagenes')) {
             $rutaGuardarImg = 'imagenes/';
@@ -199,7 +184,6 @@ class AsignacionesController extends Controller
         $asignacion->presupuesto = $request->input('presupuesto');
         $asignacion->impacto_ambiental = $request->input('impacto_ambiental');
         $asignacion->impacto_social = $request->input('impacto_social');
-        // $asignacion->descri_obra = $request->input('descri_obra');
         $asignacion->fecha_inicio = $request->input('fecha_inicio');
         $asignacion->duracion_estimada = $request->input('duracion_estimada');
        

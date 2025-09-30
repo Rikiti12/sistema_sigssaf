@@ -17,9 +17,9 @@ use App\Http\Controllers\ConsejoComunalController;
 use App\Http\Controllers\VocerosController;
 use App\Http\Controllers\AyudasController;
 use App\Http\Controllers\ProyectosController;
+use App\Http\Controllers\ResposanblesController;
 use App\Http\Controllers\EvaluacionesController;
 use App\Http\Controllers\AsignacionesController;
-use App\Http\Controllers\PlanificacionesController;
 use App\Http\Controllers\SeguimientoController;
 use App\Http\Controllers\ControlSeguimientosController;
 use App\Http\Controllers\ReporteController;
@@ -105,6 +105,12 @@ Route::get('/proyecto/pdf', [ProyectosController::class, 'pdf'])->name('proyecto
 Route::resource('proyecto', ProyectosController::class)->middleware('auth');
 Route::get('/proyecto/detalles/{id}', [ProyectosController::class, 'getproyectoDetalles']);
 
+/* Ruta Responsable */
+Route::get('/resposanble',  [ResposanblesController::class,'index'])->name('resposanble')->middleware('auth');
+Route::get('/resposanble/create', [ResposanblesController::class, 'create'])->name('create')->middleware('auth');
+Route::get('/resposanble/pdf',  [ResposanblesController::class,'pdf'])->name('resposanble')->middleware('auth');
+Route::resource('resposanble', ResposanblesController::class)->middleware('auth');
+
 /* Rutas Evaluación */
 Route::get('/evaluacion', [EvaluacionesController::class, 'index'])->name('evaluacion.index')->middleware('auth');
 Route::get('/evaluacion/create', [EvaluacionesController::class, 'create'])->name('evaluacion.create')->middleware('auth');
@@ -116,27 +122,17 @@ Route::post('/actualizar-estatus-evaluacion/{id}', [EvaluacionesController::clas
 Route::get('/asignacion', [AsignacionesController::class, 'index'])->name('asignacion')->middleware('auth');
 Route::get('/asignacion/create', [AsignacionesController::class, 'create'])->name('create')->middleware('auth');
 Route::get('/asignacion/create/{id}', [AsignacionesController::class,'create'])->name('asignacion.create')->middleware('auth');
-Route::get('/asignacion/pdf', [AsignacionesController::class, 'pdf'])->name('asignacion.pdf')->middleware('auth');
 Route::resource('asignacion', AsignacionesController::class)->middleware('auth');
 
-/* Rutas Planificacion */
-Route::get('/planificacion', [PlanificacionesController::class, 'index'])->name('planificacion')->middleware('auth');
-Route::get('/planificacion/create', [PlanificacionesController::class, 'create'])->name('create')->middleware('auth');
-Route::get('/planificacion/create/{id}', [PlanificacionesController::class,'create'])->name('planificacion.create')->middleware('auth');
-Route::get('/planificacion/pdf', [PlanificacionesController::class, 'pdf'])->name('planificacion.pdf')->middleware('auth');
-Route::resource('planificacion', PlanificacionesController::class)->middleware('auth')->except(['create']); // Excluye la ruta 'create' del resource para evitar duplicados;
-Route::get('/planificacion/detalles/{id}', [PlanificacionesController::class, 'getProyectoDetalles']);
-
-/* Rutas Planificacion */
+/* Rutas Seguimiento */
 Route::get('/seguimiento', [SeguimientoController::class, 'index'])->name('seguimiento')->middleware('auth');
 Route::get('/seguimiento/create/{id}', [SeguimientoController::class, 'create'])->name('seguimiento.create')->middleware('auth');
 Route::get('/seguimiento/pdf', [SeguimientoController::class, 'pdf'])->name('seguimiento.pdf')->middleware('auth');
 Route::resource('seguimiento', SeguimientoController::class)->middleware('auth')->except(['create']); 
-Route::get('/seguimiento/detalles/{id}', [SeguimientoController::class, 'getPlanificacionDetalles']);
+Route::get('/seguimiento/detalles/{id}', [SeguimientoController::class, 'getAsignacionDetalles']);
 
 /* Rutas ControlSeguimientos */
 Route::get('/controlseguimiento', [ControlSeguimientosController::class, 'index'])->name('controlseguimiento')->middleware('auth'); 
-
 
 /* Ruta Estadistica*/
 Route::get('estadistica', [EstadisticaController::class, 'index'])->name('estadistica')->middleware('auth');

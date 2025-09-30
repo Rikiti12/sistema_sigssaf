@@ -13,9 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('actividades', function (Blueprint $table) {
+        Schema::create('resposanbles', function (Blueprint $table) {
             $table->id();
-            $table->string('nom_actividad')->nullable(false);
+            $table->string('cedula')->unique();
+            $table->string('nombre');
+            $table->string('apellido');
             $table->timestamps();
         });
     }
@@ -27,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('actividades');
+        Schema::dropIfExists('resposanbles');
     }
 };

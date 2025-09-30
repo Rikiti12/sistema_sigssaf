@@ -68,10 +68,10 @@
                                                 </a>
                                             @endcan
 
-                                            {{-- <a class="btn btn-info btn-sm" style="margin: 0 1px;" title="Ver Detalles" data-asignacion-id='{{ $asignacion->id }}' class="btn btn-primary" data-toggle="modal" data-target="#exampleModalScrollable" id="#modalScroll"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-layout-text-window-reverse" viewBox="0 0 16 16"  style="color: #ffff; cursor: pointer;">
+                                            <a class="btn btn-info btn-sm" style="margin: 0 1px;" title="Ver Detalles" data-asignacion-id='{{ $asignacion->id }}' class="btn btn-primary" data-toggle="modal" data-target="#exampleModalScrollable" id="#modalScroll"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-layout-text-window-reverse" viewBox="0 0 16 16"  style="color: #ffff; cursor: pointer;">
                                                 <path d="M13 6.5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h5a.5.5 0 0 0 .5-.5m0 3a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h5a.5.5 0 0 0 .5-.5m-.5 2.5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1 0-1z"/>
                                                 <path d="M14 0a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2zM2 1a1 1 0 0 0-1 1v1h14V2a1 1 0 0 0-1-1zM1 4v10a1 1 0 0 0 1 1h2V4zm4 0v11h9a1 1 0 0 0 1-1V4z"/>
-                                            </svg></a> --}}
+                                            </svg></a>
 
                                         </div>
                                     </td>
@@ -164,8 +164,9 @@
             });
         </script>
     @endif
-   {{-- ! FUNCIÓN DEL MODAL PARA VER DETALLES DE LA PERSONA --}}
 
+    {{-- FUNCIÓN DEL MODAL PARA VER DETALLES DEL SEGUIMIENTO --}}
+    
     <script>
         $(document).ready(function() {
             $('#dataTable').on('click', '.btn-info', function(event) {
@@ -178,16 +179,26 @@
                     success: function(data) {
                         console.log(data);
     
-                        let asignacionesHtml = `
-                            <h5 class="font-weight-bold text-primary" style="text-align: center">Detalles deL asignacion</h5>
-
-                            <p><b>Impacto Ambiental</b>: ${data.impacto_ambiental}</p>
-                            <p><b>Impacto Social</b>: ${data.impacto_social}</p>
-                          
+                        let asignacionsHtml = `
+                            <h5 class="font-weight-bold text-primary" style="text-align: center">Detalles de la Asignación</h5>
+                            
+                            <p><b>ID</b>: ${data.id_evaluacion}</p>
+                            <p><b>Nombre de la Ayuda Social</b>: ${data.nombre_ayuda}</p>
+                            <p><b>Tipo de Ayuda Social</b>: ${data.tipo_ayuda}</p>
                 
                         `;
 
-                        $('#exampleModalScrollable .modal-body').html(asignacionesHtml);
+                        // Verifica si existen imágenes y agrégalas
+                        if (data.imagenes && data.imagenes.length > 0) {
+                           asignacionsHtml += `<p><b>Fotos:</b></p><div style="display: flex; flex-wrap: wrap; gap: 10px;">`;
+                            let imagenes = JSON.parse(data.imagenes);
+                            imagenes.forEach(function(foto) {
+                               asignacionsHtml += `<img src="/imagenes/${foto}" width="60%" style="width: calc(50% - 10px); margin-bottom: 10px;">`;
+                            });
+                           asignacionsHtml += '</div>';
+                        }
+
+                        $('#exampleModalScrollable .modal-body').html(asignacionsHtml);
     
                         if (!$('#exampleModalScrollable').is(':visible')) {
                             $('#exampleModalScrollable').modal('show');
@@ -195,7 +206,7 @@
                     },
                     error: function(error) {
                         console.error("Error al obtener los datos:", error);
-                        alert("Error al cargar la persona. Por favor, inténtalo de nuevo.");
+                        alert("Error al cargar la vocero. Por favor, inténtalo de nuevo.");
                     }
                 });
             });

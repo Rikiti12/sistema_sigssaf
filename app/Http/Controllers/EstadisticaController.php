@@ -15,40 +15,40 @@ class EstadisticaController extends Controller
      */
     public function index()
     {
-        $proyectos = DB::table('proyectos')
+        $evaluaciones = DB::table('evaluaciones')
         ->select(DB::raw('count(*) as total'), DB::raw('EXTRACT(MONTH FROM created_at) as mes'))
         ->whereYear('created_at', date('Y'))
         ->groupBy(DB::raw('EXTRACT(MONTH FROM created_at)'))
         ->get();
 
-        $data_proyecto = $this->preprareChartData($proyectos);
+        $data_evaluacion = $this->preprareChartData($evaluaciones);
 
-        $seguimientos = DB::table('seguimientos')
-        ->select(DB::raw('count(*) as total'), DB::raw('EXTRACT(MONTH FROM fecha_hor) as mes'), 'estatus')
-        ->whereYear('fecha_hor', date('Y'))
-        ->groupBy('estatus', DB::raw('EXTRACT(MONTH FROM fecha_hor)'))
+        $evaluaciones = DB::table('evaluaciones')
+        ->select(DB::raw('count(*) as total'), DB::raw('EXTRACT(MONTH FROM fecha_evalu) as mes'), 'estatus')
+        ->whereYear('fecha_evalu', date('Y'))
+        ->groupBy('estatus', DB::raw('EXTRACT(MONTH FROM fecha_evalu)'))
         ->get();
 
-        $data_seguimiento = $this->preparePieChartData($seguimientos);
+        $data_aprobado = $this->preparePieChartData($evaluaciones);
 
-        return view('estadistica.index', compact('data_proyecto', 'data_seguimiento'));
+        return view('estadistica.index', compact('data_evaluacion', 'data_aprobado'));
 
     }
 
-    private function preprareChartData($proyectos) 
+    private function preprareChartData($evaluaciones) 
     {
         $labels = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
         $dataset = array_fill(0, 12, 0);
 
-        foreach ($proyectos as $proyecto) {
-            $dataset[$proyecto->mes - 1] = $proyecto->total;
+        foreach ($evaluaciones as $evaluacion) {
+            $dataset[$evaluacion->mes - 1] = $evaluacion->total;
         }
 
         return [
             'labels' => $labels,
             'datasets' => [
                 [
-                    'label' => 'Numero de Proyectos',
+                    'label' => 'Numero de evaluaciones',
                     'data' => $dataset,
                     'backgroundColor' => 'rgba(54, 162, 235, 0.2)',
                     'bodercolor' => 'rgba(54, 162, 235, 1)',
@@ -60,18 +60,18 @@ class EstadisticaController extends Controller
     }
 
 
-    private function preparePieChartData($seguimientos)
+    private function preparePieChartData($evaluaciones)
     {
         $labels = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
         
         $aprobadas = array_fill(0, 12, 0); // Inicializar un array con 12 ceros para aprobadas
         $negados = array_fill(0, 12, 0); // Inicializar un array con 12 ceros para negados
 
-        foreach ($seguimientos as $seguimiento) {
-            if ($seguimiento->estatus === 'Aprobado') {
-                $aprobadas[$seguimiento->mes - 1] = $seguimiento->total;
-            } elseif ($seguimiento->estatus === 'Negado') {
-                $negados[$seguimiento->mes - 1] = $seguimiento->total;
+        foreach ($evaluaciones as $evaluacion) {
+            if ($evaluacion->estatus === 'Aprobado') {
+                $aprobadas[$evaluacion->mes - 1] = $evaluacion->total;
+            } elseif ($evaluacion->estatus === 'Negado') {
+                $negados[$evaluacion->mes - 1] = $evaluacion->total;
             }
         }
 

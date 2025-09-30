@@ -30,11 +30,11 @@
                                 <label  class="font-weight-bold text-dark">Responsable del Seguimiento</label>
                                 <select class="form-select" name="responsable_segui" id="responsable_segui">
                                     <option value="" selected="true" disabled>Seleccione un Responsable</option>
-                                    @if($asignacion)
+                                    {{-- @if($asignacion)
                                         <option value="{{ $asignacion->evaluaciones->respon_evalu }}" selected>
                                             {{ $asignacion->evaluaciones->respon_evalu }}
                                         </option>
-                                    @endif
+                                    @endif --}}
                                 </select>
                             </div> 
                             
