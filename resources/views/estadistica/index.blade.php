@@ -29,7 +29,7 @@
                             <div class="card shadow mb-4">
 
                                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-center">
-                                    <h6 class="m-0 font-weight-bold text-primary">Proyectos realizadas por mes</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">Evaluaciones realizadas por mes</h6>
                                 </div>
 
                                 <div class="card-body">
@@ -45,7 +45,7 @@
                             <div class="card shadow mb-4">
 
                                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-center">
-                                    <h6 class="m-0 font-weight-bold text-primary">Seguimientos Aprobadas y Negadas por mes</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">Evaluaciones Aprobadas y Negadas por mes</h6>
                                 </div>
 
                                 <div class="card-body">
@@ -115,12 +115,12 @@
 
     <script src="{{ asset ('https://cdn.jsdelivr.net/npm/chart.js')  }}"></script>
 
-    {{-- ? FUNCIÓN PARA MOSTRAR LOS PROYECTOS POR MES --}}
+    {{-- ? FUNCIÓN PARA MOSTRAR LOS EVALUACIONES POR MES --}}
 
     <script>
         document.addEventListener("DOMContentLoaded", function() { 
             var ctx = document.getElementById("myBarChart").getContext('2d');
-            var data = @json($data_proyecto); 
+            var data = @json($data_evaluacion); 
 
             var myBarChart = new Chart(ctx, {
                 type: 'bar',
@@ -194,12 +194,12 @@
         });
     </script>
 
-     {{-- * FUNCION PARA MOSTRAR LOS SEGUIMIENTOS CON EL ESTATUS APROBADAS Y PENDIENTES POR MES --}}
+     {{-- * FUNCION PARA MOSTRAR LAS EVALUACIONES CON EL ESTATUS APROBADAS Y PENDIENTES POR MES --}}
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             var ctx = document.getElementById("myHorizontalBarChart").getContext('2d');
-            var data = @json($data_seguimiento);
+            var data = @json($data_aprobado);
 
             var myHorizontalBarChart = new Chart(ctx, {
                 type: 'horizontalBar',

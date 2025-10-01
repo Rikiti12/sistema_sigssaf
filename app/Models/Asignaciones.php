@@ -12,16 +12,16 @@ class Asignaciones extends Model
     protected $table = 'asignaciones'; 
     protected $primaryKey = 'id'; 
     public $timestamps = true; 
-    protected $fillable = [ 'id_evaluacion','id_vocero','id_comunidad', 'descri_alcance', 'moneda_presu', 'presupuesto',
+    protected $fillable = [ 'id_evaluacion','id_vocero','id_comunidad', 'id_ayuda', 'descri_alcance', 'moneda_presu', 'presupuesto',
     'impacto_ambiental', 'impacto_social', 'imagenes','latitud','longtud','direccion', 'fecha_inicio', 'duracion_estimada'];
 
     // Relaciones (si es necesario)
-    public function evaluaciones()
+    public function evaluacion()
     {
         return $this->belongsTo(Evaluaciones::class, 'id_evaluacion');
     }
 
-    public function voceros()
+    public function vocero()
     {
         return $this->belongsTo(Voceros::class, 'id_vocero');
     }
@@ -31,9 +31,10 @@ class Asignaciones extends Model
         return $this->belongsTo(Comunidades::class, 'id_comunidad');
     }
 
-    public function seguimientos()
+    public function ayuda()
     {
-        return $this->hasMany(Seguimientos::class, 'id_asignacion'); // 'id_asignacion' es la clave foránea en 'planificaciones'
+        return $this->belongsTo(Ayudas::class, 'id_ayuda');
     }
+
 
 }

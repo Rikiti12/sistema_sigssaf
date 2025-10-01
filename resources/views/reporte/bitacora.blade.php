@@ -8,52 +8,54 @@
 
 @section('content')
 
-    <div class="container-fluid" id="container-wrapper">
-        <div class="d-sm-flex align-items-center justify-content-between mb-4"></div>
+    <div class="container">
+        <div class="page-inner">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
 
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="card mb-4">
-                    <div class="card-header py-3">
-                        <h2 class="font-weight-bold text-dark" style="margin-left: 44%;">Bitácora</h2>
+                            <h2 class="font-weight-bold text-dark">Bitacora</h2>
+
                     </div>
 
                     <div class="table-responsive p-3">
                         <table class="table align-items-center table-flush" id="dataTable">
                             <thead class="thead-light">
                                 <tr>
-                                    <th  style="color: black;">id</th>
-                                    <th  style="color: black;">Tabla Afectada</th>
-                                    <th  style="color: black;">Operación</th>
-                                    <th  style="color: black;">Fecha</th>
-                                    <th  style="color: black;">Usuario BD</th>
-                                    <th  style="color: black;">Usuario</th>
-                                    <th  style="color: black;">Datos Nuevos</th>
-                                    <th  style="color: black;">Datos Viejos</th>
+                                    <th class="font-weight-bold text-dark">id</th>
+                                    <th class="font-weight-bold text-dark">Tabla Afectada</th>
+                                    <th class="font-weight-bold text-dark">Operación</th>
+                                    <th class="font-weight-bold text-dark">Fecha</th>
+                                    <th class="font-weight-bold text-dark">Usuario BD</th>
+                                    <th class="font-weight-bold text-dark">Usuario</th>
+                                    <th class="font-weight-bold text-dark">Datos Nuevos</th>
+                                    <th class="font-weight-bold text-dark">Datos Viejos</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($bitacora as $item)
+                                    </tr>
+                                    @foreach ($bitacora as $item)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td style="color: black;">{{ $item-> tablaafectada}}</td>
-                                            <td style="color: black;">{{ $item-> operacion}}</td>
-                                            <td style="color: black;">{{ $item-> fecha}}</td>
-                                            <td style="color: black;">{{ $item-> usuario_bd}}</td>
-                                            <td style="color: black;">{{ $item-> usuario}}</td>
-                                            <td style="color: black;">{{ $item-> datos_nuevos}}</td>
-                                            <td style="color: black;">{{ $item-> datos_viejos}}</td>
+                                            <td class="font-weight-bold text-dark">{{ $item-> tablaafectada}}</td>
+                                            <td class="font-weight-bold text-dark">{{ $item-> operacion}}</td>
+                                            <td class="font-weight-bold text-dark">{{ $item-> fecha}}</td>
+                                            <td class="font-weight-bold text-dark">{{ $item-> usuario_bd}}</td>
+                                            <td class="font-weight-bold text-dark">{{ $item-> usuario}}</td>
+                                            <td class="font-weight-bold text-dark">{{ $item-> datos_nuevos}}</td>
+                                            <td class="font-weight-bold text-dark">{{ $item-> datos_viejos}}</td>
                                         </tr>
-                                @endforeach
+                                    @endforeach
+                                    </tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
-        </div>
-    </div> 
+    </div>
 
-@endsection 
+    @endsection 
 
 @section('datatable')
 
@@ -93,6 +95,32 @@
                     thousands: '.',
                 },
             });
+
+            // function updatePdfLink() {
+            //     var searchTerm = table.search();
+            //     var pdfUrl = `{{ url('ayuda/pdf') }}?search=${encodeURIComponent(searchTerm)}`;
+            //     $('#pdfButton').attr('href', pdfUrl);
+            // }
+
+            // table.on('search.dt', function () {
+            //     var searchTerm = table.search();
+            //     $.ajax({
+            //         url: '{{ url('ayuda/pdf') }}',
+            //         method: 'GET',
+            //         data: { search: searchTerm },
+            //         success: function(response) {
+            //             // Aquí puedes manejar la respuesta, si necesitas hacer algo con ella
+            //             console.log('PDF generado con éxito');
+            //         },
+            //         error: function(xhr) {
+            //             console.error('Error al generar el PDF:', xhr);
+            //         }
+            //     });
+            //     updatePdfLink();
+            // });
+            // updatePdfLink();
+
         });
     </script>
+
 @endsection

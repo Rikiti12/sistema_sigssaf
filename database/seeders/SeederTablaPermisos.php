@@ -67,17 +67,11 @@ class SeederTablaPermisos extends Seeder
             'editar-proyecto',
             'borrar-proyecto',
 
-            //  // Operaciones sobre tabla Ayudas
-            //  'ver-ayuda_sociales',
-            //  'crear-ayuda_sociales',
-            //  'editar-ayuda_sociales',
-            //  'borrar-ayuda_sociales',
-
-            //  // Operaciones sobre tabla Viviendas
-            //  'ver-vivienda',
-            //  'crear-vivienda',
-            //  'editar-vivienda',
-            //  'borrar-vivienda',
+            //Operaciones sobre tabla Resposanbles
+            'ver-resposanble',
+            'crear-resposanble',
+            'editar-resposanble',
+            'borrar-resposanble',
 
             // Operaciones sobre tabla Evaluaciones
              'ver-evaluacion',
@@ -104,7 +98,7 @@ class SeederTablaPermisos extends Seeder
               'ver-controlseguimiento',
               'crear-controlseguimiento',
               'editar-controlseguimiento',
-             
+       
             
             
         ];

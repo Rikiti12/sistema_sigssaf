@@ -121,13 +121,13 @@
                       </a>
                       @endcan
                     </li>
-                    {{-- <li>
-                       @can('ver-vivienda')
-                      <a class="sidebar-link"  href="{{ url('vivienda')}}" aria-expanded="false">
-                        <span class="sub-item">Viviendas</span>
+                    <li>
+                       @can('ver-resposanble')
+                      <a class="sidebar-link"  href="{{ url('resposanble')}}" aria-expanded="false">
+                        <span class="sub-item">Responsable</span>
                       </a>
                        @endcan
-                    </li>  --}}
+                    </li> 
                     <!-- <li>
                       <a href="components/font-awesome-icons.html">
                         <span class="sub-item">Font Awesome Icons</span>
@@ -198,28 +198,6 @@
                   </ul>
                 </div>
               </li>
-            
-              <!-- <li class="nav-item">
-                <a data-bs-toggle="collapse" href="#tables">
-                  <i class="fas fa-table"></i>
-                  <p>Tables</p>
-                  <span class="caret"></span>
-                </a>
-                <div class="collapse" id="tables">
-                  <ul class="nav nav-collapse">
-                    <li>
-                      <a href="tables/tables.html">
-                        <span class="sub-item">Basic Table</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="tables/datatables.html">
-                        <span class="sub-item">Datatables</span>
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-              </li> -->
               <li class="nav-section">
                 <span class="sidebar-mini-icon">
                   <i class="fa fa-ellipsis-h"></i>
@@ -239,11 +217,11 @@
                         <span class="sub-item">Estadística</span>
                       </a>
                     </li>
-                    {{-- <li>
-                      <a href="charts/sparkline.html">
-                        <span class="sub-item">Sparkline</span>
+                    <li>
+                      <a href="{{ url('bitacora')}}">
+                        <span class="sub-item">Bitacora</span>
                       </a>
-                    </li> --}}
+                    </li> 
                   </ul>
                 </div>
               </li>

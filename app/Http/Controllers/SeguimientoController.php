@@ -6,8 +6,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Seguimientos;
 use App\Models\Asignaciones;
-use App\Models\Proyectos;
-use App\Models\User;
 use Illuminate\Database\QueryException;
 use App\Http\Controllers\BitacoraController;
 
@@ -15,9 +13,9 @@ class SeguimientoController extends Controller
 {
     function __construct()
     {
-         $this->middleware('permission:ver-seguimiento|crear-seguimiento|editar-ptoyecto|', ['only' => ['index']]);
-         $this->middleware('permission:crear-seguimiento', ['only' => ['create','store']]);
-         $this->middleware('permission:editar-seguimiento', ['only' => ['edit','update']]);
+        $this->middleware('permission:ver-seguimiento|crear-seguimiento|editar-ptoyecto|', ['only' => ['index']]);
+        $this->middleware('permission:crear-seguimiento', ['only' => ['create','store']]);
+        $this->middleware('permission:editar-seguimiento', ['only' => ['edit','update']]);
         
     }
     /**
@@ -27,7 +25,7 @@ class SeguimientoController extends Controller
      */
     public function index()
     {
-        $asignaciones = Asignaciones::with('voceros')->get(); // Cargar la relación con tabla "personas"
+        $asignaciones = Asignaciones::all(); 
 
         $asignaciones->each(function ($asignacion) {
             $asignacion->yaSeguimiento = Seguimientos::where('id_asignacion', $asignacion->id)->exists();
@@ -43,23 +41,16 @@ class SeguimientoController extends Controller
 
         if (!$asignacion) {
             // Maneja el caso en que no se encuentre la vocero
-            return response()->json(['error' => 'Vocero no encontrada'], 404);
+            return response()->json(['error' => 'Asignacion no encontrada'], 404);
         }
 
         // Devuelve los datos relevantes en formato JSON
         return response()->json([
+            'id_evaluacion' => $asignacion->id_evaluacion,
             'imagenes' => $asignacion->imagenes,
-            'latitud' => $asignacion->latitud,
-            'longitud' => $asignacion->longitud,
-            'descri_alcance' => $asignacion->descri_alcance,
-            'moneda_presu' => $asignacion->moneda_presu,
-            'presupuesto' => $asignacion->presupuesto,
-            'impacto_ambiental' => $asignacion->impacto_ambiental,
-            'impacto_social' => $asignacion->impacto_social,
-            'fecha_inicio' => $asignacion->fecha_inicio,
-            'duracion_estimada' => $asignacion->duracion_estimada,
-            // 'direccion' => $asignacion->direccion,
-            // 'documentos' => $asignacion->documentos,
+            'nombre_ayuda' => $asignacion->ayuda->nombre_ayuda,
+            'tipo_ayuda' => $asignacion->ayuda->tipo_ayuda,
+            
         ]);
  
     }
@@ -70,9 +61,9 @@ class SeguimientoController extends Controller
      */
     public function create($id)
     {
-        $asignacion = Asignaciones::with('evaluaciones')->findOrFail($id);
+        $asignacion = Asignaciones::findOrFail($id);
 
-        return view('seguimiento.create', compact('asignacion')); // Pasar los proyectos a la vista
+        return view('seguimiento.create', compact('asignacion')); 
     }
 
     /**

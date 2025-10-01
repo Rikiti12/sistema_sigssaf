@@ -19,12 +19,14 @@
                     <h2 class="font-weight-bold text-dark">Actualizar proyectos</h2>
                 </div>
 
-                <form method="post" action="{{ url('/asignacion/'.$asignacion->id) }}" enctype="multipart/form-data" onsubmit="return Asignaciones(this)">
+                <form method="post" action="{{ route('asignacion.update', $asignacion->id) }}" enctype="multipart/form-data" onsubmit="return Asignaciones(this)">
                     @csrf
                     {{ method_field('PATCH') }}
 
                     <div class="card-body">
 
+                        <input type="hidden" class="form-control" id="id_evaluacion" name="id_evaluacion" style="background: white;" value="{{ isset($asignacion->evaluacion->id)?$asignacion->evaluacion->id:'' }}" placeholder="" autocomplete="off">
+                        
                         <div class="row">
 
                            <div class="col-4">
@@ -47,6 +49,18 @@
                                             {{ $comunidad->nom_comuni }}
                                         </option>
                                     @endforeach
+                                </select>
+                            </div>
+
+                            <div class="col-4">
+                                <label class="font-weight-bold text-dark">Tipo de Ayuda Asignado</label>
+                                <select class="form-select" id="id_ayuda" name="id_ayuda">
+                                   <option value="">Seleccione una ayuda</option>
+                                    @foreach($ayudas as $ayuda)
+                                        <option value="{{ $ayuda->id }}" {{ $asignacion->id_ayuda == $ayuda->id ? 'selected' : '' }}>
+                                         {{ $ayuda->nombre_ayuda }} - {{ $ayuda->tipo_ayuda }}
+                                        </option>
+                                   @endforeach
                                 </select>
                             </div>
 
@@ -79,10 +93,6 @@
                                 <input type="text" class="form-control" id="presupuesto" name="presupuesto" style="background: white;" value="{{ $asignacion->presupuesto }}" placeholder="Ingrese el Presupuesto" autocomplete="off">
                             </div>
 
-                            {{-- <div class="col-3">
-                                <label class="font-weight-bold text-dark">Descripción de la Obra</label>
-                                <textarea class="form-control" id="descri_obra" name="descri_obra" rows="3" placeholder="Ingrese la Descripción de la Obra" oninput="capitalizarTextoarea('descri_obra')" cols="10" rows="10" style="max-height: 6rem;">{{ $asignacion->descri_obra }}</textarea>
-                            </div> --}}
 
                         </div>
                     
@@ -250,76 +260,6 @@
             });
         });
     </script>
-
-    {{-- * FUNCION PARA MOSTRAR EL PDF --}}
-
-    {{-- <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-
-    <script>
-
-        $(document).ready(function () {
-            const pdfs = JSON.parse(@json($documentos)); // Decodifica el JSON de los PDFs
-            const pdfContainer = document.getElementById('pdf_container');
-
-            // Función para crear un elemento PDF con botón de eliminación
-            function createPdfElement(src) {
-                const div = document.createElement('div');
-                div.style.position = 'relative';
-                div.style.display = 'inline-block';
-                div.style.margin = '5px';
-                div.style.width = 'calc(50% - 10px)'; // Ajusta el ancho para dos columnas
-                div.style.boxSizing = 'border-box'; // Asegura que el margen no afecte el ancho total
-
-                const iframe = document.createElement('iframe');
-                iframe.src = src;
-                iframe.style.width = '200%'; // Asegura que el iframe ocupe todo el div
-                iframe.style.height = '400px'; // Altura fija para el iframe
-                iframe.style.display = 'block';
-
-                const btn = document.createElement('button');
-                btn.innerText = 'X';
-                btn.style.position = 'absolute';
-                btn.style.top = '0';
-                btn.style.right = '0';
-                btn.style.backgroundColor = 'black';
-                btn.style.color = 'white';
-                btn.style.border = 'none';
-                btn.style.borderRadius = '50%';
-                btn.style.cursor = 'pointer';
-                btn.style.transform = 'translate(-15%, 15%)';
-                btn.style.width = '20px';  // Ancho del botón
-                btn.style.height = '20px'; // Alto del botón
-                btn.style.fontSize = '12px';
-
-                btn.addEventListener('click', () => {
-                    pdfContainer.removeChild(div);
-                });
-
-                div.appendChild(iframe);
-                div.appendChild(btn);
-                return div;
-            }
-
-            // Muestra los PDFs registrados
-            pdfs.forEach(pdf => {
-                const pdfElement = createPdfElement(`{{ asset('pdf/') }}/${pdf}`);
-                pdfContainer.appendChild(pdfElement);
-            });
-
-            // Agrega nuevos PDFs seleccionados por el usuario
-            $('#documentos').change(function () {
-                for (const file of this.files) {
-                    const reader = new FileReader();
-                    reader.onload = (e) => {
-                        const pdfElement = createPdfElement(e.target.result);
-                        pdfContainer.appendChild(pdfElement);
-                    };
-                    reader.readAsDataURL(file);
-                }
-            });
-        });
-
-    </script> --}}
 
     {{-- * FUNCION PARA CAPITALIZAR LA PRIMERA LETRA --}}
 

@@ -18,6 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_evaluacion');
             $table->unsignedBigInteger('id_vocero');
             $table->unsignedBigInteger('id_comunidad');
+            $table->unsignedBigInteger('id_ayuda');
             $table->string('descri_alcance');
             $table->string('moneda_presu', 3); // Added this line (VES, USD, EUR)
             $table->text('presupuesto');
@@ -32,12 +33,13 @@ return new class extends Migration
             $table->timestamps();
 
             // Establecer relaciones con las tablas correspondientes
-            $table->foreign('id_vocero')->references('id')->on('voceros');
-            
             $table->foreign('id_evaluacion')->references('id')->on('evaluaciones');
 
-             // Establecer relación con la tabla de comunas
-             $table->foreign('id_comunidad')->references('id')->on('comunidades');
+            $table->foreign('id_vocero')->references('id')->on('voceros');
+
+            $table->foreign('id_comunidad')->references('id')->on('comunidades');
+
+            $table->foreign('id_ayuda')->references('id')->on('ayudas');
         });
     }
 
