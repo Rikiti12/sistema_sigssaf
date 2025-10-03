@@ -12,7 +12,7 @@ class Evaluaciones extends Model
     protected $table = 'evaluaciones';
     protected $primaryKey = 'id';
     public $timestamps = true;
-    protected $fillable = ['id_proyecto', 'fecha_evalu', 'respon_evalu', 'observaciones', 'estatus', 'estatus_resp', 'viabilidad'];
+    protected $fillable = ['id_proyecto', 'fecha_evalu', 'id_resposanble', 'observaciones', 'estatus', 'estatus_resp', 'viabilidad'];
 
     // Relación con Proyecto
     public function proyectos()
@@ -20,6 +20,10 @@ class Evaluaciones extends Model
         return $this->belongsTo(Proyectos::class, 'id_proyecto');
     }
 
+    public function resposanbles()
+    {
+        return $this->belongsTo(Resposanbles::class, 'id_resposanble');
+    }
      public function asignaciones()
     {
         return $this->hasMany(Asignaciones::class, 'id_evaluacion');

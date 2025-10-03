@@ -15,14 +15,14 @@
                     <div class="card">
                         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
 
-                            <a href="{{ url('vocero/pdf') }}" class="btn btn-sm btn-danger" target="_blank" id="pdfButton">
+                            <a href="{{ url('resposanble/pdf') }}" class="btn btn-sm btn-danger" target="_blank" id="pdfButton">
                                 {{ ('PDF') }}
                             </a>
 
                             <h2 class="font-weight-bold text-dark">Gestión de Responsable</h2>
 
-                        @can('crear-vocero')
-                            <form action="{{ route('vocero.create') }}" method="get" style="display:inline;">
+                        @can('crear-resposanble')
+                            <form action="{{ route('resposanble.create') }}" method="get" style="display:inline;">
                                 <button type="submit" class="btn btn-primary btn-mb"> <span class="">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-person-plus-fill" viewBox="0 0 16 16">
                                         <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
@@ -71,10 +71,10 @@
                                                     </form> 
                                                 @endcan
                                                 
-                                                <a class="btn btn-info btn-sm" style="margin: 0 1px;" title="Ver Detalles" data-vocero-id='{{ $vocero->id }}' class="btn btn-primary" data-toggle="modal" data-target="#exampleModalScrollable" id="#modalScroll"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-layout-text-window-reverse" viewBox="0 0 16 16"  style="color: #ffff; cursor: pointer;">
+                                                {{-- <a class="btn btn-info btn-sm" style="margin: 0 1px;" title="Ver Detalles" data-vocero-id='{{ $vocero->id }}' class="btn btn-primary" data-toggle="modal" data-target="#exampleModalScrollable" id="#modalScroll"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-layout-text-window-reverse" viewBox="0 0 16 16"  style="color: #ffff; cursor: pointer;">
                                                     <path d="M13 6.5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h5a.5.5 0 0 0 .5-.5m0 3a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h5a.5.5 0 0 0 .5-.5m-.5 2.5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1 0-1z"/>
                                                     <path d="M14 0a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2zM2 1a1 1 0 0 0-1 1v1h14V2a1 1 0 0 0-1-1zM1 4v10a1 1 0 0 0 1 1h2V4zm4 0v11h9a1 1 0 0 0 1-1V4z"/>
-                                                </svg></a>
+                                                </svg></a> --}}
                                             </div>
 
                                         </td>
@@ -203,7 +203,7 @@
             var errors = @json($errors->all());
             errors.forEach(function(error) {
                 Swal.fire({
-                    title: 'Vocero',
+                    title: 'Resposanble',
                     text: error,
                     icon: 'warning',
                     showConfirmButton: true,

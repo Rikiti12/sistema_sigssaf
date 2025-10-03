@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Evaluaciones;
 use App\Models\Proyectos; // Asegúrate de que esta línea esté presente para usar el modelo Proyectos
+use App\Models\Resposanbles;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\QueryException;
 use App\Http\Controllers\BitacoraController;
@@ -27,9 +28,10 @@ class EvaluacionesController extends Controller
      */
     public function index()
     {
-        $evaluaciones = Evaluaciones::with('proyectos')->get();
+        $evaluaciones = Evaluaciones::with('proyectos','resposanbles')->get();
         $proyectos = Proyectos::all(); 
-        return view('evaluacion.create', compact('evaluaciones', 'proyectos'));
+        $resposanbles = Resposanbles::all();
+        return view('evaluacion.create', compact('evaluaciones', 'proyectos','resposanbles'));
     }
 
     /**
@@ -40,7 +42,8 @@ class EvaluacionesController extends Controller
     public function create()
     {
         $proyectos = Proyectos::all();
-        return view('evaluacion.create', compact('proyectos'));
+        $resposanbles = Resposanbles::all();
+        return view('evaluacion.create', compact('proyectos','resposanbles'));
     }
 
     // ... resto de tu código (store, edit, update, etc.) ...
@@ -68,7 +71,7 @@ class EvaluacionesController extends Controller
         $evaluaciones = new Evaluaciones();
         $evaluaciones->id_proyecto = $request->input('id_proyecto');
         $evaluaciones->fecha_evalu = $request->input('fecha_evalu');
-        $evaluaciones->respon_evalu = $request->input('respon_evalu');
+        $evaluaciones->id_resposanble = $request->input('id_resposanble');
         $evaluaciones->observaciones = $request->input('observaciones');
         // $evaluaciones->estado_evalu = $request->input('estado_evalu');
 
@@ -137,9 +140,10 @@ class EvaluacionesController extends Controller
     {
         $evaluacion = Evaluaciones::findOrFail($id);
         $proyectos = Proyectos::all();
+         $resposanbles = Resposanbles::all();
        
         
-        return view('evaluacion.edit', compact('evaluacion', 'proyectos'));
+        return view('evaluacion.edit', compact('evaluacion', 'proyectos','resposanbles'));
     }
 
     /**
@@ -165,7 +169,7 @@ class EvaluacionesController extends Controller
         $evaluacion = Evaluaciones::findOrFail($id);
         $evaluacion->id_proyecto = $request->input('id_proyecto');
         $evaluacion->fecha_evalu = $request->input('fecha_evalu');
-        $evaluacion->respon_evalu = $request->input('respon_evalu');
+        $evaluacion->id_resposanble = $request->input('id_resposanble');
         $evaluacion->observaciones = $request->input('observaciones');
         $evaluacion->estatus = $request->input('estatus');
         $evaluacion->viabilidad = $request->input('viabilidad');
