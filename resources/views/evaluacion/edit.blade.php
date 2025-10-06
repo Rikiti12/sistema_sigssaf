@@ -45,7 +45,7 @@
                                <option value="">Seleccione un Responsable...</option>
                                @foreach($resposanbles as $resposanble)
                                    <option value="{{ $resposanble->id }}" {{ $evaluacion->id_resposanble == $resposanble->id ? 'selected' : '' }}>
-                                       {{ $resposanble->nombre }} - {{ $resposanble->apellido }}
+                                      {{ $resposanble->cedula }} - {{ $resposanble->nombre }} {{ $resposanble->apellido }}
                                    </option>
                                @endforeach
                            </select>

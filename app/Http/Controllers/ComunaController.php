@@ -142,7 +142,7 @@ class ComunaController extends Controller
         $comuna =  Comunas::find($id);
         $parroquias = Parroquia::all();
         $consejo_comunals = ConsejoComunal::all();
-         $voceros = Voceros::all();
+        $voceros = Voceros::all();
         return view('comuna.edit',compact('comuna','parroquias', 'consejo_comunals','voceros'));
     }
 

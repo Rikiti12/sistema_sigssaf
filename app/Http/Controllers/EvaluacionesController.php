@@ -28,10 +28,7 @@ class EvaluacionesController extends Controller
      */
     public function index()
     {
-        $evaluaciones = Evaluaciones::with('proyectos','resposanbles')->get();
-        $proyectos = Proyectos::all(); 
-        $resposanbles = Resposanbles::all();
-        return view('evaluacion.create', compact('evaluaciones', 'proyectos','resposanbles'));
+        //
     }
 
     /**
@@ -45,8 +42,6 @@ class EvaluacionesController extends Controller
         $resposanbles = Resposanbles::all();
         return view('evaluacion.create', compact('proyectos','resposanbles'));
     }
-
-    // ... resto de tu código (store, edit, update, etc.) ...
 
 
     /**
@@ -124,11 +119,6 @@ class EvaluacionesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    // public function show($id)
-    // {
-    //     $evaluacion = Evaluacion::with('proyecto')->findOrFail($id);
-    //     return view('evaluacion.show', compact('evaluacion'));
-    // }
 
     /**
      * Show the form for editing the specified resource.
@@ -140,9 +130,8 @@ class EvaluacionesController extends Controller
     {
         $evaluacion = Evaluaciones::findOrFail($id);
         $proyectos = Proyectos::all();
-         $resposanbles = Resposanbles::all();
-       
-        
+        $resposanbles = Resposanbles::all();
+
         return view('evaluacion.edit', compact('evaluacion', 'proyectos','resposanbles'));
     }
 
@@ -220,37 +209,4 @@ class EvaluacionesController extends Controller
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    // public function destroy($id)
-    // {
-    //     $evaluacion = Evaluacion::findOrFail($id);
-        
-    //     try {
-    //         $evaluacion->delete();
-    //         $bitacora = new BitacoraController();
-    //         $bitacora->update();
-    //         return redirect()->route('evaluacion.index')->with('success', 'Evaluación eliminada exitosamente');
-    //     } catch (QueryException $exception) {
-    //         $errorMessage = 'Error: ' . $exception->getMessage();
-    //         return redirect()->back()->withErrors($errorMessage);
-    //     }
-    // }
-
-    /**
-     * Generar PDF de la evaluación
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    // public function pdf($id)
-    // {
-    //     $evaluacion = Evaluacion::with('proyecto')->findOrFail($id);
-    //     $pdf = Pdf::loadView('evaluacion.pdf', compact('evaluacion'));
-    //     return $pdf->download('evaluacion-' . $evaluacion->id . '.pdf');
-    // }
 }

@@ -31,7 +31,8 @@
                                         <option value="">Seleccione un vocero</option>
                                         @foreach($voceros as $vocero)
                                             @if($vocero->tipo_vocero === 'comuna')
-                                                <option value="{{ $vocero->id }}"> {{ $vocero->cedula }} {{ $vocero->nombre }} {{ $vocero->apellido }}</option>
+                                                <option value="{{ $vocero->id }}"> {{ $vocero->cedula }} {{ $vocero->nombre }} {{ $vocero->apellido }} - 
+                                                    {{ $vocero->cargo->nombre_cargo }}</option>
                                             @endif
                                         @endforeach
                                     </select>

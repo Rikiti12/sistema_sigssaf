@@ -51,7 +51,7 @@
                                         <tr>
 
                                             <td class="font-weight-bold text-dark">{{ $consejocomunal->vocero->cedula }} - {{ $consejocomunal->vocero->nombre }}
-                                                {{ $consejocomunal->vocero->apellido }}
+                                                {{ $consejocomunal->vocero->apellido }} - {{ $consejocomunal->vocero->cargo->nombre_cargo }}
                                             </td>
 
                                             <td class="font-weight-bold text-dark">{{ $consejocomunal->nom_consej }}</td>

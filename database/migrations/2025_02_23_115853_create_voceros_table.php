@@ -24,9 +24,13 @@ return new class extends Migration
             $table->string('telefono');
             $table->string('correo')->unique();
             $table->text('direccion');
-            $table->string('cargo');
+            $table->unsignedBigInteger('id_cargo');
             $table->string('tipo_vocero');
             $table->timestamps();
+
+            // Establecer relación con la tabla de cargos
+            $table->foreign('id_cargo')->references('id')->on('cargos');
+            
         });
     }
 

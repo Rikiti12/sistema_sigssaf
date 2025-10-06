@@ -14,6 +14,7 @@ use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\ComunaController;
 use App\Http\Controllers\ComunidadesController;
 use App\Http\Controllers\ConsejoComunalController;
+use App\Http\Controllers\CargosController;
 use App\Http\Controllers\VocerosController;
 use App\Http\Controllers\AyudasController;
 use App\Http\Controllers\ProyectosController;
@@ -63,6 +64,12 @@ Route::get('/logout', [logoutController::class, 'logout']);
 /* Ruta Perfil Usuario */
 Route::get('/Perfil',  [UserSettingsController::class,'Perfil'])->name('Perfil')->middleware('auth');
 Route::post('/change/password',  [UserSettingsController::class,'changePassword'])->name('changePassword');
+
+/* Ruta Cargo */
+Route::get('/cargo',  [CargosController::class,'index'])->name('cargo')->middleware('auth');
+Route::get('/cargo/create', [CargosController::class, 'create'])->name('create')->middleware('auth');
+Route::get('/cargo/pdf', [CargosController::class,'pdf'])->name('cargo')->middleware('auth');
+Route::resource('cargo', CargosController::class)->middleware('auth');
 
 /* Ruta Vocero */
 Route::get('/vocero',  [VocerosController::class,'index'])->name('vocero')->middleware('auth');

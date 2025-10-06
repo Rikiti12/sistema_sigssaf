@@ -118,7 +118,7 @@ class ResposanblesController extends Controller
      * @param  \App\Models\Resposanbles  $resposanbles
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Resposanbles $resposanbles)
+    public function update(Request $request, $id)
     {
        // $request->validate([
        // 'cedula' => 'required|unique:cedula',

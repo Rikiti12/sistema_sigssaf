@@ -33,7 +33,7 @@
                                     @foreach ($evaluaciones as $evaluacion)
                                         <tr data-evaluacion-id="{{ $evaluacion->id }}">
                                             <td class="font-weight-bold text-dark">{{ $evaluacion->proyectos->nombre_pro }} {{ $evaluacion->proyectos->descripcion_pro }}</td>
-                                            <td class="font-weight-bold text-dark">{{ $evaluacion->respon_evalu }}</td>
+                                            <td class="font-weight-bold text-dark">{{ $evaluacion->resposanbles->cedula }} - {{ $evaluacion->resposanbles->nombre }} {{ $evaluacion->resposanbles->apellido }}</td>
                                             <td class="font-weight-bold text-dark">
                                                 <span class="badge 
                                                     @if($evaluacion->viabilidad == 'Alta') bg-danger

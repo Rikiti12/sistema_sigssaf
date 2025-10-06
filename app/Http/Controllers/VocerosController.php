@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Voceros;
+use App\Models\Cargos;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
@@ -22,7 +23,7 @@ class VocerosController extends Controller
      */
     public function index()
     {
-        $voceros = Voceros::all();
+        $voceros = Voceros::with('cargo')->get();
         return view('vocero.index', compact('voceros'));
     }
 
@@ -68,7 +69,8 @@ class VocerosController extends Controller
         return response()->json([
             'correo' => $vocero->correo,
             'genero' =>$vocero->genero,
-            'cargo' =>$vocero->cargo,
+            'nombre_cargo' =>$vocero->cargo->nombre_cargo,
+            'categoria' =>$vocero->cargo->categoria,
             'tipo_vocero' =>$vocero->tipo_vocero,
 
         ]);
@@ -83,7 +85,8 @@ class VocerosController extends Controller
     public function create()
     {
         $voceros = Voceros::all();
-        return view('vocero.create');
+        $cargos = Cargos::all();
+        return view('vocero.create', compact('voceros', 'cargos'));
     }
 
     /**
@@ -121,7 +124,7 @@ class VocerosController extends Controller
         $voceros->telefono = $request->input('telefono');
         $voceros->correo = $request->input('correo');
         $voceros->direccion = $request->input('direccion');
-        $voceros->cargo = $request->input('cargo');
+        $voceros->id_cargo = $request->input('id_cargo');
         $voceros->tipo_vocero = $request->input('tipo_vocero');
 
         $voceros->save();
@@ -158,7 +161,9 @@ class VocerosController extends Controller
     public function edit($id)
     {
         $vocero = Voceros::find($id);
-        return view('vocero.edit', compact('vocero'));
+        $cargos = Cargos::all();
+
+        return view('vocero.edit', compact('vocero', 'cargos'));
     }
 
     /**
@@ -196,7 +201,7 @@ class VocerosController extends Controller
         $vocero->telefono = $request->input('telefono');
         $vocero->correo = $request->input('correo');
         $vocero->direccion = $request->input('direccion');
-        $vocero->cargo = $request->input('cargo');
+        $vocero->id_cargo = $request->input('id_cargo');
         $vocero->tipo_vocero = $request->input('tipo_vocero');
     
         $vocero->save();

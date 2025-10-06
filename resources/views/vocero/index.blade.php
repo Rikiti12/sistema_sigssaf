@@ -260,7 +260,8 @@
                             <h5 class="font-weight-bold text-primary" style="text-align: center">Detalles del Vocero</h5>
                             
                             <p><b>Correo:</b> ${data.correo}</p>
-                            <p><b>Cargo:</b> ${data.cargo}</p>
+                            <p><b>Nombre del Cargo:</b> ${data.nombre_cargo}</p>
+                            <p><b>Categoría del Cargo:</b> ${data.categoria}</p>
                             <p><b>Genero:</b> ${data.genero}</p>
                             <p><b>Tipo de Vocero:</b> ${data.tipo_vocero}</p>
                            

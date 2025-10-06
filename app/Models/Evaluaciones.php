@@ -24,7 +24,8 @@ class Evaluaciones extends Model
     {
         return $this->belongsTo(Resposanbles::class, 'id_resposanble');
     }
-     public function asignaciones()
+
+    public function asignaciones()
     {
         return $this->hasMany(Asignaciones::class, 'id_evaluacion');
     }

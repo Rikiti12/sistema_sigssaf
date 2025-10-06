@@ -41,7 +41,7 @@
                                  <select class="form-select" id="id_resposanble" name="id_resposanble" required>
                                     <option value="">Seleccione un Responsable</option>
                                     @foreach($resposanbles as $resposanble)
-                                        <option value="{{ $resposanble->id }}">{{ $resposanble->nombre}} - {{ $resposanble->apellido }}</option>
+                                        <option value="{{ $resposanble->id }}">{{ $resposanble->cedula}} - {{ $resposanble->nombre}} {{ $resposanble->apellido }}</option>
                                     @endforeach
                                 </select>
                             </div>

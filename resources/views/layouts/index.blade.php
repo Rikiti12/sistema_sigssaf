@@ -80,6 +80,13 @@
                 <div class="collapse" id="base">
                   <ul class="nav nav-collapse">
                     <li>
+                        @can('ver-cargo')
+                      <a class="sidebar-link"  href="{{ url('cargo')}}" aria-expanded="false">
+                        <span class="sub-item">Cargos</span>
+                      </a>
+                      @endcan
+                    </li>
+                    <li>
                         @can('ver-vocero')
                       <a class="sidebar-link"  href="{{ url('vocero')}}" aria-expanded="false">
                         <span class="sub-item">Voceros</span>
@@ -128,21 +135,6 @@
                       </a>
                        @endcan
                     </li> 
-                    <!-- <li>
-                      <a href="components/font-awesome-icons.html">
-                        <span class="sub-item">Font Awesome Icons</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="components/simple-line-icons.html">
-                        <span class="sub-item">Simple Line Icons</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="components/typography.html">
-                        <span class="sub-item">Typography</span>
-                      </a>
-                    </li> -->
                   </ul>
                 </div>
               </li>
@@ -174,13 +166,6 @@
                       </a>
                       @endcan
                     </li>
-                    {{-- <li>
-                      @can('ver-planificacion')
-                      <a class="sidebar-link"  href="{{ url('planificacion')}}" aria-expanded="false">
-                        <span class="sub-item">Planificaciones</span>
-                      </a>
-                      @endcan
-                    </li> --}}
                     <li>
                        @can('ver-seguimiento')
                       <a class="sidebar-link"  href="{{ url('seguimiento')}}" aria-expanded="false">

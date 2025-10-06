@@ -53,7 +53,7 @@
                                         <tr>
                                             <!-- <td class="font-weight-bold text-Secondary">{{ $comuna->id}}</td> -->
                                             <td class="font-weight-bold text-dark">{{ $comuna->vocero->cedula }} - {{ $comuna->vocero->nombre }} 
-                                            {{ $comuna->vocero->apellido }}
+                                            {{ $comuna->vocero->apellido }} - {{ $comuna->vocero->cargo->nombre_cargo }}
                                             </td>
                             
                                             <td class="font-weight-bold text-dark">{{ $comuna->nom_comunas }}</td>

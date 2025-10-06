@@ -1789,75 +1789,56 @@ function  ConsejoComunal(obj) {
        return false;
    }
 
-//    var codigo_situr = obj.codigo_situr.value;
-//    if (!codigo_situr) {
-//        Swal.fire({
-//            title: 'Consejo comunal',
-//            text: "Ingrese el código SITUR.",
-//            icon: 'warning',
-//            confirmButtonColor: '#3085d6',
-//            cancelButtonColor: '#d33',
-//            }).then((result) => {
-//        if (result.isConfirmed) {
+    // var rif = obj.rif.value;
+    // // Expresión regular que verifica que comience con una letra mayúscula seguida por 9 números y puede contener guiones
+    // var regex = /^[A-Z]-?\d{9,10}$/;
 
-//            this.submit();
-//        }
-//        })
-       
-//        obj.codigo_situr.focus();
-//        return false;
-//    }
-
-    var rif = obj.rif.value;
-    // Expresión regular que verifica que comience con una letra mayúscula seguida por 9 números y puede contener guiones
-    var regex = /^[A-Z]-?\d{9,10}$/;
-
-    if (!rif) {
-        Swal.fire({
-            title: 'Consejo comunal',
-            text: "Debe de ingresar el RIF.",
-            icon: 'warning',
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-        }).then((result) => {
-            if (result.isConfirmed) {
-                this.submit();
-            }
-        });
+    // if (!rif) {
+    //     Swal.fire({
+    //         title: 'Consejo comunal',
+    //         text: "Debe de ingresar el RIF.",
+    //         icon: 'warning',
+    //         confirmButtonColor: '#3085d6',
+    //         cancelButtonColor: '#d33',
+    //     }).then((result) => {
+    //         if (result.isConfirmed) {
+    //             this.submit();
+    //         }
+    //     });
         
-        obj.rif.focus();
-        return false;
-    } else if (!regex.test(rif)) {
-        Swal.fire({
-            title: 'Consejo comunal',
-            text: "El RIF debe comenzar con una letra mayúscula, seguido por números .",
-            icon: 'warning',
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-        });
+    //     obj.rif.focus();
+    //     return false;
+    // } else if (!regex.test(rif)) {
+    //     Swal.fire({
+    //         title: 'Consejo comunal',
+    //         text: "El RIF debe comenzar con una letra mayúscula, seguido por números .",
+    //         icon: 'warning',
+    //         confirmButtonColor: '#3085d6',
+    //         cancelButtonColor: '#d33',
+    //     });
 
-        obj.rif.focus();
-        return false;
-    }
+    //     obj.rif.focus();
+    //     return false;
+    // }
 
 
-    if (rif.trim() == "") {
-        Swal.fire({
-            title: 'Consejo comunal',
-            text: "El Campo del RIF de la empresa no debe contener espacios en blancos.",
-            icon: 'warning',
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            }).then((result) => {
-        if (result.isConfirmed) {
+    // if (rif.trim() == "") {
+    //     Swal.fire({
+    //         title: 'Consejo comunal',
+    //         text: "El Campo del RIF de la empresa no debe contener espacios en blancos.",
+    //         icon: 'warning',
+    //         confirmButtonColor: '#3085d6',
+    //         cancelButtonColor: '#d33',
+    //         }).then((result) => {
+    //     if (result.isConfirmed) {
 
-            this.submit();
-        }
-        })
+    //         this.submit();
+    //     }
+    //     })
         
-        obj.rif.focus();
-        return false;
-    }
+    //     obj.rif.focus();
+    //     return false;
+    // }
 
 
     var dire_consejo = obj.dire_consejo.value;

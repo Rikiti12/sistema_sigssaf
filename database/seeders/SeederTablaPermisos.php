@@ -19,6 +19,7 @@ class SeederTablaPermisos extends Seeder
     {
         $permisos = [
                                                     /* DESCOMENTAR AL EJECUTAR EL SEEDER LA PRIMERA VEZ (SI NO HAY REGISTROS EN LA BASE DE DTAOS) */
+
             //Operaciones sobre tabla Usuarios
             'ver-usuario',
             'crear-usuario',
@@ -30,6 +31,12 @@ class SeederTablaPermisos extends Seeder
             'crear-rol',
             'editar-rol',
             'borrar-rol',
+
+            //Operaciones sobre tabla Cargos
+            'ver-cargo',
+            'crear-cargo',
+            'editar-cargo',
+            'borrar-cargo',
 
             //Operaciones sobre tabla Comunas
             'ver-comuna',
