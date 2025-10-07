@@ -83,27 +83,12 @@ class SeguimientoController extends Controller
             $seguimientos->gasto = $request->input('gasto');
             $seguimientos->estado_actual = $request->input('estado_actual');
             $seguimientos->riesgos = $request->input('riesgos');
+
             $seguimientos->save();
-
-            // $seguimientos->estatus = $request->input('estatus');
-
-            //     if($seguimientos->estatus ==="Aprobado") {
-            //         if ($seguimientos->estatus_res = '') {
-            //             $seguimientos->estatus_res = 'Pendiente';
-            //         }else{
-            //             $seguimientos->estatus_res = $request->input('estatus_res');
-            //         }
-            //     }else{
-            //         $seguimientos->estatus_res = 'Negado';
-            //     }
-
-            // $administradores = User::role('Administrador')->get();
-           
-            
 
             // Registrar en la bitácora
             $bitacora = new BitacoraController();
-             $bitacora->update();
+            $bitacora->update();
              
          try {
             return redirect('controlseguimiento');
@@ -112,20 +97,7 @@ class SeguimientoController extends Controller
             return redirect()->back()->withErrors($errorMessage);
         }
     }
- 
-    // public function actualizarEstatusSeguimiento(Request $request, $id)
-    // {
-    //     $seguimiento = Seguimientos::find($id);
 
-    //     if ($seguimiento) {
-    //         $seguimiento->estatus_res = $request->input('estatus_res');
-    //         $seguimiento->save();
-
-    //         return response()->json(['success' => true]);
-    //     } else {
-    //         return response()->json(['success' => false, 'message' => 'Seguimiento no encontrada']);
-    //     }
-    // }
     
     /**
      * Show the form for editing the specified resource.

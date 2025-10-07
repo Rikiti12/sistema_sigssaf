@@ -33,7 +33,8 @@
                                     <select class="form-select" id="id_vocero" name="id_vocero">
                                         @foreach($voceros as $vocero)
                                             @if($vocero->tipo_vocero === 'comuna')
-                                                <option value="{{ $vocero->id }}" @selected($vocero->id_vocero == $vocero->id)>{{ $vocero->cedula }} - {{ $vocero->nombre }} {{ $vocero->apellido }}</option>
+                                                <option value="{{ $vocero->id }}" @selected($vocero->id_vocero == $vocero->id)>{{ $vocero->cedula }} - {{ $vocero->nombre }} {{ $vocero->apellido }} -
+                                                    {{ $vocero->cargo->nombre_cargo }}</option>
                                             @endif
                                         @endforeach
                                     </select>

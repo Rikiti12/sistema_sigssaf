@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Evaluaciones;
 use App\Models\Proyectos; // Asegúrate de que esta línea esté presente para usar el modelo Proyectos
+use App\Models\Resposanbles;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\QueryException;
 use App\Http\Controllers\BitacoraController;
@@ -27,9 +28,7 @@ class EvaluacionesController extends Controller
      */
     public function index()
     {
-        $evaluaciones = Evaluaciones::with('proyectos')->get();
-        $proyectos = Proyectos::all(); 
-        return view('evaluacion.create', compact('evaluaciones', 'proyectos'));
+        //
     }
 
     /**
@@ -40,10 +39,9 @@ class EvaluacionesController extends Controller
     public function create()
     {
         $proyectos = Proyectos::all();
-        return view('evaluacion.create', compact('proyectos'));
+        $resposanbles = Resposanbles::all();
+        return view('evaluacion.create', compact('proyectos','resposanbles'));
     }
-
-    // ... resto de tu código (store, edit, update, etc.) ...
 
 
     /**
@@ -68,7 +66,7 @@ class EvaluacionesController extends Controller
         $evaluaciones = new Evaluaciones();
         $evaluaciones->id_proyecto = $request->input('id_proyecto');
         $evaluaciones->fecha_evalu = $request->input('fecha_evalu');
-        $evaluaciones->respon_evalu = $request->input('respon_evalu');
+        $evaluaciones->id_resposanble = $request->input('id_resposanble');
         $evaluaciones->observaciones = $request->input('observaciones');
         // $evaluaciones->estado_evalu = $request->input('estado_evalu');
 
@@ -121,11 +119,6 @@ class EvaluacionesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    // public function show($id)
-    // {
-    //     $evaluacion = Evaluacion::with('proyecto')->findOrFail($id);
-    //     return view('evaluacion.show', compact('evaluacion'));
-    // }
 
     /**
      * Show the form for editing the specified resource.
@@ -137,9 +130,9 @@ class EvaluacionesController extends Controller
     {
         $evaluacion = Evaluaciones::findOrFail($id);
         $proyectos = Proyectos::all();
-       
-        
-        return view('evaluacion.edit', compact('evaluacion', 'proyectos'));
+        $resposanbles = Resposanbles::all();
+
+        return view('evaluacion.edit', compact('evaluacion', 'proyectos','resposanbles'));
     }
 
     /**
@@ -165,7 +158,7 @@ class EvaluacionesController extends Controller
         $evaluacion = Evaluaciones::findOrFail($id);
         $evaluacion->id_proyecto = $request->input('id_proyecto');
         $evaluacion->fecha_evalu = $request->input('fecha_evalu');
-        $evaluacion->respon_evalu = $request->input('respon_evalu');
+        $evaluacion->id_resposanble = $request->input('id_resposanble');
         $evaluacion->observaciones = $request->input('observaciones');
         $evaluacion->estatus = $request->input('estatus');
         $evaluacion->viabilidad = $request->input('viabilidad');
@@ -216,37 +209,4 @@ class EvaluacionesController extends Controller
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    // public function destroy($id)
-    // {
-    //     $evaluacion = Evaluacion::findOrFail($id);
-        
-    //     try {
-    //         $evaluacion->delete();
-    //         $bitacora = new BitacoraController();
-    //         $bitacora->update();
-    //         return redirect()->route('evaluacion.index')->with('success', 'Evaluación eliminada exitosamente');
-    //     } catch (QueryException $exception) {
-    //         $errorMessage = 'Error: ' . $exception->getMessage();
-    //         return redirect()->back()->withErrors($errorMessage);
-    //     }
-    // }
-
-    /**
-     * Generar PDF de la evaluación
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    // public function pdf($id)
-    // {
-    //     $evaluacion = Evaluacion::with('proyecto')->findOrFail($id);
-    //     $pdf = Pdf::loadView('evaluacion.pdf', compact('evaluacion'));
-    //     return $pdf->download('evaluacion-' . $evaluacion->id . '.pdf');
-    // }
 }

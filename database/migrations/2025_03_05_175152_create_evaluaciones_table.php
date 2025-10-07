@@ -15,9 +15,9 @@ return new class extends Migration
     {
         Schema::create('evaluaciones', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('id_proyecto');
+            $table->unsignedBigInteger('id_proyecto'); 
+            $table->unsignedBigInteger('id_resposanble');
             $table->date('fecha_evalu');
-            $table->string('respon_evalu', 100);
             $table->text('observaciones');
             $table->string('estatus');
             $table->string('estatus_resp')->nullable();
@@ -26,7 +26,8 @@ return new class extends Migration
             
              // Establecer relaciones con las tablas correspondientes
             $table->foreign('id_proyecto')->references('id')->on('proyectos');
-            
+
+            $table->foreign('id_resposanble')->references('id')->on('resposanbles');
             
         });
     }

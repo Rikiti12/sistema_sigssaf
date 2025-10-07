@@ -69,9 +69,14 @@
                                 <input type="email" class="form-control" id="correo" name="correo" style="background: white;" value="{{ old('correo') }}" placeholder="Ingrese el correo" autocomplete="off">
                             </div>
 
-                            <div class="col-md-4">
-                                <label class="font-weight-bold text-dark">Cargo</label>
-                                <input type="text" class="form-control" id="cargo" name="cargo" style="background: white;" value="{{ old('cargo') }}" placeholder="Ingrese el cargo" autocomplete="off">
+                            <div class="col-4">
+                                <label for="id_cargo" class="font-weight-bold text-dark">Tipo de Cargo</label>
+                                <select class="form-select" id="id_cargo" name="id_cargo" required>
+                                    <option value="">Seleccione un cargo</option>
+                                    @foreach($cargos as $cargo)
+                                        <option value="{{ $cargo->id }}">{{ $cargo->nombre_cargo }} - {{ $cargo->categoria }}</option>
+                                    @endforeach
+                                </select>
                             </div>
 
                             <div class="col-md-4">

@@ -71,10 +71,17 @@
                                 <input type="email" class="form-control" id="correo" name="correo" style="background: white;" value="{{ $vocero->correo }}" placeholder="Ingrese el correo" autocomplete="off">
                             </div>
 
-                            <div class="col-md-4">
-                                <label class="font-weight-bold text-dark">Teléfono</label>
-                                <input type="text" class="form-control" id="cargo" name="cargo" maxlength="11" style="background: white;" value="{{ $vocero->cargo }}" placeholder="Ingrese el teléfono" autocomplete="off" onkeypress="return soloLetras(event);">
-                            </div>
+                            <div class="col-4">  
+                                    <label class="font-weight-bold text-dark">Tipo de Cargo</label>
+                                    <select class="form-select" id="id_cargo" name="id_cargo" required>
+                                        <option value="">Seleccione un Cargo...</option>
+                                        @foreach($cargos as $cargo)
+                                            <option value="{{ $cargo->id }}" @if (old('id_cargo', $vocero->id_cargo) == $cargo->id) selected @endif> 
+                                                {{ $cargo->nombre_cargo }} - {{ $cargo->categoria }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
 
                             <div class="col-md-4">
                                 <label class="font-weight-bold text-dark">Tipo de Vocero</label>

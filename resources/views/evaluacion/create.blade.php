@@ -38,7 +38,12 @@
 
                             <div class="col-4">
                                 <label class="font-weight-bold text-dark">Responsable de la Evaluación</label>
-                                <input type="text" class="form-control" id="respon_evalu" name="respon_evalu" style="background: white;" placeholder="Ingrese el nombre del responsable" oninput="capitalizarInput('responsable')" autocomplete="off" onkeypress="return soloLetras(event);" required>
+                                 <select class="form-select" id="id_resposanble" name="id_resposanble" required>
+                                    <option value="">Seleccione un Responsable</option>
+                                    @foreach($resposanbles as $resposanble)
+                                        <option value="{{ $resposanble->id }}">{{ $resposanble->cedula}} - {{ $resposanble->nombre}} {{ $resposanble->apellido }}</option>
+                                    @endforeach
+                                </select>
                             </div>
 
                             <div class="col-md-4 mb-4">
