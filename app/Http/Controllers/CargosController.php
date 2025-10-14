@@ -24,6 +24,24 @@ class CargosController extends Controller
         return view('cargo.index', compact( 'cargos'));
     }
 
+    public function pdf(Request $request)
+    {
+        $search = $request->input('search');
+    
+        if ($search) {
+            // Filtrar los bancos según la consulta de búsqueda
+            $cargos = Cargos::where('Nombre Cargo', 'LIKE', '%' . $search . '%')
+                           ->orWhere('Categoria', 'LIKE', '%' . $search . '%')
+                           ->get();
+        } else {
+            // Obtener todos los bancos si no hay término de búsqueda
+            $cargos = Cargos::all();
+        }
+    
+        // Generar el PDF, incluso si no se encuentran bancos
+        $pdf = Pdf::loadView('cargo.pdf', compact('cargos'));
+        return $pdf->stream('cargo.pdf');
+    } 
     /**
      * Show the form for creating a new resource.
      *
@@ -79,9 +97,10 @@ class CargosController extends Controller
      * @param  \App\Models\Cargos  $cargos
      * @return \Illuminate\Http\Response
      */
-    public function edit(Cargos $cargos)
+    public function edit($id)
     {
-        //
+        $cargo = Cargos::find($id);
+        return view('cargo.edit', compact('cargo'));
     }
 
     /**
@@ -91,9 +110,23 @@ class CargosController extends Controller
      * @param  \App\Models\Cargos  $cargos
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Cargos $cargos)
+    public function update(Request $request, $id)
     {
-        //
+        $cargo = Cargos::find($id);
+        $cargo->nombre_cargo = $request->input('nombre_cargo');
+        $cargo->categoria = $request->input('categoria');
+
+        $cargo->save();
+
+        $bitacora = new BitacoraController();
+        $bitacora->update();
+
+        try {
+            return redirect('cargo');
+        } catch (QueryException $exception) {
+            $errorMessage = 'Error: ' . $exception->getMessage();
+            return redirect()->back()->withErrors($errorMessage);
+        }
     }
 
     /**
@@ -102,8 +135,11 @@ class CargosController extends Controller
      * @param  \App\Models\Cargos  $cargos
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Cargos $cargos)
+     public function destroy($id)
     {
-        //
+       Cargos::find($id)->delete();
+        $bitacora = new BitacoraController();
+        $bitacora->update();
+        return redirect()->route('cargo.index')->with('eliminar', 'ok');
     }
 }

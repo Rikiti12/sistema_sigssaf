@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Models\Cargos;
 use App\Models\Comunas;
 use App\Models\Comunidades;
 use App\Models\ConsejoComunal;
 use App\Models\Voceros;
 use App\Models\Ayudas;
 use App\Models\Proyectos;
+use App\Models\Resposanbles;
 use App\Models\Evaluaciones;
 use App\Models\Asignaciones;
 use App\Models\Planificaciones;
@@ -20,6 +22,10 @@ class homeController extends Controller
 {
     //
     public function index(){
+
+        $cargos = cargos::all();
+        $count_cargo = DB::table('cargos')
+        ->count();
 
         $voceros = Voceros::all();
         $count_vocero = DB::table('voceros')
@@ -45,6 +51,10 @@ class homeController extends Controller
         $count_proyecto = DB::table('proyectos')
         ->count();
 
+         $resposanbles = Resposanbles::all();
+        $count_resposanble = DB::table('resposanbles')
+        ->count();
+
         $evaluaciones = Evaluaciones::all();
         $count_evaluacion = DB::table('evaluaciones')
         ->count();
@@ -60,9 +70,9 @@ class homeController extends Controller
 
         $mapa_asignaciones = asignaciones::select('latitud','longitud')->get();
 
-        return view('home.inicio' , compact('count_vocero', 'count_comunidad', 'count_consejo', 'count_comuna','count_ayuda','count_proyecto','count_evaluacion',
+        return view('home.inicio' , compact('count_cargo', 'count_vocero', 'count_comunidad', 'count_consejo', 'count_comuna','count_ayuda','count_proyecto','count_resposanble','count_evaluacion',
         'count_asignacion', 'count_seguimiento', 'mapa_asignaciones'  ) ,  [
-        'count' => $count_vocero, $count_comunidad, $count_consejo, $count_comuna,  $count_ayuda,$count_proyecto,$count_evaluacion, $count_asignacion, $count_seguimiento
+        'count' =>   $count_cargo, $count_vocero, $count_comunidad, $count_consejo, $count_comuna,  $count_ayuda,$count_proyecto,$count_resposanble, $count_evaluacion, $count_asignacion, $count_seguimiento
 
         ]); 
 
