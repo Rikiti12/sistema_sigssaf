@@ -36,7 +36,7 @@
                                     <select class="form-select" id="categoria" name="categoria" required>
                                         <option value="">Seleccione...</option>
                                         <option value="Comuna" {{ $cargo->categoria == 'Comuna' ? 'selected' : '' }}>Comuna</option>
-                                        <option value="Social" {{ $cargo->categoria == 'Consejo_Comunal' ? 'selected' : '' }}>Consejo_Comunal</option>
+                                        <option value="Social" {{ $cargo->categoria == 'Consejo_Comunal' ? 'selected' : '' }}>Consejo Comunal</option>
                                     </select>
                                 </div>
 
@@ -51,7 +51,7 @@
                                 <span class="icon text-white-60"><i class="fas fa-check"></i></span>
                                 <span class="text">Guardar</span>
                             </button>
-                            <a class="btn btn-info btn-lg" href="{{ url('cargo/') }}">
+                            <a class="btn btn-info btn-lg" href="{{ url('cargo') }}">
                                 <span class="icon text-white-50"><i class="fas fa-info-circle"></i></span>
                                 <span class="text">Regresar</span>
                             </a>

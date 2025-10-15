@@ -40,9 +40,35 @@
 
 @section('content')
 
+
 <div class="container">
+
     <div class="page-inner">
       <div class="row">
+         <div class="col-sm-6 col-md-3">
+          <div class="card card-stats card-round" onclick="window.location.href='{{ route('cargo.index') }}'" style="cursor: pointer;">
+            <div class="card-body">
+              <div class="row align-items-center">
+                <div class="col-icon">
+                  <div
+                    class="icon-big text-center" style="background-color: rgb(250, 127, 56)"
+                  >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" style="color:white;" fill="currentColor" class="bi bi-person-badge-fill" viewBox="0 0 16 16">
+                  <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2zm4.5 0a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1zM8 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6m5 2.755C12.146 12.825 10.623 12 8 12s-4.146.826-5 1.755V14a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1z"/>
+                </svg>
+                  </div>
+                </div>
+                <div class="col col-stats ms-3 ms-sm-0">
+                  <div class="numbers">
+                    <p class="card-category">Cargos</p>
+                    <h4 class="card-title">{{ $count_cargo }}</h4>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div class="col-sm-6 col-md-3">
              <a href="{{ route('vocero.index') }}" class="card-link"></a>
              <div class="card card-stats card-round" onclick="window.location.href='{{ route('vocero.index') }}'" style="cursor: pointer;">
@@ -133,6 +159,31 @@
             </div>
           </div>
         </div>
+
+          <div class="col-sm-6 col-md-3">
+          <div class="card card-stats card-round" onclick="window.location.href='{{ route('ayuda.index') }}'" style="cursor: pointer;">
+            <div class="card-body">
+              <div class="row align-items-center">
+                <div class="col-icon">
+                  <div
+                    class="icon-big text-center" style="background-color: rgb(134, 207, 16)"
+                  >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40"  style="color:white;" fill="currentColor" class="bi bi-clipboard-check-fill" viewBox="0 0 16 16">
+                  <path d="M6.5 0A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0zm3 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5z"/>
+                  <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1A2.5 2.5 0 0 1 9.5 5h-3A2.5 2.5 0 0 1 4 2.5zm6.854 7.354-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708.708"/>
+                   </svg>
+                  </div>
+                </div>
+                <div class="col col-stats ms-3 ms-sm-0">
+                  <div class="numbers">
+                    <p class="card-category">Ayudas</p>
+                    <h4 class="card-title">{{ $count_ayuda }}</h4>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
         <div class="col-sm-6 col-md-3">
           <div class="card card-stats card-round" onclick="window.location.href='{{ route('proyecto.index') }}'" style="cursor: pointer;">
             <div class="card-body">
@@ -151,6 +202,31 @@
                   <div class="numbers">
                     <p class="card-category">Proyectos</p>
                     <h4 class="card-title">{{ $count_proyecto }}</h4>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-6 col-md-3">
+          <div class="card card-stats card-round" onclick="window.location.href='{{ route('resposanble.index') }}'" style="cursor: pointer;">
+            <div class="card-body">
+              <div class="row align-items-center">
+                <div class="col-icon">
+                  <div
+                    class="icon-big text-center" style="background-color: rgb(250, 66, 210)"
+                  >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40"  style="color:white;"  fill="currentColor" class="bi bi-person-square" viewBox="0 0 16 16">
+                  <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+                  <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm12 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1v-1c0-1-1-4-6-4s-6 3-6 4v1a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1z"/>
+                </svg>
+                  </div>
+                </div>
+                <div class="col col-stats ms-3 ms-sm-0">
+                  <div class="numbers">
+                    <p class="card-category">Responsables</p>
+                    <h4 class="card-title">{{ $count_resposanble }}</h4>
                   </div>
                 </div>
               </div>
@@ -190,10 +266,9 @@
                   <div
                   class="icon-big text-center" style="background-color: rgb(116, 38, 241)"
                   >
-                  <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40"  style="color:white;" fill="currentColor" class="bi bi-clipboard-check-fill" viewBox="0 0 16 16">
-                  <path d="M6.5 0A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0zm3 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5z"/>
-                  <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1A2.5 2.5 0 0 1 9.5 5h-3A2.5 2.5 0 0 1 4 2.5zm6.854 7.354-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708.708"/>
-                   </svg>
+                 <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40"  style="color:white;" fill="currentColor" class="bi bi-archive-fill" viewBox="0 0 16 16">
+                 <path d="M12.643 15C13.979 15 15 13.845 15 12.5V5H1v7.5C1 13.845 2.021 15 3.357 15zM5.5 7h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1 0-1M.8 1a.8.8 0 0 0-.8.8V3a.8.8 0 0 0 .8.8h14.4A.8.8 0 0 0 16 3V1.8a.8.8 0 0 0-.8-.8z"/>
+                  </svg>
                   </div>
                 </div>
                 <div class="col col-stats ms-3 ms-sm-0">

@@ -35,7 +35,7 @@
                                     <select class="form-select" id="categoria" name="categoria" required>
                                         <option value="">Seleccione...</option>
                                         <option value="Comuna">Comuna</option>
-                                        <option value="Consejo_Comunal">Consejo_Comunal</option>
+                                        <option value="Consejo_Comunal">Consejo Comunal</option>
                                     </select>
                                 </div>
 
