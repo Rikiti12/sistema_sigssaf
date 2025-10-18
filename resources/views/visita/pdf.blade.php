@@ -129,19 +129,23 @@
     <table class="table">
         <thead class="header">
             <tr>
+                <th>Parroquia</th>
+                <th>Comunidad</th>
                 <th>visita</th>
-                <th>Fecha de la visita</th>
                 <th>Descripción</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($visitas as $visita)
                 <tr>
-                    <td>{{ $visita->visita }}</td>
-                    <td>
-                        Inicio: {{ $visita->fecha_visita }}<br>
-                        
+                     <td>
+                         {{ $visita->id_parroquia }}<br>   
                     </td>
+                      <td>
+                         {{ $visita->id_comunidad }}<br>   
+                    </td>
+                    <td>{{ $visita->visita }}</td>
+                   
                 
                     <td>{{ Str::limit($visita->descripcion_vis, 50) }}</td>
                 </tr>

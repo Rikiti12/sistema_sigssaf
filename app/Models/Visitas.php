@@ -9,14 +9,24 @@ class Visitas extends Model
 {
     use HasFactory;
      use HasFactory;
-    protected $table = 'proyectos'; 
+    protected $table = 'visitas'; 
     protected $primaryKey = 'id'; 
     public $timestamps = true; 
-    protected $fillable = [ 'id_resposanble','visita','descripcion_vis','fecha_visita','foto_visita'];
+    protected $fillable = [ 'id_parroquia', 'id_comunidad','visita','descripcion_vis'];
 
-    public function resposanbles()
+    public function parroquia()
     {
-        return $this->belongsTo(Resposanbles::class, 'id_resposanble');
+        return $this->belongsTo(Parroquia::class, 'id_parroquia');
+    }
+
+    public function comunidad()
+    {
+        return $this->belongsTo(Comunidades::class, 'id_comunidad');
+    }
+
+    public function seguimientos()
+    {
+        return $this->hasMany(seguimientos::class, 'id_visita');
     }
 
 }

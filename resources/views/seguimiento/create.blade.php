@@ -30,13 +30,25 @@
                                 <label  class="font-weight-bold text-dark">Responsable del Seguimiento</label>
                                 <select class="form-select" name="responsable_segui" id="responsable_segui">
                                     <option value="" selected="true" disabled>Seleccione un Responsable</option>
-                                    {{-- @if($asignacion)
-                                        <option value="{{ $asignacion->evaluaciones->respon_evalu }}" selected>
-                                            {{ $asignacion->evaluaciones->respon_evalu }}
+                                    @if($asignacion )
+                                        <option value="{{ $asignacion->evaluacion->resposanbles->id }}">
+                                            {{ $asignacion->evaluacion->resposanbles->cedula }} - {{ $asignacion->evaluacion->resposanbles->nombre }}
+                                            {{ $asignacion->evaluacion->resposanbles->apellido }}
                                         </option>
-                                    @endif --}}
+                                    @endif
                                 </select>
-                            </div> 
+                            </div>
+
+                            <div class="col-4">
+                                <label  class="font-weight-bold text-dark">Visita Asignado</label>
+                                <select class="form-select" id="id_visita" name="id_visita">
+                                    <option value="">Seleccione una visita </option>
+                                    @foreach($visitas as $visita)
+                                        <option value="{{ $visita->id }}">{{ $visita->visita }}</option>
+                                    @endforeach
+                                </select>
+                            </div>  
+
                             
                             <div class="col-4">
                                 <label class="font-weight-bold text-dark">Detalles del Seguimiento</label>
@@ -115,28 +127,6 @@
             textareaElement.value = words;
         }
     </script>
-
-    {{-- <script>
-        document.addEventListener('DOMContentLoaded' function (){
-        const estatusSeguimiento = document.getElementById('estatus');
-        const estatusAprobacion = document.getElementById('estatus_aprob');
-        
-        function toggleEstatusAprobacion(){
-            if(estatusSeguimiento.value === 'Negado') {
-                estatusAprobacion.style.display = 'none';
-            }else if (estatusSeguimiento.value === 'Aprobado') {
-                estatusAprobacion.style.display = 'block';
-            } else {
-                estatusAprobacion.style.display = 'block';
-            }
-        }
-
-        estatusSeguimiento.addEventListener('change', toggleEstatusAprobacion);
-
-        toggleEstatusAprobacion();
-
-        });
-    </script> --}}
 
     @if ($errors->any())
         <script>

@@ -18,8 +18,4 @@ class Resposanbles extends Model
         return $this->hasMany(Evaluaciones::class, 'id_resposanble');
     }
 
-      public function visitas()
-    {
-        return $this->hasMany(Visitas::class, 'id_resposanble');
-    }
 }

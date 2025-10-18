@@ -34,7 +34,9 @@
                                 @foreach ($seguimientos as $seguimiento)
                                     <tr>
                                         <td class="font-weight-bold text-dark">{{ date('d/m/Y H:i', strtotime($seguimiento->fecha_hor)) }}</td>
-                                        <td class="font-weight-bold text-dark">{{ $seguimiento->responsable_segui }}</td>
+                                        <td class="font-weight-bold text-dark">{{ $seguimiento->asignacion->evaluacion->resposanbles->cedula }} - 
+                                            {{ $seguimiento->asignacion->evaluacion->resposanbles->nombre }} {{ $seguimiento->asignacion->evaluacion->resposanbles->apellido }}
+                                        </td>
                                         <td class="font-weight-bold text-dark">{{ $seguimiento->detalle_segui }}</td>
                                         <td>
                                             <span class="badge badge-{{ 

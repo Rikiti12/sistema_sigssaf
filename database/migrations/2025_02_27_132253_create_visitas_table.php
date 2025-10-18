@@ -15,15 +15,16 @@ return new class extends Migration
     {
         Schema::create('visitas', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('id_resposanble');
+            $table->unsignedBigInteger('id_parroquia');
+            $table->unsignedBigInteger('id_comunidad');
             $table->string('visita');
             $table->text('descripcion_vis');
-            $table->date('fecha_visita');
-            $table->json('foto_visita');
+    
+            $table->foreign('id_parroquia')->references('id')->on('parroquias');
+            $table->foreign('id_comunidad')->references('id')->on('comunidades');
+
             $table->timestamps();
 
-            // Establecer relación con la tabla de responsables
-             $table->foreign('id_resposanble')->references('id')->on('resposanbles');
         });
     }
 

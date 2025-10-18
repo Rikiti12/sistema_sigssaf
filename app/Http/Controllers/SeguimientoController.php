@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Seguimientos;
 use App\Models\Asignaciones;
+use App\Models\Visitas;
 use Illuminate\Database\QueryException;
 use App\Http\Controllers\BitacoraController;
 
@@ -62,8 +63,9 @@ class SeguimientoController extends Controller
     public function create($id)
     {
         $asignacion = Asignaciones::findOrFail($id);
+        $visitas = Visitas::all();
 
-        return view('seguimiento.create', compact('asignacion')); 
+        return view('seguimiento.create', compact('asignacion', 'visitas')); 
     }
 
     /**
@@ -77,6 +79,7 @@ class SeguimientoController extends Controller
             // Crear un nuevo seguimiento
             $seguimientos = new Seguimientos();
             $seguimientos->id_asignacion = $request->input('id_asignacion');
+            $seguimientos->id_visita = $request->input('id_visita');
             $seguimientos->fecha_hor = $request->input('fecha_hor');
             $seguimientos->responsable_segui = $request->input('responsable_segui');
             $seguimientos->detalle_segui = $request->input('detalle_segui');

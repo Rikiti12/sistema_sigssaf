@@ -25,15 +25,25 @@
                     
                         <div class="row">
 
-                            <div class="col-4">
-                                <label class="font-weight-bold text-dark">Responsable de la Visitas</label>
-                                 <select class="form-select" id="id_resposanble" name="id_resposanble" required>
-                                    <option value="">Seleccione un Responsable</option>
-                                    @foreach($resposanbles as $resposanble)
-                                        <option value="{{ $resposanble->id }}">{{ $resposanble->cedula}} - {{ $resposanble->nombre}} {{ $resposanble->apellido }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
+                             <div class="col-4">
+                                    <label  class="font-weight-bold text-dark">Parroquia Asignado</label>
+                                    <select class="form-select" id="id_parroquia" name="id_parroquia">
+                                        <option value="">Seleccione una comuna </option>
+                                        @foreach($parroquias as $parroquia)
+                                            <option value="{{ $parroquia->id }}">{{ $parroquia->nom_parroquia }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>  
+
+                             <div class="col-4">
+                                        <label class="font-weight-bold text-dark">Comunidad Asignada</label>
+                                        <select class="form-select" id="id_comunidad" name="id_comunidad">
+                                            <option value="">Seleccione una comunidad </option>
+                                            @foreach($comunidades as $comunidad)
+                                                <option value="{{ $comunidad->id }}">{{ $comunidad->nom_comuni }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
 
                             <div class="col-4">
                                 <label  class="font-weight-bold text-dark">Visita</label>
@@ -49,7 +59,7 @@
                                 <img id="miniaturas">
                             </div>
     
-                            <div class="col-4">
+                           {{--  <div class="col-4">
                                 <label  class="font-weight-bold text-dark">foto de la visita</label>
                                 <input type="file" class="form-control" id="foto_visita" name="foto_visita[]" multiple>
                                     <div id="foto_container"></div>
@@ -58,7 +68,7 @@
                             <div class="col-md-4">
                                 <label class="font-weight-bold text-dark">Fecha de la visita</label>
                                 <input type="text" class="form-control" id="fecha_visita" name="fecha_visita" value="<?php echo date('d/m/Y'); ?>" placeholder="DD/MM/YYYY">
-                            </div>
+                            </div> --}}
                             
                             
                             
