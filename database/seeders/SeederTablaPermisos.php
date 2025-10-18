@@ -80,12 +80,16 @@ class SeederTablaPermisos extends Seeder
             'editar-resposanble',
             'borrar-resposanble',
 
+            // Operaciones sobre tabla Visitas
+             'ver-visita',
+             'crear-visita',
+             'editar-visita',
+
             // Operaciones sobre tabla Evaluaciones
              'ver-evaluacion',
              'crear-evaluacion',
              'editar-evaluacion',
              
-
              // Operaciones sobre tabla Asignaciones
              'ver-asignacion',
              'crear-asignacion',

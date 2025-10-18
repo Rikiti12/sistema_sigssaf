@@ -46,7 +46,7 @@
     <div class="page-inner">
       <div class="row">
          <div class="col-sm-6 col-md-3">
-          <div class="card card-stats card-round" onclick="window.location.href='{{ route('cargo.index') }}'" style="cursor: pointer;">
+          <div class="card card-stats card-round rotate" onclick="window.location.href='{{ route('cargo.index') }}'" style="cursor: pointer;">
             <div class="card-body">
               <div class="row align-items-center">
                 <div class="col-icon">
@@ -71,7 +71,7 @@
 
         <div class="col-sm-6 col-md-3">
              <a href="{{ route('vocero.index') }}" class="card-link"></a>
-             <div class="card card-stats card-round" onclick="window.location.href='{{ route('vocero.index') }}'" style="cursor: pointer;">
+             <div class="card card-stats card-round rotate" onclick="window.location.href='{{ route('vocero.index') }}'" style="cursor: pointer;">
             <div class="card-body">
               <div class="row align-items-center">
                 <div class="col-icon">
@@ -92,7 +92,7 @@
           </div>
         </div>
         <div class="col-sm-6 col-md-3">
-             <div class="card card-stats card-round" onclick="window.location.href='{{ route('comunidad.index') }}'" style="cursor: pointer;">
+             <div class="card card-stats card-round rotate" onclick="window.location.href='{{ route('comunidad.index') }}'" style="cursor: pointer;">
             <div class="card-body">
               <div class="row align-items-center">
                 <div class="col-icon">
@@ -115,7 +115,7 @@
           </div>
         </div>
         <div class="col-sm-6 col-md-3">
-            <div class="card card-stats card-round" onclick="window.location.href='{{ route('consejo_comunal.index') }}'" style="cursor: pointer;">
+            <div class="card card-stats card-round rotate" onclick="window.location.href='{{ route('consejo_comunal.index') }}'" style="cursor: pointer;">
             <div class="card-body">
               <div class="row align-items-center">
                 <div class="col-icon">
@@ -139,7 +139,7 @@
           </div>
         </div>
         <div class="col-sm-6 col-md-3">
-          <div class="card card-stats card-round" onclick="window.location.href='{{ route('comuna.index') }}'" style="cursor: pointer;">
+          <div class="card card-stats card-round rotate" onclick="window.location.href='{{ route('comuna.index') }}'" style="cursor: pointer;">
             <div class="card-body">
               <div class="row align-items-center">
                 <div class="col-icon">
@@ -161,7 +161,7 @@
         </div>
 
           <div class="col-sm-6 col-md-3">
-          <div class="card card-stats card-round" onclick="window.location.href='{{ route('ayuda.index') }}'" style="cursor: pointer;">
+          <div class="card card-stats card-round rotate" onclick="window.location.href='{{ route('ayuda.index') }}'" style="cursor: pointer;">
             <div class="card-body">
               <div class="row align-items-center">
                 <div class="col-icon">
@@ -185,7 +185,7 @@
           </div>
         </div>
         <div class="col-sm-6 col-md-3">
-          <div class="card card-stats card-round" onclick="window.location.href='{{ route('proyecto.index') }}'" style="cursor: pointer;">
+          <div class="card card-stats card-round rotate" onclick="window.location.href='{{ route('proyecto.index') }}'" style="cursor: pointer;">
             <div class="card-body">
               <div class="row align-items-center">
                 <div class="col-icon">
@@ -210,7 +210,7 @@
         </div>
 
         <div class="col-sm-6 col-md-3">
-          <div class="card card-stats card-round" onclick="window.location.href='{{ route('resposanble.index') }}'" style="cursor: pointer;">
+          <div class="card card-stats card-round rotate" onclick="window.location.href='{{ route('resposanble.index') }}'" style="cursor: pointer;">
             <div class="card-body">
               <div class="row align-items-center">
                 <div class="col-icon">
@@ -233,9 +233,34 @@
             </div>
           </div>
         </div>
+
+        <div class="col-sm-6 col-md-3">
+          <div class="card card-stats card-round rotate" onclick="window.location.href='{{ route('visita.index') }}'" style="cursor: pointer;">
+            <div class="card-body">
+              <div class="row align-items-center">
+                <div class="col-icon">
+                  <div
+                    class="icon-big text-center" style="background-color: rgb(250, 66, 210)"
+                  >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40"  style="color:white;"  fill="currentColor" class="bi bi-person-square" viewBox="0 0 16 16">
+                  <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+                  <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm12 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1v-1c0-1-1-4-6-4s-6 3-6 4v1a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1z"/>
+                </svg>
+                  </div>
+                </div>
+                <div class="col col-stats ms-3 ms-sm-0">
+                  <div class="numbers">
+                    <p class="card-category">Visitas</p>
+                    <h4 class="card-title">{{ $count_visita }}</h4>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       
  <div class="col-sm-6 col-md-3">
-           <div class="card card-stats card-round" onclick="window.location.href='{{ route('evaluacion.index') }}'" style="cursor: pointer;">
+           <div class="card card-stats card-round rotate" onclick="window.location.href='{{ route('evaluacion.index') }}'" style="cursor: pointer;">
             <div class="card-body">
               <div class="row align-items-center">
                 <div class="col-icon">
@@ -259,7 +284,7 @@
           </div>
         </div>
         <div class="col-sm-6 col-md-3">
-           <div class="card card-stats card-round" onclick="window.location.href='{{ route('asignacion.index') }}'" style="cursor: pointer;">
+           <div class="card card-stats card-round rotate" onclick="window.location.href='{{ route('asignacion.index') }}'" style="cursor: pointer;">
             <div class="card-body">
               <div class="row align-items-center">
                 <div class="col-icon">
@@ -282,7 +307,7 @@
           </div>
         </div>
         <div class="col-sm-6 col-md-3">
-           <div class="card card-stats card-round" onclick="window.location.href='{{ route('seguimiento.index') }}'" style="cursor: pointer;">
+           <div class="card card-stats card-round rotate" onclick="window.location.href='{{ route('seguimiento.index') }}'" style="cursor: pointer;">
             <div class="card-body">
               <div class="row align-items-center">
                 <div class="col-icon">
@@ -313,7 +338,7 @@
             <!-- Area Chart -->
             <div class="col-xl-8 col-lg-7">
               <div class="card mb-4">
-                <div class="card card-stats card-round" onclick="window.location.href='{{ route('asignacion.index') }}'" style="cursor: pointer;">
+                <div class="card card-stats card-round rotate" onclick="window.location.href='{{ route('asignacion.index') }}'" style="cursor: pointer;">
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-center">
                   <h6 class="m-0 font-weight-bold text-primary">Mapa de los Proyectos</h6>
                   <div class="dropdown no-arrow">

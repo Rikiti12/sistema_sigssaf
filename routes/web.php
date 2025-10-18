@@ -19,6 +19,7 @@ use App\Http\Controllers\VocerosController;
 use App\Http\Controllers\AyudasController;
 use App\Http\Controllers\ProyectosController;
 use App\Http\Controllers\ResposanblesController;
+use App\Http\Controllers\VisitasController;
 use App\Http\Controllers\EvaluacionesController;
 use App\Http\Controllers\AsignacionesController;
 use App\Http\Controllers\SeguimientoController;
@@ -117,6 +118,12 @@ Route::get('/resposanble',  [ResposanblesController::class,'index'])->name('resp
 Route::get('/resposanble/create', [ResposanblesController::class, 'create'])->name('create')->middleware('auth');
 Route::get('/resposanble/pdf',  [ResposanblesController::class,'pdf'])->name('resposanble')->middleware('auth');
 Route::resource('resposanble', ResposanblesController::class)->middleware('auth');
+
+/* Ruta Visita */
+Route::get('/visita',  [VisitasController::class,'index'])->name('visita')->middleware('auth');
+Route::get('/visita/create', [VisitasController::class, 'create'])->name('create')->middleware('auth');
+Route::get('/visita/pdf',  [VisitasController::class,'pdf'])->name('visita')->middleware('auth');
+Route::resource('visita', VisitasController::class)->middleware('auth');
 
 /* Rutas Evaluación */
 Route::get('/evaluacion', [EvaluacionesController::class, 'index'])->name('evaluacion.index')->middleware('auth');

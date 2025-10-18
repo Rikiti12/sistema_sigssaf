@@ -135,6 +135,13 @@
                       </a>
                        @endcan
                     </li> 
+                    <li>
+                       @can('ver-visita')
+                      <a class="sidebar-link"  href="{{ url('visita')}}" aria-expanded="false">
+                        <span class="sub-item">Visitas</span>
+                      </a>
+                       @endcan
+                    </li> 
                   </ul>
                 </div>
               </li>
