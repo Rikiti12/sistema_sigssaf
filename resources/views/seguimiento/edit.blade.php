@@ -22,7 +22,7 @@
 
                      <div class="card-body">
 
-                        <input type="hidden" class="form-control" id="id_planificacion" name="id_planificacion" style="background: white;" value="{{ isset($seguimiento->planificacion->id)?$seguimiento->planificacion->id:'' }}" placeholder="" autocomplete="off">                                  
+                        <input type="hidden" class="form-control" id="id_asignacion" name="id_asignacion" style="background: white;" value="{{ isset($seguimiento->asignacion->id)?$seguimiento->asignacion->id:'' }}" placeholder="" autocomplete="off">                                  
                         
                        <div class="row"> 
 
@@ -30,13 +30,24 @@
                                 <label  class="font-weight-bold text-dark">Responsable del Seguimiento</label>
                                 <select class="form-select" name="responsable_segui" id="responsable_segui" @readonly(true)>
                                     <option value="" selected="true" disabled>Seleccione un Responsable</option>
-                                    @if($seguimiento->asignacion)
-                                        <option value="{{ $seguimiento->asignacion->evaluaciones->respon_evalu }}" selected>
-                                            {{ $seguimiento->asignacion->evaluaciones->respon_evalu }}
+                                    @if($seguimiento->asignacion )
+                                        <option value="{{ $seguimiento->asignacion->evaluacion->resposanbles->id }}" selected>
+                                            {{ $seguimiento->asignacion->evaluacion->resposanbles->cedula }} - {{ $seguimiento->asignacion->evaluacion->resposanbles->nombre }}
+                                            {{ $seguimiento->asignacion->evaluacion->resposanbles->apellido }}
                                         </option>
                                     @endif
                                 </select>
-                            </div> 
+                            </div>
+
+                            <div class="col-4">
+                                <label  class="font-weight-bold text-dark">Visita Asignado</label>
+                                <select class="form-select" id="id_visita" name="id_visita">
+                                    <option value="">Seleccione una visita </option>
+                                    @foreach($visitas as $visita)
+                                         <option value="{{ $visita->id }}" @selected($seguimiento->id_visita == $visita->id)>{{ $visita->visita }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                             
                             <div class="col-4">
                                 <label class="font-weight-bold text-dark">Detalles del Seguimiento</label>
