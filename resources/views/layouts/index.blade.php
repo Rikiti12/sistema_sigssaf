@@ -135,6 +135,13 @@
                       </a>
                        @endcan
                     </li> 
+                    <li>
+                       @can('ver-visita')
+                      <a class="sidebar-link"  href="{{ url('visita')}}" aria-expanded="false">
+                        <span class="sub-item">Visitas</span>
+                      </a>
+                       @endcan
+                    </li> 
                   </ul>
                 </div>
               </li>
@@ -153,8 +160,8 @@
                 <div class="collapse" id="sidebarLayouts">
                   <ul class="nav nav-collapse">
                     <li>
-                      @can('ver-evaluacion')
-                      <a class="sidebar-link"  href="{{ url('evaluacion')}}" aria-expanded="false">
+                      @can('crear-evaluacion')
+                      <a class="sidebar-link" href="{{ route('evaluacion.create')}}" aria-expanded="false">
                         <span class="sub-item">Evaluaciones</span>
                       </a>
                       @endcan

@@ -57,16 +57,17 @@
                             </div>
                         </div>
 
+                      
                         <div class="col-lg-12">
                             <div class="card shadow mb-4">
 
                                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-center">
-                                    <h6 class="m-0 font-weight-bold text-primary">################</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">Seguimientos realizadas por mes</h6>
                                 </div>
 
                                 <div class="card-body">
-                                    <div class="chart-bar">
-                                        <canvas id="myBarChart1"></canvas>
+                                    <div class="chart-bar" style="height: 350px;">
+                                        <canvas id="myBarChart"></canvas>
                                     </div>
                                 </div>
                                 
@@ -238,6 +239,86 @@
             });
         });
     </script>
+
+    {{-- * FUNCIÓN PARA MOSTRAR LOS SEGUIMIENTOS POR MES (CORREGIDO ID Y VARIABLES y Escala) --}}
+    <script>
+        document.addEventListener("DOMContentLoaded", function() { 
+            var ctxSeguimiento = document.getElementById("seguimientosChart").getContext('2d'); {{-- Nuevo ID --}}
+            var dataSeguimiento = @json($data_seguimiento); 
+            
+            // Se remueve el 'max: 100' de yAxes para que el gráfico auto-escale correctamente 
+            // incluso si los valores de los datos son bajos o solo hay uno.
+            
+            var mySeguimientoChart = new Chart(ctxSeguimiento, { {{-- Nueva variable de Chart --}}
+                type: 'bar',
+                data: dataSeguimiento,
+                options: {
+                    maintainAspectRatio: false,
+                    layout: {
+                        padding: {
+                            left: 10,
+                            right: 25,
+                            top: 25,
+                            bottom: 0
+                        }
+                    },
+                    scales: {
+                        xAxes: [{
+                            time: {
+                                unit: 'month'
+                            },
+                            gridLines: {
+                                display: false,
+                                drawBorder: false
+                            },
+                            ticks: {
+                                maxTicksLimit: 12
+                            },
+                            maxBarThickness: 25,
+                        }],
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true,
+                                padding: 10,
+                                callback: function(value) {
+                                    return value; // Mostrar los valores tal cual sin ningún símbolo extra
+                                }
+                            },
+                            gridLines: {
+                                color: "rgb(234, 236, 244)",
+                                zeroLineColor: "rgb(234, 236, 244)",
+                                drawBorder: false,
+                                borderDash: [2],
+                                zeroLineBorderDash: [2]
+                            }
+                        }],
+                    },
+                    legend: {
+                        display: false
+                    },
+                    tooltips: {
+                        titleMarginBottom: 10,
+                        titleFontColor: '#6e707e',
+                        titleFontSize: 14,
+                        backgroundColor: "rgb(255,255,255)",
+                        bodyFontColor: "#858796",
+                        borderColor: '#dddfeb',
+                        borderWidth: 1,
+                        xPadding: 15,
+                        yPadding: 15,
+                        displayColors: false,
+                        caretPadding: 10,
+                        callbacks: {
+                            label: function(tooltipItem, chart) {
+                                var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
+                                return datasetLabel + ': ' + tooltipItem.yLabel; // Mostrar solo el número
+                            }
+                        }
+                    }
+                }
+            }); 
+        });
+    </script>
 
     
 @endsection

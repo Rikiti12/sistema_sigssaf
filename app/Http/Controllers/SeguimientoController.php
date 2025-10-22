@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Seguimientos;
 use App\Models\Asignaciones;
+use App\Models\Visitas;
 use Illuminate\Database\QueryException;
 use App\Http\Controllers\BitacoraController;
 
@@ -62,8 +63,9 @@ class SeguimientoController extends Controller
     public function create($id)
     {
         $asignacion = Asignaciones::findOrFail($id);
+        $visitas = Visitas::all();
 
-        return view('seguimiento.create', compact('asignacion')); 
+        return view('seguimiento.create', compact('asignacion', 'visitas')); 
     }
 
     /**
@@ -77,6 +79,7 @@ class SeguimientoController extends Controller
             // Crear un nuevo seguimiento
             $seguimientos = new Seguimientos();
             $seguimientos->id_asignacion = $request->input('id_asignacion');
+            $seguimientos->id_visita = $request->input('id_visita');
             $seguimientos->fecha_hor = $request->input('fecha_hor');
             $seguimientos->responsable_segui = $request->input('responsable_segui');
             $seguimientos->detalle_segui = $request->input('detalle_segui');
@@ -108,11 +111,10 @@ class SeguimientoController extends Controller
     public function edit($id)
     {
         $seguimiento = Seguimientos::findOrFail($id);
-        // $planificacion = Planificaciones::findOrFail($id);
-        // $respon_evalu = $seguimiento->planificacion->asignaciones->evaluaciones->respon_evalu;
+        $visitas = Visitas::all();
         $responsable_segui = $seguimiento->responsable_segui;
         $fecha_segui = date('d/m/Y', strtotime($seguimiento->fecha_hor));
-        return view('seguimiento.edit', compact('seguimiento','fecha_segui','responsable_segui')); 
+        return view('seguimiento.edit', compact('seguimiento','fecha_segui','responsable_segui','visitas')); 
     }
 
     /**
@@ -133,9 +135,10 @@ class SeguimientoController extends Controller
         // ]);
          
             $seguimiento = Seguimientos::findOrFail($id);
-            // $seguimiento->id_asignacion = $request->input('id_asignacion');
+            $seguimiento->id_asignacion = $request->input('id_asignacion');
             $seguimiento->fecha_hor = $request->input('fecha_hor');
             $seguimiento->responsable_segui = $request->input('responsable_segui');
+            $seguimiento->id_visita = $request->input('id_visita');
             $seguimiento->detalle_segui = $request->input('detalle_segui');
             $seguimiento->gasto = $request->input('gasto');
             $seguimiento->estado_actual = $request->input('estado_actual');
@@ -153,29 +156,5 @@ class SeguimientoController extends Controller
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        // try {
-        //     // Buscar el seguimiento a eliminar
-        //     $seguimiento = Seguimientos::findOrFail($id);
-        //     $seguimiento->delete();
-
-        //     // Registrar en la bitácora
-        //     $bitacora = new BitacoraController();
-        //     $bitacora->registrarAccion("Se eliminó el seguimiento con ID: " . $id);
-
-        //     // Mensaje de éxito
-        //     return redirect()->route('seguimiento.index')->with('success', 'Seguimiento eliminado exitosamente.');
-        // } catch (QueryException $e) {
-        //      Log::error('Error al eliminar seguimiento: ' . $e->getMessage());
-        //     return redirect()->route('seguimiento.index')->with('error', 'Ocurrió un error al eliminar el seguimiento: ' . $e->getMessage());
-        // }
-    }
 }
 

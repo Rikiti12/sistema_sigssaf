@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Reporte de Proyectos</title>
+    <title>Reporte de Visitas</title>
     <style>
         body {
             margin: 0;
@@ -124,38 +124,30 @@
         Generado el: {{ now()->format('d/m/Y H:i:s') }}
     </div>
 
-    <h1>Reporte de Proyectos</h1>
+    <h1>Reporte de Visitas</h1>
 
     <table class="table">
         <thead class="header">
             <tr>
-                <th>Nombre</th>
-                <th>Tipo</th>
-                <th>Prioridad</th>
-                <th>Fechas</th>
+                <th>Parroquia</th>
+                <th>Comunidad</th>
+                <th>visita</th>
                 <th>Descripción</th>
             </tr>
         </thead>
         <tbody>
-            @foreach ($proyectos as $proyecto)
+            @foreach ($visitas as $visita)
                 <tr>
-                    <td>{{ $proyecto->nombre_pro }}</td>
-                    <td>{{ $proyecto->tipo_pro }}</td>
-                    <td>
-                        <span class="badge 
-                            @if($proyecto->prioridad == 'Alta') badge-alta
-                            @elseif($proyecto->prioridad == 'Media') badge-media
-                            @else badge-baja
-                            @endif">
-                            {{ $proyecto->prioridad }}
-                        </span>
+                     <td>
+                         {{ $visita->id_parroquia }}<br>   
                     </td>
-                    <td>
-                        Inicio: {{ $proyecto->fecha_inicial }}<br>
-                        Fin: {{ $proyecto->fecha_final }}
+                      <td>
+                         {{ $visita->id_comunidad }}<br>   
                     </td>
+                    <td>{{ $visita->visita }}</td>
+                   
                 
-                    <td>{{ Str::limit($proyecto->descripcion_pro, 50) }}</td>
+                    <td>{{ Str::limit($visita->descripcion_vis, 50) }}</td>
                 </tr>
             @endforeach  
         </tbody>

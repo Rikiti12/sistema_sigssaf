@@ -17,4 +17,5 @@ class Resposanbles extends Model
     {
         return $this->hasMany(Evaluaciones::class, 'id_resposanble');
     }
+
 }
