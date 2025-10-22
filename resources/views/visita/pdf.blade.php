@@ -41,7 +41,7 @@
         }
 
         .table th {
-            background-color: #333;
+            background-color: rgb(11, 54, 119);
             color: white;
         }
 

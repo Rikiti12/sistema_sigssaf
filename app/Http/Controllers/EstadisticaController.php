@@ -15,48 +15,64 @@ class EstadisticaController extends Controller
      */
     public function index()
     {
-        $evaluaciones = DB::table('evaluaciones')
+        // 1. OBTENER DATOS DE EVALUACIONES (Total por mes)
+        $evaluaciones_total = DB::table('evaluaciones')
         ->select(DB::raw('count(*) as total'), DB::raw('EXTRACT(MONTH FROM created_at) as mes'))
         ->whereYear('created_at', date('Y'))
         ->groupBy(DB::raw('EXTRACT(MONTH FROM created_at)'))
         ->get();
 
-        $data_evaluacion = $this->preprareChartData($evaluaciones);
+        // Llamada a la función única, pasando la etiqueta del gráfico
+        $data_evaluacion = $this->preprareChartData($evaluaciones_total, 'Número de evaluaciones');
 
-        $evaluaciones = DB::table('evaluaciones')
+        // 2. OBTENER DATOS DE EVALUACIONES (Estatus Aprobado/Negado)
+        $evaluaciones_estatus = DB::table('evaluaciones')
         ->select(DB::raw('count(*) as total'), DB::raw('EXTRACT(MONTH FROM fecha_evalu) as mes'), 'estatus')
         ->whereYear('fecha_evalu', date('Y'))
         ->groupBy('estatus', DB::raw('EXTRACT(MONTH FROM fecha_evalu)'))
         ->get();
 
-        $data_aprobado = $this->preparePieChartData($evaluaciones);
+        $data_aprobado = $this->preparePieChartData($evaluaciones_estatus);
 
-        return view('estadistica.index', compact('data_evaluacion', 'data_aprobado'));
+        // 3. OBTENER DATOS DE SEGUIMIENTOS (Total por mes) - MOVIDO ANTES DEL RETURN
+        $seguimientos = DB::table('seguimientos')
+        ->select(DB::raw('count(*) as total'), DB::raw('EXTRACT(MONTH FROM created_at) as mes'))
+        ->whereYear('created_at', date('Y'))
+        ->groupBy(DB::raw('EXTRACT(MONTH FROM created_at)'))
+        ->get();
 
+        // Llamada a la función única, pasando la etiqueta de "Seguimientos"
+        $data_seguimiento = $this->preprareChartData($seguimientos, 'Número de seguimientos');
+
+        // Retorna la vista con TODAS las variables
+        return view('estadistica.index', compact('data_evaluacion', 'data_aprobado', 'data_seguimiento'));
     }
 
-    private function preprareChartData($evaluaciones) 
+    // --------------------------------------------------------------------------------------------------
+    // FUNCIÓN DE PREPARACIÓN DE GRÁFICOS (ÚNICA DEFINICIÓN)
+    // Usada para Evaluaciones y Seguimientos.
+    // --------------------------------------------------------------------------------------------------
+    private function preprareChartData($dataCollection, $label) 
     {
         $labels = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
         $dataset = array_fill(0, 12, 0);
 
-        foreach ($evaluaciones as $evaluacion) {
-            $dataset[$evaluacion->mes - 1] = $evaluacion->total;
+        foreach ($dataCollection as $item) {
+            $dataset[$item->mes - 1] = $item->total;
         }
 
         return [
             'labels' => $labels,
             'datasets' => [
                 [
-                    'label' => 'Numero de evaluaciones',
+                    'label' => $label, // Etiqueta dinámica
                     'data' => $dataset,
                     'backgroundColor' => 'rgba(54, 162, 235, 0.2)',
-                    'bodercolor' => 'rgba(54, 162, 235, 1)',
+                    'borderColor' => 'rgba(54, 162, 235, 1)', // Corregido 'bodercolor'
                     'borderWidth' => 3
                 ]
             ]
         ];
-
     }
 
 
@@ -64,8 +80,8 @@ class EstadisticaController extends Controller
     {
         $labels = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
         
-        $aprobadas = array_fill(0, 12, 0); // Inicializar un array con 12 ceros para aprobadas
-        $negados = array_fill(0, 12, 0); // Inicializar un array con 12 ceros para negados
+        $aprobadas = array_fill(0, 12, 0);
+        $negados = array_fill(0, 12, 0);
 
         foreach ($evaluaciones as $evaluacion) {
             if ($evaluacion->estatus === 'Aprobado') {
