@@ -42,7 +42,7 @@ class EstadisticaController extends Controller
         ->get();
 
         // Llamada a la función única, pasando la etiqueta de "Seguimientos"
-        $data_seguimiento = $this->preprareChartData($seguimientos, 'Número de seguimientos');
+        $data_seguimiento = $this->prepraChartData($seguimientos, 'Número de seguimientos');
 
         // Retorna la vista con TODAS las variables
         return view('estadistica.index', compact('data_evaluacion', 'data_aprobado', 'data_seguimiento'));
@@ -111,6 +111,30 @@ class EstadisticaController extends Controller
             ]
         ];
     }
+
+    private function prepraChartData($dataCollection, $label) 
+    {
+        $labels = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+        $dataset = array_fill(0, 12, 0);
+
+        foreach ($dataCollection as $item) {
+            $dataset[$item->mes - 1] = $item->total;
+        }
+
+        return [
+            'labels' => $labels,
+            'datasets' => [
+                [
+                    'label' => $label, // Etiqueta dinámica
+                    'data' => $dataset,
+                    'backgroundColor' => 'rgba(54, 162, 235, 0.2)',
+                    'borderColor' => 'rgba(54, 162, 235, 1)', // Corregido 'bodercolor'
+                    'borderWidth' => 3
+                ]
+            ]
+        ];
+    }
+
 
     /**
      * Show the form for creating a new resource.
