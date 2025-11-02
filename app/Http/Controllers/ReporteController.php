@@ -3,14 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\licencias;
-use App\Models\Inspecciones;
-use App\Models\Planificacion;
-use App\Models\Recepcion;
-use App\Models\Solicitante;
-use App\Models\PersonaJuridica;
-use App\Models\PersonaNatural;
-use App\Models\PagoRegalia;
+use App\Models\Seguimientos;
+use App\Models\Asignaciones;
+use App\Models\Evaluaciones;
+use App\Models\Proyectos;
+use App\Models\Ayudas;
+use App\Models\Voceros;
+use App\Models\Comunidades;
 use App\Models\Bitacora;
 use Illuminate\Support\Facades\DB;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -22,46 +21,28 @@ class ReporteController extends Controller
     public function index(Request $request)
     {
 
-        $pago_regalia = PagoRegalia::join('licencias', 'licencias.id', '=', 'pago_regalias.id_licencia')
-            ->join('comprobante_pagos', 'comprobante_pagos.id', '=', 'licencias.id_comprobante_pago')
-            ->join('inspecciones', 'inspecciones.id', '=', 'comprobante_pagos.id_inspeccion')
-            ->join('planificacion', 'planificacion.id', '=', 'inspecciones.id_planificacion')
-            ->join('recepcion', 'recepcion.id', '=', 'planificacion.id_recepcion')
-            ->join('solicitantes', 'solicitantes.id', '=', 'recepcion.id_solicitante' )
-            ->leftJoin('personas_naturales', function ($join) {
-                $join->on('solicitantes.solicitante_especifico_id', '=', 'personas_naturales.id')
-                    ->where('solicitantes.solicitante_especifico_type', '=', 'App\\Models\\PersonaNatural');
-            })
-           
-            ->leftJoin('personas_juridicas', function ($join) {
-                $join->on('solicitantes.solicitante_especifico_id', '=', 'personas_juridicas.id')
-                    ->where('solicitantes.solicitante_especifico_type', '=', 'App\\Models\\PersonaJuridica');
-            })
-            ->join('minerales', 'minerales.id', '=', 'recepcion.id_mineral')
+        $seguimiento = Seguimientos::join('asignaciones', 'asignaciones.id', '=', 'seguimientos.id_asignacion')
+            ->join('evaluaciones', 'evaluaciones.id', '=', 'asignaciones.id_evaluacion')
+            ->join('proyectos', 'proyectos.id', '=', 'evaluaciones.id_proyecto')
+            ->join('voceros', 'voceros.id', '=', 'asignaciones.id_vocero')
+            ->join('comunidades', 'comunidades.id', '=', 'asignaciones.id_comunidad')
+            ->join('ayudas', 'ayudas.id', '=', 'asignaciones.id_ayuda')
             ->select([
-                'personas_naturales.cedula as solicitante_cedula',
-                'personas_naturales.nombre as solicitante_nombre_natural',
-                'personas_naturales.apellido as solicitante_apellido',
-                'personas_juridicas.nombre as solicitante_nombre_juridico',
-                'personas_juridicas.rif as solicitante_rif',
-                'recepcion.direccion',
-                'minerales.nombre as nombre_mineral',
-                'recepcion.categoria',
-                'solicitantes.tipo as solicitante_tipo',
-                'licencias.resolucion_hpc',
-                'licencias.resolucion_apro',
-                'licencias.catastro_la',
-                'licencias.catastro_lp',
-                // 'licencias.id_plazo'
-                'pago_regalias.metodo_apro',
-                'pago_regalias.metodo_pro',
-                'pago_regalias.pago_realizar',
-                'pago_regalias.resultado_apro',
-                'pago_regalias.resultado_pro'
+                'voceros.cedula',
+                'voceros.nombre',
+                'voceros.apellido',
+                'proyectos.nombre_pro',
+                'proyectos.tipo_pro',
+                'evaluaciones.viabilidad',
+                'evaluaciones.estatus_resp',
+                'asignaciones.presupuesto',
+                'comunidades.nom_comuni as nombre_comunidad',
+                'ayudas.nombre_ayuda as nombre_ayuda',
+                'ayudas.tipo_ayuda as tipo_ayuda'
             ])
             ->get();
             
-        return view('reporte.index', ['resultados' => $pago_regalia]);
+        return view('reporte.index', ['resultados' => $seguimiento]);
 
     }
     
@@ -72,75 +53,49 @@ class ReporteController extends Controller
         $search = $request->input('search');
 
         // Iniciar la consulta base
-        $pago_regaliaQuery = PagoRegalia::join('licencias', 'licencias.id', '=', 'pago_regalias.id_licencia')
-            ->join('comprobante_pagos', 'comprobante_pagos.id', '=', 'licencias.id_comprobante_pago')
-            ->join('inspecciones', 'inspecciones.id', '=', 'comprobante_pagos.id_inspeccion')
-            ->join('planificacion', 'planificacion.id', '=', 'inspecciones.id_planificacion')
-            ->join('recepcion', 'recepcion.id', '=', 'planificacion.id_recepcion')
-            ->join('solicitantes', 'solicitantes.id', '=', 'recepcion.id_solicitante')
-            ->leftJoin('personas_naturales', function ($join) {
-                $join->on('solicitantes.solicitante_especifico_id', '=', 'personas_naturales.id')
-                    ->where('solicitantes.solicitante_especifico_type', '=', 'App\\Models\\PersonaNatural');
-            })
-            ->leftJoin('personas_juridicas', function ($join) {
-                $join->on('solicitantes.solicitante_especifico_id', '=', 'personas_juridicas.id')
-                    ->where('solicitantes.solicitante_especifico_type', '=', 'App\\Models\\PersonaJuridica');
-            })
-            ->join('minerales', 'minerales.id', '=', 'recepcion.id_mineral')
+        $seguimientoQuery  = Seguimientos::join('asignaciones', 'asignaciones.id', '=', 'seguimientos.id_asignacion')
+            ->join('evaluaciones', 'evaluaciones.id', '=', 'asignaciones.id_evaluacion')
+            ->join('proyectos', 'proyectos.id', '=', 'evaluaciones.id_proyecto')
+            ->join('voceros', 'voceros.id', '=', 'asignaciones.id_vocero')
+            ->join('comunidades', 'comunidades.id', '=', 'asignaciones.id_comunidad')
+            ->join('ayudas', 'ayudas.id', '=', 'asignaciones.id_ayuda')
             ->select([
-                'personas_naturales.cedula as solicitante_cedula',
-                'personas_naturales.nombre as solicitante_nombre_natural',
-                'personas_naturales.apellido as solicitante_apellido',
-                'personas_juridicas.nombre as solicitante_nombre_juridico',
-                'personas_juridicas.rif as solicitante_rif',
-                'recepcion.direccion',
-                'minerales.nombre as nombre_mineral',
-                'recepcion.categoria',
-                'solicitantes.tipo as solicitante_tipo',
-                'licencias.resolucion_hpc',
-                'licencias.resolucion_apro',
-                'licencias.catastro_la',
-                'licencias.catastro_lp',
-                // 'licencias.id_plazo'
-                'pago_regalias.metodo_apro',
-                'pago_regalias.metodo_pro',
-                'pago_regalias.pago_realizar',
-                'pago_regalias.resultado_apro',
-                'pago_regalias.resultado_pro'
+                'voceros.cedula',
+                'voceros.nombre',
+                'voceros.apellido',
+                'proyectos.nombre_pro',
+                'proyectos.tipo_pro',
+                'evaluaciones.viabilidad',
+                'evaluaciones.estatus_resp',
+                'asignaciones.presupuesto',
+                'comunidades.nom_comuni as nombre_comunidad',
+                'ayudas.nombre_ayuda as nombre_ayuda',
+                'ayudas.tipo_ayuda as tipo_ayuda'
             ]);
 
         // Aplicar el filtro de búsqueda si existe
         if ($search) {
-            $pago_regaliaQuery->where(function($query) use ($search) {
-                $query->where('personas_naturales.cedula', 'LIKE', '%' . $search . '%')
-                    ->orWhere('personas_naturales.nombre', 'LIKE', '%' . $search . '%')
-                    ->orWhere('personas_naturales.apellido', 'LIKE', '%' . $search . '%')
-                    ->orWhere('personas_juridicas.nombre', 'LIKE', '%' . $search . '%')
-                    ->orWhere('personas_juridicas.rif', 'LIKE', '%' . $search . '%')
-                    ->orWhere('recepcion.direccion', 'LIKE', '%' . $search . '%')
-                    ->orWhere('minerales.nombre', 'LIKE', '%' . $search . '%')
-                    ->orWhere('recepcion.categoria', 'LIKE', '%' . $search . '%')
-                    ->orWhere('solicitantes.tipo', 'LIKE', '%' . $search . '%')
-                    ->orWhere('licencias.resolucion_hpc', 'LIKE', '%' . $search . '%')
-                    ->orWhere('licencias.resolucion_apro', 'LIKE', '%' . $search . '%')
-                    ->orWhere('licencias.catastro_la', 'LIKE', '%' . $search . '%')
-                    ->orWhere('licencias.catastro_lp', 'LIKE', '%' . $search . '%')
-                    ->orWhere('pago_regalias.metodo_apro', 'LIKE', '%' . $search . '%') // Nueva condición para método de aprobación
-                    ->orWhere('licencias.id_plazo', 'LIKE', '%' . $search . '%')
-                    ->orWhere('pago_regalias.metodo_apro', 'LIKE', '%' . $search . '%')
-                    ->orWhere('pago_regalias.metodo_pro', 'LIKE', '%' . $search . '%')
-                    ->orWhere('pago_regalias.pago_realizar', 'LIKE', '%' . $search . '%')
-                    ->orWhere('pago_regalias.resultado_apro', 'LIKE', '%' . $search . '%')
-                    ->orWhere('pago_regalias.resultado_pro', 'LIKE', '%' . $search . '%');
+            $seguimientoQuery->where(function($query) use ($search) {
+                $query->where('voceros.cedula', 'LIKE', '%' . $search . '%')
+                ->orWhere('voceros.nombre', 'LIKE', '%' . $search . '%')
+                ->orWhere('voceros.apellido', 'LIKE', '%' . $search . '%')
+                ->orWhere('proyectos.nombre_pro', 'LIKE', '%' . $search . '%')
+                ->orWhere('proyectos.tipo_pro', 'LIKE', '%' . $search . '%')
+                ->orWhere('evaluaciones.viabilidad', 'LIKE', '%' . $search . '%')
+                ->orWhere('evaluaciones.estatus_resp', 'LIKE', '%' . $search . '%')
+                ->orWhere('asignaciones.presupuesto', 'LIKE', '%' . $search . '%')
+                ->orWhere('comunidades.nom_comuni as nombre_comunidad', 'LIKE', '%' . $search . '%')
+                ->orWhere('ayudas.nombre_ayuda as nombre_ayuda', 'LIKE', '%' . $search . '%')
+                ->orWhere('ayudas.tipo_ayuda as tipo_ayuda', 'LIKE', '%' . $search . '%');
                     
             });
         }
 
         // Ejecutar la consulta
-        $pago_regalia = $pago_regaliaQuery->get();
+        $seguimiento = $seguimientoQuery->get();
 
         // Generar el PDF incluso si no se encuentran registros
-        $pdf = PDF::loadView('reporte.pdf', ['resultados' => $pago_regalia]);
+        $pdf = PDF::loadView('reporte.pdf', ['resultados' => $seguimiento]);
         return $pdf->stream('reporte.pdf');
 
     }

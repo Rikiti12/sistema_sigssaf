@@ -260,7 +260,7 @@
           </div>
         </div>
       
- <div class="col-sm-6 col-md-3">
+          <div class="col-sm-6 col-md-3">
            <div class="card card-stats card-round rotate" onclick="window.location.href='{{ route('evaluacion.index') }}'" style="cursor: pointer;">
             <div class="card-body">
               <div class="row align-items-center">
@@ -354,8 +354,67 @@
             </div>
           </div>
 
-      </div>
+          <!-- Pie Chart -->
+          <div style="width:32.5%; display:block;">
+            <div class="card mb-4 rotate" onclick="window.location.href='{{ route('proyecto.index') }}'" style="padding-top: 89.5px; padding-bottom: 89.5px;">
+              <div class="card-header py-3 d-flex flex-row align-items-center justify-content-center">
+                  <h6 class="m-0 font-weight-bold text-primary">Proyecto por Parroquias</h6>
+                  <div class="h5 mb-0 font-weight-bol d text-gray-800"></div> 
+              </div>
+              <div class="card-body">
+
+                @php
+                    // Establece la meta fija para que la barra llegue al 100%
+                    $metaMaxima = 100;
+                    
+                    // Colores base para las barras
+                    $colores = ['bg-warning', 'bg-info', 'bg-success'];
+                    $i = 0;
+                @endphp
+
+                @foreach ($proyectosPorParroquia as $item)
+                    @php
+                        $conteo = $item['total'];
+                        
+                        // 1. Calcula el porcentaje: 
+                        //    Si el conteo es 100 o más, el porcentaje es 100%.
+                        //    De lo contrario, usa el porcentaje normal.
+                        $porcentaje = min(round(($conteo / $metaMaxima) * 100), 100);
+                        
+                        // Asigna un color de la lista
+                        $color = $colores[$i % count($colores)];
+                        $i++;
+                    @endphp
+
+                    <div class="mb-3">
+                        <div class="small text-gray-700">
+                            <span class="font-weight-bold">{{ $item['parroquia'] }}</span>
+                            
+                            <div class="small float-right">
+                                <b>{{ $conteo }}</b>
+                            </div>
+                        </div>
+                        
+                        <div class="progress" style="height: 12px;">
+                            <div 
+                                class="progress-bar {{ $color }}" 
+                                role="progressbar" 
+                                style="width: {{ $porcentaje }}%;" 
+                                aria-valuenow="{{ $conteo }}" 
+                                aria-valuemin="0" 
+                                aria-valuemax="{{ $metaMaxima }}" 
+                                data-value="{{ $conteo }}"
+                                title="{{ $porcentaje }}% ({{ $conteo }} proyectos)">
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+              </div>
+          </div>
+        </div>
+
     </div>
+
 </div>
 
 <script src="{{ asset('https://unpkg.com/leaflet@1.9.4/dist/leaflet.js') }}" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>

@@ -26,6 +26,18 @@
 
                             <div class="row">
 
+                                <div class="col-4">  
+                                    <label class="font-weight-bold text-dark">Parroquias</label>
+                                    <select class="form-select" id="id_parroquia" name="id_parroquia" required>
+                                        <option value="">Seleccione una Parroquia...</option>
+                                        @foreach($parroquias as $parroquia)
+                                            <option value="{{ $parroquia->id }}" {{ $proyecto->id_parroquia == $parroquia->id ? 'selected' : '' }}>
+                                                {{ $parroquia->nom_parroquia }} 
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
                                 <div class="col-4">
                                     <label class="font-weight-bold text-dark">Nombre Del Proyecto</label>
                                     <input type="text" class="form-control" id="nombre_pro" name="nombre_pro" style="background: white;" value="{{ $proyecto->nombre_pro }}" placeholder="Ingrese El Nombre Del Proyecto" oninput="capitalizarInput('nombre_pro')" autocomplete="off" onkeypress="return soloLetras(event);">

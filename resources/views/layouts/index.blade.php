@@ -232,12 +232,12 @@
                 <div class="collapse" id="forms">
                   <ul class="nav nav-collapse">
                     <li>
-                      <a href="forms/forms.html">
+                      <a href="{{ url('reporte')}}">
                         <span class="sub-item">Reporte General</span>
                       </a>
                     </li>
                     <li>
-                      <a href="forms/forms.html">
+                      <a href="">
                         <span class="sub-item">Reporte Especifico</span>
                       </a>
                     </li>
