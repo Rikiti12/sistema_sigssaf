@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Proyectos;
 use App\Models\Ayudas;
+use App\Models\Parroquia;
 use App\Http\Controllers\BitacoraController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -31,6 +32,7 @@ class ProyectosController extends Controller
     public function index()
     {
         $proyectos = Proyectos::with('ayuda')->get();
+        $proyectos = Proyectos::with('parroquia')->get();
         return view('proyecto.index', compact('proyectos'));
     }
 
@@ -85,7 +87,8 @@ class ProyectosController extends Controller
     public function create()
     {
         $ayudas = Ayudas::all();
-        return view('proyecto.create', compact('ayudas'));
+        $parroquias = Parroquia::all();
+        return view('proyecto.create', compact('ayudas', 'parroquias'));
     }
 
     /**
@@ -175,13 +178,10 @@ class ProyectosController extends Controller
         $fechaFinalInput = $request->input('fecha_final');
 
         $proyectos = new Proyectos();
+        $proyectos->id_parroquia = $request->input('id_parroquia');
         $proyectos->nombre_pro = $request->input('nombre_pro');
         $proyectos->descripcion_pro = $request->input('descripcion_pro');
         $proyectos->tipo_pro = $request->input('tipo_pro');
-
-        // Asociar las actividades al proyecto
-        // $proyectos->actividades()->sync($request->actividades);
-
         $proyectos->actividades = $request->input('actividades');
         $proyectos->id_ayuda = $request->input('id_ayuda');
         $proyectos->fecha_inicial = Carbon::createFromFormat('d/m/Y', $fechaInicialInput)->format('Y-m-d');
@@ -238,8 +238,9 @@ class ProyectosController extends Controller
     {
         $proyecto = Proyectos::find($id);
         $ayudas = Ayudas::all();
+        $parroquias = Parroquia::all();
         $acta_conformidad = $proyecto->acta_conformidad;
-        return view('proyecto.edit', compact('proyecto', 'ayudas', 'acta_conformidad'));
+        return view('proyecto.edit', compact('proyecto', 'parroquias', 'ayudas', 'acta_conformidad'));
     }
 
     /**
@@ -262,6 +263,7 @@ class ProyectosController extends Controller
             ]);
 
             $proyecto = Proyectos::find($id);
+            $proyecto->id_parroquia = $request->input('id_parroquia');
             $proyecto->nombre_pro = $request->input('nombre_pro');
             $proyecto->descripcion_pro = $request->input('descripcion_pro');
             $proyecto->tipo_pro= $request->input('tipo_pro');

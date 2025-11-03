@@ -40,6 +40,7 @@
                     <table class="table align-items-center table-flush" id="dataTable">
                         <thead class="thead-light">
                                     <tr>
+                                        <th class="font-weight-bold text-dark">Parroquia</th>
                                         <th class="font-weight-bold text-dark">Nombre del Proyecto</th>
                                         <th class="font-weight-bold text-dark">Descripcion</th>
                                         <th class="font-weight-bold text-dark">Tipo de proyecto</th>
@@ -52,6 +53,12 @@
                                 <tbody>
                                     @foreach ($proyectos as $proyecto)
                                         <tr>
+                                            <td class="font-weight-bold text-dark">
+                                                @if ($proyecto->parroquia)
+                                                    {{$proyecto->parroquia->nom_parroquia }} @else
+                                                @endif
+                                            </td>
+
                                             <td class="font-weight-bold text-dark">{{ $proyecto->nombre_pro }}</td>
                                             <td class="font-weight-bold text-dark">{{ $proyecto->descripcion_pro }}</td>
                                             <td class="font-weight-bold text-dark">{{ $proyecto->tipo_pro }}</td>

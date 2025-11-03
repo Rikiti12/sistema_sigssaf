@@ -154,5 +154,9 @@ Route::get('estadistica', [EstadisticaController::class, 'index'])->name('estadi
 /* Ruta Bitacora*/
 Route::get('bitacora', [ReporteController::class, 'bitacora'])->name('bitacora')->middleware('auth');
 
+/* Ruta Reporte*/
+Route::get('reporte', [ReporteController::class, 'index'])->name('index')->middleware('auth');
+Route::get('/reporte/pdf',  [ReporteController::class,'generarPDF'])->name('reporte')->middleware('auth');
+
 /* Ruta Manual */
 Route::get('/manual',  [ManualController::class,'index'])->name('manual')->middleware('auth');

@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('proyectos', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('id_parroquia')->nullable();
             $table->string('nombre_pro');
             $table->text('descripcion_pro');
             $table->enum('tipo_pro', ['Infraestructura', 'Social', 'Educativo', 'Salud', 'Ambiental', 'Otro']);
@@ -28,6 +29,9 @@ return new class extends Migration
 
             // Establecer relación con la tabla de ayudas
             $table->foreign('id_ayuda')->references('id')->on('ayudas');
+
+            // Establecer relación con la tabla de ayudas
+            $table->foreign('id_parroquia')->references('id')->on('parroquias');
 
         });
     }
