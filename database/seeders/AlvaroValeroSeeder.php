@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-
 use App\Models\User;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
@@ -18,47 +17,35 @@ class AlvaroValeroSeeder extends Seeder
      */
     public function run()
     {
-        // Descomentar SOLO Y SOLO SI EL ROL ESTA CREADO, PERO EL USUARIO NO! Esto creara al Usuario y le asignara el rol si este ultimo ya existe.
+        /*
+        * Este seeder ahora es "Idempotente".
+        * Usará 'firstOrCreate' para buscar primero al usuario y al rol.
+        * Si no los encuentra, los creará.
+        * Si ya existen, simplemente los obtendrá sin lanzar un error.
+        */
 
-        // $usuario = User::create([
-            // 'name' => 'Jose Fernando Garcia',
-            // 'email' => 'josefernandoge@gmail.com',
-            // 'username' => 'jeyef',
-            // 'password' => ('josefernando10'),
-        // ]); 
+        // 1. Crea o encuentra al usuario 'Alvaro Valero'
+        $usuario = User::firstOrCreate(
+            ['email' => 'alvaleromendoza@gmail.com'], // Columna única para buscar
+            [
+                'name' => 'Alvaro Valero',
+                'username' => 'alv10',
+                'password' => bcrypt('123456'), // ¡IMPORTANTE! Hasheando la contraseña
+            ]
+        );
 
-                                                //Lo que esta aqui dentro de este comentario no descomentar = ...
+        // 2. Crea o encuentra el rol 'Administrador'
+        $rol = Role::firstOrCreate(
+            ['name' => 'Administrador', 'guard_name' => 'web'] // Columna única para buscar
+        );
 
-        //$rol = Role::create(['name'=>'Administrador']);
-
-        //$permisos = Permission::pluck('id', 'id')->all();
-
-        //$rol->syncPermissions($permisos);
-
-                                                // ... = esto que esta encerrado aqui!!!
-
-        // $usuario->assignRole('Administrador');
-
-
-
-        /* Descomentar para cuando se vaya a crear todo desde cero */
-
-        $usuario = User::create([
-            'name' => 'Alvaro Valero',
-            'email' => 'alvaleromendoza@gmail.com',
-            'username' => 'alv10',
-            'password' => ('123456'),
-        ]);
-
-        $rol = Role::create(['name'=>'Administrador']);
-
+        // 3. Obtiene todos los permisos existentes (asumiendo que otro seeder los creó)
         $permisos = Permission::pluck('id', 'id')->all();
 
+        // 4. Sincroniza los permisos con el rol (esto es idempotente, no da error si ya los tiene)
         $rol->syncPermissions($permisos);
 
-        $usuario->assignRole([$rol->id]);
-
-        // $usuario->assignRole('Administrador');
-
+        // 5. Asigna el rol al usuario (esto también es idempotente)
+        $usuario->assignRole($rol); // Puedes pasar el objeto $rol directamente
     }
 }
