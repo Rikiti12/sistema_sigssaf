@@ -157,8 +157,8 @@
                         {{ $resultado->estatus_resp }}
                     </td>
 
-                        <td>{{ $resultado->presupuesto}}
-                        
+                    <td>
+                        {{ $resultado->presupuesto}}
                     </td>
                     
                 </tr>
