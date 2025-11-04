@@ -30,7 +30,7 @@ class AlvaroValeroSeeder extends Seeder
             [
                 'name' => 'Alvaro Valero',
                 'username' => 'alv10',
-                'password' => bcrypt('123456'), // ¡IMPORTANTE! Hasheando la contraseña
+                'password' => '123456',
             ]
         );
 
