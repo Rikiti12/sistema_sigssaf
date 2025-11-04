@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-
 use App\Models\User;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
@@ -18,46 +17,22 @@ class RicardoSandovalSeeder extends Seeder
      */
     public function run()
     {
-        // Descomentar SOLO Y SOLO SI EL ROL ESTA CREADO, PERO EL USUARIO NO! Esto creara al Usuario y le asignara el rol si este ultimo ya existe.
+        // 1. Crea o encuentra al usuario
+        $usuario = User::firstOrCreate(
+            ['email' => 'ricardosandovalmartinez1@gmail.com'], // Columna única para buscar
+            [
+                'name' => 'Ricardo Sandoval',
+                'username' => 'rikiti10',
+                'password' =>'123456', 
+            ]
+        );
 
-        // $usuario = User::create([
-            // 'name' => 'Jose Fernando Garcia',
-            // 'email' => 'josefernandoge@gmail.com',
-            // 'username' => 'jeyef',
-            // 'password' => ('josefernando10'),
-        // ]); 
+        // 2. Busca el rol 'Administrador' (que ya fue creado por AlvaroValeroSeeder)
+        $rol = Role::firstOrCreate(
+            ['name' => 'Administrador', 'guard_name' => 'web']
+        );
 
-                                                //Lo que esta aqui dentro de este comentario no descomentar = ...
-
-        //$rol = Role::create(['name'=>'Administrador']);
-
-        //$permisos = Permission::pluck('id', 'id')->all();
-
-        //$rol->syncPermissions($permisos);
-
-                                                // ... = esto que esta encerrado aqui!!!
-
-        // $usuario->assignRole('Administrador');
-
-
-
-        /* Descomentar para cuando se vaya a crear todo desde cero */
-
-        $usuario = User::create([
-            'name' => 'Ricardo Sandoval',
-            'email' => 'ricardosandovalmartinez1@gmail.com',
-            'username' => 'rikiti10',
-            'password' => ('123456'),
-        ]);
-
-        // $rol = Role::create(['name'=>'Administrador']);
-
-        // $permisos = Permission::pluck('id', 'id')->all();
-
-        // $rol->syncPermissions($permisos);
-
-        // $usuario->assignRole([$rol->id]);
-
-        $usuario->assignRole('Administrador');
+        // 3. Asigna el rol al usuario
+        $usuario->assignRole($rol);
     }
 }

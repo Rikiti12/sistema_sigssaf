@@ -64,7 +64,7 @@
 
                             <div class="col-4">
                                 <label class="font-weight-bold text-dark">Gasto</label>
-                                <input type="text" class="form-control" id="gasto" name="gasto" placeholder="Ingrese el Nombre del Responsable" autocomplete="off">
+                                <input type="text" class="form-control" id="gasto" name="gasto" placeholder="Ingrese el monto del gasto" autocomplete="off">
                             </div>
 
 
