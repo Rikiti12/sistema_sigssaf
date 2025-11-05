@@ -18,7 +18,11 @@ return new class extends Migration
             $table->string('cedula')->unique();
             $table->string('nombre');
             $table->string('apellido');
+             $table->unsignedBigInteger('id_cargo'); 
             $table->timestamps();
+
+
+            $table->foreign('id_cargo')->references('id')->on('cargos');
         });
     }
 

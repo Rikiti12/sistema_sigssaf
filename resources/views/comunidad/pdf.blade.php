@@ -87,6 +87,8 @@ img {
                         <th>Lista</th>
                         <th>Comunidad</th>
                         <th>Dirección</th>
+                        <th>Tipo de Comunidad</th>
+                        <th>Tipo de Vivienda</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -95,6 +97,8 @@ img {
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $comunidad->nom_comuni }}</td>
                         <td>{{ $comunidad->dire_comuni }}</td>
+                        <td>{{ $comunidad->tipo_comunidad }}</td>
+                        <td>{{ $comunidad->tipo_vivienda }}</td>
                     </tr>
                 @endforeach  
                 </tbody>

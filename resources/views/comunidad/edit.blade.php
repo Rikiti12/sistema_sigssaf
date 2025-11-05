@@ -42,6 +42,31 @@
                                         <textarea class="form-control" id="direccion" name="dire_comuni" cols="10" rows="10" style="max-height: 6rem;" oninput="capitalizarInput('direccion')">{{ $comunidad->dire_comuni ?? '' }}</textarea>
                                     </div>
 
+                                    <div class="col-4">
+                                        <label class="font-weight-bold text-dark">Tipo de comunidad</label>
+                                        <select class="form-select" id="tipo_comunidad" name="tipo_comunidad" required>
+                                        <option value="">Seleccione...</option>
+                                        <option value="Rural" {{ $comunidad->tipo_comunidad == 'Rural' ? 'selected' : '' }}>Rural</option>
+                                        <option value="Urbana" {{ $comunidad->tipo_comunidad == 'Urbana' ? 'selected' : '' }}>Urbana</option>
+                                        <option value="Residencial" {{ $comunidad->tipo_comunidad == 'Residencial' ? 'selected' : '' }}>Residencial</option>
+                                        <option value="Indigena" {{ $comunidad->tipo_comunidad == 'Indigena' ? 'selected' : '' }}>Indigena</option>
+                                        <option value="Empresarial" {{ $comunidad->tipo_comunidad == 'Empresarial' ? 'selected' : '' }}>Empresarial</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-4">
+                                        <label class="font-weight-bold text-dark">Tipo de vivienda</label>
+                                        <select class="form-select" id="tipo_vivienda" name="tipo_vivienda" required>
+                                        <option value="">Seleccione...</option>
+                                        <option value="Anexo" {{ $comunidad->tipo_vivienda== 'Anexo' ? 'selected' : '' }}>Anexo</option>
+                                        <option value="Apartamento" {{ $comunidad->tipo_vivienda== 'Apartamento' ? 'selected' : '' }}>Apartamento</option>
+                                        <option value="Casa" {{ $comunidad->tipo_vivienda== 'Casa' ? 'selected' : '' }}>Casa</option>
+                                        <option value="Rancho" {{ $comunidad->tipo_vivienda== 'Rancho' ? 'selected' : '' }}>Rancho</option>
+                                        <option value="Casa indigena" {{ $comunidad->tipo_vivienda== 'Casa indigena' ? 'selected' : '' }}>Casa indigena</option>
+                                        </select>
+                                    </div>
+
+
                                 </div>
 
                                 <br><br>

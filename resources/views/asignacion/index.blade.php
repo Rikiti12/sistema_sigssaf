@@ -35,12 +35,25 @@
                                             <td class="font-weight-bold text-dark">{{ $evaluacion->proyectos->nombre_pro }} {{ $evaluacion->proyectos->descripcion_pro }}</td>
                                             <td class="font-weight-bold text-dark">{{ $evaluacion->resposanbles->cedula }} - {{ $evaluacion->resposanbles->nombre }} {{ $evaluacion->resposanbles->apellido }}</td>
                                             <td class="font-weight-bold text-dark">
-                                                <span class="badge 
-                                                    @if($evaluacion->viabilidad == 'Alta') bg-danger
-                                                    @elseif($evaluacion->viabilidad == 'Media') bg-warning
-                                                    @else bg-primary
+                                                <span class="badge fs-5 
+                                                    @if($evaluacion->viabilidad == 'Alta') 
+                                                        bg-success 
+                                                    @elseif($evaluacion->viabilidad == 'Media') 
+                                                        bg-warning 
+                                                    @else 
+                                                        {{-- Asume que 'Baja' o cualquier otro valor usará el color rojo --}}
+                                                        bg-danger 
                                                     @endif">
+                                                    
                                                     {{ $evaluacion->viabilidad }}
+
+                                                    @if($evaluacion->viabilidad == 'Alta') 
+                                                        (100%)
+                                                    @elseif($evaluacion->viabilidad == 'Media') 
+                                                        (50%)
+                                                    @else 
+                                                        (25%)
+                                                    @endif
                                                 </span>
                                             </td>
                                             <td class="font-weight-bold text-dark">{{ $evaluacion->estatus }}</td>

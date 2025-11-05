@@ -17,6 +17,8 @@ return new class extends Migration
             $table->id();
             $table->string('nom_comuni');
             $table->text('dire_comuni');
+            $table->string('tipo_comunidad');
+            $table->string('tipo_vivienda');
             
             $table->timestamps();
 

@@ -43,6 +43,8 @@
                                         <th  class="font-weight-bold text-dark">Comunidad</th>
                                       
                                         <th  class="font-weight-bold text-dark">Dirección</th>
+                                        <th  class="font-weight-bold text-dark">Tipo de Comunidad</th>
+                                        <th  class="font-weight-bold text-dark">Tipo de Vivienda</th>
                                         <th  class="font-weight-bold text-dark"><center>Acciones</center></th>
                                         </tr>
                                     </thead>
@@ -52,6 +54,8 @@
                                                 <!-- <td class="font-weight-bold text-Secondary">{{ $comunidad->id}}</td> -->
                                                 <td class="font-weight-bold text-dark">{{ $comunidad->nom_comuni }}</td>
                                                 <td class="font-weight-bold text-dark">{{ $comunidad->dire_comuni }}</td>
+                                                <td class="font-weight-bold text-dark">{{ $comunidad->tipo_comunidad }}</td>
+                                                <td class="font-weight-bold text-dark">{{ $comunidad->tipo_vivienda }}</td>
                                                 
                                                 <td>
 

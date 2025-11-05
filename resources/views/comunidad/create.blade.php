@@ -34,6 +34,31 @@
                                         <label  class="font-weight-bold text-dark">Dirección de la Comunidad</label>
                                         <textarea class="form-control" id="direccion" name="dire_comuni" cols="10" rows="10" style="max-height: 6rem;" oninput="capitalizarInput('direccion')">{{ old('direccion') }}</textarea>
                                     </div>
+                                    
+                                    <div class="col-4">
+                                    <label class="font-weight-bold text-dark">Tipo de Comunidad</label>
+                                    <select class="form-select" id="tipo_comunidad" name="tipo_comunidad" required>
+                                        <option value="">Seleccione...</option>
+                                        <option value="Rural">Rural</option>
+                                        <option value="Urbana">Urbana</option>
+                                        <option value="Residencial">Residencial</option>
+                                        <option value="Indigena">Indigena</option>
+                                        <option value="Empresarial">Empresarial</option>
+                                    </select>
+                                    </div>
+
+                                    <div class="col-4">
+                                    <label class="font-weight-bold text-dark">Tipo de vivienda</label>
+                                    <select class="form-select" id="tipo_vivienda" name="tipo_vivienda" required>
+                                        <option value="">Seleccione...</option>
+                                        <option value="Anexo">Anexo</option>
+                                        <option value="Apartamento">Apartamento</option>
+                                        <option value="Casa">Casa</option>
+                                        <option value="Rancho">Rancho</option>
+                                        <option value="Casa indigena">Casa indigena</option>
+                                    </select>
+                                    </div>
+
 
                                 </div>
 

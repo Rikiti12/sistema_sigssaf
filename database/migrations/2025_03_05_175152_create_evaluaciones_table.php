@@ -21,7 +21,7 @@ return new class extends Migration
             $table->text('observaciones');
             $table->string('estatus');
             $table->string('estatus_resp')->nullable();
-            $table->enum('viabilidad', ['Alta', 'Media', 'Baja']);
+            $table->enum('viabilidad', ['Alta 100%', 'Media 50%', 'Baja 25%']);
             $table->timestamps();
             
              // Establecer relaciones con las tablas correspondientes

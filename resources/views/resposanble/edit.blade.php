@@ -41,7 +41,18 @@
                                 <label class="font-weight-bold text-dark">Apellido</label>
                                 <input type="text" class="form-control" id="apellido" name="apellido" style="background: white;" value="{{ $resposanbles->apellido }}" placeholder="Ingrese el apellido" autocomplete="off" oninput="capitalizarInput('apellido')" onkeypress="return soloLetras(event);">
                             </div>
-
+                           
+                            <div class="col-4">  
+                           <label for="id_cargo" class="font-weight-bold text-dark">Cargo del Responsables</label>
+                           <select class="form-select" id="id_cargo" name="id_cargo" required>
+                               <option value="">Seleccione un cargo...</option>
+                               @foreach($cargos as $cargo)
+                                   <option value="{{ $cargo->id }}" {{ $evaluacion->id_cargo == $cargo->id ? 'selected' : '' }}>
+                                       {{ $cargo->nombre_cargo  }} 
+                                   </option>
+                               @endforeach
+                           </select>
+                       </div>
 
                         </div>
 

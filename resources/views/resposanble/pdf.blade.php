@@ -87,6 +87,7 @@ img {
                         <th>Cedula</th>
                         <th>Nombre</th>
                         <th>Apellido</th>
+                        <th>Cargo del Responsables</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -102,6 +103,8 @@ img {
                         <td>                         
                            {{ $resposanble->apellido }}  
                         </td>
+
+                         <td>{{ $resposanble->cargo->nombre_cargo }}</td>
                         
                     </tr>
                 @endforeach  

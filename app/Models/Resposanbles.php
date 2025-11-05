@@ -11,11 +11,15 @@ class Resposanbles extends Model
     protected $table = 'resposanbles'; 
     protected $primaryKey = 'id';
     public $timestamps = true;
-    protected $fillable = [ 'cedula', 'nombre', 'apellido'];
+    protected $fillable = [ 'cedula', 'nombre', 'apellido','id_cargo'];
 
     public function evaluaciones()
     {
         return $this->hasMany(Evaluaciones::class, 'id_resposanble');
     }
 
+     public function cargo()
+    {
+        return $this->belongsTo(Cargos::class, 'id_cargo');
+    }
 }

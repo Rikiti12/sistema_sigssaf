@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Resposanbles;
+use App\Models\Cargos;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -20,7 +21,7 @@ class ResposanblesController extends Controller
      */
     public function index()
     {
-        $resposanbles = Resposanbles::all();
+        $resposanbles = Resposanbles::with('cargo')->get();
         return view('resposanble.index', compact('resposanbles'));
     }
 
@@ -33,10 +34,14 @@ class ResposanblesController extends Controller
             $resposanbles = Resposanbles::where('cedula', 'LIKE', '%' . $search . '%')
                            ->orWhere('nombre', 'LIKE', '%' . $search . '%')
                            ->orWhere('apellido', 'LIKE', '%' . $search . '%')
+                           ->orWhereHas('cargo', function ($query) use ($search){
+                            $query->where('nombre_cargo', 'LIKE', '%' . $search . '%');
+                           })
                            ->get();
         } else {
             // Obtener todos los bancos si no hay término de búsqueda
             $resposanbles = Resposanbles::all();
+             $resposanbles =Resposanbles::with('cargo')->get();
         }
     
         // Generar el PDF, incluso si no se encuentran bancos
@@ -51,7 +56,8 @@ class ResposanblesController extends Controller
     public function create()
     {
         $resposanbles = Resposanbles::all();
-        return view('resposanble.create');
+        $cargos = Cargos::all();
+        return view('resposanble.create' , compact('cargos'));;
     }
 
     /**
@@ -74,6 +80,7 @@ class ResposanblesController extends Controller
         $resposanbles->cedula = $request->input('cedula');
         $resposanbles->nombre = $request->input('nombre');
         $resposanbles->apellido = $request->input('apellido');
+        $resposanbles->id_cargo = $request->input('id_cargo');
 
         $resposanbles->save();
 
@@ -108,7 +115,8 @@ class ResposanblesController extends Controller
     public function edit($id)
     {
         $resposanbles = Resposanbles::find($id);
-        return view('resposanble.edit', compact('resposanbles'));
+        $cargos = Cargos::all();
+        return view('resposanble.edit', compact('resposanbles','cargos'));
     }
 
     /**
@@ -130,7 +138,7 @@ class ResposanblesController extends Controller
         $resposanble->cedula = $request->input('cedula');
         $resposanble->nombre = $request->input('nombre');
         $resposanble->apellido = $request->input('apellido');
-        
+         $resposanble->id_carg = $request->input('id_carg');
     
         $resposanble->save();
 

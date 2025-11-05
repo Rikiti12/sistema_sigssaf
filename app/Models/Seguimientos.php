@@ -26,4 +26,9 @@ class Seguimientos extends Model
     {
         return $this->belongsTo(Visitas::class, 'id_visita');
     }
+
+    public function control_seguimiento()
+    {
+        return $this->belongsToMany(ControlSeguimientos::class, 'id_seguimiento', 'id', 'id_asignacion');
+    }
 }

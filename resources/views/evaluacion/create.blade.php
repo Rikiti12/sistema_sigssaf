@@ -55,9 +55,9 @@
                                 <label for="viabilidad" class="font-weight-bold text-dark">Viabilidad</label>
                                 <select class="form-select" id="viabilidad" name="viabilidad" required>
                                     <option value="">Seleccione...</option>
-                                    <option value="Alta">Alta</option>
-                                    <option value="Media">Media</option>
-                                    <option value="Baja">Baja</option>
+                                    <option value="Alta">Alta 100%</option>
+                                    <option value="Media">Media 50%</option>
+                                    <option value="Baja">Baja 25%</option>
                                 </select>
                             </div>
 

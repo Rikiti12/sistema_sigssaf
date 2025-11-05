@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Seguimientos;
 use App\Models\Asignaciones;
+use App\Models\ControlSeguimientos;
 use App\Models\Visitas;
 use Illuminate\Database\QueryException;
 use App\Http\Controllers\BitacoraController;
@@ -28,9 +29,9 @@ class SeguimientoController extends Controller
     {
         $asignaciones = Asignaciones::all(); 
 
-        $asignaciones->each(function ($asignacion) {
-            $asignacion->yaSeguimiento = Seguimientos::where('id_asignacion', $asignacion->id)->exists();
-        });
+        // $asignaciones->each(function ($asignacion) {
+        //     $asignacion->yaSeguimiento = Seguimientos::where('id_asignacion', $asignacion->id)->exists();
+        // });
 
         return view('seguimiento.index', compact('asignaciones'));
     }
@@ -88,6 +89,11 @@ class SeguimientoController extends Controller
             $seguimientos->riesgos = $request->input('riesgos');
 
             $seguimientos->save();
+
+            $puente = new ControlSeguimientos();
+            $puente->id_seguimiento = $seguimientos->id; // Usamos el ID de lo seguimientos creada
+            $puente->id_asignacion = $request->input('id_asignacion');
+            $puente->save();
 
             // Registrar en la bitácora
             $bitacora = new BitacoraController();

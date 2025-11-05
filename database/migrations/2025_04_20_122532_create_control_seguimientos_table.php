@@ -16,10 +16,13 @@ return new class extends Migration
         Schema::create('control_seguimientos', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('id_seguimiento');
+            $table->unsignedBigInteger('id_asignacion');
             $table->timestamps();
 
             // Establecer relaciones con las tablas correspondientes
             $table->foreign('id_seguimiento')->references('id')->on('seguimientos');
+
+            $table->foreign('id_asignacion')->references('id')->on('asignaciones');
         });
     }
 

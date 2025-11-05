@@ -37,6 +37,8 @@ class ComunidadesController extends Controller
             // Filtrar los bancos según la consulta de búsqueda
             $comunidades = Comunidades::where('nom_comuni', 'LIKE', '%' . $search . '%')
                            ->orWhere('dire_comuni', 'LIKE', '%' . $search . '%')
+                            ->orWhere('tipo_comunidad', 'LIKE', '%' . $search . '%')
+                            ->orWhere('tipo_vivienda', 'LIKE', '%' . $search . '%')
                            ->get();
         } else {
             // Obtener todos los bancos si no hay término de búsqueda
@@ -70,6 +72,8 @@ class ComunidadesController extends Controller
         $comunidades = new Comunidades();
         $comunidades->nom_comuni = $request->input('nom_comuni');
         $comunidades->dire_comuni = $request->input('dire_comuni');
+        $comunidades->tipo_comunidad = $request->input('tipo_comunidad');
+        $comunidades->tipo_vivienda = $request->input('tipo_vivienda');
         
 
         $comunidades->save();
@@ -132,6 +136,8 @@ class ComunidadesController extends Controller
     
         $comunidad->nom_comuni = $request->input('nom_comuni');
         $comunidad->dire_comuni = $request->input('dire_comuni');
+        $comunidad->nom_comuni = $request->input('tipo_comunidad');
+        $comunidad->dire_comuni = $request->input('tipo_vivienda');
       
         $comunidad->save();
 

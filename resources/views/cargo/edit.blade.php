@@ -32,11 +32,11 @@
                                 </div>
                         
                                 <div class="col-4">
-                                    <label class="font-weight-bold text-dark">Tipo de Ayuda</label>
+                                    <label class="font-weight-bold text-dark">Categoria</label>
                                     <select class="form-select" id="categoria" name="categoria" required>
                                         <option value="">Seleccione...</option>
                                         <option value="Comuna" {{ $cargo->categoria == 'Comuna' ? 'selected' : '' }}>Comuna</option>
-                                        <option value="Social" {{ $cargo->categoria == 'Consejo_Comunal' ? 'selected' : '' }}>Consejo Comunal</option>
+                                        <option value="Consejo comunal" {{ $cargo->categoria == 'Consejo_Comunal' ? 'selected' : '' }}>Consejo Comunal</option>
                                     </select>
                                 </div>
 

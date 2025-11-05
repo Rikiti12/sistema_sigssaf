@@ -36,5 +36,9 @@ class Asignaciones extends Model
         return $this->belongsTo(Ayudas::class, 'id_ayuda');
     }
 
+    public function control_seguimiento()
+    {
+        return $this->belongsToMany(ControlSeguimientos::class, 'id_seguimiento', 'id', 'id_asignacion');
+    }
 
 }
