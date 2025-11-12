@@ -261,7 +261,7 @@
         </div>
       
           <div class="col-sm-6 col-md-3">
-           <div class="card card-stats card-round rotate" onclick="window.location.href='{{ route('evaluacion.index') }}'" style="cursor: pointer;">
+           <div class="card card-stats card-round rotate" onclick="window.location.href='{{ route('evaluacion.create') }}'" style="cursor: pointer;">
             <div class="card-body">
               <div class="row align-items-center">
                 <div class="col-icon">

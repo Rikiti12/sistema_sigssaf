@@ -55,18 +55,18 @@
                             </div>
 
                             <div class="col-4">
-                                <label class="font-weight-bold text-dark">Fecha y Hora del Seguimiento *</label>
+                                <label class="font-weight-bold text-dark">Fecha y Hora del Seguimiento</label>
                                 <input type="datetime-local" class="form-control" id="fecha_hor" name="fecha_hor" 
                                        value="{{ old('fecha_hora_segui', date('Y-m-d\TH:i', strtotime($seguimiento->fecha_hor))) }}" required>
                             </div>
 
-                            <div class="col-4">
+                           <div class="col-4">
                                 <label class="font-weight-bold text-dark">Gasto</label>
-                                <input type="text" class="form-control" id="gasto" name="gasto" value="{{ isset($seguimiento->gasto)?$seguimiento->gasto:'' }}"  placeholder="Ingrese el gasto" autocomplete="off">
+                                <input type="number"class="form-control"id="gasto"name="gasto"value="{{ isset($seguimiento->gasto) ? $seguimiento->gasto : '' }}" placeholder="Ingrese el gasto (solo números)"autocomplete="off" step="any" min="0">    
                             </div>
 
                             <div class="col-4">
-                                <label class="font-weight-bold text-dark">Estado Actual *</label>
+                                <label class="font-weight-bold text-dark">Estado Actual</label>
                                 <select class="form-select" name="estado_actual" id="estado_actual" required>
                                     <option value="" disabled>Seleccione estado</option>
                                     <option value="En progreso" {{ old('estado_actual', $seguimiento->estado_actual) == 'En progreso' ? 'selected' : '' }}>En progreso</option>

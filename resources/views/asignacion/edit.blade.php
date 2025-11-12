@@ -90,7 +90,7 @@
 
                             <div class="col-3">
                                 <label class="font-weight-bold text-dark">Presupuesto</label>
-                                <input type="text" class="form-control" id="presupuesto" name="presupuesto" style="background: white;" value="{{ $asignacion->presupuesto }}" placeholder="Ingrese el Presupuesto" autocomplete="off">
+                                <input type="number" class="form-control"id="presupuesto" name="presupuesto"style="background: white;"value="{{ $asignacion->presupuesto }}" placeholder="Ingrese el Presupuesto (solo números)"autocomplete="off"step="any" min="0">   
                             </div>
 
 

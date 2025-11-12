@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>PDF Vivienda</title>
+    <title>PDF Visita</title>
 </head>
 
 {{-- Estilo al PDF --}}
@@ -21,7 +21,7 @@ body{
 }
 
 .header{
-    background-color: rgb(15, 15, 15);
+    background-color: rgb(11, 54, 119);
     color: rgb(231, 227, 225);
 }
 
@@ -37,8 +37,8 @@ h1{
 
 }
 
-tbody tr td{
-    border: 2px solid black;
+tbody. tr. td{
+    border: 2px solid rgb(153, 44, 44);
 }
 
 img {
@@ -75,22 +75,42 @@ img {
         <div class="row">
             <img class="centro" src="../public/img/portada2.png" alt="">
         </div>
-
-        <h1>Datos de la Vivienda</h1><br>
+        
+        <div class="date-info" style="">
+            Generado el: {{ now()->format('d/m/Y H:i:s') }}
+        </div>
+        
+        <h1>Datos del Visita</h1><br>
             <table class="table" cellpadding="1" cellspacing="1" width="100%" style="padding-bottom:0.4rem;front-size:0.6rem !important">
                 <thead class="header">
                     <tr>
-                        <th>Lista</th>
-                        <th>Tipo de Vivienda</th>
-                        <th>Dirección</th>
+                        <th>Parroquia</th>
+                        <th>Comunidad</th>
+                        <th>Visitas</th>
+                        <th>Descripción</th>
                     </tr>
                 </thead>
                 <tbody>
-                @foreach ($viviendas as $vivienda)
+                @foreach ($visitas as $visita)
                     <tr>
-                        <td>{{ $loop->iteration }}</td>
-                        <td>{{ $vivienda->tipo_vivie}}</td>
-                        <td>{{ $vivienda->dire_vivie }}</td>
+                        <td>
+                            @if ($visita->parroquia)
+                                {{$visita->parroquia->nom_parroquia }} @else
+                            @endif
+                        </td>
+
+                        <td>
+                            {{ $visita->comunidad->nom_comuni }}
+                        </td>
+
+                        <td>
+                            {{ $visita->visita }} 
+                        </td>
+
+                        <td>                         
+                            {{ $visita->descripcion_vis}} 
+                        </td>
+                        
                     </tr>
                 @endforeach  
                 </tbody>

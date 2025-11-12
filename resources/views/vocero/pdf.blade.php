@@ -104,7 +104,7 @@ img {
                         </td>
 
                         <td>                         
-                            {{ $vocero->cargo }}  {{ $vocero->tipo_vocero}} 
+                            {{ $vocero->tipo_vocero}} 
                         </td>
                         
                     </tr>

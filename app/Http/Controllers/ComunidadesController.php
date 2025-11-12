@@ -39,6 +39,10 @@ class ComunidadesController extends Controller
                            ->orWhere('dire_comuni', 'LIKE', '%' . $search . '%')
                             ->orWhere('tipo_comunidad', 'LIKE', '%' . $search . '%')
                             ->orWhere('tipo_vivienda', 'LIKE', '%' . $search . '%')
+                            ->orWhere('lindero_norte', 'LIKE', '%' . $search . '%')
+                           ->orWhere('lindero_sur', 'LIKE', '%' . $search . '%')
+                           ->orWhere('lindero_este', 'LIKE', '%' . $search . '%')
+                           ->orWhere('lindero_oeste', 'LIKE', '%' . $search . '%')
                            ->get();
         } else {
             // Obtener todos los bancos si no hay término de búsqueda
@@ -49,6 +53,30 @@ class ComunidadesController extends Controller
         $pdf = Pdf::loadView('comunidad.pdf', compact('comunidades'));
         return $pdf->stream('comunidad.pdf');
     } 
+
+    // Asumiendo que esta función va en tu ComunidadesController.php o similar
+
+public function getComunidadDetalles($id)
+{
+    // 1. Recupera la comunidad por su ID.
+    $comunidad = Comunidades::find($id);
+
+    if (!$comunidad) {
+        // Maneja el caso en que no se encuentre la comunidad
+        return response()->json(['error' => 'Comunidad no encontrada'], 404);
+    }
+
+    // 2. Devuelve los datos relevantes en formato JSON, incluyendo los linderos.
+    return response()->json([
+        
+        'lindero_norte' => $comunidad->lindero_norte, 
+        'lindero_sur' => $comunidad->lindero_sur, 
+        'lindero_este' => $comunidad->lindero_este, 
+        'lindero_oeste' => $comunidad->lindero_oeste, 
+      
+        
+    ]);
+}
 
     /**
      * Show the form for creating a new resource.
@@ -74,6 +102,10 @@ class ComunidadesController extends Controller
         $comunidades->dire_comuni = $request->input('dire_comuni');
         $comunidades->tipo_comunidad = $request->input('tipo_comunidad');
         $comunidades->tipo_vivienda = $request->input('tipo_vivienda');
+        $comunidades->lindero_norte = $request->input('lindero_norte');
+        $comunidades->lindero_sur = $request->input('lindero_sur');
+        $comunidades->lindero_este = $request->input('lindero_este');
+        $comunidades->lindero_oeste = $request->input('lindero_oeste');
         
 
         $comunidades->save();
@@ -138,6 +170,10 @@ class ComunidadesController extends Controller
         $comunidad->dire_comuni = $request->input('dire_comuni');
         $comunidad->nom_comuni = $request->input('tipo_comunidad');
         $comunidad->dire_comuni = $request->input('tipo_vivienda');
+        $comunidad->lindero_norte = $request->input('lindero_norte');
+        $comunidad->lindero_sur = $request->input('lindero_sur');
+        $comunidad->lindero_este = $request->input('lindero_este');
+        $comunidad->lindero_oeste = $request->input('lindero_oeste');
       
         $comunidad->save();
 

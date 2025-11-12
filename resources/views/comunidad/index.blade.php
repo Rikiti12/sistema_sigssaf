@@ -41,7 +41,6 @@
                                     <thead class="thead-light">
                                         <tr>
                                         <th  class="font-weight-bold text-dark">Comunidad</th>
-                                      
                                         <th  class="font-weight-bold text-dark">Dirección</th>
                                         <th  class="font-weight-bold text-dark">Tipo de Comunidad</th>
                                         <th  class="font-weight-bold text-dark">Tipo de Vivienda</th>
@@ -76,11 +75,11 @@
                                                             </form> 
                                                         @endcan
 
-                                                        {{-- <a class="btn btn-info btn-sm" style="margin: 0 1px;" title="Ver Detalles" data-comunidad-id='{{ $comunidad->id }}' class="btn btn-primary" data-toggle="modal" data-target="#exampleModalScrollable" id="#modalScroll"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-layout-text-window-reverse" viewBox="0 0 16 16"  style="color: #ffff; cursor: pointer;">
+                                                        <a class="btn btn-info btn-sm" style="margin: 0 1px;" title="Ver Detalles" data-comunidad-id='{{ $comunidad->id }}' class="btn btn-primary" data-toggle="modal" data-target="#exampleModalScrollable" id="#modalScroll"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-layout-text-window-reverse" viewBox="0 0 16 16"  style="color: #ffff; cursor: pointer;">
                                                             <path d="M13 6.5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h5a.5.5 0 0 0 .5-.5m0 3a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h5a.5.5 0 0 0 .5-.5m-.5 2.5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1 0-1z"/>
                                                             <path d="M14 0a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2zM2 1a1 1 0 0 0-1 1v1h14V2a1 1 0 0 0-1-1zM1 4v10a1 1 0 0 0 1 1h2V4zm4 0v11h9a1 1 0 0 0 1-1V4z"/>
                                                             </svg>
-                                                        </a> --}}
+                                                        </a>
 
                                                     </div>
 
@@ -98,20 +97,21 @@
     </div>
 
     <!-- MODAL PARA VER DETALLES -->
-    {{-- <div class="modal fade" id="exampleModalScrollable" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+    
+ <div class="modal fade" id="exampleModalScrollable" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    {{-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
-                    </button> -->
+                    </button>  --}}
                 </div>
 
                 <div class="modal-body" id="modal-body-content">
 
             </div>
         </div>
-    </div> --}}
+    </div> 
 
 
 @endsection 
@@ -225,7 +225,7 @@
             
             </script>
 
-    {{-- <script>
+    <script>
         $(document).ready(function() {
             $('#dataTable').on('click', '.btn-info', function(event) {
                 event.preventDefault();
@@ -237,19 +237,15 @@
                     success: function(data) {
                         console.log(data);
 
-                        let modalContent = `
-                            <h5 class="font-weight-bold text-primary" style="text-align: center">Detalles de la Comunidad</h5>
-                            <p><b>Creacion del Proyecto:</b> ${data.crear_pro}</p>
-                        `;
+                           $('#exampleModalScrollable .modal-body').html(`
+                            <h5 class="font-weight-bold text-primary" style="text-align: center">Detalles del la Comunidad</h5>
+                            
+                             <p><b>Lindero Norte:</b> ${data.lindero_norte }</p>
+                                <p><b>Lindero Sur:</b> ${data.lindero_sur }</p>
+                                <p><b>Lindero Este:</b> ${data.lindero_este }</p>
+                                <p><b>Lindero Oeste:</b> ${data.lindero_oeste }</p>
+                       `);
 
-                        if(data.crear_pro.toLowerCase() === 'si') {
-                            modalContent +=`
-                                <p><b>Nombre del Proyecto:</b> ${data.nom_proyecto || 'No Especificado'}</p>
-                                <p><b>Descripcion del Proyecto:</b> ${data.descripcion || 'No Especificado'}</p>
-                            `;
-                        }
-
-                        $('#exampleModalScrollable .modal-body').html(modalContent);
 
                         if(!$('#exampleModalScrollable').is(':visible')){
                             $('#exampleModalScrollable').modal('show');
@@ -263,7 +259,7 @@
                 });
             });
         });
-    </script> --}}
+    </script>
 
 
 @endsection

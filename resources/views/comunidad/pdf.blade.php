@@ -89,6 +89,10 @@ img {
                         <th>Dirección</th>
                         <th>Tipo de Comunidad</th>
                         <th>Tipo de Vivienda</th>
+                        <th>Lindero Norte</th>
+                        <th>Lindero Sur</th>
+                        <th>Lindero Este</th>
+                        <th>Lindero Oeste</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -99,6 +103,10 @@ img {
                         <td>{{ $comunidad->dire_comuni }}</td>
                         <td>{{ $comunidad->tipo_comunidad }}</td>
                         <td>{{ $comunidad->tipo_vivienda }}</td>
+                        <td>{{ $comunidad->lindero_norte }}</td>
+                        <td>{{ $comunidad->lindero_sur }}</td>
+                        <td>{{ $comunidad->lindero_este }}</td>
+                        <td>{{ $comunidad->lindero_oeste }}</td>
                     </tr>
                 @endforeach  
                 </tbody>

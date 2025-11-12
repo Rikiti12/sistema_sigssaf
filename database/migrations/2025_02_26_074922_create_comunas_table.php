@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('comunas', function (Blueprint $table) {
             $table->id();
             $table->string('nom_comunas');
+            $table->string('rif_comuna')->unique();
             $table->bigInteger('id_parroquia')->nullable();
             $table->unsignedBigInteger('id_consejo');
             $table->unsignedBigInteger('id_vocero');

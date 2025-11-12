@@ -12,7 +12,7 @@ class Comunas extends Model
     protected $table = 'comunas'; 
     protected $primaryKey = 'id';
     public $timestamps = true;
-    protected $fillable = ['nom_comunas','id_parroquia','id_consejo', 'id_vocero', 'dire_comunas'];
+    protected $fillable = ['nom_comunas','rif_comuna','id_parroquia','id_consejo', 'id_vocero', 'dire_comunas'];
 
     public function parroquia()
     {

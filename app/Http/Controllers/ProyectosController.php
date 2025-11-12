@@ -205,9 +205,9 @@ class ProyectosController extends Controller
         $proyectos->save();
 
         // Registrar en bitácora
-        //$bitacora = new BitacoraController();
-        //$bitacora->update();
-
+        $bitacora = new BitacoraController();
+        $bitacora->update();
+/*  */
         try {
             return redirect()->route('proyecto.index');
         } catch (QueryException $exception) {

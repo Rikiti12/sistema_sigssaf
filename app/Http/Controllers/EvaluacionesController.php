@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Evaluaciones;
-use App\Models\Proyectos; // Asegúrate de que esta línea esté presente para usar el modelo Proyectos
+use App\Models\Proyectos; 
 use App\Models\Resposanbles;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\QueryException;
@@ -68,11 +68,30 @@ class EvaluacionesController extends Controller
         $evaluaciones->fecha_evalu = $request->input('fecha_evalu');
         $evaluaciones->id_resposanble = $request->input('id_resposanble');
         $evaluaciones->observaciones = $request->input('observaciones');
-        // $evaluaciones->estado_evalu = $request->input('estado_evalu');
-
         $evaluaciones->estatus = $request->input('estatus');
+       
+        $viabilidadInput = $request->input('viabilidad');
 
-            if ($evaluaciones->estatus == "Aprobado") {
+        switch ($viabilidadInput) {
+            case 'Alta':
+                $evaluaciones->viabilidad = 'Alta 100%';
+                break;
+            case 'Media':
+                $evaluaciones->viabilidad = 'Media 50%';
+                break;
+            case 'Baja':
+                $evaluaciones->viabilidad = 'Baja 25%';
+                break;
+            default:
+     
+       
+        return redirect()->back()->withErrors(['viabilidad' => 'El valor de viabilidad no es válido.']);
+    }
+       
+        $evaluaciones->estatus = $request->input('estatus');
+       $evaluaciones->estatus_resp = $request->input('estatus_resp');
+
+         if ($evaluaciones->estatus == "Aprobado") {
 
                 if ($evaluaciones->estatus_resp = '') {
                     $evaluaciones->estatus_resp = 'Pendiente';
@@ -83,16 +102,13 @@ class EvaluacionesController extends Controller
                 $evaluaciones->estatus_resp = 'Negado';
             }
 
-
-        $evaluaciones->viabilidad = $request->input('viabilidad');
-
-        $evaluaciones->save();
+          $evaluaciones->save();
 
         $bitacora = new BitacoraController();
         $bitacora->update();
 
         try {
-            return redirect()->route('asignacion.index')->with('success', 'Evaluación creada exitosamente');
+            return redirect()->route('asignacion.index')->with('success', '✅ la Evaluacion ha sido Guardada exitosamente.');
         } catch (QueryException $exception) {
             $errorMessage = 'Error: ' . $exception->getMessage();
             return redirect()->back()->withErrors($errorMessage)->withInput();
@@ -161,8 +177,24 @@ class EvaluacionesController extends Controller
         $evaluacion->id_resposanble = $request->input('id_resposanble');
         $evaluacion->observaciones = $request->input('observaciones');
         $evaluacion->estatus = $request->input('estatus');
-        $evaluacion->viabilidad = $request->input('viabilidad');
+       
+        $viabilidadInput = $request->input('viabilidad');
 
+        switch ($viabilidadInput) {
+            case 'Alta':
+                $evaluacion->viabilidad = 'Alta 100%';
+                break;
+            case 'Media':
+                $evaluacion->viabilidad = 'Media 50%';
+                break;
+            case 'Baja':
+                $evaluacion->viabilidad = 'Baja 25%';
+                break;
+            default:
+       
+        return redirect()->back()->withErrors(['viabilidad' => 'El valor de viabilidad no es válido.']);
+    }
+    
         // // Manejo de documentos adjuntos
         if ($request->hasFile('documentos')) {
             $rutaGuardarDocs = 'documentos/evaluaciones/';

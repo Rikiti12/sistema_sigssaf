@@ -32,7 +32,7 @@
                                 
                                 <div class="col-4">
                                     <label class="font-weight-bold text-dark">Categoria</label>
-                                    <select class="form-select" id="categoria" name="categoria" required>
+                                    <select class="form-select" id="categoria" name="categoria" >
                                         <option value="">Seleccione...</option>
                                         <option value="Comuna">Comuna</option>
                                         <option value="Consejo_Comunal">Consejo Comunal</option>

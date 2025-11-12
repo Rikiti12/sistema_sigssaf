@@ -87,6 +87,7 @@ img {
                         <th>Lista</th>
                         <th>Vocero Comuna</th>
                         <th>Nombre Comuna</th>
+                        <th>RIF de la Comuna</th>
                         <th>Parroquia Asignado</th>
                         <th>Consejo Asignado</th>
                         <th>Direccion</th>
@@ -102,6 +103,7 @@ img {
                         </td>
         
                         <td>{{ $comuna->nom_comunas }}</td>
+                        <td>{{ $comuna->rif_comuna }}</td>>
 
                         <td>
                             @if ($comuna->parroquia)

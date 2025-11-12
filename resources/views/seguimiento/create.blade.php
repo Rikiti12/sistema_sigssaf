@@ -56,20 +56,20 @@
                             </div>
 
                             <div class="col-4">
-                                <label class="font-weight-bold text-dark">Fecha y Hora del Seguimiento *</label>
+                                <label class="font-weight-bold text-dark">Fecha y Hora del Seguimiento </label>
                                 <input type="datetime-local" class="form-control" id="fecha_hor" name="fecha_hor" 
                                        value="{{ date('Y-m-d\TH:i') }}" required>
                             </div>
 
 
-                            <div class="col-4">
+                           <div class="col-4">
                                 <label class="font-weight-bold text-dark">Gasto</label>
-                                <input type="text" class="form-control" id="gasto" name="gasto" placeholder="Ingrese el monto del gasto" autocomplete="off">
+                                <input type="number"class="form-control"id="gasto"name="gasto" placeholder="Ingrese el monto del gasto (solo números)"  autocomplete="off" step="any" min="0">   
                             </div>
 
 
                             <div class="col-4">
-                                <label class="font-weight-bold text-dark">Estado Actual *</label>
+                                <label class="font-weight-bold text-dark">Estado Actual </label>
                                 <select class="form-select" name="estado_actual" id="estado_actual" required>
                                     <option value="" disabled selected>Seleccione estado</option>
                                     <option value="En progreso">En progreso</option>
