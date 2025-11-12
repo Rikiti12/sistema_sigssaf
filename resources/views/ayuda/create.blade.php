@@ -32,7 +32,7 @@
                                 
                                 <div class="col-4">
                                     <label class="font-weight-bold text-dark">Tipo de Ayda</label>
-                                    <select class="form-select" id="tipo_ayuda" name="tipo_ayuda" required>
+                                    <select class="form-select" id="tipo_ayuda" name="tipo_ayuda" >
                                         <option value="">Seleccione...</option>
                                         <option value="Infraestructura">Infraestructura</option>
                                         <option value="Social">Social</option>

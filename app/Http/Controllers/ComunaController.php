@@ -46,7 +46,7 @@ class ComunaController extends Controller
                            })
                            ->orWhereHas('consejo_comunal', function ($query) use ($search){
                             $query->where('nom_consej', 'LIKE', '%' . $search . '%')
-                            ->orWhere('rif', 'LIKE', '%' . $search . '%')
+                            ->orWhere('rif_comuna', 'LIKE', '%' . $search . '%')
                             ->orWhere('situr', 'LIKE', '%' . $search . '%');
                            })
                            ->orWhereHas('vocero', function ($query) use ($search){
@@ -103,6 +103,7 @@ class ComunaController extends Controller
         $comunas->id_consejo = $request->input('id_consejo');
         $comunas->id_vocero = $request->input('id_vocero');
         $comunas->dire_comunas = $request->input('dire_comunas');
+        $comunas->rif_comuna = $request->input('rif_comuna');
 
         $comunas->save();
 
@@ -175,6 +176,7 @@ class ComunaController extends Controller
         $comuna->id_consejo = $request->input('id_consejo');
         $comuna->id_vocero = $request->input('id_vocero');
         $comuna->dire_comunas = $request->input('dire_comunas');
+        $comuna->rif_comuna = $request->input('rif_comuna');
 
         // Guardar los cambios en la base de datos
         $comuna->save();

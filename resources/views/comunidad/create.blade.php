@@ -37,8 +37,8 @@
                                     
                                     <div class="col-4">
                                     <label class="font-weight-bold text-dark">Tipo de Comunidad</label>
-                                    <select class="form-select" id="tipo_comunidad" name="tipo_comunidad" required>
-                                        <option value="">Seleccione...</option>
+                                    <select class="form-select" id="tipo_comunidad" name="tipo_comunidad" >
+                                        <option value="">Selecciones el Tipo de comunidad</option>
                                         <option value="Rural">Rural</option>
                                         <option value="Urbana">Urbana</option>
                                         <option value="Residencial">Residencial</option>
@@ -49,8 +49,8 @@
 
                                     <div class="col-4">
                                     <label class="font-weight-bold text-dark">Tipo de vivienda</label>
-                                    <select class="form-select" id="tipo_vivienda" name="tipo_vivienda" required>
-                                        <option value="">Seleccione...</option>
+                                    <select class="form-select" id="tipo_vivienda" name="tipo_vivienda" >
+                                        <option value="">Selecciones el Tipo</option>
                                         <option value="Anexo">Anexo</option>
                                         <option value="Apartamento">Apartamento</option>
                                         <option value="Casa">Casa</option>
@@ -58,7 +58,41 @@
                                         <option value="Casa indigena">Casa indigena</option>
                                     </select>
                                     </div>
+                                
+                                    {{-- ✅ NUEVO CAMPO: Lindero Norte --}}
+                                    <div class="col-4">
+                                        <label class="font-weight-bold text-dark">Lindero Norte</label>
+                                        <input type="text" class="form-control" id="lindero_norte" name="lindero_norte" placeholder="Ingrese el lindero norte" autocomplete="off">
+                                    </div>
 
+                                    {{-- ✅ NUEVO CAMPO: Lindero Sur --}}
+                                    <div class="col-4">
+                                        <label class="font-weight-bold text-dark">Lindero Sur</label>
+                                        <input type="text" class="form-control" id="lindero_sur" name="lindero_sur" placeholder="Ingrese el lindero sur" autocomplete="off">
+                                    </div>
+
+                                </div> {{-- Fin del segundo Row --}}
+                                
+                                <br>
+
+                                <div class="row">
+                                    {{-- ✅ NUEVO CAMPO: Lindero Este --}}
+                                    <div class="col-4">
+                                        <label class="font-weight-bold text-dark">Lindero Este</label>
+                                        <input type="text" class="form-control" id="lindero_este" name="lindero_este" placeholder="Ingrese el lindero este" autocomplete="off">
+                                    </div>
+
+                                    {{-- ✅ NUEVO CAMPO: Lindero Oeste --}}
+                                    <div class="col-4">
+                                        <label class="font-weight-bold text-dark">Lindero Oeste</label>
+                                        <input type="text" class="form-control" id="lindero_oeste" name="lindero_oeste" placeholder="Ingrese el lindero oeste" autocomplete="off">
+                                    </div>
+                                    
+                                    {{-- Espacio en blanco para completar la fila si es necesario --}}
+                                    <div class="col-4"></div>
+                                </div> {{-- Fin del tercer Row --}}
+
+                                <br><br>
 
                                 </div>
 

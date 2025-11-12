@@ -44,6 +44,11 @@
                                 </div>
 
                                 <div class="col-4">
+                                        <label class="font-weight-bold text-dark">RIF de la Comuna</label>
+                                        <input type="text" class="form-control" id="rif_comuna" name="rif_comuna" style="background: white;" value="" placeholder="Ingrese el RIF" autocomplete="off">
+                                    </div>
+
+                                <div class="col-4">
                                     <label  class="font-weight-bold text-dark">Parroquia Asignado</label>
                                     <select class="form-select" id="id_parroquia" name="id_parroquia">
                                         <option value="">Seleccione una comuna </option>

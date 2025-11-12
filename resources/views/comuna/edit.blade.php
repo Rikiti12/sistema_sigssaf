@@ -46,6 +46,11 @@
                                 </div>
 
                                 <div class="col-4">
+                                        <label class="font-weight-bold text-dark">RIF de la Comuna</label>
+                                        <input type="text" class="form-control" id="rif_comuna" name="rif_comuna" style="background: white;" value="{{ isset($comuna->rif_comuna)?$comuna->rif_comuna:'' }}" placeholder="Ingrese el RIF" autocomplete="off">
+                                    </div>
+
+                                <div class="col-4">
                                     <label  class="font-weight-bold text-dark"> Parroquia Asignado</label>
                                     <select class="form-select" id="c_parroquia" name="id_parroquia">
                                         @foreach($parroquias as $parroquia)

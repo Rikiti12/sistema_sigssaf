@@ -80,12 +80,10 @@
                                     </select>
                                 </div>
     
-                                <div class="col-3">
-                                    <label class="font-weight-bold text-dark">Presupuesto</label>
-                                    <input type="text" class="form-control" id="presupuesto" name="presupuesto" style="background: white;" value="" placeholder="Ingrese el Presupuesto" autocomplete="off">
-                                </div>
-
-                            </div>
+                            <div class="col-3">
+                                <label class="font-weight-bold text-dark">Presupuesto</label>
+                                <input type="number"  class="form-control"  id="presupuesto" name="presupuesto" style="background: white;" value="" placeholder="Ingrese el Presupuesto (solo números)" autocomplete="off"step="any" min="0"> </div>
+                              </div>
 
                         </div>
 
@@ -211,6 +209,48 @@
         });
     </script>
 
+    <script>
+$(document).ready(function() {
+    // 1. Captura los elementos del DOM
+    const $selectMoneda = $('#moneda_presu');
+    const $inputPresupuesto = $('#presupuesto');
+
+    // 2. Función para actualizar el placeholder
+    function actualizarPlaceholder() {
+        // Obtiene el valor seleccionado (VES, USD, o EUR)
+        const monedaSeleccionada = $selectMoneda.val(); 
+        let simbolo = '';
+
+        // Asigna el símbolo correcto
+        switch (monedaSeleccionada) {
+            case 'VES':
+                simbolo = 'Bs.';
+                break;
+            case 'USD':
+                simbolo = '$';
+                break;
+            case 'EUR':
+                simbolo = '€';
+                break;
+            default:
+                simbolo = ''; // Caso por defecto
+        }
+
+        // Actualiza el texto del placeholder
+        $inputPresupuesto.attr('placeholder', `Ingrese el Presupuesto (${simbolo})`);
+        
+        // OPCIONAL: Puedes anteponer el símbolo al texto del input si ya tiene un valor
+        // $inputPresupuesto.val(simbolo + ' ' + $inputPresupuesto.val().replace(/[^0-9.]/g, ''));
+    }
+
+    // 3. Llama a la función cuando cambia el select
+    $selectMoneda.on('change', actualizarPlaceholder);
+
+    // 4. Llama a la función al cargar la página para establecer el valor inicial (VES por defecto)
+    actualizarPlaceholder();
+});
+</script>
+
 
     {{-- ? FUNCION PARA CAPITALIZAR PRIMERA LETRA --}}
 
@@ -272,7 +312,7 @@
         });
       
     </script>
-
+    
     {{-- ! FUNCION PARA MOSTRAR ERRORES --}}
 
     @if ($errors->any())

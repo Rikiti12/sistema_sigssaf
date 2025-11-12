@@ -106,7 +106,7 @@ class AsignacionesController extends Controller
         //$bitacora->update();
 
         try {
-            return redirect()->route('seguimiento.index')->with('success', 'Asignación creada exitosamente.');
+           return redirect()->route('seguimiento.index')->with('success', '✅ La planificación ha sido Guardada exitosamente.');
         } catch (QueryException $exception) {
             $errorMessage = 'Error: ' . $exception->getMessage();
             return redirect()->back()->withErrors($errorMessage);

@@ -165,6 +165,27 @@
         </script>
     @endif
 
+    {{-- ! FUNCION PARA MOSTRAR ERRORES --}}
+
+    @if ($errors->any())
+        <script>
+            // ... (Tu código de SweetAlert para errores)
+        </script>
+    @endif
+
+    @if (session('success'))
+        <script>
+            Swal.fire({
+                title: '¡Guardado Exitoso!',
+                text: '{{ session('success') }}',
+                icon: 'success', // Icono de éxito
+                timer: 5000, // Opcional: la alerta se cierra automáticamente después de 3 segundos
+                timerProgressBar: true,
+                showConfirmButton: false // No mostramos el botón si usamos timer
+            });
+        </script>
+    @endif
+
     {{-- FUNCIÓN DEL MODAL PARA VER DETALLES DEL SEGUIMIENTO --}}
     
     <script>

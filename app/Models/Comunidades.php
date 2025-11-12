@@ -12,6 +12,6 @@ class Comunidades extends Model
     protected $table = 'comunidades'; 
     protected $primaryKey = 'id';
     public $timestamps = true;
-    protected $fillable = ['nom_comuni', 'dire_comuni','tipo_comunidad','tipo_vivienda'];
+    protected $fillable = ['nom_comuni', 'dire_comuni','tipo_comunidad','tipo_vivienda','lindero_norte', 'lindero_sur','lindero_este','lindero_oeste'];
     
 }

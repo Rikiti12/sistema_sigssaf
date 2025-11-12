@@ -19,6 +19,10 @@ return new class extends Migration
             $table->text('dire_comuni');
             $table->string('tipo_comunidad');
             $table->string('tipo_vivienda');
+            $table->string('lindero_norte')->nullable();
+            $table->string('lindero_sur')->nullable();
+            $table->string('lindero_este')->nullable();
+            $table->string('lindero_oeste')->nullable();
             
             $table->timestamps();
 

@@ -65,7 +65,34 @@
                                         <option value="Casa indigena" {{ $comunidad->tipo_vivienda== 'Casa indigena' ? 'selected' : '' }}>Casa indigena</option>
                                         </select>
                                     </div>
+                                 
+                                    <div class="col-4">
+                                        <label class="font-weight-bold text-dark">Lindero Norte</label>
+                                        <input type="text" class="form-control" id="lindero_norte" name="lindero_norte" value="{{ $comunidad->lindero_norte ?? '' }}" placeholder="Ingrese el lindero norte" autocomplete="off">
+                                    </div>
 
+                                    <div class="col-4">
+                                        <label class="font-weight-bold text-dark">Lindero Sur</label>
+                                        <input type="text" class="form-control" id="lindero_sur" name="lindero_sur" value="{{ $comunidad->lindero_sur ?? '' }}" placeholder="Ingrese el lindero sur" autocomplete="off">
+                                    </div>
+
+                                </div> 
+
+                                <br>
+
+                                <div class="row">
+                                    <div class="col-4">
+                                        <label class="font-weight-bold text-dark">Lindero Este</label>
+                                        <input type="text" class="form-control" id="lindero_este" name="lindero_este" value="{{ $comunidad->lindero_este ?? '' }}" placeholder="Ingrese el lindero este" autocomplete="off">
+                                    </div>
+
+                                    <div class="col-4">
+                                        <label class="font-weight-bold text-dark">Lindero Oeste</label>
+                                        <input type="text" class="form-control" id="lindero_oeste" name="lindero_oeste" value="{{ $comunidad->lindero_oeste ?? '' }}" placeholder="Ingrese el lindero oeste" autocomplete="off">
+                                    </div>
+                                    
+                                    <div class="col-4"></div>
+                                </div> 
 
                                 </div>
 

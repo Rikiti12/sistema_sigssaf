@@ -1,6 +1,6 @@
 @extends('layouts.index')
 
-<title>@yield('title') Registrar Viviendas</title>
+<title>@yield('title') Registrar Visitas</title>
 <script src="{{ asset('js/validaciones.js') }}"></script>
 <script src="{{ asset('https://cdn.jsdelivr.net/npm/sweetalert2@11')}}"></script>
 
@@ -14,12 +14,12 @@
 
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-center">
 
-                    <h2 class="font-weight-bold text-dark">Registrar Viviendas</h2>
+                    <h2 class="font-weight-bold text-dark">Registrar Visitas</h2>
 
 
                 </div>
 
-                <form method="post" action="{{ route('vivienda.store') }}" enctype="multipart/form-data" onsubmit="return Vivienda(this)">
+                <form method="post" action="{{ route('visita.store') }}" enctype="multipart/form-data" onsubmit="return Visita(this)">
                     @csrf
 
                     <div class="card-body">
@@ -27,13 +27,32 @@
                         <div class="row">
 
                             <div class="col-4">
-                                <label  class="font-weight-bold text-dark">Tipo de Vivienda</label>
-                                <input type="text" class="form-control" id="tipo_vivie" name="tipo_vivie" style="background: white;" value="" placeholder="Ingrese El Tipo" autocomplete="off" oninput="capitalizarInput('tipo_vivie')" onkeypress="return soloLetras(event);">
-                            </div>
+                                    <label  class="font-weight-bold text-dark">Parroquia Asignado</label>
+                                    <select class="form-select" id="id_parroquia" name="id_parroquia">
+                                        <option value="">Seleccione una comuna </option>
+                                        @foreach($parroquias as $parroquia)
+                                            <option value="{{ $parroquia->id }}">{{ $parroquia->nom_parroquia }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
 
                             <div class="col-4">
-                                <label  class="font-weight-bold text-dark">Dirección</label>
-                                <textarea class="form-control" id="direccion" name="dire_vivie" cols="10" rows="10" style="max-height: 6rem;" oninput="capitalizarInput('direccion')">{{ old('direccion') }}</textarea>                                   
+                                    <label  class="font-weight-bold text-dark">Comunidad Asignado</label>
+                                    <select class="form-select" id="id_comunidad" name="id_comunidad">
+                                        <option value="">Seleccione una comunidad </option>
+                                        @foreach($comunidades as $comunidad)
+                                            <option value="{{ $comunidad->id }}">{{ $comunidad->nom_comuni }}</option>
+                                        @endforeach
+                                    </select>                                   
+                             </div>
+
+                             <div class="col-4">
+                                <label  class="font-weight-bold text-dark">Visitas</label>
+                                <input type="text" class="form-control" id="visita" name="visita" style="background: white;" value="" placeholder="Ingrese la visita" oninput="capitalizarInput('visita')" autocomplete="off" onkeypress="return soloLetras(event);">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="font-weight-bold text-dark">Descripción</label>
+                                <textarea class="form-control" id="descripcion_vis" name="descripcion_vis" cols="10" rows="10" style="max-height: 6rem;" oninput="capitalizarInput('descripcion_vis')">{{ old('descripcion_vis') }}</textarea>
                             </div>
                              
                         </div>
@@ -46,7 +65,7 @@
                             <button type="submit" class="btn btn-success btn-lg"><span class="icon text-white-60"><i class="fas fa-check"></i></span>
                                 <span class="text">Guardar</span>
                             </button>
-                            <a class="btn btn-info btn-lg" href="{{ url('vivienda/') }}"><span class="icon text-white-50">
+                            <a class="btn btn-info btn-lg" href="{{ url('visita/') }}"><span class="icon text-white-50">
                                     <i class="fas fa-info-circle"></i>
                                 </span>
                                 <span class="text">Regresar</span></a>
@@ -78,7 +97,7 @@
             var errors = @json($errors->all());
             errors.forEach(function(error) {
                 Swal.fire({
-                    title: 'Viviendas',
+                    title: 'Visitas',
                     text: error,
                     icon: 'warning',
                     showConfirmButton: true,
