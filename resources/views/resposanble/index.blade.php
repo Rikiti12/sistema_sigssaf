@@ -52,7 +52,7 @@
                                         <td class="font-weight-bold text-dark">{{ $resposanble->cedula }}</td>
                                         <td class="font-weight-bold text-dark">{{ $resposanble->nombre }}</td>
                                         <td class="font-weight-bold text-dark">{{ $resposanble->apellido }}</td>
-                                        <td class="font-weight-bold text-dark">{{ $resposanble->cargo ? $resposanble->cargo->nombre_cargo : 'Sin Cargo Asignado' }}</td>
+                                        <td class="font-weight-bold text-dark">{{ $resposanble->cargo->nombre_cargo }} </td>
                                     
                                         <td>
 
