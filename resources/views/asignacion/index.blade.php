@@ -61,6 +61,7 @@
                                         
                                             <td>
                                                 <div style="display: flex; justify-content: center;">
+                                                     
                                                     @can('crear-asignacion')
                                                         @if (!$evaluacion->yaAsignada)
                                                         <a class="btn btn-success btn-sm registrar-comprobante" title="Registar Comprobante" href="{{ route('asignacion.create', ['id' => $evaluacion->id]) }}"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-currency-dollar" viewBox="0 0 16 16">
@@ -74,6 +75,7 @@
                                                         </a>                                            
                                                         
                                                         <meta name="csrf-token" content="{{ csrf_token() }}">
+                                                        
     
                                                         <a class="btn btn-danger btn-sm negar-solicitud" style="margin: 0 1px;" title="Negar Solicitud" data-evaluacion-id='{{ $evaluacion->id }}'><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-square" viewBox="0 0 16 16" style="color: #ffff; cursor: pointer; position: center;">
                                                             <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
