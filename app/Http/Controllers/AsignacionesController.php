@@ -39,6 +39,37 @@ class AsignacionesController extends Controller
         return view('asignacion.index', compact('evaluaciones'));
     }
 
+    public function pdf(Request $request)
+    {
+        
+        $search = $request->input('search');
+    
+        if ($search) {
+            // Filtrar los bancos según la consulta de búsqueda
+            $evaluaciones = Evaluaciones::orWhereHas('proyectos', function ($query) use ($search){
+                            $query->where('nombre_pro', 'LIKE', '%' . $search . '%')
+                            ->orwhere('descripcion_pro', 'LIKE', '%' . $search . '%');
+                           })
+                           ->orWhereHas('resposanbles', function ($query) use ($search){
+                            $query->where('cedula', 'LIKE', '%' . $search . '%')
+                            ->orWhere('nombre', 'LIKE', '%' . $search . '%')
+                            ->orWhere('apellido', 'LIKE', '%' . $search . '%');
+                           })
+                            ->orWhere('viabilidad', 'LIKE', '%' . $search . '%')
+                            ->orWhere('estatus', 'LIKE', '%' . $search . '%')
+                            ->orWhere('estatus_resp', 'LIKE', '%' . $search . '%')
+                           ->get();
+        } else {
+            // Obtener todos los bancos si no hay término de búsqueda
+            $evaluaciones = Evaluaciones::with('proyectos')->get();
+            $evaluaciones = Evaluaciones::with('resposanbles')->get();
+        }
+    
+        // Generar el PDF, incluso si no se encuentran bancos
+        $pdf = Pdf::loadView('asignacion.pdf', compact('evaluaciones'));
+        return $pdf->stream('asignacion.pdf');
+
+    }
     /**
      * Show the form for creating a new resource.
      *

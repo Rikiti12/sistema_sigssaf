@@ -13,8 +13,13 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
-                        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-center">
-                            <h2 class="font-weight-bold text-dark">Planificación de Proyectos</h2>
+                        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+
+                            <a href="{{ url('asignacion/pdf') }}" class="btn btn-sm btn-danger" target="_blank" id="pdfButton">
+                                {{ ('ACTA') }}
+                            </a>
+
+                            <h2 class="font-weight-bold text-dark" style="margin-right: 43%;">Planificación de Proyectos</h2>
                         </div>
 
                         <div class="table-responsive p-3">
@@ -110,31 +115,59 @@
 
     <script>
         $(document).ready(function () {
-            $('#dataTable').DataTable({
-                responsive: true,
-                autoWidth: false,
-                language: {
-                    lengthMenu: "Mostrar " + `
-                        <select class='form-select'>
-                            <option value='5'>5</option>
-                            <option value='10'>10</option>
-                            <option value='15'>15</option>
-                            <option value='25'>25</option>
-                            <option value='50'>50</option>
-                            <option value='100'>100</option>
-                            <option value='-1'>Todos</option>
-                        </select>` + " registros por página",
-                    infoEmpty: 'No hay registros disponibles',
-                    zeroRecords: 'No se encontraron registros',
-                    info: 'Mostrando página _PAGE_ de _PAGES_',
-                    infoFiltered: '(filtrado de _MAX_ registros totales)',
-                    search: "Buscar:",
-                    paginate: {
-                        next: 'Siguiente',
-                        previous: 'Anterior'
-                    }
+        var table = $('#dataTable').DataTable({
+            responsive: true,
+            autoWidth: false,
+            "language": {
+                "lengthMenu": "Mostrar " +
+                    `<select class='form-select'>
+                        <option value='5'>5</option>
+                        <option value='10'>10</option>
+                        <option value='15'>15</option>
+                        <option value='25'>25</option>
+                        <option value='50'>50</option>
+                        <option value='100'>100</option>
+                        <option value='-1'>Todos</option>
+                    </select>` +
+                    " Registros Por Página",
+                "infoEmpty": 'No Hay Registros Disponibles.',
+                "zeroRecords": 'Nada Encontrado Disculpa.',
+                "info": 'Mostrando La Página _PAGE_ de _PAGES_',
+                "infoFiltered": '(Filtrado de _MAX_ Registros Totales)',
+                "search": "Buscar: ",
+                "paginate": {
+                    'next': 'Siguiente',
+                    'previous': 'Anterior',
+                },
+                decimal: ',',
+                thousands: '.',
+            },
+        });
+
+        function updatePdfLink() {
+            var searchTerm = table.search();
+            var pdfUrl = `{{ url('asignacion/pdf') }}?search=${encodeURIComponent(searchTerm)}`;
+            $('#pdfButton').attr('href', pdfUrl);
+        }
+
+        table.on('search.dt', function () {
+            var searchTerm = table.search();
+            $.ajax({
+                url: '{{ url('asignacion/pdf') }}',
+                method: 'GET',
+                data: { search: searchTerm },
+                success: function(response) {
+                    // Aquí puedes manejar la respuesta, si necesitas hacer algo con ella
+                    console.log('PDF generado con éxito');
+                },
+                error: function(xhr) {
+                    console.error('Error al generar el PDF:', xhr);
                 }
             });
+            updatePdfLink();
+        });
+
+        updatePdfLink();
         });
     </script>
 @endsection
