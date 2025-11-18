@@ -197,7 +197,7 @@ class AsignacionesController extends Controller
         $bitacora->update();
 
         try {
-            return redirect('seguimiento');
+            return redirect('seguimiento')->with('success', '✅ El planificacion ha sido Actualizado exitosamente.');
         } catch (QueryException $exception) {
             $errorMessage = 'Error: ' . $exception->getMessage();
             return redirect()->back()->withErrors($errorMessage);

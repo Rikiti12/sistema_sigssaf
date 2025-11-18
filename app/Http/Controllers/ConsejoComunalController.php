@@ -110,7 +110,7 @@ class ConsejoComunalController extends Controller
         //$bitacora->update();
 
         try {
-            return redirect()->route('consejo_comunal.index');
+            return redirect()->route('consejo_comunal.index')->with('success', '✅ El consejo comunal ha sido Guardada exitosamente.');
         } catch (QueryException $exception) {
             $errorMessage = 'Error: ' . $exception->getMessage();
             return redirect()->back()->withErrors($errorMessage);
@@ -143,7 +143,7 @@ class ConsejoComunalController extends Controller
         $bitacora->update();
 
         try {
-            return redirect ('consejo_comunal');
+            return redirect ('consejo_comunal')->with('success', '✅ El consejo comunal ha sido Actualizado exitosamente.');
         } catch (QueryException $exception) {
             $errorMessage = 'Error: ' . $exception->getMessage();
             return redirect()->back()->withErrors($errorMessage);

@@ -117,7 +117,7 @@ class AyudasController extends Controller
         //$bitacora->update();
 
         try {
-            return redirect()->route('ayuda.index');
+            return redirect()->route('ayuda.index')->with('success', '✅ La ayuda ha sido Guardada exitosamente.');
         } catch (QueryException $exception) {
             $errorMessage = 'Error: ' . $exception->getMessage();
             return redirect()->back()->withErrors($errorMessage);
@@ -183,7 +183,7 @@ class AyudasController extends Controller
         $bitacora->update();
 
         try {
-            return redirect('ayuda');
+            return redirect('ayuda')->with('success', '✅ El ayuda ha sido Actualizado exitosamente.');
         } catch (QueryException $exception) {
             $errorMessage = 'Error: ' . $exception->getMessage();
             return redirect()->back()->withErrors($errorMessage);

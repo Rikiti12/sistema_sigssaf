@@ -155,7 +155,7 @@ class SeguimientoController extends Controller
             $bitacora = new BitacoraController();
             $bitacora->update();
         try {
-            return redirect('controlseguimiento');
+            return redirect('controlseguimiento')->with('success', '✅ El seguimiento ha sido Actualizado exitosamente.');
         } catch (QueryException $exception) {
             $errorMessage = 'Error: .';
             return redirect()->back()->withErrors($errorMessage);

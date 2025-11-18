@@ -47,7 +47,7 @@
                            <select class="form-select" id="id_cargo" name="id_cargo" required>
                                <option value="">Seleccione un cargo...</option>
                                @foreach($cargos as $cargo)
-                                   <option value="{{ $cargo->id }}" {{ $evaluacion->id_cargo == $cargo->id ? 'selected' : '' }}>
+                                   <option value="{{ $cargo->id }}" {{ $cargo->id_cargo == $cargo->id ? 'selected' : '' }}>
                                        {{ $cargo->nombre_cargo  }} 
                                    </option>
                                @endforeach

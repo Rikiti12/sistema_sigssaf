@@ -357,7 +357,7 @@
           <!-- Pie Chart -->
           <div style="width:32.5%; display:block;">
             <div class="card mb-4 rotate" onclick="window.location.href='{{ route('proyecto.index') }}'" style="padding-top: 89.5px; padding-bottom: 89.5px;">
-              <div class="card-header py-3 d-flex flex-row align-items-center justify-content-center">
+              <div class="card-header py-3 d-flex flex-row align-items-center justify-content-center"> 
                   <h6 class="m-0 font-weight-bold text-primary">Proyecto por Parroquias</h6>
                   <div class="h5 mb-0 font-weight-bol d text-gray-800"></div> 
               </div>

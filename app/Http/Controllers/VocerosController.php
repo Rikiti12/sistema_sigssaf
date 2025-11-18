@@ -133,7 +133,7 @@ class VocerosController extends Controller
         //$bitacora->update();
 
         try {
-            return redirect()->route('vocero.index');
+            return redirect()->route('vocero.index')->with('success', '✅ El vocero ha sido Guardada exitosamente.');
         } catch (QueryException $exception) {
             $errorMessage = 'Error: ' . $exception->getMessage();
             return redirect()->back()->withErrors($errorMessage);
@@ -210,7 +210,7 @@ class VocerosController extends Controller
         $bitacora->update();
 
         try {
-            return redirect('vocero');
+            return redirect('vocero')->with('success', '✅ El vocero ha sido Actualizado exitosamente.');
         } catch (QueryException $exception) {
             $errorMessage = 'Error: ' . $exception->getMessage();
             return redirect()->back()->withErrors($errorMessage);

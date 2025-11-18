@@ -234,7 +234,7 @@ class EvaluacionesController extends Controller
         $bitacora->update();
 
         try {
-            return redirect()->route('asignacion.index')->with('success', 'Evaluación actualizada exitosamente');
+            return redirect()->route('asignacion.index')->with('success', '✅ El evaluacion ha sido Actualizado exitosamente.');
         } catch (QueryException $exception) {
             $errorMessage = 'Error: ' . $exception->getMessage();
             return redirect()->back()->withErrors($errorMessage)->withInput();

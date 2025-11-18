@@ -15,9 +15,9 @@
                     <div class="card">
                         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
 
-                            <a href="{{ url('roles/pdf') }}" class="btn btn-sm btn-danger" target="_blank" id="pdfButton">
+                            {{-- <a href="{{ url('roles/pdf') }}" class="btn btn-sm btn-danger" target="_blank" id="pdfButton">
                                 {{ ('PDF') }}
-                            </a>
+                            </a> --}}
 
                             <h2 class="font-weight-bold text-dark">Gestión de Roles</h2>
                                 @can('crear-rol')

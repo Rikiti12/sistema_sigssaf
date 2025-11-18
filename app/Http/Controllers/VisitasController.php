@@ -107,7 +107,7 @@ class VisitasController extends Controller
         $bitacora->update();
 
         try {
-            return redirect()->route('visita.index');
+            return redirect()->route('visita.index')->with('success', '✅ El visita ha sido Guardada exitosamente.');
         } catch (QueryException $exception) {
             $errorMessage = 'Error: ' . $exception->getMessage();
             return redirect()->back()->withErrors($errorMessage);
@@ -173,7 +173,7 @@ class VisitasController extends Controller
         
 
         try {
-            return redirect('visita');
+            return redirect('visita')->with('success', '✅ El visita ha sido Actualizado exitosamente.');
         } catch (QueryException $exception) {
             $errorMessage = 'Error: ' . $exception->getMessage();
             return redirect()->back()->withErrors($errorMessage);
