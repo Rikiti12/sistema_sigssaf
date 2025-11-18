@@ -136,6 +136,7 @@ Route::post('/actualizar-estatus-evaluacion/{id}', [EvaluacionesController::clas
 Route::get('/asignacion', [AsignacionesController::class, 'index'])->name('asignacion')->middleware('auth');
 Route::get('/asignacion/create', [AsignacionesController::class, 'create'])->name('create')->middleware('auth');
 Route::get('/asignacion/create/{id}', [AsignacionesController::class,'create'])->name('asignacion.create')->middleware('auth');
+Route::get('/asignacion/pdf', [AsignacionesController::class,'pdf'])->name('asignacion')->middleware('auth');
 Route::resource('asignacion', AsignacionesController::class)->middleware('auth');
 
 /* Rutas Seguimiento */

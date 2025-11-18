@@ -209,7 +209,7 @@ class ProyectosController extends Controller
         $bitacora->update();
 /*  */
         try {
-            return redirect()->route('proyecto.index');
+            return redirect()->route('proyecto.index')->with('success', '✅ El proyecto ha sido Guardada exitosamente.');
         } catch (QueryException $exception) {
             $errorMessage = 'Error: ' . $exception->getMessage();
             return redirect()->back()->withErrors($errorMessage);
@@ -298,7 +298,7 @@ class ProyectosController extends Controller
         
 
         try {
-            return redirect('proyecto');
+            return redirect('proyecto')->with('success', '✅ El proyecto ha sido Actualizado exitosamente.');
         } catch (QueryException $exception) {
             $errorMessage = 'Error: ' . $exception->getMessage();
             return redirect()->back()->withErrors($errorMessage);

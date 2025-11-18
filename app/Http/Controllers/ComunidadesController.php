@@ -115,7 +115,7 @@ public function getComunidadDetalles($id)
 
         try {
         
-            return redirect()->route('comunidad.index');
+            return redirect()->route('comunidad.index')->with('success', '✅ El comunidad ha sido Guardada exitosamente.');
 
             } catch (QueryException $exception) {
                 $errorMessage = 'Error: .';
@@ -182,7 +182,7 @@ public function getComunidadDetalles($id)
 
         try {
         
-            return redirect ('comunidad');
+            return redirect ('comunidad')->with('success', '✅ El comunidad ha sido Actualizado exitosamente.');
     
             } catch (QueryException $exception) {
                 $errorMessage = 'Error: .';

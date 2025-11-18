@@ -112,7 +112,7 @@ class ComunaController extends Controller
 
         try {
         
-            return redirect()->route('comuna.index');
+            return redirect()->route('comuna.index')->with('success', '✅ El comuna ha sido Guardada exitosamente.');
 
             } catch (QueryException $exception) {
                 $errorMessage = 'Error: .';
@@ -186,7 +186,7 @@ class ComunaController extends Controller
 
         try {
         
-            return redirect ('comuna');
+            return redirect ('comuna')->with('success', '✅ El comuna ha sido Actualizado exitosamente.');
     
             } catch (QueryException $exception) {
                 $errorMessage = 'Error: .';

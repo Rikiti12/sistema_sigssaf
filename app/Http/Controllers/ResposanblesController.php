@@ -88,7 +88,7 @@ class ResposanblesController extends Controller
         $bitacora->update();
 
         try {
-            return redirect()->route('resposanble.index');
+            return redirect()->route('resposanble.index')->with('success', '✅ El responsable ha sido Guardada exitosamente.');
         } catch (QueryException $exception) {
             $errorMessage = 'Error: ' . $exception->getMessage();
             return redirect()->back()->withErrors($errorMessage);
@@ -138,7 +138,7 @@ class ResposanblesController extends Controller
         $resposanble->cedula = $request->input('cedula');
         $resposanble->nombre = $request->input('nombre');
         $resposanble->apellido = $request->input('apellido');
-         $resposanble->id_carg = $request->input('id_carg');
+         $resposanble->id_cargo = $request->input('id_cargo');
     
         $resposanble->save();
 
@@ -146,7 +146,7 @@ class ResposanblesController extends Controller
         $bitacora->update();
 
         try {
-            return redirect('resposanble');
+            return redirect('resposanble')->with('success', '✅ El responsable ha sido Actualizado exitosamente.');
         } catch (QueryException $exception) {
             $errorMessage = 'Error: ' . $exception->getMessage();
             return redirect()->back()->withErrors($errorMessage);

@@ -72,7 +72,7 @@ class CargosController extends Controller
         $bitacora->update();
 
         try {
-            return redirect()->route('cargo.index');
+            return redirect()->route('cargo.index')->with('success', '✅ El cargo ha sido Guardada exitosamente.');
         } catch (QueryException $exception) {
             $errorMessage = 'Error: ' . $exception->getMessage();
             return redirect()->back()->withErrors($errorMessage);
@@ -122,7 +122,7 @@ class CargosController extends Controller
         $bitacora->update();
 
         try {
-            return redirect('cargo');
+            return redirect('cargo')->with('success', '✅ El cargo ha sido Actualizado exitosamente.');
         } catch (QueryException $exception) {
             $errorMessage = 'Error: ' . $exception->getMessage();
             return redirect()->back()->withErrors($errorMessage);
