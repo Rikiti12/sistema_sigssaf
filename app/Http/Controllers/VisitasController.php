@@ -40,10 +40,11 @@ class VisitasController extends Controller
     
         if ($search) {
             // Filtrar los bancos según la consulta de búsqueda
-            $proyectos = Proyectos::where('id_parroquia', 'LIKE', '%' . $search . '%')
+            $visitas = Visitas::where('id_parroquia', 'LIKE', '%' . $search . '%')
                          ->orWhere('id_comunidad', 'LIKE', '%' . $search . '%')
                            ->orWhere('visita', 'LIKE', '%' . $search . '%')
                            ->orWhere('descripcion_vis', 'LIKE', '%' . $search . '%')
+                           ->orWhere('evidencia', 'LIKE', '%' . $search . '%')
                            ->get();
         } else {
             // Obtener todos los bancos si no hay término de búsqueda
@@ -93,12 +94,35 @@ class VisitasController extends Controller
      */
     public function store(Request $request)
     {
+
+         $this->validate($request, [
+            'evidencia' => 'required|array|min:1',
+            'evidencia.*' => 'image|mimes:jpeg,png,jpg,gif,svg',
+        ], [
+            'evidencia.required' => 'Debe registrar una o más fotos.',
+            'evidencia.min' => 'Debe registrar al menos una foto.',
+            'evidencia.*.image' => 'Cada archivo debe ser una imagen.',
+            'evidencia.*.mimes' => 'Las imágenes deben ser de tipo jpeg, png, jpg, gif o svg.',
+        ]);
        
         $visitas = new Visitas();
         $visitas->id_parroquia = $request->input('id_parroquia');
         $visitas->id_comunidad = $request->input('id_comunidad');
         $visitas->visita = $request->input('visita');
         $visitas->descripcion_vis = $request->input('descripcion_vis');
+
+        if ($request->hasFile('evidencia')) {
+            $rutaGuardarDocs = 'evidencia/visitas/';
+            $nombresVisitas = [];
+    
+            foreach ($request->file('evidencia') as $evidencia) {
+                $nombreVisita = date('YmdHis') . '_' . uniqid() . '_' . pathinfo($evidencia->getClientOriginalName(), PATHINFO_FILENAME) . '.' . $evidencia->getClientOriginalExtension();
+                $evidencia->move(public_path($rutaGuardarDocs), $nombreVisita);
+                $nombresVisitas[] = $nombreVisita;
+            }
+    
+                $visitas->evidencia = json_encode($nombresVisitas);
+            }
       
         $visitas->save();
 
@@ -137,7 +161,8 @@ class VisitasController extends Controller
         $visita = Visitas::find($id);
         $parroquias = Parroquia::all();
         $comunidades = Comunidades::all();
-        return view('visita.edit', compact('visita', 'parroquias', 'comunidades'));
+        $evidencia = $visita->evidencia;
+        return view('visita.edit', compact('visita', 'parroquias', 'comunidades','evidencia'));
     }
 
     /**
@@ -165,6 +190,21 @@ class VisitasController extends Controller
             $visita->visita = $request->input('visita');
             $visita->descripcion_vis = $request->input('descripcion_vis');
 
+             // Verificar si se han cargado nuevos archivos
+         if ($request->hasFile('evidencia')) {
+            $rutaGuardarImg = 'evidencia/visitas/';
+            $nombresVisitas = [];
+
+            foreach ($request->file('evidencia') as $evidencia) {
+                $nombreVisita = date('YmdHis') . '_' . uniqid() . '_' . pathinfo($evidencia->getClientOriginalName(), PATHINFO_FILENAME) . '.' . $evidencia->getClientOriginalExtension();
+                $evidencia->move(public_path($rutaGuardarImg), $nombreVisita);
+                $nombresVisitas[] = $nombreVisita;
+            }
+
+            // Actualizar las imágenes
+            $visita->evidencia = json_encode($nombresVisitas);
+        }
+
             $visita->save();
         
             // Registrar en bitácora
@@ -187,12 +227,10 @@ class VisitasController extends Controller
    public function destroy($id)
     {
         try {
-            $visita = Visitas::findOrFail($id);
-        
-            $visita->delete();
-            $bitacora = new BitacoraController;
-            $bitacora->update();
-            return redirect('visita')->with('eliminar', 'ok');
+             Visitas::find($id)->delete();
+        $bitacora = new BitacoraController();
+        $bitacora->update();
+        return redirect()->route('visita.index')->with('eliminar', 'ok');
 
         } catch (QueryException $exception) {
             $errorMessage = 'Error: No se puede eliminar el visita debido a que está asociado a otros registros.';

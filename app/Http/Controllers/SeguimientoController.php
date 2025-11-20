@@ -10,6 +10,7 @@ use App\Models\ControlSeguimientos;
 use App\Models\Visitas;
 use Illuminate\Database\QueryException;
 use App\Http\Controllers\BitacoraController;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class SeguimientoController extends Controller
 {
@@ -34,6 +35,36 @@ class SeguimientoController extends Controller
         // });
 
         return view('seguimiento.index', compact('asignaciones'));
+    }
+
+     public function pdf(Request $request)
+    {
+        
+        $search = $request->input('search');
+    
+        if ($search) {
+            // Filtrar los bancos según la consulta de búsqueda
+             $asignaciones = Asignaciones::orWhereHas('vocero', function ($query) use ($search){
+                            $query->where('cedula', 'LIKE', '%' . $search . '%')
+                            ->orwhere('nombre', 'LIKE', '%' . $search . '%')
+                            ->orwhere('apellido', 'LIKE', '%' . $search . '%');
+                           })
+                           ->orWhereHas('comunidad', function ($query) use ($search){
+                            $query->where('nom_comuni ', 'LIKE', '%' . $search . '%');
+                           })
+                           ->orWhere('presupuesto', 'LIKE', '%' . $search . '%')
+                         ->orWhere('moneda_presu', 'LIKE', '%' . $search . '%')
+                         ->orWhere('direccion', 'LIKE', '%' . $search . '%')
+                           ->get();
+        } else {
+            // Obtener todos los bancos si no hay término de búsqueda
+             $asignaciones = Asignaciones::with('vocero')->get();
+             $asignaciones = Asignaciones::with('comunidad')->get();
+            
+        }
+    
+        $pdf = Pdf::loadView('seguimiento.pdf', compact('asignaciones'));
+        return $pdf->stream('seguimiento.pdf');
     }
 
     public function getAsignacionDetalles($id)
@@ -77,6 +108,15 @@ class SeguimientoController extends Controller
      */
     public function store(Request $request)
     {       
+        $this->validate($request, [
+            'evidencia_segui' => 'required|array|min:1',
+            'evidencia_segui.*' => 'image|mimes:jpeg,png,jpg,gif,svg',
+        ], [
+            'evidencia_segui.required' => 'Debe registrar una o más fotos.',
+            'evidencia_segui.min' => 'Debe registrar al menos una foto.',
+            'evidencia_segui.*.image' => 'Cada archivo debe ser una imagen.',
+            'evidencia_segui.*.mimes' => 'Las imágenes deben ser de tipo jpeg, png, jpg, gif o svg.',
+        ]);
             // Crear un nuevo seguimiento
             $seguimientos = new Seguimientos();
             $seguimientos->id_asignacion = $request->input('id_asignacion');
@@ -85,8 +125,23 @@ class SeguimientoController extends Controller
             $seguimientos->responsable_segui = $request->input('responsable_segui');
             $seguimientos->detalle_segui = $request->input('detalle_segui');
             $seguimientos->gasto = $request->input('gasto');
+            $seguimientos->moneda = $request->input('moneda');
             $seguimientos->estado_actual = $request->input('estado_actual');
             $seguimientos->riesgos = $request->input('riesgos');
+
+            if ($request->hasFile('evidencia_segui')) {
+            $rutaGuardarDocs = 'evidencia_segui/seguimientos/';
+            $nombresSeguimiento = [];
+    
+            foreach ($request->file('evidencia_segui') as $evidencia_segui) {
+                $nombreSeguimiento = date('YmdHis') . '_' . uniqid() . '_' . pathinfo($evidencia_segui->getClientOriginalName(), PATHINFO_FILENAME) . '.' . $evidencia_segui->getClientOriginalExtension();
+                $evidencia_segui->move(public_path($rutaGuardarDocs), $nombreSeguimiento);
+                $nombresSeguimientos[] = $nombreSeguimiento;
+            }
+    
+                $seguimientos->evidencia_segui = json_encode($nombresSeguimientos);
+            }
+
 
             $seguimientos->save();
 
@@ -120,7 +175,8 @@ class SeguimientoController extends Controller
         $visitas = Visitas::all();
         $responsable_segui = $seguimiento->responsable_segui;
         $fecha_segui = date('d/m/Y', strtotime($seguimiento->fecha_hor));
-        return view('seguimiento.edit', compact('seguimiento','fecha_segui','responsable_segui','visitas')); 
+        $evidencia_segui = $seguimiento->evidencia_segui;
+        return view('seguimiento.edit', compact('seguimiento','fecha_segui','responsable_segui','visitas','evidencia_segui')); 
     }
 
     /**
@@ -147,8 +203,23 @@ class SeguimientoController extends Controller
             $seguimiento->id_visita = $request->input('id_visita');
             $seguimiento->detalle_segui = $request->input('detalle_segui');
             $seguimiento->gasto = $request->input('gasto');
+            $seguimientos->moneda = $request->input('moneda');
             $seguimiento->estado_actual = $request->input('estado_actual');
             $seguimiento->riesgos = $request->input('riesgos');
+           
+            if ($request->hasFile('evidencia_segui')) {
+            $rutaGuardarDocs = 'evidencia_segui/seguimientos/';
+            $nombresSeguimiento = [];
+    
+            foreach ($request->file('evidencia_segui') as $evidencia_segui) {
+                $nombreSeguimiento = date('YmdHis') . '_' . uniqid() . '_' . pathinfo($evidencia_segui->getClientOriginalName(), PATHINFO_FILENAME) . '.' . $evidencia_segui->getClientOriginalExtension();
+                $evidencia_segui->move(public_path($rutaGuardarDocs), $nombreSeguimiento);
+                $nombresSeguimientos[] = $nombreSeguimiento;
+            }
+    
+                $seguimientos->evidencia_segui = json_encode($nombresSeguimientos);
+            }
+
             $seguimiento->save();
 
             // Registrar en la bitácora

@@ -121,8 +121,7 @@
 
     <script>
         $(document).ready(function () {
-            $('#dataTable').DataTable({
-                
+            var table = $('#dataTable').DataTable({
                 responsive: true,
                 autoWidth: false,
     
@@ -161,7 +160,7 @@
             table.on('search.dt', function () {
                 var searchTerm = table.search();
                 $.ajax({
-                    url: '{{ url('ayuda/pdf') }}',
+                    url: "{{ url('ayuda/pdf') }}",
                     method: 'GET',
                     data: { search: searchTerm },
                     success: function(response) {
@@ -249,7 +248,7 @@
             var errors = @json($errors->all());
             errors.forEach(function(error) {
                 Swal.fire({
-                    title: 'Viviendas',
+                    title: 'Ayudas',
                     text: error,
                     icon: 'warning',
                     showConfirmButton: true,

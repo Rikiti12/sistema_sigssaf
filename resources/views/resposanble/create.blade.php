@@ -42,7 +42,7 @@
 
                              <div class="col-4">
                                 <label for="id_cargo" class="font-weight-bold text-dark">Cargo del Responsables</label>
-                                <select class="form-select" id="id_cargo" name="id_cargo" required>
+                                <select class="form-select" id="id_cargo" name="id_cargo">
                                     <option value="">Seleccione un cargo</option>
                                     @foreach($cargos as $cargo)
                                         <option value="{{ $cargo->id }}">{{ $cargo->nombre_cargo }}</option>

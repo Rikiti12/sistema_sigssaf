@@ -125,8 +125,7 @@
 
     <script>
         $(document).ready(function () {
-            $('#dataTable').DataTable({
-                
+            var table = $('#dataTable').DataTable({
                 responsive: true,
                 autoWidth: false,
     

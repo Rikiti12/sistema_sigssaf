@@ -124,7 +124,7 @@
         Generado el: {{ now()->format('d/m/Y H:i:s') }}
     </div>
 
-    <h1>Reporte de Proyectos</h1>
+    <h1>Reporte Generar</h1>
 
     <table class="table">
         <thead class="header">
@@ -133,7 +133,7 @@
                 <th>Proyecto Asigando</th>
                 <th>Ayuda Asignado</th>
                 <th> Estatus de la Evaluacion </th>
-                <th>Presupuesto de la Asignacion </th>
+                <th>Presupuesto y moneda de la Asignacion </th>
             </tr>
         </thead>
         <tbody>
@@ -159,6 +159,7 @@
 
                     <td>
                         {{ $resultado->presupuesto}}
+                        {{ $resultado->moneda_presu}}
                     </td>
                     
                 </tr>

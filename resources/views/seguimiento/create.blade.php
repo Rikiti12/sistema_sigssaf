@@ -17,7 +17,8 @@
                     <h2 class="font-weight-bold text-dark">Seguimiento</h2>
                 </div>
 
-                <form method="post" action="{{ route('seguimiento.store') }}" enctype="multipart/form-data">
+                <form method="post" action="{{ route('seguimiento.store') }}" enctype="multipart/form-data" onsubmit="return Seguimiento(this)">
+                    @csrf
                     @csrf
 
                     <input type="hidden" class="form-control" id="id_asignacion" name="id_asignacion" style="background: white;" value="{{ $asignacion->id }}" autocomplete="off">
@@ -57,8 +58,7 @@
 
                             <div class="col-4">
                                 <label class="font-weight-bold text-dark">Fecha y Hora del Seguimiento </label>
-                                <input type="datetime-local" class="form-control" id="fecha_hor" name="fecha_hor" 
-                                       value="{{ date('Y-m-d\TH:i') }}" required>
+                                <input type="datetime-local" class="form-control" id="fecha_hor" name="fecha_hor" value="{{ date('Y-m-d\TH:i') }}" >
                             </div>
 
 
@@ -66,11 +66,25 @@
                                 <label class="font-weight-bold text-dark">Gasto</label>
                                 <input type="number"class="form-control"id="gasto"name="gasto" placeholder="Ingrese el monto del gasto (solo números)"  autocomplete="off" step="any" min="0">   
                             </div>
+                                
+                             <div class="col-2">
+                                    <label class="font-weight-bold text-dark">Moneda</label>
+                                    <select class="form-control" id="moneda" name="moneda">
+                                        <option value="VES">VES</option>
+                                        <option value="USD">USD</option>
+                                        <option value="EUR">EUR</option>
+                                    </select>
+                                </div>
 
+                                <div class="col-md-4 mb-3">
+                                    <label class="font-weight-bold text-dark">Evidencia Fotográfica del Seguimientos</label>
+                                    <input type="file" id="evidencia_segui" name="evidencia_segui[]" multiple class="btn btn-outline-info d-block w-100">
+                                    <div id="imagenes_container" class="mt-2"></div>
+                                </div>
 
                             <div class="col-4">
-                                <label class="font-weight-bold text-dark">Estado Actual </label>
-                                <select class="form-select" name="estado_actual" id="estado_actual" required>
+                                <label class="font-weight-bold text-dark">Estado Actual</label>
+                                <select class="form-select" name="estado_actual" id="estado_actual" >
                                     <option value="" disabled selected>Seleccione estado</option>
                                     <option value="En progreso">En progreso</option>
                                     <option value="Completado">Completado</option>
@@ -143,6 +157,70 @@
             });
         </script>
     @endif
+
+    <script>
+$(document).ready(function() {
+    // 1. Captura los elementos del DOM
+    const $selectMoneda = $('#moneda');
+    const $inputGasto = $('#gasto');
+
+    // 2. Función para actualizar el placeholder
+    function actualizarPlaceholder() {
+        // Obtiene el valor seleccionado (VES, USD, o EUR)
+        const monedaSeleccionada = $selectMoneda.val(); 
+        let simbolo = '';
+
+        // Asigna el símbolo correcto
+        switch (monedaSeleccionada) {
+            case 'VES':
+                simbolo = 'Bs.';
+                break;
+            case 'USD':
+                simbolo = '$';
+                break;
+            case 'EUR':
+                simbolo = '€';
+                break;
+            default:
+                simbolo = ''; // Caso por defecto
+        }
+
+        // Actualiza el texto del placeholder
+        $inputGasto.attr('placeholder', `Ingrese el Gasto (${simbolo})`);
+        
+        // OPCIONAL: Puedes anteponer el símbolo al texto del input si ya tiene un valor
+        // $inputGasto.val(simbolo + ' ' + $inputGasto.val().replace(/[^0-9.]/g, ''));
+    }
+
+    // 3. Llama a la función cuando cambia el select
+    $selectMoneda.on('change', actualizarPlaceholder);
+
+    // 4. Llama a la función al cargar la página para establecer el valor inicial (VES por defecto)
+    actualizarPlaceholder();
+});
+</script>
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#evidencia_segui').change(function () {
+                const fotoContainer = document.getElementById('imagenes_container');
+    
+                for (const file of this.files) {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        const img = document.createElement('img');
+                        img.src = e.target.result;
+                        img.style.maxWidth = '50%';
+                        img.style.maxHeight = '50%';
+                        fotoContainer.appendChild(img);
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+        });
+    </script>
 
 @endsection
 

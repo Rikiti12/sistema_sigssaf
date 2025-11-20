@@ -4,32 +4,31 @@
 
 @section('css-datatable')
         <link href="{{ asset ('assets/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
+        <script src="{{ asset('https://cdn.jsdelivr.net/npm/sweetalert2@11')}}"></script>
 @endsection
 
 @section('content')
-
     <div class="container">
         <div class="page-inner">
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
-                        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-center">
+                        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
 
-                    {{-- <a href="{{ route('planificacion/pdf') }}" class="btn btn-sm btn-danger" target="_blank" id="pdfButton">
-                        {{ ('PDF') }}
-                        </a> --}}
+                             <a href="{{ url('seguimiento/pdf') }}" class="btn btn-sm btn-danger" target="_blank" id="pdfButton">
+                                {{ ('ACTA') }}
+                            </a>
 
-                <h2 class="font-weight-bold text-dark">Seguimiento</h2>
-                        
-                </div>
+                         <h2 class="font-weight-bold text-dark" style="margin-right: 43%;">Seguimiento</h2>     
+                       </div>
 
                 <div class="table-responsive p-3">
                     <table class="table align-items-center table-flush" id="dataTable">
                         <thead class="thead-light">
                             <tr>
                                 <th class="font-weight-bold text-dark">Descripción del Alcance</th>
-                                <th class="font-weight-bold text-dark">Moneda</th>
-                                <th class="font-weight-bold text-dark">Presupuesto</th>
+                                {{-- <th class="font-weight-bold text-dark">Moneda</th> --}}
+                                <th class="font-weight-bold text-dark">Presupuesto y Moneda</th>
                                 <th class="font-weight-bold text-dark">Dirección / Lugar</th>
                                 <th class="font-weight-bold text-dark">Fecha Inicio</th>
                                 <th class="font-weight-bold text-dark">Duración Estimada</th>
@@ -40,8 +39,8 @@
                              @foreach ($asignaciones as $asignacion)
                                 <tr>
                                     <td class="font-weight-bold text-dark">{{ $asignacion->descri_alcance }}</td>
-                                     <td class="font-weight-bold text-dark">{{ $asignacion->moneda_presu }}</td> 
-                                    <td class="font-weight-bold text-dark">{{ $asignacion->presupuesto }}</td>
+                                     {{-- <td class="font-weight-bold text-dark">{{ $asignacion->moneda_presu }}</td>  --}}
+                                    <td class="font-weight-bold text-dark">{{ $asignacion->presupuesto }} {{ $asignacion->moneda_presu }}</td>
                                     <td class="font-weight-bold text-dark">{{ $asignacion->direccion }}</td>
                                     <td class="font-weight-bold text-dark">{{ date('d/m/Y', strtotime($asignacion->fecha_inicio)) }}</td>
                                     <td class="font-weight-bold text-dark">{{ date('d/m/Y', strtotime($asignacion->duracion_estimada)) }}</td>

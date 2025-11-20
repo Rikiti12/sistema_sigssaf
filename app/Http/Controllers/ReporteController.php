@@ -68,6 +68,7 @@ class ReporteController extends Controller
                 'evaluaciones.viabilidad',
                 'evaluaciones.estatus_resp',
                 'asignaciones.presupuesto',
+                'asignaciones.moneda_presu',
                 'comunidades.nom_comuni as nombre_comunidad',
                 'ayudas.nombre_ayuda as nombre_ayuda',
                 'ayudas.tipo_ayuda as tipo_ayuda'
@@ -84,6 +85,7 @@ class ReporteController extends Controller
                 ->orWhere('evaluaciones.viabilidad', 'LIKE', '%' . $search . '%')
                 ->orWhere('evaluaciones.estatus_resp', 'LIKE', '%' . $search . '%')
                 ->orWhere('asignaciones.presupuesto', 'LIKE', '%' . $search . '%')
+                ->orWhere('asignaciones.moneda_presu', 'LIKE', '%' . $search . '%')
                 ->orWhere('comunidades.nom_comuni as nombre_comunidad', 'LIKE', '%' . $search . '%')
                 ->orWhere('ayudas.nombre_ayuda as nombre_ayuda', 'LIKE', '%' . $search . '%')
                 ->orWhere('ayudas.tipo_ayuda as tipo_ayuda', 'LIKE', '%' . $search . '%');

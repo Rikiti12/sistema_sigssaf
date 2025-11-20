@@ -28,7 +28,7 @@
 
                             <div class="col-4">
                                 <label for="id_proyecto" class="font-weight-bold text-dark">Proyecto a Evaluar</label>
-                                <select class="form-select" id="id_proyecto" name="id_proyecto" required>
+                                <select class="form-select" id="id_proyecto" name="id_proyecto" >
                                     <option value="">Seleccione un proyecto</option>
                                     @foreach($proyectos as $proyecto)
                                         <option value="{{ $proyecto->id }}">{{ $proyecto->nombre_pro }} - {{ $proyecto->descripcion_pro }}</option>
@@ -38,7 +38,7 @@
 
                             <div class="col-4">
                                 <label class="font-weight-bold text-dark">Responsable de la Evaluación</label>
-                                 <select class="form-select" id="id_resposanble" name="id_resposanble" required>
+                                 <select class="form-select" id="id_resposanble" name="id_resposanble" >
                                     <option value="">Seleccione un Responsable</option>
                                     @foreach($resposanbles as $resposanble)
                                         <option value="{{ $resposanble->id }}">{{ $resposanble->cedula}} - {{ $resposanble->nombre}} {{ $resposanble->apellido }}</option>
@@ -48,12 +48,12 @@
 
                             <div class="col-md-4 mb-4">
                                 <label class="font-weight-bold text-dark">Observaciones</label>
-                                <textarea class="form-control" id="observaciones" name="observaciones" rows="4" placeholder="Ingrese las observaciones de la evaluación" required></textarea>
+                                <textarea class="form-control" id="observaciones" name="observaciones" rows="4" placeholder="Ingrese las observaciones de la evaluación" ></textarea>
                             </div>
                         
                             <div class="col-4">
                                 <label for="viabilidad" class="font-weight-bold text-dark">Viabilidad</label>
-                                <select class="form-select" id="viabilidad" name="viabilidad" required>
+                                <select class="form-select" id="viabilidad" name="viabilidad" >
                                     <option value="">Seleccione...</option>
                                     <option value="Alta">Alta 100%</option>
                                     <option value="Media">Media 50%</option>

@@ -4,17 +4,21 @@
 
 @section('css-datatable')
         <link href="{{ asset ('assets/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
+        <script src="{{ asset('https://cdn.jsdelivr.net/npm/sweetalert2@11')}}"></script>
 @endsection
 
 @section('content')
-
     <div class="container">
         <div class="page-inner">
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
-                        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-center">
-                    <h2 class="font-weight-bold text-dark">Control De Seguimientos</h2>
+                        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+
+                             <a href="{{ url('controlseguimiento/pdf') }}" class="btn btn-sm btn-danger" target="_blank" id="pdfButton">
+                                {{ ('ACTA') }}
+                            </a>
+                    <h2 class="font-weight-bold text-dark" style="margin-right: 43%;">Control De Seguimientos</h2>
                 </div>
                 <div class="table-responsive p-3">
                     <table class="table align-items-center table-flush" id="dataTable">
@@ -23,7 +27,7 @@
                                 <th class="font-weight-bold text-dark">Responsable del Seguimiento</th>
                                 <th class="font-weight-bold text-dark">Visita del Seguimiento</th>
                                 <th class="font-weight-bold text-dark">Detalles del Seguimiento</th>
-                                <th class="font-weight-bold text-dark">Gasto</th>
+                                <th class="font-weight-bold text-dark">Gasto y Moneda</th>
                                 <th class="font-weight-bold text-dark">Fecha y Hora de Seguimiento</th>
                                 <th class="font-weight-bold text-dark">Estado</th>
                                 <th class="font-weight-bold text-dark"><center>Acciones</center></th>
@@ -40,7 +44,7 @@
 
                                         <td class="font-weight-bold text-dark">{{ $seguimiento->detalle_segui }}</td>
                                         
-                                        <td class="font-weight-bold text-dark">{{ $seguimiento->gasto }}</td>
+                                        <td class="font-weight-bold text-dark">{{ $seguimiento->gasto }} {{ $seguimiento->moneda }} </td>
                                         
                                         <td class="font-weight-bold text-dark">{{ date('d/m/Y H:i', strtotime($seguimiento->fecha_hor)) }}</td>
 

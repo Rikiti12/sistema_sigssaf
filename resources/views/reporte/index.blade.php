@@ -31,7 +31,7 @@
                                         <th class="font-weight-bold text-dark">Proyecto Asigando</th>
                                         <th class="font-weight-bold text-dark">Ayuda Asignado</th>
                                         <th class="font-weight-bold text-dark">Estatus de la Evaluacion</th>
-                                        <th class="font-weight-bold text-dark">Presupuesto de la Asignacion</th>
+                                        <th class="font-weight-bold text-dark">Presupuesto y moneda de la Asignacion</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -53,8 +53,8 @@
                                                 {{ $resultado->estatus_resp }}  
                                             </td>
 
-                                            <td class="font-weight-bold text-dark">
-                                                {{ $resultado->presupuesto}}
+                                            <td class="font-weight-bold text-dark">{{ $resultado->presupuesto}}
+                                                {{ $resultado->moneda_presu }}  
                                             </td>
                                         </tr>
                                     @endforeach

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>PDF Evaluación</title>
+    <title>PDF Planificación</title>
     <style>
         body {
             margin: 0;
@@ -126,47 +126,30 @@
             Generado el: {{ now()->format('d/m/Y H:i:s') }}
         </div>
         
-        <h1>Actas de Las Evaluaciones</h1>
+        <h1>Actas De Las Planificación</h1>
         
             <table class="table" cellpadding="1" cellspacing="1" width="100%" style="padding-bottom:0.4rem;front-size:0.6rem !important">
                 <thead class="header">
                     <tr>
-                        <th>Proyecto</th>
-                        <th>Responsable</th>
-                        <th>Viabilidad</th>
-                        <th>Estado de Proyecto</th>
-                        <th>Estatus Aprobación</th>
+                        <th>Vocero Asignada</th>
+                        <th>Comunidad Asignado</th>
+                        <th>Presupuesto y Moneda</th>
+                        <th>Dirección / Lugar</th>
                     </tr>
                 </thead>
                 <tbody>
-                @foreach ($evaluaciones as $evaluacion)
+                @foreach ($asignaciones as $asignacion)
                     <tr>
-                        <td>{{ $evaluacion->proyectos->nombre_pro }} {{ $evaluacion->proyectos->descripcion_pro }}</td>
-                        <td>{{ $evaluacion->resposanbles->cedula }} - {{ $evaluacion->resposanbles->nombre }} {{ $evaluacion->resposanbles->apellido }}</td>
-                        <td>
-                            <span class="badge fs-5 
-                                @if($evaluacion->viabilidad == 'Alta') 
-                                    badge-alta
-                                @elseif($evaluacion->viabilidad == 'Media') 
-                                    badge-media
-                                @else 
-                                    {{-- Asume que 'Baja' o cualquier otro valor usará el color rojo --}}
-                                    badge-baja
-                                @endif">
-                                
-                                {{ $evaluacion->viabilidad }}
+                        <td>{{ $asignacion->vocero->cedula }} {{ $asignacion->vocero->nombre }} {{ $asignacion->vocero->apellido }}</td>
+                        
+                        <td>{{ $asignacion->comunidad->nom_comuni }}</td>
+                       
 
-                                @if($evaluacion->viabilidad == 'Alta')
-                                    (100%) 
-                                @elseif($evaluacion->viabilidad == 'Media') 
-                                    (50%)
-                                @else 
-                                    (25%)
-                                @endif
-                            </span>
-                        </td>
-                        <td>{{ $evaluacion->estatus }}</td>
-                        <td id="estatus-{{ $evaluacion->id }}">{{ $evaluacion->estatus_resp}}</td>
+                         <td> {{ $asignacion->presupuesto}} {{ $asignacion->moneda_presu}}</td>
+
+                         <td> {{ $asignacion->direccion}} </td>
+
+                       
                     </tr>
                 @endforeach
                 </tbody>

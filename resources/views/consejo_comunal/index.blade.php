@@ -129,11 +129,11 @@
     <script src="{{ asset('assets/datatables/dataTables.bootstrap4.min.js') }}"></script>
 
     <script>
-        $(document).ready(function () {
-            $('#dataTable').DataTable({
-                
+         $(document).ready(function () {
+            var table = $('#dataTable').DataTable({
                 responsive: true,
                 autoWidth: false,
+    
     
                 "language": {       
                     "lengthMenu": "Mostrar " + 

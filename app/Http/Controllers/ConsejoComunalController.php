@@ -35,13 +35,10 @@ class ConsejoComunalController extends Controller
         if ($search) {
             // Filtrar los bancos según la consulta de búsqueda
             $consejo_comunals = ConsejoComunal::where('nom_consej', 'LIKE', '%' . $search . '%')
-                           ->orWhere('codigo_situr', 'LIKE', '%' . $search . '%')
+                           ->orWhere('situr', 'LIKE', '%' . $search . '%')
                            ->orWhere('rif', 'LIKE', '%' . $search . '%')
                            ->orWhere('dire_consejo', 'LIKE', '%' . $search . '%')
                            ->orWhereHas('vocero', function ($query) use ($search){
-                            $query->where('cedula', 'LIKE', '%' . $search . '%')
-                            ->orWhere('nombre', 'LIKE', '%' . $search . '%')
-                            ->orWhereHas('apellido', 'LIKE', '%' . $search . '%');
                            })
                            ->orWhereHas('comunidad', function ($query) use ($search){
                             $query->where('nom_comuni', 'LIKE', '%' . $search . '%');
