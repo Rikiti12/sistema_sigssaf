@@ -28,8 +28,9 @@
                         <thead class="thead-light">
                                     <tr>
                                         <th class="font-weight-bold text-dark">Vocero Asignado</th>
-                                        <th class="font-weight-bold text-dark">Proyecto Asigando</th>
-                                        <th class="font-weight-bold text-dark">Ayuda Asignado</th>
+                                        <th class="font-weight-bold text-dark">Proyecto Asigando y Tipo</th>
+                                        <th class="font-weight-bold text-dark">Fecha Inicial y Final del Proyecto</th>
+                                        <th class="font-weight-bold text-dark">Ayuda Asignado y Tipo</th>
                                         <th class="font-weight-bold text-dark">Estatus de la Evaluacion</th>
                                         <th class="font-weight-bold text-dark">Presupuesto y moneda de la Asignacion</th>
                                     </tr>
@@ -45,6 +46,9 @@
                                                 {{ $resultado->tipo_pro}} 
                                             </td>
 
+                                            <td class="font-weight-bold text-dark">{{ date('d/m/Y', strtotime( $resultado->fecha_inicial)) }} {{ date('d/m/Y', strtotime($resultado->fecha_final)) }}</td>
+                                            
+                                            
                                             <td class="font-weight-bold text-dark">{{ $resultado->nombre_ayuda }}
                                                 {{ $resultado->tipo_ayuda}} 
                                             </td>

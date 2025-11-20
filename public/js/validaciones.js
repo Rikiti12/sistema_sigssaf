@@ -2325,6 +2325,8 @@ if (descripcion.trim() === "") {
 
     obj.descripcion.focus();
     return false;
+
+  
 }
 
 // 3. Validate the minimum length (at least 5 characters).
@@ -2344,10 +2346,44 @@ if (descripcion.length < 5) {
     obj.descripcion.focus();
     return false;
 }
+var foto_ayuda_input = obj.foto_ayuda;
+    var archivos = foto_ayuda_input.files;
 
-}
+    // 1. Validar la presencia del archivo
+    if (archivos.length === 0) {
+        Swal.fire({
+            title: 'Comprobante de la Ayuda',
+            text: "Debe seleccionar al menos un archivo o una foto de Ayuda.",
+            icon: 'warning',
+            confirmButtonColor: '#3085d6',
+        });
+        
+        foto_ayuda_input.focus();
+        return false;
+    }
 
+    // 2. Validar el formato de los archivos seleccionados
+    var allowedExtensions = /(\.pdf|\.doc|\.docx|\.jpeg|\.jpg|\.png)$/i;
     
+    // Si el input permite múltiples archivos (aunque tu código solo usa .value, lo cual solo funciona bien para inputs de texto o select, 
+    // pero si lo defines como <input type="file" multiple>, debes iterar. Para el ejemplo, usaremos el primer archivo si es singular).
+
+    for (var i = 0; i < archivos.length; i++) {
+        var fileName = archivos[i].name;
+
+        if (!allowedExtensions.exec(fileName)) {
+            Swal.fire({
+                title: 'Comprobante de la Ayuda',
+                text: "El archivo '" + fileName + "' tiene un formato no válido. Solo se permiten PDF, DOC, DOCX, JPEG, y PNG.",
+                icon: 'warning',
+                confirmButtonColor: '#3085d6',
+            });
+            foto_ayuda_input.focus();
+            return false;
+        }
+    }
+
+ }   
 // Validar Proyecto
 function Proyectos(obj) {
 
@@ -2402,7 +2438,7 @@ function Proyectos(obj) {
 var nombre_pro = obj.nombre_pro.value;
     if (nombre_pro.trim() === "") {
     Swal.fire({
-        title: 'Comunidad',
+        title: 'Proyecto',
         text: "Debe de ingresar el nombre del proyecto, no puede estar vacío o contener solo espacios en blanco.",
         icon: 'warning',
         confirmButtonColor: '#3085d6',
@@ -2435,7 +2471,7 @@ var nombre_pro = obj.nombre_pro.value;
 }
 
 var descripcion_pro = obj.descripcion_pro.value;
-if (descripcion_pro.trim() === "") {
+if (!descripcion_pro.trim() === "") {
     Swal.fire({
         title: 'Proyecto',
         text: "El campo de la descripción no debe contener solo espacios en blanco.",
@@ -2452,26 +2488,10 @@ if (descripcion_pro.trim() === "") {
     return false;
 }
 
-var descripcion_pro = obj.descripcion_pro.value;
-if (descripcion_pro.length < 5) {
-    Swal.fire({
-        title: 'Proyecto',
-        text: "Faltan dígitos en este campo de texto. La descripción debe tener al menos 5 caracteres.",
-        icon: 'warning',
-        confirmButtonColor: '#2596ffff',
-        cancelButtonColor: '#d33',
-    }).then((result) => {
-        if (result.isConfirmed) {
-            this.submit();
-        }
-    });
 
-    obj.descripcion_pro.focus();
-    return false;
-}
 
  var tipo_pro = obj.tipo_pro.value;
-    if (tipo_pro){
+    if (!tipo_pro){
         Swal.fire({
             title: 'Proyecto',
             text: "Debe seleccionar un tipo.",
@@ -2490,8 +2510,43 @@ if (descripcion_pro.length < 5) {
         
     }
 
+    var actividades = obj.actividades.value;
+    if (!actividades) {
+    Swal.fire({
+        title: 'Proyecto',
+        text: "Debe ingresar la actividad.",
+        icon: 'warning',
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+    }).then((result) => {
+        if (result.isConfirmed) {
+            this.submit();
+        }
+    });
+
+    obj.actividades.focus();
+    return false;
+}
+
+if (!actividades.trim() === "") {
+    Swal.fire({
+        title: 'Proyecto',
+        text: "El campo de la descripción no debe contener solo espacios en blanco.",
+        icon: 'warning',
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+    }).then((result) => {
+        if (result.isConfirmed) {
+            this.submit();
+        }
+    });
+
+    obj.actividades.focus();
+    return false;
+}
+
     var id_ayuda = obj.id_ayuda.value;
-    if (id_ayuda){
+    if (!id_ayuda){
         Swal.fire({
             title: 'Proyecto',
             text: "Debe seleccionar una ayuda.",
@@ -2511,7 +2566,7 @@ if (descripcion_pro.length < 5) {
     }
 
     var prioridad = obj.prioridad.value;
-    if (prioridad){
+    if (!prioridad){
         Swal.fire({
             title: 'Proyecto',
             text: "Debe seleccionar una prioridad.",
@@ -2529,39 +2584,42 @@ if (descripcion_pro.length < 5) {
     return false;
         
     }
+var acta_conformidad_input = obj.acta_conformidad;
+var acta_archivos = acta_conformidad_input.files; // Accedemos a la lista de archivos
 
-    if (!actividades) {
+// 1. Verificar si se seleccionó algún archivo
+if (acta_archivos.length === 0) {
     Swal.fire({
         title: 'Proyecto',
-        text: "Debe ingresar la actividad.",
+        text: "Debe seleccionar al menos un archivo para el acta de conformidad.",
         icon: 'warning',
         confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-    }).then((result) => {
-        if (result.isConfirmed) {
-            this.submit();
-        }
     });
-
-    obj.actividades.focus();
+    
+    acta_conformidad_input.focus();
     return false;
 }
 
-if (actividades.trim() === "") {
-    Swal.fire({
-        title: 'Proyecto',
-        text: "El campo de la descripción no debe contener solo espacios en blanco.",
-        icon: 'warning',
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-    }).then((result) => {
-        if (result.isConfirmed) {
-            this.submit();
-        }
-    });
+// 2. Validar el formato y tamaño de los archivos
+var allowedExtensions = /(\.pdf|\.doc|\.docx|\.jpeg|\.jpg|\.png)$/i;
+var maxSize = 5 * 1024 * 1024; // 5MB (debe coincidir con la validación de Laravel)
 
-    obj.actividades.focus();
-    return false;
+for (var i = 0; i < acta_archivos.length; i++) {
+    var file = acta_archivos[i];
+    var fileName = file.name;
+
+    // Validar Extensión
+    if (!allowedExtensions.exec(fileName)) {
+        Swal.fire({
+            title: 'Proyecto',
+            text: "El archivo '" + fileName + "' para el acta de conformidad tiene un formato no válido. Solo se permiten PDF, DOC, DOCX, JPEG, y PNG.",
+            icon: 'warning',
+            confirmButtonColor: '#3085d6',
+        });
+        acta_conformidad_input.focus();
+        return false;
+    }
+    
 }
     var fecha_inicial = obj.fecha_inicial.value;
     if (!fecha_inicial){
@@ -3037,6 +3095,41 @@ if (descripcion_vis.length < 5) {
     return false;
 }
 
+    var evidencia_input = obj.evidencia;
+    var evidencia_archivos = evidencia_input.files;
+
+    // 1. Validar la presencia del archivo
+    if (evidencia_archivos.length === 0) {
+        Swal.fire({
+            title: 'Visitas',
+            text: "Debe seleccionar al menos un archivo o una foto de evidencia.",
+            icon: 'warning',
+            confirmButtonColor: '#3085d6',
+        });
+        
+        evidencia_input.focus();
+        return false;
+    }
+
+    // 2. Validar el formato y tamaño de los archivos
+    for (var i = 0; i < evidencia_archivos.length; i++) {
+        var file = evidencia_archivos[i];
+        var fileName = file.name;
+
+        // Validar Extensión
+        if (!allowedExtensions.exec(fileName)) {
+            Swal.fire({
+                title: 'Visitas',
+                text: "El archivo '" + fileName + "' de evidencia tiene un formato no válido. Solo se permiten PDF, DOC, DOCX, JPEG, y PNG.",
+                icon: 'warning',
+                confirmButtonColor: '#3085d6',
+            });
+            evidencia_input.focus();
+            return false;
+        }
+        
+    }
+
       
 }
 
@@ -3252,6 +3345,23 @@ function Asignaciones (obj) {
         obj.id_ayuda.focus();
         return (false);
     }
+
+       var imagenes = obj.imagenes.value;
+    if (!imagenes) {
+        Swal.fire({
+            title: 'Memoria Fotográfica',
+            text: "Debe seleccionar al menos un archivo o una Memoria Fotográfica .",
+            icon: 'warning',
+            confirmButtonColor: '#3085d6',
+        }).then((result) => {
+            // Nota: Aquí no llamamos a this.submit() porque necesitamos archivos.
+            // Si el usuario presiona 'OK', simplemente lo dejamos en la página.
+        });
+        
+        obj.imagenes.focus();
+        return false;
+    }
+
     var descri_alcance = obj.descri_alcance.value;
     if (!descri_alcance) {
         Swal.fire({
@@ -3790,6 +3900,53 @@ function Seguimiento (obj) {
        obj.moneda.focus();
         return (false);
     }
+
+    // ** VALIDACIÓN PARA ARCHIVOS (foto_ayuda) **
+var evidencia_segui_input = obj.evidencia_segui;
+var archivos = evidencia_segui_input.files;
+
+// 1. Validar la presencia del archivo
+if (archivos.length === 0) {
+    Swal.fire({
+        title: 'Evidencia Fotográfica del Seguimientos',
+        text: "Debe seleccionar al menos un archivo o una Evidencia.",
+        icon: 'warning',
+        confirmButtonColor: '#3085d6',
+    });
+    
+    evidencia_segui_input.focus();
+    return false;
+}
+
+// 2. Validar el formato y tamaño de los archivos seleccionados
+for (var i = 0; i < archivos.length; i++) {
+    var file = archivos[i];
+    var fileName = file.name;
+
+    // Validar Extensión
+    if (!allowedExtensions.exec(fileName)) {
+        Swal.fire({
+            title: 'Evidencia Fotográfica del Seguimientos',
+            text: "El archivo '" + fileName + "' tiene un formato no válido. Solo se permiten PDF, DOC, DOCX, JPEG, y PNG.",
+            icon: 'warning',
+            confirmButtonColor: '#3085d6',
+        });
+        evidencia_segui_input.focus();
+        return false;
+    }
+    
+    // Validar Tamaño (Añadido para consistencia)
+    if (file.size > maxSize) {
+         Swal.fire({
+            title: 'Evidencia Fotográfica del Seguimientos',
+            text: "El archivo '" + fileName + "' excede el tamaño máximo permitido (5MB).",
+            icon: 'warning',
+            confirmButtonColor: '#3085d6',
+        });
+        evidencia_segui_input.focus();
+        return false;
+    }
+}
     var estado_actual = obj.estado_actual.value;
     if (!estado_actual) {
        Swal.fire({
