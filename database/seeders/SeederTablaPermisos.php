@@ -84,6 +84,7 @@ class SeederTablaPermisos extends Seeder
              'ver-visita',
              'crear-visita',
              'editar-visita',
+             'borrar-visita',
 
             // Operaciones sobre tabla Evaluaciones
              'ver-evaluacion',

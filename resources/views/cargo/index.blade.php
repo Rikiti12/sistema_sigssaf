@@ -96,8 +96,7 @@
 
     <script>
         $(document).ready(function () {
-            $('#dataTable').DataTable({
-                
+            var table = $('#dataTable').DataTable({
                 responsive: true,
                 autoWidth: false,
     
@@ -136,7 +135,7 @@
             table.on('search.dt', function () {
                 var searchTerm = table.search();
                 $.ajax({
-                    url: '{{ url('cargo/pdf') }}',
+                    url: "{{ url('cargo/pdf') }}",
                     method: 'GET',
                     data: { search: searchTerm },
                     success: function(response) {
@@ -149,7 +148,7 @@
                 });
                 updatePdfLink();
             });
-            updatePdfLink();
+            updatePdfLink(); 
 
         });
     </script>

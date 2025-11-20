@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>PDF Evaluación</title>
+    <title>PDF Seguimientos</title>
     <style>
         body {
             margin: 0;
@@ -126,47 +126,67 @@
             Generado el: {{ now()->format('d/m/Y H:i:s') }}
         </div>
         
-        <h1>Actas de Las Evaluaciones</h1>
+        <h1>Actas De Las Seguimientos</h1>
         
             <table class="table" cellpadding="1" cellspacing="1" width="100%" style="padding-bottom:0.4rem;front-size:0.6rem !important">
                 <thead class="header">
                     <tr>
-                        <th>Proyecto</th>
-                        <th>Responsable</th>
-                        <th>Viabilidad</th>
-                        <th>Estado de Proyecto</th>
-                        <th>Estatus Aprobación</th>
+                        
+                        <th>Visita Asignado</th>
+                        <th>Detalles del Seguimiento</th>
+                        <th>Gasto y Moneda</th>
+                        <th>Estado Actual </th>
+                        <th>Evidencia Fotográfica del Seguimientos </th>
                     </tr>
                 </thead>
                 <tbody>
-                @foreach ($evaluaciones as $evaluacion)
+                @foreach ($seguimientos as $seguimiento)
                     <tr>
-                        <td>{{ $evaluacion->proyectos->nombre_pro }} {{ $evaluacion->proyectos->descripcion_pro }}</td>
-                        <td>{{ $evaluacion->resposanbles->cedula }} - {{ $evaluacion->resposanbles->nombre }} {{ $evaluacion->resposanbles->apellido }}</td>
-                        <td>
-                            <span class="badge fs-5 
-                                @if($evaluacion->viabilidad == 'Alta') 
-                                    badge-alta
-                                @elseif($evaluacion->viabilidad == 'Media') 
-                                    badge-media
-                                @else 
-                                    {{-- Asume que 'Baja' o cualquier otro valor usará el color rojo --}}
-                                    badge-baja
-                                @endif">
-                                
-                                {{ $evaluacion->viabilidad }}
+                        
+                        
+                        <td>{{ $seguimiento->visita->visita }}</td>
+                       
 
-                                @if($evaluacion->viabilidad == 'Alta')
-                                    (100%) 
-                                @elseif($evaluacion->viabilidad == 'Media') 
-                                    (50%)
-                                @else 
-                                    (25%)
+                        <td> {{ $seguimiento->detalle_segui}} </td>
+
+                         <td> {{ $seguimiento->gasto}} {{ $seguimiento->moneda}}</td>
+
+                         <td> {{ $seguimiento->estado_actual}}</td>
+
+                           @if ($seguimiento->evidencia_segui)
+                            @php
+                                $fotos = json_decode($seguimiento->evidencia_segui); // Decodifica el JSON
+                            @endphp
+                            @if (is_array($fotos))
+                                @foreach ($fotos as $foto)
+                                    @php
+                                        $imagePath = public_path('evidencia_segui/seguimientos/' . $foto);
+                                    @endphp
+                                    @if (file_exists($imagePath))
+                                        <img src="data:image/jpeg;base64,{{ base64_encode(file_get_contents($imagePath)) }}" 
+                                             alt="Comprobante" 
+                                             style="max-width: 100px; height: auto; margin-bottom: 5px;"> 
+                                        {{-- Ajusta max-width según tus necesidades --}}
+                                    @else
+                                        <p>Imagen no encontrada: {{ $foto }}</p>
+                                    @endif
+                                @endforeach
+                            @else
+                                {{-- Si 'evidencia_segui' no es un JSON array pero existe un solo nombre de archivo --}}
+                                @php
+                                    $imagePath = public_path('evidencia_segui/seguimientos/' . $seguimiento->evidencia_segui);
+                                @endphp
+                                @if (file_exists($imagePath))
+                                    <img src="data:image/jpeg;base64,{{ base64_encode(file_get_contents($imagePath)) }}" 
+                                         alt="Comprobante" 
+                                         style="max-width: 100px; height: auto;">
+                                @else
+                                    <p>Imagen no encontrada: {{ $seguimiento->evidencia_segui }}</p>
                                 @endif
-                            </span>
-                        </td>
-                        <td>{{ $evaluacion->estatus }}</td>
-                        <td id="estatus-{{ $evaluacion->id }}">{{ $evaluacion->estatus_resp}}</td>
+                             @endif
+                        @else
+                            No disponible
+                        @endif
                     </tr>
                 @endforeach
                 </tbody>

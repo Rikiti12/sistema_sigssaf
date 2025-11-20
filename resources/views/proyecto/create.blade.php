@@ -47,7 +47,7 @@
 
                             <div class="col-4">
                                 <label class="font-weight-bold text-dark">Tipo de Proyecto</label>
-                                <select class="form-select" id="tipo_pro" name="tipo_pro" required>
+                                <select class="form-select" id="tipo_pro" name="tipo_pro" >
                                     <option value="">Seleccione...</option>
                                     <option value="Infraestructura">Infraestructura</option>
                                     <option value="Social">Social</option>
@@ -75,7 +75,7 @@
 
                             <div class="col-4">
                                 <label class="font-weight-bold text-dark">Prioridad</label>
-                                <select class="form-select" id="prioridad" name="prioridad" required>
+                                <select class="form-select" id="prioridad" name="prioridad" >
                                     <option value="">Seleccione...</option>
                                     <option value="Alta">Alta</option>
                                     <option value="Media">Media</option>

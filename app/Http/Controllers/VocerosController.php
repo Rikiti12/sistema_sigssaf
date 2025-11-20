@@ -42,8 +42,8 @@ class VocerosController extends Controller
                            ->orWhere('telefono', 'LIKE', '%' . $search . '%')
                            ->orWhere('correo', 'LIKE', '%' . $search . '%')
                            ->orWhere('direccion', 'LIKE', '%' . $search . '%')
-                           ->orWhere('cargo', 'LIKE', '%' . $search . '%')
-                           ->orWhere('tipo', 'LIKE', '%' . $search . '%')
+                           ->orWhere('id_cargo', 'LIKE', '%' . $search . '%')
+                           ->orWhere('tipo_vocero', 'LIKE', '%' . $search . '%')
                            ->get();
         } else {
             // Obtener todos los bancos si no hay término de búsqueda

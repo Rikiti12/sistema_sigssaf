@@ -2349,7 +2349,26 @@ if (descripcion.length < 5) {
 
     
 // Validar Proyecto
-function Proyecto(obj) {
+function Proyectos(obj) {
+
+    var id_parroquia = obj.id_parroquia.value;
+    if (!id_parroquia){
+        Swal.fire({
+            title: 'Proyecto',
+            text: "Debe de seleccionar una Parroquia",
+            icon: 'warning',
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            }).then((result) => {
+        if (result.isConfirmed) {
+
+            this.submit();
+        }
+        })
+        
+        obj.id_parroquia.focus();
+        return (false);
+    }
     // Definimos una función de utilidad para el evento de teclado,
     // para evitar repetir el mismo código en cada campo.
     function setupOnkeydown(inputElement, fieldName) {
@@ -2804,8 +2823,8 @@ else if (apellido.length < 4){
     return false;
 } 
 
- /* var id_cargo  = obj.id_cargo .value;
-    if (id_cargo ){
+ var id_cargo  = obj.id_cargo.value;
+    if (!id_cargo ){
         Swal.fire({
             title: 'Resposanbles',
             text: "Debe seleccionar un cargo .",
@@ -2823,15 +2842,15 @@ else if (apellido.length < 4){
     return false;
         
     }
- */
+
 }
 
 //VALIDAR Visitas
-function  Visitas(obj) {
+function  Visita(obj) {
     var id_parroquia = obj.id_parroquia.value;
     if (!id_parroquia){
         Swal.fire({
-            title: 'Comuna',
+            title: 'Visita',
             text: "Debe de seleccionar una Parroquia",
             icon: 'warning',
             confirmButtonColor: '#3085d6',
@@ -2850,7 +2869,7 @@ function  Visitas(obj) {
        var id_comunidad = obj.id_comunidad.value;
     if (!id_comunidad){
         Swal.fire({
-            title: 'Comuna',
+            title: 'Visita',
             text: "Debe de seleccionar una comunidad",
             icon: 'warning',
             confirmButtonColor: '#3085d6',
@@ -3022,9 +3041,9 @@ if (descripcion_vis.length < 5) {
 }
 
 // Validar Evaluacion
-function Evaluacion (obj) {
+function Evaluaciones (obj) {
     var id_proyecto = obj.id_proyecto.value;
-    if (id_proyecto){
+    if (!id_proyecto){
         Swal.fire({
             title: 'Evaluacion',
             text: "Debe seleccionar un proyecto.",
@@ -3039,8 +3058,7 @@ function Evaluacion (obj) {
         })
         
         obj.id_proyecto.focus();
-    return false;
-        
+    return false;   
     }
 
     var id_resposanble = obj.id_resposanble.value;
@@ -3119,7 +3137,7 @@ function Evaluacion (obj) {
     }
 
     var viabilidad = obj.viabilidad.value;
-    if (viabilidad){
+    if (!viabilidad){
         Swal.fire({
             title: 'Evaluacion',
             text: "Debe seleccionar un viabilidad.",
@@ -3155,31 +3173,32 @@ function Evaluacion (obj) {
         obj. fecha_evalu.focus();
         return (false);
     }
+
+    var estatus = obj.estatus.value;
+    if (!estatus){
+        Swal.fire({
+            title: 'Evaluacion',
+            text: "Debe seleccionar un estatus.",
+            icon: 'warning',
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            }).then((result) => {
+        if (result.isConfirmed) {
+
+            this.submit();
+        }
+        })
+        
+        obj.estatus.focus();
+        return (false);
+    }
+
    }
 
 // Validar Asignacion
-function Asignacion (obj) {
-    var id_evaluacion = obj.id_evaluacion.value;
-        if (id_evaluacion){
-            Swal.fire({
-                title: 'Asignacion',
-                text: "Debe seleccionar una evaluacion.",
-                icon: 'warning',
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                }).then((result) => {
-            if (result.isConfirmed) {
-
-                this.submit();
-            }
-            })
-            
-            obj.id_evaluacion.focus();
-        return (false);
-        }
-
-        var id_vocero = obj.id_vocero.value;
-            if (id_vocero){
+function Asignaciones (obj) {
+      var id_vocero = obj.id_vocero.value;
+            if (!id_vocero){
                 Swal.fire({
                     title: 'Asignacion',
                     text: "Debe seleccionar el vocero.",
@@ -3194,11 +3213,11 @@ function Asignacion (obj) {
                 })
                 
                obj.id_vocero.focus();
-        return (false);
+               return (false);
             }
 
-             var id_comunidad = obj.id_comunidad.value;
-    if (!id_comunidad){
+        var id_comunidad = obj.id_comunidad.value;
+          if (!id_comunidad){
         Swal.fire({
             title: 'Asignacion',
             text: "Debe de seleccionar una comunidad asignado",
@@ -3378,80 +3397,8 @@ function Asignacion (obj) {
         obj.presupuesto.focus();
         return (false);
     }
- var impacto_ambiental = document.querySelector('input[name="impacto_ambiental"]:checked');
-    if (!impacto_ambiental) {
-        Swal.fire({
-            title: 'Asignacion',
-            text: "Debe seleccionar si existe Impacto Ambiental (SI/NO).",
-            icon: 'warning',
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-        }).then((result) => {
-            if (result.isConfirmed) {
-                // Enfocar el primer radio button (opcional)
-                document.querySelector('input[name="impacto_ambiental"]').focus();
-            }
-        });
 
-        return false; // Detener el envío del formulario
-    }
-    
-    var impacto_social = document.querySelector('input[name="impacto_social"]:checked');
-    if (!impacto_social) {
-        Swal.fire({
-            title: 'Asignacion',
-            text: "Debe seleccionar si existe Impacto Social (SI/NO).",
-            icon: 'warning',
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-        }).then((result) => {
-            if (result.isConfirmed) {
-                // Enfocar el primer radio button (opcional)
-                document.querySelector('input[name="impacto_social"]').focus();
-            }
-        });
-
-        return false; // Detener el envío del formulario
-    }
-
-    var fecha_inicio = obj.fecha_inicio.value;
-    if (!fecha_inicio){
-        Swal.fire({
-            title: 'Asignacion',
-            text: "Debe seleccionar una fecha_inicio.",
-            icon: 'warning',
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            }).then((result) => {
-        if (result.isConfirmed) {
-
-            this.submit();
-        }
-        })
-        
-        return (false);
-    }
-
-    var duracion_estimada = obj.duracion_estimada.value;
-    if (!duracion_estimada){
-        Swal.fire({
-            title: 'Asignacion',
-            text: "Debe seleccionar una duracion_estimada.",
-            icon: 'warning',
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            }).then((result) => {
-        if (result.isConfirmed) {
-
-            this.submit();
-        }
-        })
-        
-         obj.duracion_estimada.focus();
-        return false;
-    }
-
-    var latitud = obj.latitud.value;
+var latitud = obj.latitud.value;
     if (!latitud) {
         Swal.fire({
             title: 'Asignacion',
@@ -3561,6 +3508,42 @@ function Asignacion (obj) {
         return (false);
     }
 
+ var impacto_ambiental = document.querySelector('input[name="impacto_ambiental"]:checked');
+    if (!impacto_ambiental) {
+        Swal.fire({
+            title: 'Asignacion',
+            text: "Debe seleccionar si existe Impacto Ambiental (SI/NO).",
+            icon: 'warning',
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Enfocar el primer radio button (opcional)
+                document.querySelector('input[name="impacto_ambiental"]').focus();
+            }
+        });
+
+        return false; // Detener el envío del formulario
+    }
+    
+    var impacto_social = document.querySelector('input[name="impacto_social"]:checked');
+    if (!impacto_social) {
+        Swal.fire({
+            title: 'Asignacion',
+            text: "Debe seleccionar si existe Impacto Social (SI/NO).",
+            icon: 'warning',
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Enfocar el primer radio button (opcional)
+                document.querySelector('input[name="impacto_social"]').focus();
+            }
+        });
+
+        return false; // Detener el envío del formulario
+    }
+
     var direccion = obj.direccion.value;
     if (!direccion) {
         Swal.fire({
@@ -3634,6 +3617,24 @@ function Asignacion (obj) {
         return (false);
     }
 
+var fecha_inicio = obj.fecha_inicio.value;
+    if (!fecha_inicio){
+        Swal.fire({
+            title: 'Asignacion',
+            text: "Debe seleccionar una fecha_inicio.",
+            icon: 'warning',
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            }).then((result) => {
+        if (result.isConfirmed) {
+
+            this.submit();
+        }
+        })
+        
+        return (false);
+    }
+
 }
 
 // Validar SEGUIMIENTO
@@ -3658,10 +3659,11 @@ function Seguimiento (obj) {
        return false;
    }
 
-   if (responsable_segui.length < 3){
+    var id_visita = obj.id_visita.value;
+   if (!id_visita) {
        Swal.fire({
            title: 'Seguimiento',
-           text: "Faltan dígitos en este campo de nombre.",
+           text: "Ingrese el Nombre del visita.",
            icon: 'warning',
            confirmButtonColor: '#3085d6',
            cancelButtonColor: '#d33',
@@ -3671,46 +3673,10 @@ function Seguimiento (obj) {
            this.submit();
        }
        })
-       
-       obj.responsable_segui.focus();
-       return (false);
-   }
 
-   if (responsable_segui.trim() == "") {
-       Swal.fire({
-           title: 'Seguimiento',
-           text: "El Campo del nombre no debe contener espacios en blancos.",
-           icon: 'warning',
-           confirmButtonColor: '#3085d6',
-           cancelButtonColor: '#d33',
-           }).then((result) => {
-       if (result.isConfirmed) {
-
-           this.submit();
-       }
-       })
-       
-       obj.responsable_segui.focus();
+       obj.id_visita.focus();
        return false;
    }
-
-   if (/(\w)\1+/i.test(responsable_segui.toLowerCase())) {
-    Swal.fire({
-            title: 'Seguimiento',
-            text: "El campo del nombre no debe contener caracteres repetidos.",
-            icon: 'warning',
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            }).then((result) => {
-        if (result.isConfirmed) {
-
-            this.submit();
-        }
-        })
-        
-        obj.responsable_segui.focus();
-        return false;
-    }
 
     var detalle_segui = obj.detalle_segui.value;
     if (!detalle_segui) {
@@ -3767,8 +3733,9 @@ function Seguimiento (obj) {
         obj.detalle_segui.focus();
         return (false);
     }
- var fecha_segui = obj.fecha_segui.value;
-    if (!fecha_segui){
+
+    var fecha_hor = obj.fecha_hor.value;
+    if (!fecha_hor){
         Swal.fire({
             title: 'Seguimiento',
             text: "Debe seleccionar una fecha_inicio.",
@@ -3782,14 +3749,34 @@ function Seguimiento (obj) {
         }
         })
         
+        obj.fecha_hor.focus();
         return (false);
     }
 
-    var estatus = obj.estatus.value;
-    if (!estatus) {
+    var gasto = obj.gasto.value;
+    if (!gasto) {
+        Swal.fire({
+            title: 'Seguimiento',
+            text: "Debe ingresar el gasto.",
+            icon: 'warning',
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            }).then((result) => {
+        if (result.isConfirmed) {
+
+            this.submit();
+        }
+        })
+
+        obj.gasto.focus();
+        return false;
+    }
+    
+    var moneda = obj.moneda.value;
+    if (!moneda) {
        Swal.fire({
            title: 'Seguimiento',
-           text: "Seleccione un Estatus.",
+           text: "Seleccione una moneda de compra.",
            icon: 'warning',
            confirmButtonColor: '#3085d6',
            cancelButtonColor: '#d33',
@@ -3800,9 +3787,47 @@ function Seguimiento (obj) {
        }
        })
 
-       obj.estatus.focus();
+       obj.moneda.focus();
         return (false);
     }
+    var estado_actual = obj.estado_actual.value;
+    if (!estado_actual) {
+       Swal.fire({
+           title: 'Seguimiento',
+           text: "Seleccione un estado actual.",
+           icon: 'warning',
+           confirmButtonColor: '#3085d6',
+           cancelButtonColor: '#d33',
+           }).then((result) => {
+       if (result.isConfirmed) {
+
+           this.submit();
+       }
+       })
+
+       obj.estado_actual.focus();
+        return (false);
+    }
+
+    var riesgos = obj.riesgos.value;
+    if (!riesgos) {
+        Swal.fire({
+            title: 'Seguimiento',
+            text: "Ingrese los Detalles del riesgo.",
+            icon: 'warning',
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            }).then((result) => {
+        if (result.isConfirmed) {
+
+            this.submit();
+        }
+        })
+
+        obj.riesgos.focus();
+        return false;
+    }
+
 
       
 }

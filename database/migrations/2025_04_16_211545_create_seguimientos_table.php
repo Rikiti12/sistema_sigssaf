@@ -21,6 +21,8 @@ return new class extends Migration
             $table->string('responsable_segui');
             $table->text('detalle_segui');
             $table->string('gasto'); 
+            $table->string('moneda', 3);
+            $table->json('evidencia_segui');
             $table->string('estado_actual');
             $table->text('riesgos');
             $table->timestamps();

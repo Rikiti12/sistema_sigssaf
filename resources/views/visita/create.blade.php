@@ -54,6 +54,12 @@
                                 <label class="font-weight-bold text-dark">Descripción</label>
                                 <textarea class="form-control" id="descripcion_vis" name="descripcion_vis" cols="10" rows="10" style="max-height: 6rem;" oninput="capitalizarInput('descripcion_vis')">{{ old('descripcion_vis') }}</textarea>
                             </div>
+
+                            <div class="col-4">
+                                    <label  class="font-weight-bold text-dark">Evidencia de la visita</label>
+                                    <input type="file" class="form-control" id="evidencia" name="evidencia[]" multiple>
+                                        <div id="foto_container"></div>
+                                </div>
                              
                         </div>
 
@@ -107,5 +113,29 @@
             });
         </script>
     @endif
+
+     {{-- * FUNCION PARA MOSTRAR LA FOTO --}}
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#evidencia').change(function () {
+                const fotoContainer = document.getElementById('foto_container');
+    
+                for (const file of this.files) {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        const img = document.createElement('img');
+                        img.src = e.target.result;
+                        img.style.maxWidth = '40%';
+                        img.style.maxHeight = '40%';
+                        fotoContainer.appendChild(img);
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+        });
+    </script>
 
 @endsection

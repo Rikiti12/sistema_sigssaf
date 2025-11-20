@@ -88,6 +88,7 @@ img {
                         <th>Comunidad</th>
                         <th>Visitas</th>
                         <th>Descripción</th>
+                        <th>Evidencia de la visita</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -110,6 +111,44 @@ img {
                         <td>                         
                             {{ $visita->descripcion_vis}} 
                         </td>
+
+                        <td>
+                        {{-- Mostrar las imágenes si existen --}}
+                        @if ($visita->evidencia)
+                            @php
+                                $fotos = json_decode($visita->evidencia); // Decodifica el JSON
+                            @endphp
+                            @if (is_array($fotos))
+                                @foreach ($fotos as $foto)
+                                    @php
+                                        $imagePath = public_path('evidencia/visitas/' . $foto);
+                                    @endphp
+                                    @if (file_exists($imagePath))
+                                        <img src="data:image/jpeg;base64,{{ base64_encode(file_get_contents($imagePath)) }}" 
+                                             alt="Comprobante" 
+                                             style="max-width: 100px; height: auto; margin-bottom: 5px;"> 
+                                        {{-- Ajusta max-width según tus necesidades --}}
+                                    @else
+                                        <p>Imagen no encontrada: {{ $foto }}</p>
+                                    @endif
+                                @endforeach
+                            @else
+                                {{-- Si 'evidencia' no es un JSON array pero existe un solo nombre de archivo --}}
+                                @php
+                                    $imagePath = public_path('evidencia/visitas/' . $visita->evidencia);
+                                @endphp
+                                @if (file_exists($imagePath))
+                                    <img src="data:image/jpeg;base64,{{ base64_encode(file_get_contents($imagePath)) }}" 
+                                         alt="Comprobante" 
+                                         style="max-width: 100px; height: auto;">
+                                @else
+                                    <p>Imagen no encontrada: {{ $visita->evidencia }}</p>
+                                @endif
+                            @endif
+                        @else
+                            No disponible
+                        @endif
+                    </td>
                         
                     </tr>
                 @endforeach  

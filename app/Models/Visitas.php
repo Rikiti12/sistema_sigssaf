@@ -12,7 +12,7 @@ class Visitas extends Model
     protected $table = 'visitas'; 
     protected $primaryKey = 'id'; 
     public $timestamps = true; 
-    protected $fillable = [ 'id_parroquia', 'id_comunidad','visita','descripcion_vis'];
+    protected $fillable = [ 'id_parroquia', 'id_comunidad','visita','descripcion_vis','evidencia'];
 
     public function parroquia()
     {

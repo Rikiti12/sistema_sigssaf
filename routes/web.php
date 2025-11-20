@@ -143,11 +143,13 @@ Route::resource('asignacion', AsignacionesController::class)->middleware('auth')
 Route::get('/seguimiento', [SeguimientoController::class, 'index'])->name('seguimiento')->middleware('auth');
 Route::get('/seguimiento/create/{id}', [SeguimientoController::class, 'create'])->name('seguimiento.create')->middleware('auth');
 Route::get('/seguimiento/pdf', [SeguimientoController::class, 'pdf'])->name('seguimiento.pdf')->middleware('auth');
-Route::resource('seguimiento', SeguimientoController::class)->middleware('auth')->except(['create']); 
+Route::resource('seguimiento', SeguimientoController::class)->middleware('auth')->except(['create']);
+Route::get('/seguimiento/pdf', [SeguimientoController::class,'pdf'])->name('seguimiento')->middleware('auth'); 
 Route::get('/seguimiento/detalles/{id}', [SeguimientoController::class, 'getAsignacionDetalles']);
 
 /* Rutas ControlSeguimientos */
-Route::get('/controlseguimiento', [ControlSeguimientosController::class, 'index'])->name('controlseguimiento')->middleware('auth'); 
+Route::get('/controlseguimiento', [ControlSeguimientosController::class, 'index'])->name('controlseguimiento')->middleware('auth');
+Route::get('/controlseguimiento/pdf', [ControlSeguimientosController::class,'pdf'])->name('controlseguimiento')->middleware('auth');  
 
 /* Ruta Estadistica*/
 Route::get('estadistica', [EstadisticaController::class, 'index'])->name('estadistica')->middleware('auth');

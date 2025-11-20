@@ -30,8 +30,8 @@ class CargosController extends Controller
     
         if ($search) {
             // Filtrar los bancos según la consulta de búsqueda
-            $cargos = Cargos::where('Nombre Cargo', 'LIKE', '%' . $search . '%')
-                           ->orWhere('Categoria', 'LIKE', '%' . $search . '%')
+            $cargos = Cargos::where('nombre_cargo', 'LIKE', '%' . $search . '%')
+                           ->orWhere('categoria', 'LIKE', '%' . $search . '%')
                            ->get();
         } else {
             // Obtener todos los bancos si no hay término de búsqueda

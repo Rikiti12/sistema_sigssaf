@@ -44,7 +44,7 @@ class ComunaController extends Controller
                            ->orWhereHas('parroquia', function ($query) use ($search){
                             $query->where('nom_parroquia', 'LIKE', '%' . $search . '%');
                            })
-                           ->orWhereHas('consejo_comunal', function ($query) use ($search){
+                           ->orWhereHas('consejo_comunals', function ($query) use ($search){
                             $query->where('nom_consej', 'LIKE', '%' . $search . '%')
                             ->orWhere('rif_comuna', 'LIKE', '%' . $search . '%')
                             ->orWhere('situr', 'LIKE', '%' . $search . '%');

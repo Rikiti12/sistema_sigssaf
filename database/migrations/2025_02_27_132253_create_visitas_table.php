@@ -19,6 +19,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_comunidad');
             $table->string('visita');
             $table->text('descripcion_vis');
+             $table->json('evidencia');
     
             $table->foreign('id_parroquia')->references('id')->on('parroquias');
             $table->foreign('id_comunidad')->references('id')->on('comunidades');
