@@ -65,6 +65,8 @@ class ReporteController extends Controller
                 'voceros.apellido',
                 'proyectos.nombre_pro',
                 'proyectos.tipo_pro',
+                'proyectos.fecha_inicial',
+                'proyectos.fecha_final',
                 'evaluaciones.viabilidad',
                 'evaluaciones.estatus_resp',
                 'asignaciones.presupuesto',
@@ -82,6 +84,8 @@ class ReporteController extends Controller
                 ->orWhere('voceros.apellido', 'LIKE', '%' . $search . '%')
                 ->orWhere('proyectos.nombre_pro', 'LIKE', '%' . $search . '%')
                 ->orWhere('proyectos.tipo_pro', 'LIKE', '%' . $search . '%')
+                ->orWhere('proyectos.fecha_inicial', 'LIKE', '%' . $search . '%')
+                ->orWhere('proyectos.fecha_final', 'LIKE', '%' . $search . '%')
                 ->orWhere('evaluaciones.viabilidad', 'LIKE', '%' . $search . '%')
                 ->orWhere('evaluaciones.estatus_resp', 'LIKE', '%' . $search . '%')
                 ->orWhere('asignaciones.presupuesto', 'LIKE', '%' . $search . '%')

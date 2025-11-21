@@ -135,6 +135,7 @@
                         <th>Comunidad Asignado</th>
                         <th>Presupuesto y Moneda</th>
                         <th>Dirección / Lugar</th>
+                        <th>Impacto Ambiental y Social</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -148,6 +149,8 @@
                          <td> {{ $asignacion->presupuesto}} {{ $asignacion->moneda_presu}}</td>
 
                          <td> {{ $asignacion->direccion}} </td>
+
+                          <td> {{ $asignacion->impacto_ambiental}} {{ $asignacion->impacto_social}}</td>
 
                        
                     </tr>

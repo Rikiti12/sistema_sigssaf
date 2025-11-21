@@ -130,8 +130,9 @@
         <thead class="header">
             <tr>
                 <th>Vocero Asignado</th>
-                <th>Proyecto Asigando</th>
-                <th>Ayuda Asignado</th>
+                <th>Proyecto Asigando y Tipo</th>
+                <th>Fecha Inicial y Final del Proyecto</th>
+                <th>Ayuda Asignado y Tipo</th>
                 <th> Estatus de la Evaluacion </th>
                 <th>Presupuesto y moneda de la Asignacion </th>
             </tr>
@@ -146,6 +147,11 @@
                     <td>
                         {{ $resultado->nombre_pro}}
                         {{ $resultado->tipo_pro}} 
+                    </td>
+
+                    <td>
+                        {{ $resultado->fecha_inicial}}
+                        {{ $resultado->fecha_final}}
                     </td>
                     
                     <td>

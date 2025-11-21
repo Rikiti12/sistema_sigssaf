@@ -55,6 +55,8 @@ class SeguimientoController extends Controller
                            ->orWhere('presupuesto', 'LIKE', '%' . $search . '%')
                          ->orWhere('moneda_presu', 'LIKE', '%' . $search . '%')
                          ->orWhere('direccion', 'LIKE', '%' . $search . '%')
+                         ->orWhere('impacto_ambiental', 'LIKE', '%' . $search . '%')
+                         ->orWhere('impacto_social', 'LIKE', '%' . $search . '%')
                            ->get();
         } else {
             // Obtener todos los bancos si no hay término de búsqueda
