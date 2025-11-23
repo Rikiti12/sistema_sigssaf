@@ -44,7 +44,7 @@
           <div class="logo-header" data-background-color="dark">
             <a href="/home" class="logo">
               <img
-                src="{{asset('img/LOGO6.png')}}"
+                src="{{asset('img/logo6.png')}}"
                 width="150px"
                 height="80px"/>
             </a>
