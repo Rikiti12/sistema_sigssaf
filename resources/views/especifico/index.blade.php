@@ -1,6 +1,6 @@
 @extends('layouts.index')
 
-<title>@yield('title') Reporte General</title>
+<title>@yield('title') Reporte Especifico</title>
 
 @section('css-datatable')
         <link href="{{ asset ('assets/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
@@ -15,11 +15,11 @@
                     <div class="card">
                         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
 
-                            <a href="{{ url('reporte/pdf') }}" class="btn btn-sm btn-danger" target="_blank" id="pdfButton">
+                            <a href="{{ url('especifico/pdf') }}" class="btn btn-sm btn-danger" target="_blank" id="pdfButton">
                                 {{ ('PDF') }}
                             </a>
 
-                            <h2 class="font-weight-bold text-dark" style="margin-right: 45%">Reporte General</h2>
+                            <h2 class="font-weight-bold text-dark" style="margin-right: 45%">Reporte Especifico</h2>
                         </div>
                         
                         <div class="card-body">
@@ -27,12 +27,12 @@
                     <table class="table align-items-center table-flush" id="dataTable">
                         <thead class="thead-light">
                                     <tr>
-                                        <th class="font-weight-bold text-dark">Vocero Asignado</th>
+                                        <th class="font-weight-bold text-dark">Responsable del Seguimiento</th>
                                         <th class="font-weight-bold text-dark">Proyecto Asigando y Tipo</th>
-                                        <th class="font-weight-bold text-dark">Fecha Inicial y Final del Proyecto</th>
-                                        <th class="font-weight-bold text-dark">Ayuda Asignado y Tipo</th>
-                                        <th class="font-weight-bold text-dark">Estatus de la Evaluacion</th>
-                                        <th class="font-weight-bold text-dark">Presupuesto y moneda de la Asignacion</th>
+                                        <th class="font-weight-bold text-dark">Dirección / Lugar</th>
+                                        <th class="font-weight-bold text-dark">Impacto Ambiental Y Social</th>
+                                        <th class="font-weight-bold text-dark">Estado Actual /Cantidad de Beneficiados</th>
+                                        <th class="font-weight-bold text-dark">Gasto y moneda </th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -45,19 +45,28 @@
                                             <td class="font-weight-bold text-dark">{{ $resultado->nombre_pro}}
                                                 {{ $resultado->tipo_pro}} 
                                             </td>
-
-                                            <td class="font-weight-bold text-dark">{{ date('d/m/Y', strtotime( $resultado->fecha_inicial)) }} {{ date('d/m/Y', strtotime($resultado->fecha_final)) }}</td>
                                             
-                                            <td class="font-weight-bold text-dark">{{ $resultado->nombre_ayuda }}
-                                                {{ $resultado->tipo_ayuda}} 
+                                            <td class="font-weight-bold text-dark">{{ $resultado->direccion }} 
                                             </td>
 
-                                            <td class="font-weight-bold text-dark">{{ $resultado->viabilidad}}
-                                                {{ $resultado->estatus_resp }}  
+                                            <td class="font-weight-bold text-dark">{{ $resultado->impacto_ambiental}}
+                                                {{ $resultado->impacto_social }} 
                                             </td>
 
-                                            <td class="font-weight-bold text-dark">{{ $resultado->presupuesto}}
-                                                 {{ $resultado->moneda_presu}} 
+                                            
+                                                <td>
+                                            <span class="badge badge-{{ 
+                                                $resultado->estado_actual == 'Completado' ? 'success' : 
+                                                ($resultado->estado_actual == 'Retrasado' ? 'danger' : 
+                                                ($resultado->estado_actual == 'En riesgo' ? 'warning' : 'info'))
+                                            }}">
+                                                {{ $resultado->estado_actual }}  
+                                            </span>
+                                            {{ $resultado->cantidad_bene}}
+                                        </td>
+                                                
+                                            <td class="font-weight-bold text-dark">{{ $resultado->gasto}}
+                                                 {{ $resultado->moneda}} 
                                             </td>
                                         </tr>
                                     @endforeach
@@ -110,7 +119,7 @@
             
              function updatePdfLink() {
                 var searchTerm = table.search();
-                var pdfUrl = `{{ url('reporte/pdf') }}?search=${encodeURIComponent(searchTerm)}`;
+                var pdfUrl = `{{ url('especifico/pdf') }}?search=${encodeURIComponent(searchTerm)}`;
                 $('#pdfButton').attr('href', pdfUrl);
                 console.log('PDF URL actualizada:', pdfUrl);
             }

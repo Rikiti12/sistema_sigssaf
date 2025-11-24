@@ -2545,6 +2545,37 @@ if (!actividades.trim() === "") {
     return false;
 }
 
+var cantidad_bene = obj.cantidad_bene.value;
+
+    // 1. Validar que no esté vacío (siempre debe poner la cantidad)
+    if (!cantidad_bene || cantidad_bene.trim() === "") {
+        Swal.fire({
+            title: 'Proyecto',
+            text: "Debe ingresar la cantidad de personas beneficiadas.",
+            icon: 'warning',
+            confirmButtonColor: '#3085d6',
+        });
+
+        obj.cantidad_bene.focus();
+        return false;
+    }
+
+    // Convertir a número para la verificación
+    var cantidad_num = parseInt(cantidad_bene, 10);
+
+    // 2. Validar que sea un número positivo (mayor o igual a 1)
+    if (isNaN(cantidad_num) || cantidad_num < 1) {
+        Swal.fire({
+            title: 'Proyecto',
+            text: "La cantidad de personas beneficiadas debe ser un número entero positivo (mayor o igual a 1).",
+            icon: 'error',
+            confirmButtonColor: '#d33',
+        });
+
+        obj.cantidad_bene.focus();
+        return false;
+    }
+
     var id_ayuda = obj.id_ayuda.value;
     if (!id_ayuda){
         Swal.fire({
@@ -2639,7 +2670,25 @@ for (var i = 0; i < acta_archivos.length; i++) {
         obj.fecha_inicial.focus();
         return (false);
     }
+    
 
+     var fechaInicialObj = parseDateInput(fecha_inicial);
+    var hoy = new Date();
+    // Normalizar a medianoche para solo comparar la fecha y no la hora
+    hoy.setHours(0, 0, 0, 0); 
+    // fechaInicialObj ya fue normalizada en parseDateInput
+
+    if (!fechaInicialObj < hoy) {
+        Swal.fire({
+            title: 'Proyecto',
+            text: "La Fecha Inicial no puede ser anterior al día de hoy.",
+            icon: 'error',
+            confirmButtonColor: '#d33',
+        });
+        obj.fecha_inicial.focus();
+        return false;
+    }
+  
     var fecha_final = obj.fecha_final.value;
     if (!fecha_final){
         Swal.fire({
@@ -2657,7 +2706,9 @@ for (var i = 0; i < acta_archivos.length; i++) {
         obj.fecha_final.focus();
         return (false);
     }
+       
 }
+
 
 //VALIDAR Resposanbles
 function  Resposanbles(obj) {
@@ -3360,7 +3411,7 @@ function Asignaciones (obj) {
         
         obj.imagenes.focus();
         return false;
-    }
+     }
 
     var descri_alcance = obj.descri_alcance.value;
     if (!descri_alcance) {

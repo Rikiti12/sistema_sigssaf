@@ -227,7 +227,7 @@ class VisitasController extends Controller
    public function destroy($id)
     {
         try {
-             Visitas::find($id)->delete();
+       Visitas::find($id)->delete();
         $bitacora = new BitacoraController();
         $bitacora->update();
         return redirect()->route('visita.index')->with('eliminar', 'ok');

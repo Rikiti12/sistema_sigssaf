@@ -75,6 +75,7 @@ class ProyectosController extends Controller
             'acta_conformidad' => $proyecto->acta_conformidad,
             'nombre_ayuda' => $proyecto->ayuda->nombre_ayuda,
             'tipo_ayuda' => $proyecto->ayuda->tipo_ayuda,
+            'cantidad_bene' => $proyecto->cantidad_bene,
         ]);
  
     }
@@ -183,6 +184,7 @@ class ProyectosController extends Controller
         $proyectos->descripcion_pro = $request->input('descripcion_pro');
         $proyectos->tipo_pro = $request->input('tipo_pro');
         $proyectos->actividades = $request->input('actividades');
+        $proyectos->cantidad_bene = $request->input('cantidad_bene');
         $proyectos->id_ayuda = $request->input('id_ayuda');
         $proyectos->fecha_inicial = Carbon::createFromFormat('d/m/Y', $fechaInicialInput)->format('Y-m-d');
         $proyectos->fecha_final = Carbon::createFromFormat('d/m/Y', $fechaFinalInput)->format('Y-m-d');
@@ -268,9 +270,8 @@ class ProyectosController extends Controller
             $proyecto->descripcion_pro = $request->input('descripcion_pro');
             $proyecto->tipo_pro= $request->input('tipo_pro');
             $proyecto->actividades = $request->input('actividades');
+            $proyecto->cantidad_bene = $request->input('cantidad_bene');
             $proyecto->id_ayuda = $request->input('id_ayuda');
-            // $proyecto->fecha_inicial = Carbon::createFromFormat('d/m/Y', $fechaInicialInput)->format('Y-m-d');
-            // $proyecto->fecha_final = Carbon::createFromFormat('d/m/Y', $fechaFinalInput)->format('Y-m-d');
             $proyecto->fecha_inicial = Carbon::createFromFormat('d/m/Y', $request->input('fecha_inicial'))->format('Y-m-d');
             $proyecto->fecha_final = Carbon::createFromFormat('d/m/Y', $request->input('fecha_final'))->format('Y-m-d');
             $proyecto->prioridad = $request->input('prioridad');

@@ -33,9 +33,12 @@ class ReporteController extends Controller
                 'voceros.apellido',
                 'proyectos.nombre_pro',
                 'proyectos.tipo_pro',
+                'proyectos.fecha_inicial',
+                'proyectos.fecha_final',
                 'evaluaciones.viabilidad',
                 'evaluaciones.estatus_resp',
                 'asignaciones.presupuesto',
+                'asignaciones.moneda_presu',
                 'comunidades.nom_comuni as nombre_comunidad',
                 'ayudas.nombre_ayuda as nombre_ayuda',
                 'ayudas.tipo_ayuda as tipo_ayuda'

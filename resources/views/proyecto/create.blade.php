@@ -62,6 +62,11 @@
                                 <label class="font-weight-bold text-dark">Actividades</label>
                                 <textarea class="form-control" id="actividades" name="actividades" cols="10" rows="10" style="max-height: 6rem;" oninput="capitalizarInput('actividades')">{{ old('actividades') }}</textarea>
                             </div>
+
+                           <div class="col-4">
+                                <label class="font-weight-bold text-dark mb-0">Cantidad de Beneficiados</label>
+                                <input type="number"class="form-control"id="cantidad_bene"name="cantidad_bene" min="1"  placeholder="Ingrese la cantidad de personas"value="{{ old('cantidad_bene', $proyecto->cantidad_bene ?? '') }}"onkeypress="return soloNumeros(event);">
+                            </div>
  
                             <div class="col-4">
                                 <label class="font-weight-bold text-dark">Ayudas Sociales</label>

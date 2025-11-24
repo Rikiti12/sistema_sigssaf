@@ -42,12 +42,12 @@
                                             <td class="font-weight-bold text-dark">
                                                 <span class="badge fs-5 
                                                     @if($evaluacion->viabilidad == 'Alta') 
-                                                        bg-success 
+                                                        bg-success
                                                     @elseif($evaluacion->viabilidad == 'Media') 
-                                                        bg-warning 
+                                                        bg-warning
                                                     @else 
                                                         {{-- Asume que 'Baja' o cualquier otro valor usará el color rojo --}}
-                                                        bg-danger 
+                                                        bg-danger
                                                     @endif">
                                                     
                                                     {{ $evaluacion->viabilidad }}

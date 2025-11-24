@@ -66,6 +66,11 @@
                                     <textarea class="form-control" id="actividades" name="actividades" rows="3" oninput="capitalizarInput('actividades')">{{ old('actividades', $proyecto->actividades) }}</textarea>
                                 </div>
 
+                               <div class="col-4 mt-0">
+                                  <label class="font-weight-bold text-dark mb-0 mt-0">Cantidad de Beneficiados</label>
+                                  <input type="number" class="form-control" id="cantidad_bene" name="cantidad_bene" min="1" required placeholder="Ingrese la cantidad de personas"value="{{ old('cantidad_bene', $proyecto->cantidad_bene ?? '') }}"onkeypress="return soloNumeros(event);">
+                                </div>
+
                                 <div class="col-4">  
                                     <label class="font-weight-bold text-dark">Ayudas Sociales</label>
                                     <select class="form-select" id="id_ayuda" name="id_ayuda" required>
@@ -108,16 +113,7 @@
                                     <input type="text" class="form-control" id="fecha_final" name="fecha_final" value="{{ $proyecto->fecha_final ? Carbon\Carbon::parse($proyecto->fecha_final)->format('d/m/Y') : '' }}">
                                 </div>
 
-                                {{-- <div class="col-md-4">
-                                    <label class="font-weight-bold text-dark">Fecha Inicial</label>
-                                    <input type="text" class="form-control" id="fecha_inicial" name="fecha_inicial" value="{{ $proyecto->fecha_inicial }}" placeholder="DD/MM/YYYY">
-                                </div>
-                                
-                                <div class="col-md-4">
-                                    <label class="font-weight-bold text-dark">Fecha Final</label>
-                                    <input type="text" class="form-control" id="fecha_final" name="fecha_final"  value="{{ $proyecto->fecha_final }}" placeholder="DD/MM/YYYY">
-                                </div> --}}
-
+                               
                             </div>
 
                         </div>

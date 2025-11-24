@@ -205,7 +205,7 @@ class SeguimientoController extends Controller
             $seguimiento->id_visita = $request->input('id_visita');
             $seguimiento->detalle_segui = $request->input('detalle_segui');
             $seguimiento->gasto = $request->input('gasto');
-            $seguimientos->moneda = $request->input('moneda');
+            $seguimiento->moneda = $request->input('moneda');
             $seguimiento->estado_actual = $request->input('estado_actual');
             $seguimiento->riesgos = $request->input('riesgos');
            

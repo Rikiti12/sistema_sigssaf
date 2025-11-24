@@ -82,9 +82,9 @@
                              <div class="col-2">
                                 <label class="font-weight-bold text-dark">Moneda</label>
                                 <select class="form-control" id="moneda_presu" name="moneda_presu">
-                                    <option value="VES" {{ $asignacion->moneda_presu == 'VES' ? 'selected' : '' }}>VES</option>
-                                    <option value="USD" {{ $asignacion->moneda_presu == 'USD' ? 'selected' : '' }}>USD</option>
-                                    <option value="EUR" {{ $asignacion->moneda_presu == 'EUR' ? 'selected' : '' }}>EUR</option>
+                                    <option value="VES " {{ $asignacion->moneda_presu == 'VES' ? 'selected' : '' }}>VES Bs</option>
+                                    <option value="USD" {{ $asignacion->moneda_presu == 'USD' ? 'selected' : '' }}>USD $</option>
+                                    <option value="EUR" {{ $asignacion->moneda_presu == 'EUR' ? 'selected' : '' }}>EUR €</option>
                                 </select>
                             </div>
 

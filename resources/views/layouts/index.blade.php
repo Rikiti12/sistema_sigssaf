@@ -237,7 +237,7 @@
                       </a>
                     </li>
                     <li>
-                      <a href="">
+                      <a href="{{ url('especifico')}}">
                         <span class="sub-item">Reporte Especifico</span>
                       </a>
                     </li>

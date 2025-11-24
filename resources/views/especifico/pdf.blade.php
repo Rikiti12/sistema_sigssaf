@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Reporte Generar</title>
+    <title>Reporte Especifico</title>
     <style>
         body {
             margin: 0;
@@ -124,50 +124,44 @@
         Generado el: {{ now()->format('d/m/Y H:i:s') }}
     </div>
 
-    <h1>Reporte General</h1>
+    <h1>Reporte Especifico</h1>
 
     <table class="table">
         <thead class="header">
             <tr>
-                <th>Vocero Asignado</th>
-                <th>Proyecto Asigando y Tipo</th>
-                <th>Fecha Inicial y Final del Proyecto</th>
-                <th>Ayuda Asignado y Tipo</th>
-                <th> Estatus de la Evaluacion </th>
-                <th>Presupuesto y moneda de la Asignacion </th>
+                 <th>Responsable del Seguimiento</th>
+                 <th>Proyecto Asigando y Tipo</th>
+                 <th>Dirección / Lugar</th>
+                 <th>Impacto Ambiental Y Social</th>
+                 <th>Estado Actual /Cantidad de Beneficiados</th>
+                 <th>Gasto y moneda </th>
             </tr>
         </thead>
         <tbody>
             @foreach ($resultados as $resultado)  
                 </tr>
-                    <td>{{ $resultado->cedula}}
-                        {{ $resultado->nombre}} {{ $resultado->apellido}}
-                    </td>
+                     <td >{{ $resultado->cedula}}
+                     {{ $resultado->nombre}} {{ $resultado->apellido}}
+                     </td>
 
-                    <td>
-                        {{ $resultado->nombre_pro}}
-                        {{ $resultado->tipo_pro}} 
-                    </td>
+                     <td >{{ $resultado->nombre_pro}}
+                       {{ $resultado->tipo_pro}} 
+                     </td>
+                                            
+                     <td >{{ $resultado->direccion }}
+                     </td>
 
-                    <td>
-                        {{ $resultado->fecha_inicial}}
-                        {{ $resultado->fecha_final}}
-                    </td>
-                    
-                    <td>
-                        {{ $resultado->nombre_ayuda }}
-                        {{ $resultado->tipo_ayuda}} 
-                    </td>
+                     <td >{{ $resultado->impacto_ambiental}}
+                       {{ $resultado->impacto_social }}  
+                        </td>
 
-                    <td>{{ $resultado->viabilidad}}
-                        {{ $resultado->estatus_resp }}
-                    </td>
+                        <td >{{ $resultado->estado_actual}}
+                         {{ $resultado->cantidad_bene}}
+                        </td>
 
-                    <td>
-                        {{ $resultado->presupuesto}}
-                        {{ $resultado->moneda_presu}}
-                    </td>
-                    
+                    <td >{{ $resultado->gasto}}
+                     {{ $resultado->moneda}} 
+                       </td>
                 </tr>
             @endforeach 
         </tbody>

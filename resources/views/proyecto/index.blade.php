@@ -290,6 +290,7 @@
                             <p><b>Actividades del Proyecto</b>: ${data.actividades}</p>
                             <p><b>Nombre de la Ayuda Social</b>: ${data.nombre_ayuda}</p>
                             <p><b>Tipo de Ayuda Social</b>: ${data.tipo_ayuda}</p>
+                            <p><b>Cantidad de Beneficiados</b>: ${data.cantidad_bene}</p>
                 
                         `;
 
@@ -311,7 +312,7 @@
                     },
                     error: function(error) {
                         console.error("Error al obtener los datos:", error);
-                        alert("Error al cargar la vocero. Por favor, inténtalo de nuevo.");
+                        alert("Error al cargar el proyecto. Por favor, inténtalo de nuevo.");
                     }
                 });
             });

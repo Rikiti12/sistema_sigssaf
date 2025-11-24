@@ -25,6 +25,7 @@ use App\Http\Controllers\AsignacionesController;
 use App\Http\Controllers\SeguimientoController;
 use App\Http\Controllers\ControlSeguimientosController;
 use App\Http\Controllers\ReporteController;
+use App\Http\Controllers\EspecificosController ;
 use App\Http\Controllers\ManualController;
 use App\Http\Controllers\EstadisticaController;
 
@@ -160,6 +161,10 @@ Route::get('bitacora', [ReporteController::class, 'bitacora'])->name('bitacora')
 /* Ruta Reporte*/
 Route::get('reporte', [ReporteController::class, 'index'])->name('index')->middleware('auth');
 Route::get('/reporte/pdf',  [ReporteController::class,'generarPDF'])->name('reporte')->middleware('auth');
+
+/* Ruta Reporte*/
+Route::get('especifico', [EspecificosController ::class, 'index'])->name('index')->middleware('auth');
+Route::get('/especifico/pdf',  [EspecificosController ::class,'generarPDF'])->name('especifico')->middleware('auth');
 
 /* Ruta Manual */
 Route::get('/manual',  [ManualController::class,'index'])->name('manual')->middleware('auth');

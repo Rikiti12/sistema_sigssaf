@@ -70,9 +70,9 @@
                              <div class="col-2">
                                     <label class="font-weight-bold text-dark">Moneda</label>
                                     <select class="form-control" id="moneda" name="moneda">
-                                        <option value="VES">VES</option>
-                                        <option value="USD">USD</option>
-                                        <option value="EUR">EUR</option>
+                                        <option value="VES">VES Bs</option>
+                                        <option value="USD">USD $</option>
+                                        <option value="EUR">EUR €</option>
                                     </select>
                                 </div>
 
